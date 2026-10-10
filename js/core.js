@@ -10,9 +10,9 @@
     { id: 'Start', name: 'Start here', ne: 'यहाँबाट सुरु गर्नुहोस्', blurb: 'Alphabet, sounds and reading rules', blurbNe: 'वर्णमाला, उच्चारण र पढ्ने नियम' },
     { id: 'A1', name: 'A1 · Beginner', ne: 'शुरुआती', blurb: 'Everyday words and simple sentences', blurbNe: 'दैनिक शब्द र सरल वाक्य' },
     { id: 'A2', name: 'A2 · Elementary', ne: 'प्रारम्भिक', blurb: 'Cases, past and future, daily life and work', blurbNe: 'विभक्ति, भूत र भविष्य काल, दैनिक जीवन र काम' },
-    { id: 'B1', name: 'B1 · Intermediate', ne: 'मध्यम', blurb: 'Aspect, polite Polish, life in Poland', blurbNe: 'क्रियाको पक्ष, विनम्र पोलिस, पोल्यान्डमा जीवन' },
-    { id: 'B2', name: 'B2 · Upper intermediate', ne: 'उच्च-मध्यम', blurb: 'Fluent, formal and idiomatic Polish', blurbNe: 'धाराप्रवाह, औपचारिक र मुहावरेदार पोलिस' },
-    { id: 'Work', name: 'Polish for work', ne: 'कामको लागि पोलिस', blurb: 'Word packs for common jobs in Poland', blurbNe: 'पोल्यान्डका सामान्य कामका शब्दहरू' },
+    { id: 'B1', name: 'B1 · Intermediate', ne: 'मध्यम', blurb: 'Aspect, polite Polish, life in Poland', blurbNe: 'क्रियाको पक्ष, विनम्र पोलिश, पोल्यान्डमा जीवन' },
+    { id: 'B2', name: 'B2 · Upper intermediate', ne: 'उच्च-मध्यम', blurb: 'Fluent, formal and idiomatic Polish', blurbNe: 'धाराप्रवाह, औपचारिक र मुहावरेदार पोलिश' },
+    { id: 'Work', name: 'Polish for work', ne: 'कामको लागि पोलिश', blurb: 'Word packs for common jobs in Poland', blurbNe: 'पोल्यान्डका सामान्य कामका शब्दहरू' },
   ];
   S.levelIndex = (id) => S.LEVELS.findIndex((l) => l.id === id);
 
@@ -56,7 +56,8 @@
   // Lesson markup on escaped text: *polish words* and **bold**.
   S.markup = (s) => S.esc(s)
     .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-    .replace(/\*(.+?)\*/g, (_, t) => `<span class="pl" lang="pl">${S.highlight(t)}</span>`);
+    // Polish in explanations can be tapped to hear it.
+    .replace(/\*(.+?)\*/g, (_, t) => `<span class="pl say-tap" lang="pl" role="button" tabindex="0" data-action="say" data-text="${t}" title="Listen">${S.highlight(t)}</span>`);
 
   S.stripMarks = (s) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/ł/g, 'l').replace(/Ł/g, 'L');
   S.clean = (s) => String(s).toLowerCase().replace(/[?!.,…¿¡:;"„”«»()–—]/g, ' ').replace(/\s+/g, ' ').trim();

@@ -256,7 +256,7 @@
     const stats = prog('cases');
     view.innerHTML = `
       ${head('Cases · विभक्ति', 'Case trainer', 'विभक्ति अभ्यास',
-        'Polish nouns change their ending depending on their job in the sentence, like Nepali adds -लाई, -को, -मा, -ले. Learn the 7 cases, see full tables for common nouns, and practise in real sentences.<br><span lang="ne">पोलिस नामको अन्त्य वाक्यमा भूमिका अनुसार बदलिन्छ, जसरी नेपालीमा -लाई, -को, -मा, -ले थपिन्छ।</span>')}
+        'Polish nouns change their ending depending on their job in the sentence, like Nepali adds -लाई, -को, -मा, -ले. Learn the 7 cases, see full tables for common nouns, and practise in real sentences.<br><span lang="ne">पोलिश नामको अन्त्य वाक्यमा भूमिका अनुसार बदलिन्छ, जसरी नेपालीमा -लाई, -को, -मा, -ले थपिन्छ।</span>')}
       <div class="row start"><button class="btn primary" data-action="go" data-to="cases.practice">Practise cases · अभ्यास गर्नुहोस्</button></div>
       <h3 class="section-h">The 7 cases <span class="ne-sub" lang="ne">७ विभक्ति</span></h3>
       ${guide || '<p class="empty">The case guide did not load.</p>'}
@@ -441,7 +441,7 @@
     const stats = prog('sounds');
     view.innerHTML = `
       ${head('Sounds lab · ध्वनि', 'Hear the difference', 'फरक सुन्नुहोस्',
-        'Polish has sounds that Nepali does not, such as sz and ś, or y and i. Learn how to make each one with your mouth, then train your ear with word pairs.<br><span lang="ne">पोलिसमा नेपालीमा नभएका आवाज छन्। मुख कसरी चलाउने सिक्नुहोस्, अनि शब्द-जोडीले कान तालिम दिनुहोस्।</span>')}
+        'Polish has sounds that Nepali does not, such as sz and ś, or y and i. Learn how to make each one with your mouth, then train your ear with word pairs.<br><span lang="ne">पोलिशमा नेपालीमा नभएका आवाज छन्। मुख कसरी चलाउने सिक्नुहोस्, अनि शब्द-जोडीले कान तालिम दिनुहोस्।</span>')}
       ${T.SOUNDS.length ? `<ol class="units">${T.SOUNDS.map((x) => `
         <li><button class="unit-row ${stats[x.id] >= 80 ? 'done' : ''}" data-action="go" data-to="sounds.${x.id}">
           <span class="unit-num" lang="pl">${polish(x.a.label)}·${polish(x.b.label)}</span>
@@ -524,9 +524,9 @@
   T.checkList = (view) => {
     view.innerHTML = `
       ${head('For reviewers · समीक्षकका लागि', 'Check the content', 'सामग्री जाँच्नुहोस्',
-        'Are you a native Polish or Nepali speaker? Help improve this course: open a unit, mark each line as correct ✓ or wrong ✗ with a short note, then send the problems as a GitHub issue. Your marks are saved in this browser.<br><span lang="ne">तपाईं पोलिस वा नेपाली मातृभाषी हुनुहुन्छ? हरेक लाइनलाई ✓ वा ✗ चिन्ह लगाउनुहोस् र समस्याहरू पठाउनुहोस्।</span>')}
+        'Are you a native Polish or Nepali speaker? Help improve this course: open a unit, mark each line as correct ✓ or wrong ✗ with a short note, then send the problems as a GitHub issue. Your marks are saved in this browser.<br><span lang="ne">तपाईं पोलिश वा नेपाली मातृभाषी हुनुहुन्छ? हरेक लाइनलाई ✓ वा ✗ चिन्ह लगाउनुहोस् र समस्याहरू पठाउनुहोस्।</span>')}
       <fieldset class="setting"><legend>I am checking · म जाँच्दैछु</legend>
-        <div class="seg">${[['pl', 'Polish · पोलिस'], ['ne', 'Nepali · नेपाली'], ['both', 'Both · दुवै']].map(([v, l]) => `<button data-action="chk-who" data-value="${v}" aria-pressed="${check.who === v}">${l}</button>`).join('')}</div>
+        <div class="seg">${[['pl', 'Polish · पोलिश'], ['ne', 'Nepali · नेपाली'], ['both', 'Both · दुवै']].map(([v, l]) => `<button data-action="chk-who" data-value="${v}" aria-pressed="${check.who === v}">${l}</button>`).join('')}</div>
       </fieldset>
       ${S.LEVELS.map((l) => {
         const units = S.COURSE.filter((u) => u.level === l.id);

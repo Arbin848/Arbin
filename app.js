@@ -108,7 +108,7 @@
 
   // What a learner can do after each level (CEFR "can do" statements, simplified).
   const CAN_DO = {
-    Start: [['Read any Polish word aloud', 'कुनै पनि पोलिस शब्द ठूलो स्वरमा पढ्न'], ['Know all 32 letters and the hard sounds', '३२ अक्षर र गाह्रा आवाज चिन्न'], ['Say hello, thank you and sorry', 'नमस्ते, धन्यवाद र माफ गर्नुहोस् भन्न']],
+    Start: [['Read any Polish word aloud', 'कुनै पनि पोलिश शब्द ठूलो स्वरमा पढ्न'], ['Know all 32 letters and the hard sounds', '३२ अक्षर र गाह्रा आवाज चिन्न'], ['Say hello, thank you and sorry', 'नमस्ते, धन्यवाद र माफ गर्नुहोस् भन्न']],
     A1: [['Introduce yourself and your family', 'आफ्नो र परिवारको परिचय दिन'], ['Order food, shop and ask prices', 'खाना अर्डर गर्न, किनमेल गर्न, मूल्य सोध्न'], ['Tell the time, ask the way, say what hurts', 'समय भन्न, बाटो सोध्न, कहाँ दुख्छ भन्न']],
     A2: [['Talk about yesterday and tomorrow', 'हिजो र भोलिको कुरा गर्न'], ['Use all 7 cases in everyday sentences', 'दैनिक वाक्यमा ७ विभक्ति प्रयोग गर्न'], ['Talk about work, shifts, weather and free time', 'काम, सिफ्ट, मौसम र फुर्सदको कुरा गर्न']],
     B1: [['Handle the doctor, offices and the phone', 'डाक्टर, कार्यालय र फोनमा काम चलाउन'], ['Speak politely with Pan/Pani and "would"', 'Pan/Pani र विनम्र रूपमा बोल्न'], ['Give opinions and explain problems', 'राय दिन र समस्या बुझाउन']],
@@ -209,7 +209,7 @@
       </section>
       ${!S.COURSE.some(S.unitStarted) && !S.progress.placement ? `
         <section class="card compact first-time">
-          <p><b>New here?</b> Start with the first lesson. Already know some Polish? Take the placement test to find your level.<br><span lang="ne">नयाँ हुनुहुन्छ? पहिलो पाठबाट सुरु गर्नुहोस्। अलि पोलिस आउँछ भने स्तर परीक्षा दिनुहोस्।</span></p>
+          <p><b>New here?</b> Start with the first lesson. Already know some Polish? Take the placement test to find your level.<br><span lang="ne">नयाँ हुनुहुन्छ? पहिलो पाठबाट सुरु गर्नुहोस्। अलि पोलिश आउँछ भने स्तर परीक्षा दिनुहोस्।</span></p>
           <div class="row start"><button class="btn" data-action="go" data-to="placement">Find my level · स्तर परीक्षा</button></div>
         </section>` : ''}
       <section>
@@ -229,7 +229,7 @@
       <header class="unit-head">
         <span class="eyebrow">Course · पाठ्यक्रम</span>
         <h2>From zero to fluent</h2>
-        <p class="hint">Six parts, from the alphabet to upper-intermediate (B2), plus Polish for work. Do the lessons in order; each one takes 10–20 minutes with your teacher.<br><span lang="ne">वर्णमालादेखि उच्च-मध्यम (B2) सम्म, साथै कामको पोलिस। पाठहरू क्रमैसँग गर्नुहोस्।</span></p>
+        <p class="hint">Six parts, from the alphabet to upper-intermediate (B2), plus Polish for work. Do the lessons in order; each one takes 10–20 minutes with your teacher.<br><span lang="ne">वर्णमालादेखि उच्च-मध्यम (B2) सम्म, साथै कामको पोलिश। पाठहरू क्रमैसँग गर्नुहोस्।</span></p>
         <div class="seg chips" role="group">${S.LEVELS.filter((l) => S.COURSE.some((u) => u.level === l.id)).map((l) => `<button data-action="go" data-to="course.${l.id}" aria-pressed="${only === l.id}">${esc(l.id)}</button>`).join('')}<button data-action="go" data-to="course" aria-pressed="${!only}">All</button></div>
       </header>
       ${S.LEVELS.filter((l) => !only || l.id === only).map((level) => {
@@ -468,9 +468,9 @@
       <header class="unit-head">
         <span class="eyebrow">Reference · सन्दर्भ</span>
         <h2>The Polish alphabet</h2>
-        <p class="unit-head-ne" lang="ne">पोलिस वर्णमाला</p>
+        <p class="unit-head-ne" lang="ne">पोलिश वर्णमाला</p>
         <p class="hint">32 letters. Polish is read exactly as it is written, so once you know these sounds you can read any word. Stress falls on the second-to-last syllable.<br>
-        <span lang="ne">३२ अक्षर। पोलिस जस्तो लेखिन्छ त्यस्तै पढिन्छ। जोड प्राय: अन्तिमभन्दा अघिल्लो अक्षरमा पर्छ।</span></p>
+        <span lang="ne">३२ अक्षर। पोलिश जस्तो लेखिन्छ त्यस्तै पढिन्छ। जोड प्राय: अन्तिमभन्दा अघिल्लो अक्षरमा पर्छ।</span></p>
       </header>
       ${S.ALPHABET.length ? alphabetGrid() : '<p class="empty">The alphabet did not load.</p>'}
       ${first ? `<div class="row start"><button class="btn primary" data-action="go" data-to="${first.id}">Start the first lesson →</button></div>` : ''}`;
@@ -686,6 +686,8 @@
 
   document.addEventListener('keydown', (ev) => {
     if (ev.metaKey || ev.ctrlKey || ev.altKey) return;
+    // Tappable Polish words in explanations work from the keyboard too.
+    if ((ev.key === 'Enter' || ev.key === ' ') && ev.target.matches && ev.target.matches('span[role="button"][data-action]')) { ev.preventDefault(); ev.target.click(); return; }
     if (/^(INPUT|TEXTAREA)$/.test(ev.target.tagName) && !ev.target.readOnly) return;
     if (S.Practice.key(ev)) return;
     if (S.Trainers.key(ev)) return;

@@ -1039,3 +1039,7 @@ button.hint-chip:hover { border-color: var(--accent); border-style: solid; }
 .abc-play .btn svg { width: 18px; height: 18px; flex: none; }
 .letter-top { flex-wrap: wrap; }
 .name-chip { max-width: 100%; text-align: left; }
+
+/* Polish words in explanations: tap to hear */
+.say-tap { cursor: pointer; border-bottom: 1px dotted currentColor; border-radius: 2px; }
+.say-tap:hover, .say-tap:focus-visible { color: var(--accent); outline: none; background: var(--accent-soft); }

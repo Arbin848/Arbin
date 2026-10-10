@@ -32,7 +32,7 @@
   const tidy = (s) => String(s || '').replace(/\s+/g, ' ').trim();
 
   function previewHTML(pl) {
-    if (!tidy(pl)) return '<p class="hint">Type a Polish word to see how it is said. · उच्चारण हेर्न पोलिस शब्द लेख्नुहोस्।</p>';
+    if (!tidy(pl)) return '<p class="hint">Type a Polish word to see how it is said. · उच्चारण हेर्न पोलिश शब्द लेख्नुहोस्।</p>';
     const p = S.Pron.of(pl);
     const course = S.LEXICON.get(tidy(pl));
     const e = course && !course.mine ? course : { pl: tidy(pl), ...p };
@@ -56,7 +56,7 @@
         <span lang="ne">काममा, सूचनामा वा चिठीमा नयाँ शब्द देख्नुभयो? यहाँ थप्नुहोस्। एपले उच्चारण लेख्छ, पढेर सुनाउँछ र दैनिक दोहोर्याइमा फर्काउँछ।</span></p>
       </header>
       <form class="card my-form" data-form="my-add" autocomplete="off">
-        <label class="field"><span>Polish · पोलिस</span><input class="type-input wide" name="pl" lang="pl" autocapitalize="off" autocorrect="off" data-keys-target required maxlength="120" placeholder="e.g. magazyn" spellcheck="false"></label>
+        <label class="field"><span>Polish · पोलिश</span><input class="type-input wide" name="pl" lang="pl" autocapitalize="off" autocorrect="off" data-keys-target required maxlength="120" placeholder="e.g. magazyn" spellcheck="false"></label>
         ${S.keysHTML()}
         <div class="my-preview" id="my-preview" aria-live="polite">${previewHTML('')}</div>
         <label class="field"><span>Meaning in English · अङ्ग्रेजी अर्थ</span><input class="type-input wide" name="en" required maxlength="120" placeholder="e.g. warehouse"></label>
@@ -89,7 +89,7 @@
     const ne = tidy(form.elements.ne.value);
     const msg = form.querySelector('#my-msg');
     const say = (t) => { if (msg) msg.textContent = t; };
-    if (!pl || !/[a-ząćęłńóśźż]/i.test(pl)) { say('Type the Polish word first. · पहिले पोलिस शब्द लेख्नुहोस्।'); return true; }
+    if (!pl || !/[a-ząćęłńóśźż]/i.test(pl)) { say('Type the Polish word first. · पहिले पोलिश शब्द लेख्नुहोस्।'); return true; }
     if (!en) { say('Add what it means. · अर्थ पनि लेख्नुहोस्।'); form.elements.en.focus(); return true; }
     const course = S.LEXICON.get(pl);
     if (course && !course.mine) {
