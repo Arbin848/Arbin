@@ -220,3 +220,23 @@ window.SLOWKA_SOUNDS = [{
   pairs: [ [ ["kasza", "porridge", "दलिया"], ["Kasia", "Kasia (a name)", "कासिया (नाम)"] ], … ]   // 5–8 real word pairs
 }];
 ```
+
+---
+
+## 9. Listening — `window.SLOWKA_LISTENING`
+
+Audio-first practice: the app reads the lines aloud (each speaker with a slightly different voice) and hides the text until the learner has answered.
+
+```js
+window.SLOWKA_LISTENING = window.SLOWKA_LISTENING || [];
+window.SLOWKA_LISTENING.push({
+  id: "ls-a1-01", level: "A1",            // A1 | A2 | B1 | B2
+  type: "phone",                           // phone | voicemail | announcement | conversation | radio
+  title: "A call from the warehouse", titleNe: "गोदामबाट फोन",
+  context: { en: "Your supervisor calls you on Sunday evening.", ne: "आइतबार बेलुका तपाईंको सुपरभाइजरले फोन गर्छन्।" },
+  lines: [ ["Kierownik", "Dzień dobry, tu Marek z magazynu.", "Hello, this is Marek from the warehouse.", "नमस्ते, म गोदामबाट मारेक बोल्दैछु।"], … ],   // 4–12 lines; one speaker for voicemail/announcement
+  questions: [ { q: "Kto dzwoni?", en: "Who is calling?", ne: "को फोन गर्दैछ?", options: ["…", "…", "…"], answer: 0,
+                 why: { en: "He says *tu Marek z magazynu*.", ne: "…" } } ]   // 3–4 questions, in Polish
+});
+```
+Use realistic, natural spoken Polish at the level (A1 slow and simple; B2 natural and fast, with fillers like *no*, *wie Pan*, *znaczy*). Numbers, times and dates are written as WORDS in `lines` so the speech engine reads them correctly. Fictional people and companies.

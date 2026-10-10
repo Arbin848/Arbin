@@ -83,6 +83,7 @@ for (const file of files) {
   if (w.SLOWKA_CASES) { checkCases(name, w.SLOWKA_CASES); counts.push('case guide'); }
   if (w.SLOWKA_NOUNS) { w.SLOWKA_NOUNS.forEach((n) => checkNoun(name, n)); counts.push(`${w.SLOWKA_NOUNS.length} nouns`); }
   if (w.SLOWKA_CASE_FRAMES) { w.SLOWKA_CASE_FRAMES.forEach((f, i) => checkFrame(`${name} frames[${i}]`, f)); counts.push(`${w.SLOWKA_CASE_FRAMES.length} case frames`); }
+  if (w.SLOWKA_LISTENING) { w.SLOWKA_LISTENING.forEach((x) => checkListening(name, x)); counts.push(`${w.SLOWKA_LISTENING.length} listening tasks`); }
   if (w.SLOWKA_SOUNDS) { w.SLOWKA_SOUNDS.forEach((x) => checkSound(name, x)); counts.push(`${w.SLOWKA_SOUNDS.length} sound groups`); }
   if (!counts.length) fail(name, 'defines no known content');
   perFile.push(`${name}: ${counts.join(', ')}`);
@@ -273,6 +274,19 @@ function checkSound(file, x) {
   (x.pairs || []).forEach((p, i) => {
     if (!Array.isArray(p) || p.length !== 2 || p.some((w) => !Array.isArray(w) || w.length !== 3 || !str(w[0]) || !str(w[1]) || !ne(w[2]))) fail(at, `pairs[${i}] must be [[pl, en, ne], [pl, en, ne]]`);
   });
+}
+
+function checkListening(file, x) {
+  const at = `${file} ${x.id || '(no id)'}`;
+  uniqueId(at, x.id, /^ls-(a1|a2|b1|b2)-\d{2}$/, 'ls-a1-01');
+  if (!CEFR.includes(x.level)) fail(at, 'level must be A1, A2, B1 or B2');
+  if (!['phone', 'voicemail', 'announcement', 'conversation', 'radio'].includes(x.type)) fail(at, 'unknown type');
+  if (!str(x.title) || !ne(x.titleNe)) fail(at, 'needs title and Nepali titleNe');
+  bilingual(at, x.context, 'context');
+  if (!Array.isArray(x.lines) || x.lines.length < 2) fail(at, 'needs at least 2 lines');
+  (x.lines || []).forEach((l, i) => { if (!Array.isArray(l) || l.length !== 4 || l.some((v) => !str(v)) || !DEVANAGARI.test(l[3])) fail(at, `lines[${i}] must be [speaker, pl, en, ne]`); else if (/\d/.test(l[1])) fail(at, `lines[${i}] has digits; write numbers as words`); });
+  if (!Array.isArray(x.questions) || x.questions.length < 3) fail(at, 'needs at least 3 questions');
+  (x.questions || []).forEach((q, i) => { const w2 = `${at} questions[${i}]`; if (!str(q.q) || !str(q.en) || !ne(q.ne)) fail(w2, 'needs q, en, Nepali ne'); checkOptions(w2, q); bilingual(w2, q.why, 'why'); });
 }
 
 function checkAlphabet(file, letters) {

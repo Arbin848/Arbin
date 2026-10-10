@@ -253,6 +253,23 @@
     }
     tts(text, isSlow);
   };
+  // Read several lines in a row; each speaker gets a slightly different voice pitch.
+  S.speakLines = (lines, slow) => {
+    if (!synth) return;
+    try {
+      synth.cancel();
+      if (current) current.pause();
+      lines.forEach(({ text, pitch }) => {
+        const u = new SpeechSynthesisUtterance(String(text).replace(/…/g, ''));
+        u.lang = 'pl-PL';
+        if (polishVoice) u.voice = polishVoice;
+        u.rate = slow ? 0.65 : 0.95;
+        u.pitch = pitch || 1;
+        synth.speak(u);
+      });
+    } catch (e) { /* speech unavailable */ }
+  };
+  S.stopSpeaking = () => { try { if (synth) synth.cancel(); if (current) current.pause(); } catch (e) { /* ignore */ } };
   function tts(text, isSlow) {
     if (!synth) return;
     try {
@@ -396,12 +413,12 @@
     if (S.shows('meaning', 'ne') && ne) parts.push(`<span class="m-ne" lang="ne">${esc(ne)}</span>`);
     return `<span class="meaning">${parts.join('')}</span>`;
   };
-  S.slowBtn = (text) => (S.canSpeak ? `<button class="btn listen slow" data-action="say" data-slow="1" data-text="${esc(text)}" title="Play slowly">${S.SPEAKER} Slow <span lang="ne">बिस्तारै</span></button>` : '');
+  S.slowBtn = (text) => (S.canSpeak ? `<button type="button" class="btn listen slow" data-action="say" data-slow="1" data-text="${esc(text)}" title="Play slowly">${S.SPEAKER} Slow <span lang="ne">बिस्तारै</span></button>` : '');
   S.listenBtn = (text, big) => {
     if (!S.canSpeak) return '';
     return big
-      ? `<button class="btn listen" data-action="say" data-text="${esc(text)}">${S.SPEAKER} Listen <span lang="ne">सुन्नुहोस्</span></button>${S.slowBtn(text)}`
-      : `<button class="icon-btn" data-action="say" data-text="${esc(text)}" aria-label="Listen to ${esc(text)}">${S.SPEAKER}</button>`;
+      ? `<button type="button" class="btn listen" data-action="say" data-text="${esc(text)}">${S.SPEAKER} Listen <span lang="ne">सुन्नुहोस्</span></button>${S.slowBtn(text)}`
+      : `<button type="button" class="icon-btn" data-action="say" data-text="${esc(text)}" aria-label="Listen to ${esc(text)}">${S.SPEAKER}</button>`;
   };
   S.boxMeter = (e) => {
     const b = S.boxOf(e);
