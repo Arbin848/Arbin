@@ -1048,3 +1048,19 @@ button.hint-chip:hover { border-color: var(--accent); border-style: solid; }
 
 /* "New version ready" bar */
 .update-bar { position: fixed; left: 12px; right: 12px; bottom: calc(76px + env(safe-area-inset-bottom, 0px)); z-index: 60; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 14px; border-radius: 12px; background: var(--ink); color: var(--paper); box-shadow: 0 6px 24px var(--shadow); font-size: 0.9rem; }
+
+/* Phone comfort: no focus box on headings focused by the app, no keyboard badges on touch screens,
+   larger tap targets. */
+h2[tabindex="-1"]:focus { outline: none; }
+@media (pointer: coarse) {
+  kbd { display: none; }
+  .icon-btn { width: 42px; height: 42px; }
+  .back { padding: 10px 0; min-height: 44px; }
+  .say-chip, .chip-btn { min-height: 40px; }
+  .tok { padding: 4px 2px; }
+  .say-tap { padding: 2px 0; }
+}
+@media (max-width: 420px) {
+  .stats { gap: 12px; }
+  .stat span { font-size: 0.62rem; letter-spacing: 0.02em; }
+}

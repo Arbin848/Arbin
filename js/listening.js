@@ -137,7 +137,7 @@
     ['reader', '📖', 'Reader', 'पाठक', 'Answer the questions of 5 texts', (P) => count(P.stories) >= 5],
     ['listener', '🎧', 'Good ears', 'राम्रो कान', 'Finish 5 listening tasks', (P) => count(P.listening) >= 5],
     ['sounds', '👂', 'Sound master', 'ध्वनि मास्टर', 'Score 80% in 5 sound games', (P) => Object.values(P.sounds || {}).filter((x) => x >= 80).length >= 5],
-    ['revision', '↻', 'Reviser', 'दोहोर्याउने', 'Finish a revision lesson', (P) => Object.keys(P.assess || {}).some((k) => k.startsWith('rev-'))],
+    ['revision', '↻', 'Reviser', 'दोहोर्‍याउने', 'Finish a revision lesson', (P) => Object.keys(P.assess || {}).some((k) => k.startsWith('rev-'))],
     ['certificate', '🎓', 'Certificate', 'प्रमाणपत्र', 'Pass a level test', (P) => count(P.certs) >= 1],
     ['answers-1000', '⚡', '1000 answers', '१००० उत्तर', 'Give 1000 answers in total', (P) => Object.values(P.history || {}).reduce((a, b) => a + b, 0) >= 1000],
   ];

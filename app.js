@@ -15,6 +15,7 @@
 
   let currentHash = null;
   S.go = (to, opts = {}) => {
+    S.stopSpeaking();
     S.Practice.reset();
     S.Trainers.resetSessions(opts.keep);
     const [name, arg] = String(to || 'home').split(/\.(.+)/);
@@ -25,11 +26,12 @@
     if (S.route.name === 'placement') S.Extras.resetPlacement();
     // Each new page is a history entry, so the phone's Back button returns to the previous page.
     const hash = S.route.name === 'home' ? '' : `#${to}`;
-    currentHash = hash;
+    currentHash = opts.fromHistory ? (location.hash || '') : hash;
     if (!opts.fromHistory) {
       try {
         const url = hash || location.pathname + location.search;
-        if ((location.hash || '') !== hash) history.pushState(null, '', url);
+        // A page that redirects while drawing (e.g. an old link) replaces its entry, so Back still works.
+        if ((location.hash || '') !== hash && !rendering) history.pushState(null, '', url);
         else history.replaceState(null, '', url);
       } catch (e) { /* not allowed here */ }
     }
@@ -40,7 +42,12 @@
     if (h && !view.querySelector('[data-autofocus]')) { h.setAttribute('tabindex', '-1'); h.focus({ preventScroll: true }); }
   };
 
+  let rendering = 0;
   S.render = () => {
+    rendering++;
+    try { renderPage(); } finally { rendering--; }
+  };
+  function renderPage() {
     renderStats();
     renderNav();
     const r = S.route;
@@ -84,7 +91,7 @@
     else if (r.name === 'learn') S.Guided.render(view, r.arg);
     else if (r.name === 'check') r.arg ? S.Trainers.checkUnit(view, r.arg) : S.Trainers.checkList(view);
     else renderHome();
-  };
+  }
   S.onProgress = () => renderStats();
   const NAV = { mywords: 'practice', numbers: 'practice', listen: 'practice', revise: 'course', cert: 'progress', report: 'progress', home: 'home', course: 'course', unit: 'course', learn: 'course', practice: 'practice', review: 'practice', verbs: 'practice', cases: 'practice', sounds: 'practice', alphabet: 'practice', dictionary: 'practice', mistakes: 'practice', talk: 'practice', read: 'practice', exam: 'practice', placement: 'practice', progress: 'progress', settings: 'progress', check: 'progress' };
   function renderNav() {
@@ -94,9 +101,12 @@
 
   function renderStats() {
     const learned = S.ENTRIES.filter(S.isLearned).length;
+    // "Met" counts every word in practice, so progress shows from the first lesson; "learned" needs a week of reviews.
+    const met = Object.keys(S.progress.items).filter((k) => S.LEXICON.has(k)).length;
     $('#stats').innerHTML = `
       <div class="stat"><b>${S.currentStreak()}</b><span>day streak</span></div>
-      <div class="stat"><b>${learned}<small>/${S.ENTRIES.length}</small></b><span>learned</span></div>
+      <div class="stat"><b>${met}</b><span>words met</span></div>
+      <div class="stat" title="Words remembered over several days (memory box 3 of 5 or more)"><b>${learned}<small>/${S.ENTRIES.length}</small></b><span>learned</span></div>
       <div class="stat"><b>${S.dueList().length}</b><span>to review</span></div>`;
   }
 
@@ -122,7 +132,7 @@
     A1: [['Introduce yourself and your family', 'आफ्नो र परिवारको परिचय दिन'], ['Order food, shop and ask prices', 'खाना अर्डर गर्न, किनमेल गर्न, मूल्य सोध्न'], ['Tell the time, ask the way, say what hurts', 'समय भन्न, बाटो सोध्न, कहाँ दुख्छ भन्न']],
     A2: [['Talk about yesterday and tomorrow', 'हिजो र भोलिको कुरा गर्न'], ['Use all 7 cases in everyday sentences', 'दैनिक वाक्यमा ७ विभक्ति प्रयोग गर्न'], ['Talk about work, shifts, weather and free time', 'काम, सिफ्ट, मौसम र फुर्सदको कुरा गर्न']],
     B1: [['Handle the doctor, offices and the phone', 'डाक्टर, कार्यालय र फोनमा काम चलाउन'], ['Speak politely with Pan/Pani and "would"', 'Pan/Pani र विनम्र रूपमा बोल्न'], ['Give opinions and explain problems', 'राय दिन र समस्या बुझाउन']],
-    B2: [['Write formal emails and do a job interview', 'औपचारिक इमेल लेख्न र अन्तर्वार्ता दिन'], ['Understand contracts, news and idioms', 'सम्झौता, समाचार र उखान बुझ्न'], ['Connect ideas in long, fluent sentences', 'लामो र धाराप्रवाह वाक्यमा विचार जोड्न']],
+    B2: [['Write formal emails and do a job interview', 'औपचारिक इमेल लेख्न र अन्तर्वार्ता दिन'], ['Understand contracts, news and idioms', 'सम्झौता, समाचार र टुक्का बुझ्न'], ['Connect ideas in long, fluent sentences', 'लामो र धाराप्रवाह वाक्यमा विचार जोड्न']],
     Work: [['Understand safety rules and signs at work', 'कामको सुरक्षा नियम र चिन्ह बुझ्न'], ['Talk to your supervisor about tasks', 'सुपरभाइजरसँग कामबारे कुरा गर्न'], ['Know the key words for your job', 'आफ्नो कामका मुख्य शब्द जान्न']],
   };
 
@@ -189,9 +199,9 @@
     const hello = hour < 12 ? ['Dzień dobry!', 'Good morning', 'शुभ प्रभात'] : hour < 18 ? ['Dzień dobry!', 'Good afternoon', 'नमस्ते'] : ['Dobry wieczór!', 'Good evening', 'शुभ सन्ध्या'];
 
     const plan = [
-      due ? { to: 'review', icon: '↻', en: `Review ${due} ${due === 1 ? 'word' : 'words'}`, ne: 'शब्द दोहोर्याउनुहोस्', sub: 'A few minutes · केही मिनेट' } : null,
+      due ? { to: 'review', icon: '↻', en: `Review ${due} ${due === 1 ? 'word' : 'words'}`, ne: 'शब्द दोहोर्‍याउनुहोस्', sub: 'A few minutes · केही मिनेट' } : null,
       { action: 'g-start', unit: next.id, icon: '▶', en: st.done ? `Repeat: ${next.title}` : st.started ? `Continue: ${next.title}` : `Lesson: ${next.title}`, ne: next.titleNe, sub: st.started && !st.done ? `Step ${st.step + 1} of ${st.total} · with your teacher` : 'With your teacher · शिक्षिकासँग', main: true },
-      (() => { const r = S.Assess.dueRevision(); return r ? { to: `revise.${r.id}`, icon: '↻', en: r.title, ne: r.titleNe, sub: 'Revise the last 5 lessons · १० मिनेट' } : null; })(),
+      (() => { const r = S.Assess.dueRevision(); return r ? { to: `revise.${r.id}`, icon: '↻', en: r.title, ne: r.titleNe, sub: 'Revise the last 5 lessons · पछिल्ला ५ पाठ दोहोर्‍याउनुहोस्' } : null; })(),
       (() => { const t = S.Assess.dueTest(); return t ? { to: `revise.${t.id}`, icon: '🎓', en: t.title, ne: t.titleNe, sub: 'Pass with 70% to get your certificate' } : null; })(),
       mistakes ? { to: 'mistakes.practice', icon: '✎', en: `Fix ${mistakes} grammar ${mistakes === 1 ? 'mistake' : 'mistakes'}`, ne: 'व्याकरणका गल्ती सुधार्नुहोस्', sub: '' } : null,
       rp && S.levelIndex(next.level) >= 1 ? { to: `talk.${rp.id}`, icon: '💬', en: `Talk: ${rp.title}`, ne: rp.titleNe, sub: 'Conversation practice · संवाद' } : null,
@@ -417,10 +427,10 @@
         <span class="eyebrow">Daily review · दैनिक दोहोर्याइ</span>
         <h2>${due.length ? `${due.length} ${due.length === 1 ? 'word is' : 'words are'} due today` : 'Daily review'}</h2>
         <p class="hint">Words you have practised come back on a schedule: tomorrow, then in 2, 4, 7 and 14 days. A few minutes every day is the fastest way to remember.<br>
-        <span lang="ne">अभ्यास गरेका शब्दहरू तालिका अनुसार फर्कन्छन्: भोलि, अनि २, ४, ७ र १४ दिनपछि। हरेक दिन केही मिनेट दोहोर्याउनु नै छिटो सम्झने उपाय हो।</span></p>
+        <span lang="ne">अभ्यास गरेका शब्दहरू तालिका अनुसार फर्कन्छन्: भोलि, अनि २, ४, ७ र १४ दिनपछि। हरेक दिन केही मिनेट दोहोर्‍याउनु नै छिटो सम्झने उपाय हो।</span></p>
       </header>
       <section class="stage" id="stage"></section>
-      ${S.Extras.mistakeItems().length ? `<section class="card compact extra-review"><span class="label">Also due · यो पनि दोहोर्याउनुहोस्</span>
+      ${S.Extras.mistakeItems().length ? `<section class="card compact extra-review"><span class="label">Also due · यो पनि दोहोर्‍याउनुहोस्</span>
         <p>You have <b>${S.Extras.mistakeItems().length}</b> grammar ${S.Extras.mistakeItems().length === 1 ? 'mistake' : 'mistakes'} to practise again.</p>
         <button class="btn" data-action="go" data-to="mistakes.practice">Practise my mistakes →</button></section>` : ''}`;
     S.Practice.render($('#stage'), { key: 'review', mode: 'cards', pool: due, review: true });
@@ -480,7 +490,7 @@
         <h2>The Polish alphabet</h2>
         <p class="unit-head-ne" lang="ne">पोलिश वर्णमाला</p>
         <p class="hint">32 letters. Polish is read exactly as it is written, so once you know these sounds you can read any word. Stress falls on the second-to-last syllable.<br>
-        <span lang="ne">३२ अक्षर। पोलिश जस्तो लेखिन्छ त्यस्तै पढिन्छ। जोड प्राय: अन्तिमभन्दा अघिल्लो अक्षरमा पर्छ।</span></p>
+        <span lang="ne">३२ अक्षर। पोलिश जस्तो लेखिन्छ त्यस्तै पढिन्छ। जोड प्राय: अन्तिमभन्दा अघिल्लो शब्दांशमा पर्छ।</span></p>
       </header>
       ${S.ALPHABET.length ? alphabetGrid() : '<p class="empty">The alphabet did not load.</p>'}
       ${first ? `<div class="row start"><button class="btn primary" data-action="go" data-to="${first.id}">Start the first lesson →</button></div>` : ''}`;
@@ -585,7 +595,7 @@
           <p class="hint">Do you speak Polish or Nepali as your first language? Help check this course. · यो कोर्स जाँच्न सहयोग गर्नुहोस्।</p>
           <button class="btn" data-action="go" data-to="check">Open review mode</button>
         </fieldset>
-        <p class="hint">How pronunciation is written: in English letters the stressed syllable is in CAPITALS (<span class="pron">jen DOB-ri</span>). In Devanagari the stressed syllable comes after <span class="pron ne">ˈ</span> (<span class="pron ne" lang="ne">जेन् ˈदोब्-रि</span>). Both are approximations: always listen too.</p>
+        <p class="hint">How pronunciation is written: words are split into syllable blocks and the <b>stressed syllable is coloured</b>, in English letters and in Devanagari: ${S.pronHTML({ pron: 'jeny DOB-ri', proNe: 'जेन्य् ˈदोब्-रि' })}. In Polish the stress is almost always on the second-to-last syllable. Both spellings are approximations: always listen too.</p>
       </div>`;
   }
 
@@ -595,12 +605,14 @@
   // on the same button, or on the next question's first option if that one is now answered.
   function keepFocus(el) {
     if (!view.contains(el) || el.dataset.action === 'go') return;
-    const attrs = ['action', 'q', 'index', 'key', 'i', 'tab', 'step', 'value'].filter((k) => el.dataset[k] != null);
-    const sel = attrs.map((k) => `[data-${k}="${CSS.escape(el.dataset[k])}"]`).join('');
+    const sel = [...el.attributes].filter((x) => x.name.startsWith('data-') && x.name !== 'data-autofocus')
+      .map((x) => `[${x.name}="${CSS.escape(x.value)}"]`).join('');
     const hash = location.hash;
     queueMicrotask(() => {
+      // Only when the page was re-drawn and the tapped button is gone.
+      if (el.isConnected || location.hash !== hash) return;
       const active = document.activeElement;
-      if (location.hash !== hash || (active && active !== document.body && document.contains(active))) return;
+      if (active && active !== document.body && document.contains(active)) return;
       const same = view.querySelector(sel);
       if (!same) return;
       let target = same.disabled ? null : same;
@@ -686,6 +698,7 @@
         try { S.readBackup(code); } catch (e) {
           $('#backup-msg').textContent = 'That code did not work. Copy the whole code and try again.';
           el.dataset.armed = 'false';
+          el.textContent = 'Restore from code';
           break;
         }
         if (el.dataset.armed !== 'true' || el.dataset.code !== code) {
@@ -696,6 +709,11 @@
           break;
         }
         S.restoreBackup(code);
+        // Forget words and open exercises from before the restore.
+        for (const [k, e] of S.LEXICON) if (e.mine) S.LEXICON.delete(k);
+        S.MyWords.register();
+        S.Practice.reset();
+        S.Trainers.resetSessions();
         renderStats();
         renderSettings();
         $('#backup-msg').textContent = 'Progress restored ✓';

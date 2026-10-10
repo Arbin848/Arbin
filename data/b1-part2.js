@@ -71,7 +71,7 @@ window.SLOWKA_COURSE.push(
       ["żeby", "that / so that / in order to", "भनेर / ताकि / को लागि", "ZHE-bi", "ˈझे-बि"],
       ["pomóc", "to help", "सहयोग गर्नु", "PO-moots", "ˈपो-मुत्स्"],
       ["pożyczyć", "to lend / to borrow", "सापट दिनु / लिनु", "po-ZHI-chich", "पो-ˈझि-चिच्"],
-      ["powtórzyć", "to repeat", "दोहोर्याउनु", "pof-TOO-zhich", "पोफ़्-ˈतु-झिच्"],
+      ["powtórzyć", "to repeat", "दोहोर्‍याउनु", "pof-TOO-zhich", "पोफ़्-ˈतु-झिच्"],
       ["lepiej", "better", "अझ राम्रो", "LE-pyey", "ˈले-प्येय्"],
       ["na twoim miejscu", "if I were you (lit. in your place)", "तिम्रो ठाउँमा भएको भए", "na TFO-eem MYEYS-tsoo", "ना ˈत्फ़ो-इम् ˈम्येय्स्-त्सु"],
       ["chętnie", "gladly / with pleasure", "खुसीसाथ", "HENT-nyeh", "ˈहेन्त्-न्ये"]
@@ -84,7 +84,7 @@ window.SLOWKA_COURSE.push(
       ["Gdybym miał czas, pojechałbym do Krakowa.", "If I had time, I would go to Kraków (m).", "मसँग समय भएको भए म क्राकोव जान्थें।", "GDI-bim myaw chas, po-YE-haw-bim do kra-KO-va", "ˈग्दि-बिम् म्याव् चास्, पो-ˈये-हाव्-बिम् दो क्रा-ˈको-भा"],
       ["Chcę, żebyś przyszedł jutro.", "I want you to come tomorrow (to a man).", "म चाहन्छु कि तिमी भोलि आऊ।", "htseh, ZHE-bish PSHI-shet YOO-tro", "ह्त्से, ˈझे-बिश् ˈप्शि-शेत् ˈयु-त्रो"],
       ["Na twoim miejscu poszedłbym do lekarza.", "If I were you, I'd go to the doctor (m).", "तिम्रो ठाउँमा भएको भए म डाक्टरकहाँ जान्थें।", "na TFO-eem MYEYS-tsoo PO-shed-bim do le-KA-zha", "ना ˈत्फ़ो-इम् ˈम्येय्स्-त्सु ˈपो-शेद्-बिम् दो ले-ˈका-झा"],
-      ["Byłoby miło, gdybyś zadzwonił.", "It would be nice if you called (to a man).", "तिमीले फोन गर्यौ भने राम्रो हुन्थ्यो।", "BI-wo-bi MEE-wo, GDI-bish za-DZVO-neew", "ˈबि-वो-बि ˈमि-वो, ˈग्दि-बिश् ज़ा-ˈद्ज़्भो-निव्"]
+      ["Byłoby miło, gdybyś zadzwonił.", "It would be nice if you called (to a man).", "तिमीले फोन गर्‍यौ भने राम्रो हुन्थ्यो।", "BI-wo-bi MEE-wo, GDI-bish za-DZVO-neew", "ˈबि-वो-बि ˈमि-वो, ˈग्दि-बिश् ज़ा-ˈद्ज़्भो-निव्"]
     ],
     dialogue: [
       ["Ram", "Przepraszam, czy mógłby mi Pan pomóc?", "Excuse me, could you help me?", "माफ गर्नुहोस्, के तपाईं मलाई सहयोग गर्न सक्नुहुन्छ?"],
@@ -219,7 +219,7 @@ window.SLOWKA_COURSE.push(
       },
       {
         en: "The doctor will ask: *Co Panu / Pani dolega?* (What's the problem?) and *Od kiedy to Pana / Panią boli?* (Since when has it hurt?). Answer with *od* + genitive: *od wczoraj* (since yesterday), *od rana* (since this morning), *od trzech dni* (for three days). Tip: if you don't understand, say *Proszę mówić wolniej* (Please speak more slowly), or ask if you can use a translator app — doctors are used to it.",
-        ne: "डाक्टरले सोध्नुहुन्छ: *Co Panu / Pani dolega?* (के समस्या छ?) र *Od kiedy to Pana / Panią boli?* (कहिलेदेखि दुखेको हो?)। *od* + सम्बन्ध कारक प्रयोग गरेर जवाफ दिनुहोस्: *od wczoraj* (हिजोदेखि), *od rana* (बिहानदेखि), *od trzech dni* (तीन दिनदेखि)। सुझाव: बुझ्नुभएन भने *Proszę mówić wolniej* (कृपया बिस्तारै बोल्नुहोस्) भन्नुहोस्, वा अनुवाद एप प्रयोग गर्न मिल्छ कि भनेर सोध्नुहोस् — डाक्टरहरूलाई यो सामान्य कुरा हो।"
+        ne: "डाक्टरले सोध्नुहुन्छ: *Co Panu / Pani dolega?* (के समस्या छ?) र *Od kiedy to Pana / Panią boli?* (कहिलेदेखि दुखेको हो?)। *od* + षष्ठी प्रयोग गरेर जवाफ दिनुहोस्: *od wczoraj* (हिजोदेखि), *od rana* (बिहानदेखि), *od trzech dni* (तीन दिनदेखि)। सुझाव: बुझ्नुभएन भने *Proszę mówić wolniej* (कृपया बिस्तारै बोल्नुहोस्) भन्नुहोस्, वा अनुवाद एप प्रयोग गर्न मिल्छ कि भनेर सोध्नुहोस् — डाक्टरहरूलाई यो सामान्य कुरा हो।"
       }
     ],
     tables: [
@@ -403,7 +403,7 @@ window.SLOWKA_COURSE.push(
       },
       {
         en: "A polite SMS to an employer or landlord has four parts: a greeting (*Dzień dobry,*), who you are (*tu Ram Thapa z mieszkania nr 5*), your message, and a closing (*Pozdrawiam, Ram Thapa*). In writing, *Pan / Pani* gets a capital letter as a sign of respect. Example: *Dzień dobry, tu Ram Thapa z mieszkania nr 5. Niestety w kuchni nie działa kran. Czy mógłby Pan przyjść jutro? Pozdrawiam, Ram Thapa.*",
-        ne: "रोजगारदाता वा घरबेटीलाई लेखिने विनम्र SMS का चार भाग हुन्छन्: अभिवादन (*Dzień dobry,*), तपाईं को हो (*tu Ram Thapa z mieszkania nr 5*), मुख्य कुरा, र अन्त्य (*Pozdrawiam, Ram Thapa*)। लेख्दा सम्मान देखाउन *Pan / Pani* ठूलो अक्षरबाट सुरु गरिन्छ। उदाहरण: *Dzień dobry, tu Ram Thapa z mieszkania nr 5. Niestety w kuchni nie działa kran. Czy mógłby Pan przyjść jutro? Pozdrawiam, Ram Thapa.* (नमस्ते, म फ्ल्याट नं. ५ बाट राम थापा। दुर्भाग्यवश भान्साको धारा चलेको छैन। के तपाईं भोलि आउन सक्नुहुन्छ? शुभकामना, राम थापा।)"
+        ne: "रोजगारदाता वा घरबेटीलाई लेखिने विनम्र SMS का चार भाग हुन्छन्: अभिवादन (*Dzień dobry,*), आफू को हो (*tu Ram Thapa z mieszkania nr 5*), मुख्य कुरा, र अन्त्य (*Pozdrawiam, Ram Thapa*)। लेख्दा सम्मान देखाउन *Pan / Pani* ठूलो अक्षरबाट सुरु गरिन्छ। उदाहरण: *Dzień dobry, tu Ram Thapa z mieszkania nr 5. Niestety w kuchni nie działa kran. Czy mógłby Pan przyjść jutro? Pozdrawiam, Ram Thapa.* (नमस्ते, म फ्ल्याट नं. ५ बाट राम थापा। दुर्भाग्यवश भान्साको धारा चलेको छैन। के तपाईं भोलि आउन सक्नुहुन्छ? शुभकामना, राम थापा।)"
       }
     ],
     tables: [

@@ -260,7 +260,7 @@ window.SLOWKA_STORIES.push(
       {
         pl: "Pewnego dnia pan Marek powiedział: „Dipak, proszę przygotować zamówienie dla szkoły na jutro. Dwieście bułek i pięćdziesiąt rogalików.” Dipak kiwnął głową. Zrozumiał, że ma zacząć pracę nad zamówieniem jutro, więc spokojnie skończył swoje zwykłe zadania i poszedł do domu.",
         en: "One day Mr Marek said: 'Dipak, please prepare the order for the school for tomorrow. Two hundred rolls and fifty croissants.' Dipak nodded. He understood that he should start working on the order tomorrow, so he calmly finished his usual tasks and went home.",
-        ne: "एक दिन मारेकजीले भन्नुभयो: „दिपक, स्कूलको अर्डर भोलिका लागि तयार पार। दुई सय बन र पचासवटा क्रोसाँ।” दिपकले टाउको हल्लाए। उनले भोलि अर्डरको काम सुरु गर्नुपर्छ भन्ने बुझे, त्यसैले आफ्नो सधैंको काम आरामसँग सकेर घर गए।"
+        ne: "एक दिन मारेकजीले भन्नुभयो: „दिपक, स्कूलको अर्डर भोलिका लागि तयार पारिदिनुहोस्। दुई सय बन र पचासवटा क्रोसाँ।” दिपकले टाउको हल्लाए। उनले भोलि अर्डरको काम सुरु गर्नुपर्छ भन्ने बुझे, त्यसैले आफ्नो सधैंको काम आरामसँग सकेर घर गए।"
       },
       {
         pl: "Następnego dnia o szóstej rano zadzwonił telefon. Pan Marek był zdenerwowany: „Gdzie są bułki dla szkoły? Kierowca czeka!” Dipak nie wiedział, co powiedzieć. Dopiero wtedy zrozumiał, że „na jutro” znaczy, że zamówienie miało być gotowe jutro rano, a nie że miał je zacząć robić jutro.",
@@ -362,7 +362,7 @@ window.SLOWKA_STORIES.push(
       ["przestrzegać", "to follow / obey (rules)", "पालना गर्नु", "pshe-STSHE-gach", "प्शे-ˈस्त्शे-गाच्"],
       ["wypadku", "accident (of / to an …)", "दुर्घटना", "vi-PAT-koo", "भि-ˈपात्-कु"],
       ["upomnienia", "warning (of a …)", "चेतावनी", "oo-pom-NYE-nya", "उ-पोम्-ˈन्ये-न्या"],
-      ["kamizelkę odblaskową", "high-visibility vest", "चम्किने ज्याकेट", "ka-mee-ZEL-keh od-bla-SKO-von", "का-मि-ˈज़ेल्-के ओद्-ब्ला-ˈस्को-भों"],
+      ["kamizelkę odblaskową", "high-visibility vest", "चम्किलो सुरक्षा भेस्ट", "ka-mee-ZEL-keh od-bla-SKO-von", "का-मि-ˈज़ेल्-के ओद्-ब्ला-ˈस्को-भों"],
       ["buty ochronne", "safety shoes", "सुरक्षा जुत्ता", "BOO-ti o-HRON-neh", "ˈबु-ति ओ-ˈह्रोन्-ने"],
       ["rękawic", "gloves (of)", "पन्जा", "ren-KA-veets", "रेन्-ˈका-भित्स्"],
       ["przejściami dla pieszych", "pedestrian walkways", "पैदल बाटो", "pshey-SHCHA-mee dla PYE-shih", "प्शेय्-ˈश्चा-मि द्ला ˈप्ये-शिह्"],

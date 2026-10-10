@@ -173,7 +173,7 @@ window.SLOWKA_VERBS.push(
     imperative: { ty: "dostań", my: "dostańmy", wy: "dostańcie" },
     note: {
       en: "The future adds *-n-*: *dostanę*, *dostaniesz*. *Kiedy dostanę wypłatę?* = When will I get my pay?",
-      ne: "भविष्यमा *-n-* थपिन्छ: *dostanę*, *dostaniesz*। *Kiedy dostanę wypłatę?* = मैले तलब कहिले पाउँछु?"
+      ne: "भविष्यमा *-n-* थपिन्छ: *dostanę*, *dostaniesz*। *Kiedy dostanę wypłatę?* = म तलब कहिले पाउँछु?"
     }
   },
   {

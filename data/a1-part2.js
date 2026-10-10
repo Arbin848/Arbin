@@ -135,8 +135,8 @@ window.SLOWKA_COURSE.push(
     summaryNe: "रङका नाम र वस्तुलाई ठूलो, सानो, नयाँ, पुरानो, सस्तो वा महँगो भनेर वर्णन गर्न सिक्नुहोस्।",
     lesson: [
       {
-        en: "Describing words (adjectives) in Polish **change their ending** to match the noun. Nepali does something similar: राम्रो केटो but राम्री केटी. Polish does this with every adjective, for all three genders: masculine, feminine and neuter.",
-        ne: "पोलिशमा विशेषण (वर्णन गर्ने शब्द) नामसँग मिल्ने गरी **अन्त्य बदल्छ**। नेपालीमा पनि यस्तै हुन्छ: राम्रो केटो, तर राम्री केटी। पोलिशमा भने हरेक विशेषणमा तीनवटै लिङ्ग — पुलिङ्ग, स्त्रीलिङ्ग र नपुंसकलिङ्ग — अनुसार यस्तो हुन्छ।"
+        en: "Describing words (adjectives) in Polish **change their ending** to match the noun. Nepali does something similar: राम्रो केटा but राम्री केटी. Polish does this with every adjective, for all three genders: masculine, feminine and neuter.",
+        ne: "पोलिशमा विशेषण (वर्णन गर्ने शब्द) नामसँग मिल्ने गरी **अन्त्य बदल्छ**। नेपालीमा पनि यस्तै हुन्छ: राम्रो केटा, तर राम्री केटी। पोलिशमा भने हरेक विशेषणमा तीनवटै लिङ्ग — पुलिङ्ग, स्त्रीलिङ्ग र नपुंसकलिङ्ग — अनुसार यस्तो हुन्छ।"
       },
       {
         en: "Remember how to see the gender of a noun: masculine nouns usually end in a consonant (*dom*, *telefon*), feminine in *-a* (*kawa*, *kurtka*), neuter in *-o* or *-e* (*okno*, *mieszkanie*). The adjective then ends in **-y or -i** (masculine), **-a** (feminine) or **-e** (neuter): *duży dom*, *duża kawa*, *duże okno*.",
@@ -244,7 +244,7 @@ window.SLOWKA_COURSE.push(
       },
       {
         en: "**Important:** after *nie mam* (I don't have) and *nie ma* (there isn't) the noun **changes its ending**. This form is called the genitive. *Mam czas* → *Nie mam czasu* (I don't have time). *Jest woda* → *Nie ma wody* (There is no water). For now, just learn these examples by heart; the full rules come later.",
-        ne: "**ध्यान दिनुहोस्:** *nie mam* (मसँग छैन) र *nie ma* (छैन) पछि नामको **अन्त्य बदलिन्छ**। यो रूपलाई जेनिटिभ (षष्ठी) भनिन्छ। *Mam czas* → *Nie mam czasu* (मसँग समय छैन)। *Jest woda* → *Nie ma wody* (पानी छैन)। अहिलेलाई यी उदाहरण कण्ठ गर्नुहोस्; पूरा नियम पछि सिकिन्छ।"
+        ne: "**ध्यान दिनुहोस्:** *nie mam* (मसँग छैन) र *nie ma* (छैन) पछि नामको **अन्त्य बदलिन्छ**। यो रूपलाई षष्ठी (genitive) भनिन्छ। *Mam czas* → *Nie mam czasu* (मसँग समय छैन)। *Jest woda* → *Nie ma wody* (पानी छैन)। अहिलेलाई यी उदाहरण कण्ठ गर्नुहोस्; पूरा नियम पछि सिकिन्छ।"
       },
       {
         en: "Notice the difference: *nie mam* = \"I don't have\" (about me), *nie ma* = \"there isn't / it's not here\" (in general). Common mistake: *Nie mam czas* — wrong! Say *Nie mam czasu*. Also, *drzwi* (door) is always plural in Polish, even for one door.",
@@ -438,7 +438,7 @@ window.SLOWKA_COURSE.push(
       },
       {
         en: "To ask how to get somewhere on foot, say *Jak dojść do…?* After *do* (to) the place name **changes its ending** (genitive): *dworzec* → *do dworca*, *apteka* → *do apteki*, *poczta* → *do poczty*. See the table. Common mistake: *do dworzec* — wrong!",
-        ne: "कुनै ठाउँमा हिँडेर कसरी पुग्ने भनेर सोध्न *Jak dojść do…?* भन्नुहोस्। *do* (सम्म/तिर) पछि ठाउँको नामको **अन्त्य बदलिन्छ** (जेनिटिभ): *dworzec* → *do dworca*, *apteka* → *do apteki*, *poczta* → *do poczty*। तालिका हेर्नुहोस्। सामान्य गल्ती: *do dworzec* — गलत!"
+        ne: "कुनै ठाउँमा हिँडेर कसरी पुग्ने भनेर सोध्न *Jak dojść do…?* भन्नुहोस्। *do* (सम्म/तिर) पछि ठाउँको नामको **अन्त्य बदलिन्छ** (षष्ठी): *dworzec* → *do dworca*, *apteka* → *do apteki*, *poczta* → *do poczty*। तालिका हेर्नुहोस्। सामान्य गल्ती: *do dworzec* — गलत!"
       },
       {
         en: "Walking is *iść*; going by bus, tram, train or car is *jechać*: *jadę* (I go by vehicle), *jedziesz* (you go). Learn these forms as fixed phrases: *autobusem* (by bus), *tramwajem* (by tram), *pociągiem* (by train). *Jadę autobusem do pracy* = I go to work by bus.",

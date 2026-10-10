@@ -227,7 +227,7 @@ window.SLOWKA_COURSE.push(
       },
       {
         en: "Hard vs soft: to a Nepali ear *sz* and *ś* both sound like श, and *cz* and *ć* both sound like च. Many Nepali learners find this hard — that's normal! The difference is in the tongue. Hard *sz, cz*: tongue tip up, lips pushed forward as for a kiss. Soft *ś, ć*: tongue tip down behind the lower teeth, middle of the tongue up, lips smiling. Listen: *kasza* (porridge) vs *Kasia* (Kate), *proszę* (please) vs *prosię* (piglet).",
-        ne: "कडा र नरम: नेपाली कानलाई *sz* र *ś* दुवै 'श', अनि *cz* र *ć* दुवै 'च' जस्तै सुनिन्छन्। धेरै नेपाली विद्यार्थीलाई यो गाह्रो लाग्छ — यो सामान्य हो! फरक जिब्रोमा छ। कडा *sz, cz*: जिब्रोको टुप्पो माथि, ओठ चुम्बन गर्ने जस्तो अगाडि। नरम *ś, ć*: जिब्रोको टुप्पो तल्लो दाँतपछाडि, जिब्रोको बीच भाग माथि, ओठ मुस्कुराउँदै। सुन्नुहोस्: *kasza* (दलिया) र *Kasia* (कासिया, एउटा नाम), *proszę* (कृपया) र *prosię* (सुँगुरको पाठो)।"
+        ne: "कडा र नरम: नेपाली कानलाई *sz* र *ś* दुवै 'श', अनि *cz* र *ć* दुवै 'च' जस्तै सुनिन्छन्। धेरै नेपाली विद्यार्थीलाई यो गाह्रो लाग्छ — यो सामान्य हो! फरक जिब्रोमा छ। कडा *sz, cz*: जिब्रोको टुप्पो माथि, ओठ चुम्बन गर्ने जस्तो अगाडि। नरम *ś, ć*: जिब्रोको टुप्पो तल्लो दाँतपछाडि, जिब्रोको बीच भाग माथि, ओठ मुस्कुराउँदै। सुन्नुहोस्: *kasza* (दलिया) र *Kasia* (कासिया, एउटा नाम), *proszę* (कृपया) र *prosię* (सुँगुरको बच्चा)।"
       },
       {
         en: "**Trick:** for a soft sound, smile and imagine a little y after it: *ś* ≈ 'sy', *ć* ≈ 'chy' (च्य). For a hard sound, make 'duck lips'. Practise with *cześć* (hi): it has a hard *cz* at the start and a soft *ść* at the end. If you mix them up, Poles will still understand you from context — so keep talking!",
@@ -398,15 +398,15 @@ window.SLOWKA_COURSE.push(
     lesson: [
       {
         en: "Polish stress is easy: it falls on the **second-to-last syllable** of almost every word. *Pol-ska* → POL-ska, *te-le-fon* → te-LE-fon, *dzię-ku-ję* → jen-KOO-yeh. When a word gets longer, the stress moves: *telefon* → *telefonu* (te-le-FO-noo). There are a few exceptions, like *byliśmy* (we were), which you will learn later.",
-        ne: "पोलिशमा जोड (stress) सजिलो छ: लगभग हरेक शब्दमा **अन्तिमभन्दा अघिल्लो अक्षर (syllable)** मा जोड पर्छ। *Pol-ska* → ˈपोल्-स्का, *te-le-fon* → ते-ˈले-फ़ोन्, *dzię-ku-ję* → जेन्-ˈकु-ये। शब्द लामो भयो भने जोड पनि सर्छ: *telefon* → *telefonu* (ते-ले-ˈफ़ो-नु)। *byliśmy* (हामी थियौं) जस्ता केही अपवाद छन्, ती पछि सिक्नुहुनेछ।"
+        ne: "पोलिशमा जोड (stress) सजिलो छ: लगभग हरेक शब्दमा **अन्तिमभन्दा अघिल्लो शब्दांश (syllable)** मा जोड पर्छ। *Pol-ska* → ˈपोल्-स्का, *te-le-fon* → ते-ˈले-फ़ोन्, *dzię-ku-ję* → जेन्-ˈकु-ये। शब्द लामो भयो भने जोड पनि सर्छ: *telefon* → *telefonu* (ते-ले-ˈफ़ो-नु)। *byliśmy* (हामी थियौं) जस्ता केही अपवाद छन्, ती पछि सिक्नुहुनेछ।"
       },
       {
         en: "To count syllables, count the vowels (*a, ą, e, ę, i, o, ó, u, y*). But remember: an *i* before another vowel only softens the consonant — it is not a vowel of its own. *nie* = 1 syllable; *pieniądze* (money) = pie-nią-dze, 3 syllables → pye-NYON-dzeh.",
-        ne: "अक्षर (syllable) गन्न स्वरहरू (*a, ą, e, ę, i, o, ó, u, y*) गन्नुहोस्। तर सम्झनुहोस्: अर्को स्वरअघिको *i* ले व्यञ्जनलाई नरम मात्र बनाउँछ, आफैं स्वर होइन। *nie* = १ अक्षर; *pieniądze* (पैसा) = pie-nią-dze, ३ अक्षर → प्ये-ˈन्योन्-द्ज़े।"
+        ne: "शब्दांश (syllable) गन्न स्वरहरू (*a, ą, e, ę, i, o, ó, u, y*) गन्नुहोस्। तर सम्झनुहोस्: अर्को स्वरअघिको *i* ले व्यञ्जनलाई नरम मात्र बनाउँछ, आफैं स्वर होइन। *nie* = १ शब्दांश; *pieniądze* (पैसा) = pie-nią-dze, ३ अक्षर → प्ये-ˈन्योन्-द्ज़े।"
       },
       {
         en: "**Final devoicing:** at the end of a word, 'voiced' consonants lose their voice: b→p, d→t, g→k, w→f, z→s, ż/rz→sz, dź→ć. So *chleb* (bread) = hlep, *róg* (corner) = rook, *mąż* (husband) = monsh, *krew* (blood) = kref. Don't add a vowel after the last consonant: say hlep, not hle-bu.",
-        ne: "**अन्तिम व्यञ्जन कडा हुन्छ:** शब्दको अन्त्यमा घोष व्यञ्जन अघोष बन्छन्: b→p (ब→प), d→t (द→त), g→k (ग→क), w→f (भ→फ़), z→s, ż/rz→sz (झ→श), dź→ć (ज→च)। त्यसैले *chleb* (पाउरोटी) = ह्लेप्, *róg* (कुना) = रुक्, *mąż* (पति) = मोंश्, *krew* (रगत) = क्रेफ़्। अन्तिम व्यञ्जनपछि स्वर नथप्नुहोस्: 'ह्लेप्' भन्नुहोस्, 'ह्ले-बु' होइन।"
+        ne: "**अन्तिम व्यञ्जन अघोष हुन्छ:** शब्दको अन्त्यमा घोष व्यञ्जन अघोष बन्छन्: b→p (ब→प), d→t (द→त), g→k (ग→क), w→f (भ→फ़), z→s, ż/rz→sz (झ→श), dź→ć (ज→च)। त्यसैले *chleb* (पाउरोटी) = ह्लेप्, *róg* (कुना) = रुक्, *mąż* (पति) = मोंश्, *krew* (रगत) = क्रेफ़्। अन्तिम व्यञ्जनपछि स्वर नथप्नुहोस्: 'ह्लेप्' भन्नुहोस्, 'ह्ले-बु' होइन।"
       },
       {
         en: "**Neighbours match:** two consonants side by side become both voiced or both voiceless. Usually the second one decides: *wtorek* (Tuesday) = FTO-rek, *wszystko* (everything) = FSHIST-ko, *także* (also) = TAG-zheh. But *w* and *rz* are special: after a voiceless consonant they turn into f and sh: *twój* (your) = tfooy, *kwiat* (flower) = kfyat, *trzy* (three) = tshi.",
@@ -418,13 +418,13 @@ window.SLOWKA_COURSE.push(
       },
       {
         en: "**How to read a new word:** 1) find the letter pairs (*sz, cz, rz, ch, dz, si, ci…*), 2) count the vowels and stress the second-to-last syllable, 3) check the last consonant and the clusters. Try *przepraszam*: prz-e-pr-a-sz-a-m → 3 syllables → pshe-PRA-sham.",
-        ne: "**नयाँ शब्द कसरी पढ्ने:** १) अक्षर जोडी खोज्नुहोस् (*sz, cz, rz, ch, dz, si, ci…*), २) स्वर गनेर अन्तिमभन्दा अघिल्लो अक्षरमा जोड दिनुहोस्, ३) अन्तिम व्यञ्जन र व्यञ्जन झुण्ड जाँच्नुहोस्। *przepraszam* पढेर हेर्नुहोस्: ३ अक्षर → प्शे-ˈप्रा-शाम्।"
+        ne: "**नयाँ शब्द कसरी पढ्ने:** १) अक्षर जोडी खोज्नुहोस् (*sz, cz, rz, ch, dz, si, ci…*), २) स्वर गनेर अन्तिमभन्दा अघिल्लो शब्दांशमा जोड दिनुहोस्, ३) अन्तिम व्यञ्जन र व्यञ्जन झुण्ड जाँच्नुहोस्। *przepraszam* पढेर हेर्नुहोस्: ३ शब्दांश → प्शे-ˈप्रा-शाम्।"
       }
     ],
     tables: [
       {
         title: "Final devoicing",
-        titleNe: "शब्दको अन्त्यमा कडा हुने व्यञ्जन",
+        titleNe: "शब्दको अन्त्यमा अघोष हुने व्यञ्जन",
         head: ["Written", "Said", "Example", "Pronounced"],
         rows: [
           ["*b*", "p", "*chleb* (bread)", "hlep"],

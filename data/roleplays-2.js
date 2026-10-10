@@ -336,7 +336,7 @@ window.SLOWKA_ROLEPLAYS.push({
                  ne: "*Stary* (यार/दोस्त) नजिकका साथीका लागि हो। सुपरभाइजरले *Pan* प्रयोग गर्नुहुन्छ, त्यसैले औपचारिक रहनुहोस्: *Dziękuję, Panie Marku.*" } },
         { pl: "Dziękuję. To ja się odezwę w piątek.", en: "Thank you. I'll get back to you on Friday then.", ne: "धन्यवाद। म शुक्रबार खबर गर्छु।", ok: false,
           why: { en: "He said **he** will contact you. If you repeat *ja się odezwę*, you promise to contact him. Better: *To czekam na wiadomość w piątek.* (So I'll wait for news on Friday.)",
-                 ne: "उहाँले **उहाँ** आफैं खबर गर्छु भन्नुभयो। तपाईंले *ja się odezwę* दोहोर्याउँदा तपाईं खबर गर्छु भनेको हुन्छ। राम्रो: *To czekam na wiadomość w piątek.* (म शुक्रबार खबर पर्खन्छु।)" } }
+                 ne: "उहाँले **उहाँ** आफैं खबर गर्छु भन्नुभयो। तपाईंले *ja się odezwę* दोहोर्‍याउँदा तपाईं खबर गर्छु भनेको हुन्छ। राम्रो: *To czekam na wiadomość w piątek.* (म शुक्रबार खबर पर्खन्छु।)" } }
       ]
     }
   ],
@@ -499,7 +499,7 @@ window.SLOWKA_ROLEPLAYS.push({
       ]
     },
     {
-      them: ["Oczywiście. Poproszę dokument tożsamości. Jest Pan obywatelem Polski?", "Of course. Your ID document, please. Are you a Polish citizen?", "अवश्य। परिचय पत्र दिनुहोस्। तपाईं पोल्यान्डको नागरिक हो?"],
+      them: ["Oczywiście. Poproszę dokument tożsamości. Jest Pan obywatelem Polski?", "Of course. Your ID document, please. Are you a Polish citizen?", "अवश्य। परिचय पत्र दिनुहोस्। तपाईं पोल्यान्डको नागरिक हुनुहुन्छ?"],
       replies: [
         { pl: "Nie, jestem z Nepalu. Mam paszport i kartę pobytu.", en: "No, I'm from Nepal. I have a passport and a residence card.", ne: "होइन, म नेपालबाट हुँ। मसँग राहदानी र बसोबास कार्ड छ।", ok: true },
         { pl: "Nie, jestem z Nepal.", en: "(wrong form after 'z')", ne: "(*z* पछि गलत रूप)", ok: false,
@@ -886,7 +886,7 @@ window.SLOWKA_ROLEPLAYS.push({
       them: ["Dziękuję. Gdzie Pan mieszka i dokąd Pan jedzie?", "Thank you. Where do you live and where are you going?", "धन्यवाद। तपाईं कहाँ बस्नुहुन्छ र कता जाँदै हुनुहुन्छ?"],
       replies: [
         { pl: "Mieszkam niedaleko, na ulicy Kościuszki. Wracam z pracy do domu.", en: "I live nearby, on Kościuszki Street. I'm going home from work.", ne: "म नजिकै, कोश्चुश्की सडकमा बस्छु। कामबाट घर फर्कंदैछु।", ok: true },
-        { pl: "Mieszkam na ulicy Kościuszki. Jadę z pracy w domu.", en: "(wrong preposition)", ne: "(गलत नामयोगी)", ok: false,
+        { pl: "Mieszkam na ulicy Kościuszki. Jadę z pracy w domu.", en: "(wrong preposition)", ne: "(गलत पूर्वसर्ग)", ok: false,
           why: { en: "Direction 'to' is *do* + genitive: *jadę do domu*. *W domu* means 'at home' (place, not direction): *jestem w domu*.",
                  ne: "दिशा ('तर्फ/सम्म') = *do* + षष्ठी: *jadę do domu*। *W domu* को अर्थ 'घरमा' (ठाउँ, दिशा होइन): *jestem w domu*।" } },
         { pl: "Dlaczego Pan pyta? To moja prywatna sprawa.", en: "Why are you asking? That's my private business.", ne: "किन सोध्नुहुन्छ? यो मेरो निजी कुरा हो।", ok: false,
@@ -1102,20 +1102,20 @@ window.SLOWKA_ROLEPLAYS.push({
         { pl: "Dzięki! Całkiem nieźle. W sobotę byłem z kolegami nad jeziorem, a w niedzielę odpoczywałem.", en: "Thanks! Pretty good. On Saturday I was at a lake with friends, and on Sunday I rested.", ne: "धन्यवाद! निकै राम्रो। शनिबार साथीहरूसँग तालमा गएँ, आइतबार आराम गरें।", ok: true },
         { pl: "Dziękuję, proszę Pani. Weekend minął mi dobrze.", en: "Thank you, madam. My weekend went well.", ne: "धन्यवाद, हजुर। मेरो सप्ताहान्त राम्रो बित्यो।", ok: false,
           why: { en: "Kasia uses *ty* and *hej* with you, so *proszę Pani* sounds cold and strange. Mirror the other person: if they use *ty*, answer with *ty*.",
-                 ne: "कासियाले तपाईंसँग *ty* र *hej* प्रयोग गर्छिन्, त्यसैले *proszę Pani* चिसो र अनौठो सुनिन्छ। अर्को व्यक्तिलाई पछ्याउनुहोस्: उहाँ *ty* भन्छ भने तपाईं पनि *ty*।" } },
+                 ne: "कासियाले तपाईंसँग *ty* र *hej* प्रयोग गर्छिन्, त्यसैले *proszę Pani* चिसो र अनौठो सुनिन्छ। अर्को व्यक्तिलाई पछ्याउनुहोस्: उनी *ty* भन्छिन् भने तपाईं पनि *ty*।" } },
         { pl: "Dzięki! W sobotę byłem z kolegami nad jezioro.", en: "(wrong case after 'nad')", ne: "(*nad* पछि गलत विभक्ति)", ok: false,
           why: { en: "For a place, *nad* (by, on the shore of) takes the instrumental: *nad jeziorem*, *nad morzem*. With movement it takes the accusative: *jadę nad jezioro*.",
                  ne: "ठाउँ जनाउँदा *nad* (को किनारमा) पछि तृतीया आउँछ: *nad jeziorem*, *nad morzem*। गति जनाउँदा द्वितीया: *jadę nad jezioro*।" } }
       ]
     },
     {
-      them: ["O, super. Ja byłam w górach, ale cały czas padało.", "Oh, great. I was in the mountains, but it rained the whole time.", "ओहो, राम्रो। म पहाडतिर गएकी थिएँ, तर पूरै समय पानी पर्यो।"],
+      them: ["O, super. Ja byłam w górach, ale cały czas padało.", "Oh, great. I was in the mountains, but it rained the whole time.", "ओहो, राम्रो। म पहाडतिर गएकी थिएँ, तर पूरै समय पानी पर्‍यो।"],
       replies: [
         { pl: "Szkoda, że miałaś pecha z pogodą! W jakich górach byłaś?", en: "Too bad you were unlucky with the weather! Which mountains were you in?", ne: "मौसमले साथ नदिएकोमा दुःख लाग्यो! कुन पहाडमा गएकी थियौ?", ok: true },
         { pl: "Szkoda! A gdzie byłeś w górach?", en: "(wrong gender of the verb)", ne: "(क्रियाको गलत लिङ्ग)", ok: false,
           why: { en: "Kasia is a woman — she said *byłam*. Talking to her, the past tense is *byłaś* (to a man: *byłeś*). Polish past tense always shows gender.",
                  ne: "कासिया महिला हुन् — उनले *byłam* भनिन्। उनलाई भन्दा भूतकाल *byłaś* हुन्छ (पुरुषलाई: *byłeś*)। पोलिश भूतकालले सधैं लिङ्ग देखाउँछ।" } },
-        { pl: "Szkoda. U nas na szczęście było słonecznie. A w jakich górach byłaś?", en: "Pity. Where we were it was luckily sunny. And which mountains were you in?", ne: "दुःखको कुरा। हामीतिर भने भाग्यवश घमाइलो थियो। अनि तपाईं कुन पहाडमा जानुभएको थियो?", ok: true }
+        { pl: "Szkoda. U nas na szczęście było słonecznie. A w jakich górach byłaś?", en: "Pity. Where we were it was luckily sunny. And which mountains were you in?", ne: "दुःखको कुरा। हामीतिर भने भाग्यवश घमाइलो थियो। अनि तिमी कुन पहाडमा गएकी थियौ?", ok: true }
       ]
     },
     {
@@ -1171,7 +1171,7 @@ window.SLOWKA_ROLEPLAYS.push({
                  ne: "*Bilety* बहुवचन हो र पुरुषबारे होइन, त्यसैले विशेषण *-e* मा टुंगिन्छ: *bilety są drogie*। *-i/-y* बहुवचन पुरुषहरूको समूहका लागि मात्र: *koledzy są mili*।" } },
         { pl: "Pojadę do Nepal na Boże Narodzenie.", en: "(wrong case after 'do')", ne: "(*do* पछि गलत विभक्ति)", ok: false,
           why: { en: "*Do* takes the genitive: *do Nepalu*, *do Polski*, *do Indii*. Country names change after prepositions just like other nouns.",
-                 ne: "*Do* पछि षष्ठी आउँछ: *do Nepalu*, *do Polski*, *do Indii*। नामयोगीपछि देशका नाम पनि अरू नामजस्तै फेरिन्छन्।" } }
+                 ne: "*Do* पछि षष्ठी आउँछ: *do Nepalu*, *do Polski*, *do Indii*। पूर्वसर्गपछि देशका नाम पनि अरू नामजस्तै फेरिन्छन्।" } }
       ]
     },
     {

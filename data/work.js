@@ -14,7 +14,7 @@ window.SLOWKA_COURSE.push(
       },
       {
         en: "Safety rules are called *BHP*, and you get safety training on your first day. Always wear a high-visibility vest and work boots (*buty robocze*). Walk only in the marked pedestrian lanes: a forklift (*wózek widłowy*) is fast and the driver may not see you. You may drive a forklift only with a UDT licence (*uprawnienia UDT*) — never drive one “just to help”. Lift with your legs, not your back, and ask a colleague when something is too heavy (*za ciężkie*). When you hear *Uwaga!*, stop and look around.",
-        ne: "सुरक्षा नियमलाई *BHP* भनिन्छ, र पहिलो दिन नै सुरक्षा तालिम दिइन्छ। सधैँ चम्किलो ज्याकेट र कामका जुत्ता (*buty robocze*) लगाउनुहोस्। चिन्ह लगाइएको पैदल बाटोमा मात्र हिँड्नुहोस्: फोर्कलिफ्ट (*wózek widłowy*) छिटो चल्छ र चालकले तपाईंलाई नदेख्न सक्छ। UDT लाइसेन्स (*uprawnienia UDT*) भए मात्र फोर्कलिफ्ट चलाउन पाइन्छ — “सघाउन” भनेर पनि कहिल्यै नचलाउनुहोस्। भारी सामान ढाड होइन, खुट्टाको बलले उठाउनुहोस्, र धेरै गह्रौं (*za ciężkie*) भए सहकर्मीलाई बोलाउनुहोस्। *Uwaga!* सुन्नेबित्तिकै रोकिएर वरिपरि हेर्नुहोस्।"
+        ne: "सुरक्षा नियमलाई *BHP* भनिन्छ, र पहिलो दिन नै सुरक्षा तालिम दिइन्छ। सधैँ चम्किलो सुरक्षा भेस्ट र कामका जुत्ता (*buty robocze*) लगाउनुहोस्। चिन्ह लगाइएको पैदल बाटोमा मात्र हिँड्नुहोस्: फोर्कलिफ्ट (*wózek widłowy*) छिटो चल्छ र चालकले तपाईंलाई नदेख्न सक्छ। UDT लाइसेन्स (*uprawnienia UDT*) भए मात्र फोर्कलिफ्ट चलाउन पाइन्छ — “सघाउन” भनेर पनि कहिल्यै नचलाउनुहोस्। भारी सामान ढाड होइन, खुट्टाको बलले उठाउनुहोस्, र धेरै गह्रौं (*za ciężkie*) भए सहकर्मीलाई बोलाउनुहोस्। *Uwaga!* सुन्नेबित्तिकै रोकिएर वरिपरि हेर्नुहोस्।"
       },
       {
         en: "Supervisors give short instructions with *proszę* + the infinitive: *Proszę odłożyć paletę* (Please put the pallet down), *Proszę zeskanować etykietę* (Please scan the label). To ask what you should do, use *mam* + the infinitive: *Gdzie mam odłożyć paletę?* (Where should I put the pallet?), *Co mam teraz robić?* (What should I do now?). Here *mam* means “I am supposed to”, just like the Nepali “कहाँ राख्ने?”. **Tip:** learn the names of the zones and ramps (*strefa B*, *rampa 3*) — instructions are full of them.",
@@ -35,7 +35,7 @@ window.SLOWKA_COURSE.push(
           ["*Ruch wózków widłowych*", "Forklift traffic", "फोर्कलिफ्ट चल्ने क्षेत्र"],
           ["*Przejście dla pieszych*", "Pedestrian walkway", "पैदल हिँड्ने बाटो"],
           ["*Zakaz wstępu*", "No entry", "प्रवेश निषेध"],
-          ["*Nakaz noszenia kamizelki odblaskowej*", "High-vis vest must be worn", "चम्किलो ज्याकेट लगाउन अनिवार्य"],
+          ["*Nakaz noszenia kamizelki odblaskowej*", "High-vis vest must be worn", "चम्किलो सुरक्षा भेस्ट लगाउन अनिवार्य"],
           ["*Wyjście ewakuacyjne*", "Emergency exit", "आपतकालीन निकास"],
           ["*Gaśnica*", "Fire extinguisher", "आगो निभाउने यन्त्र"],
           ["*Apteczka*", "First-aid kit", "प्राथमिक उपचार बाकस"],
@@ -103,11 +103,11 @@ window.SLOWKA_COURSE.push(
       },
       {
         en: "Construction is dangerous, so the *BHP* rules are strict. Before you start, you usually need safety training (*szkolenie BHP*) and a medical check. On site always wear a hard hat (*kask*), a high-vis vest (*kamizelka odblaskowa*), safety boots and gloves. When you work at height (*na wysokości*) — on scaffolding (*rusztowanie*), a roof or a ladder — you must wear a safety harness (*szelki*) and clip it on. Never stand under a crane load. **Rule:** if scaffolding looks unsafe, don't climb it — tell the foreman first.",
-        ne: "निर्माण काम खतरनाक हुन्छ, त्यसैले *BHP* नियम कडा छन्। काम सुरु गर्नुअघि प्रायः सुरक्षा तालिम (*szkolenie BHP*) र स्वास्थ्य जाँच चाहिन्छ। साइटमा सधैँ हेल्मेट (*kask*), चम्किलो ज्याकेट (*kamizelka odblaskowa*), सुरक्षा जुत्ता र पन्जा लगाउनुहोस्। उचाइमा (*na wysokości*) — मचान (*rusztowanie*), छाना वा भर्‍याङमा — काम गर्दा सुरक्षा बेल्ट (*szelki*) लगाएर बाँध्नैपर्छ। क्रेनले उठाएको सामानमुनि कहिल्यै नउभिनुहोस्। **नियम:** मचान असुरक्षित देखियो भने नचढ्नुहोस् — पहिले फोरम्यानलाई भन्नुहोस्।"
+        ne: "निर्माण काम खतरनाक हुन्छ, त्यसैले *BHP* नियम कडा छन्। काम सुरु गर्नुअघि प्रायः सुरक्षा तालिम (*szkolenie BHP*) र स्वास्थ्य जाँच चाहिन्छ। साइटमा सधैँ हेल्मेट (*kask*), चम्किलो सुरक्षा भेस्ट (*kamizelka odblaskowa*), सुरक्षा जुत्ता र पन्जा लगाउनुहोस्। उचाइमा (*na wysokości*) — मचान (*rusztowanie*), छाना वा भर्‍याङमा — काम गर्दा सुरक्षा बेल्ट (*szelki*) लगाएर बाँध्नैपर्छ। क्रेनले उठाएको सामानमुनि कहिल्यै नउभिनुहोस्। **नियम:** मचान असुरक्षित देखियो भने नचढ्नुहोस् — पहिले फोरम्यानलाई भन्नुहोस्।"
       },
       {
         en: "Many instructions on site are about bringing and passing things. Learn *Proszę podać…* (Please pass…) with the accusative: *Proszę podać młotek* (the hammer), *Proszę podać wiertarkę* (the drill — *-a* changes to *-ę*). Quantities use the genitive: *dwa worki cementu* (two bags of cement), *sto cegieł* (a hundred bricks). Rules are given with *nie wolno* (it is not allowed): *Bez kasku nie wolno wchodzić na budowę* (You may not enter the site without a hard hat).",
-        ne: "साइटमा धेरै निर्देशन सामान ल्याउने र दिने बारे हुन्छन्। *Proszę podać…* (…दिनुहोस्) accusative सँग सिक्नुहोस्: *Proszę podać młotek* (हथौडा), *Proszę podać wiertarkę* (ड्रिल — *-a* बदलिएर *-ę* हुन्छ)। परिमाण भन्दा genitive आउँछ: *dwa worki cementu* (सिमेन्टका दुई बोरा), *sto cegieł* (सय इँटा)। नियम *nie wolno* (गर्न पाइँदैन) ले भनिन्छ: *Bez kasku nie wolno wchodzić na budowę* (हेल्मेटबिना साइटमा पस्न पाइँदैन)।"
+        ne: "साइटमा धेरै निर्देशन सामान ल्याउने र दिने बारे हुन्छन्। *Proszę podać…* (…दिनुहोस्) कर्म कारक (accusative) सँग सिक्नुहोस्: *Proszę podać młotek* (हथौडा), *Proszę podać wiertarkę* (ड्रिल — *-a* बदलिएर *-ę* हुन्छ)। परिमाण भन्दा षष्ठी (genitive) आउँछ: *dwa worki cementu* (सिमेन्टका दुई बोरा), *sto cegieł* (सय इँटा)। नियम *nie wolno* (गर्न पाइँदैन) ले भनिन्छ: *Bez kasku nie wolno wchodzić na budowę* (हेल्मेटबिना साइटमा पस्न पाइँदैन)।"
       },
       {
         en: "Talking to the foreman: ask clearly what to do (*Co mam teraz robić?*), and report any danger at once: *Rusztowanie nie jest bezpieczne* (The scaffolding isn't safe), *Brakuje deski* (A plank is missing). If you get hurt, even a little, tell the foreman the same day — this matters for insurance. **Common mistake:** working without a harness “just for five minutes”. Falls from height are one of the most common causes of serious accidents in Polish construction.",
@@ -136,7 +136,7 @@ window.SLOWKA_COURSE.push(
       ["kierownik budowy", "site manager", "साइट म्यानेजर", "kyeh-ROV-neek boo-DO-vi", "क्ये-ˈरोभ्-निक् बु-ˈदो-भि"],
       ["brygadzista", "foreman", "फोरम्यान (टोली नाइके)", "bri-ga-JEES-ta", "ब्रि-गा-ˈजिस्-ता"],
       ["kask", "hard hat", "हेल्मेट", "kask", "कास्क्"],
-      ["kamizelka odblaskowa", "high-vis vest", "चम्किलो सुरक्षा ज्याकेट", "ka-mee-ZEL-ka od-blas-KO-va", "का-मि-ˈज़ेल्-का ओद्-ब्लास्-ˈको-भा"],
+      ["kamizelka odblaskowa", "high-vis vest", "चम्किलो सुरक्षा भेस्ट", "ka-mee-ZEL-ka od-blas-KO-va", "का-मि-ˈज़ेल्-का ओद्-ब्लास्-ˈको-भा"],
       ["szelki", "safety harness", "सुरक्षा बेल्ट (हार्नेस)", "SHEL-kee", "ˈशेल्-कि"],
       ["okulary ochronne", "safety glasses", "सुरक्षा चस्मा", "o-koo-LA-ri o-HRON-neh", "ओ-कु-ˈला-रि ओ-ˈह्रोन्-ने"],
       ["rękawice", "work gloves", "पन्जा", "ren-ka-VEE-tseh", "रेन्-का-ˈभि-त्से"],
@@ -282,7 +282,7 @@ window.SLOWKA_COURSE.push(
       },
       {
         en: "With guests always be formal. To one man say *pan*, to one woman *pani*, and to a couple or group *Państwo* with the verb in the “they” form: *Czy mają Państwo rezerwację?* (Do you have a reservation?). The classic waiter question is *Co podać?* (What can I get you?), and when you bring food you say *Smacznego!* (Enjoy your meal!). **Common mistake:** saying *Co chcesz?* (What do you want?) to a guest — it uses *ty* and sounds rude.",
-        ne: "पाहुनासँग सधैँ औपचारिक हुनुहोस्। एक जना पुरुषलाई *pan*, महिलालाई *pani*, र जोडी वा समूहलाई *Państwo* भनिन्छ — क्रियापद “उनीहरू” को रूपमा आउँछ: *Czy mają Państwo rezerwację?* (तपाईंहरूको बुकिङ छ?)। वेटरको चलनचल्तीको प्रश्न *Co podać?* (के ल्याऊँ?) हो, र खाना दिँदा *Smacznego!* (मिठो गरी खानुहोस्!) भनिन्छ। **सामान्य गल्ती:** पाहुनालाई *Co chcesz?* (के चाहियो?) भन्नु — यसमा *ty* छ र यो असभ्य सुनिन्छ।"
+        ne: "पाहुनासँग सधैँ औपचारिक हुनुहोस्। एक जना पुरुषलाई *pan*, महिलालाई *pani*, र जोडी वा समूहलाई *Państwo* भनिन्छ — क्रियापद “उनीहरू” को रूपमा आउँछ: *Czy mają Państwo rezerwację?* (तपाईंहरूको बुकिङ छ?)। वेटरको चलनचल्तीको प्रश्न *Co podać?* (के ल्याऊँ?) हो, र खाना दिँदा *Smacznego!* (मिठो गरी खानुहोस्!) भनिन्छ। **सामान्य गल्ती:** पाहुनालाई *Co chcesz?* (तिमीलाई के चाहियो?) भन्नु — यसमा *ty* छ र यो असभ्य सुनिन्छ।"
       },
       {
         en: "In a hotel, room cleaning (*sprzątanie pokoi*) usually starts after breakfast (*śniadanie*). A sign *Nie przeszkadzać* on the door means “do not disturb” — don't go in. You change the bed linen (*pościel*) and towels (*ręcznik*) and report anything broken or left behind to reception. If a guest asks for something you can't do, say *Zaraz zapytam na recepcji* (I'll ask at reception right away). Talk to your manager with *pan/pani*, and say clearly when a room is ready: *Pokój numer 12 jest gotowy.*",
@@ -370,7 +370,7 @@ window.SLOWKA_COURSE.push(
       },
       {
         en: "Poland sorts its rubbish (*segregacja śmieci*) into coloured bins, and buildings can be fined for mixing it. Paper goes in blue, glass in green, plastic and metal in yellow, food and garden waste in brown, and everything else in the mixed bin (*zmieszane*). For instructions you will hear *do* + genitive: *do żółtego kosza* (into the yellow bin), *do worka* (into the bag). **Tip:** dirty paper towels and greasy pizza boxes are not *papier* — they go in *zmieszane*.",
-        ne: "पोल्याण्डमा फोहोर (*segregacja śmieci*) रङअनुसारका डस्टबिनमा छुट्याइन्छ, र मिसाएमा भवनलाई जरिवाना लाग्न सक्छ। कागज नीलोमा, सिसा हरियोमा, प्लास्टिक र धातु पहेँलोमा, खाना र बगैँचाको फोहोर खैरोमा, र बाँकी सबै मिश्रित (*zmieszane*) डस्टबिनमा जान्छ। निर्देशनमा *do* + genitive सुनिन्छ: *do żółtego kosza* (पहेँलो डस्टबिनमा), *do worka* (झोलामा)। **सुझाव:** फोहोर टिस्यु पेपर र तेल लागेको पिज्जाको बट्टा *papier* होइन — ती *zmieszane* मा जान्छन्।"
+        ne: "पोल्याण्डमा फोहोर (*segregacja śmieci*) रङअनुसारका डस्टबिनमा छुट्याइन्छ, र मिसाएमा भवनलाई जरिवाना लाग्न सक्छ। कागज नीलोमा, सिसा हरियोमा, प्लास्टिक र धातु पहेँलोमा, खाना र बगैँचाको फोहोर खैरोमा, र बाँकी सबै मिश्रित (*zmieszane*) डस्टबिनमा जान्छ। निर्देशनमा *do* + षष्ठी (genitive) सुनिन्छ: *do żółtego kosza* (पहेँलो डस्टबिनमा), *do worka* (झोलामा)। **सुझाव:** फोहोर टिस्यु पेपर र तेल लागेको पिज्जाको बट्टा *papier* होइन — ती *zmieszane* मा जान्छन्।"
       },
       {
         en: "When you start a new place, ask your supervisor what exactly to clean and with what: *Czym mam to umyć?* (What should I wash this with?), *Które pokoje mam dzisiaj posprzątać?* (Which rooms should I clean today?). Tell them when something runs out: *Skończył się płyn do naczyń* (The washing-up liquid has run out). In private homes the owner is usually *pan* or *pani*. **Common mistake:** using one cloth for the toilet and the kitchen. Use different colours of cloths for each area — many companies have fixed colours.",
@@ -558,7 +558,7 @@ window.SLOWKA_COURSE.push(
       },
       {
         en: "Talk to older people with respect: *pani* or *pan* + first name in the vocative is warm and polite: *pani Zofio*, *panie Janie*. Ask how they feel: *Jak się pani dzisiaj czuje?* For pain, Polish uses *boli* (it hurts) with the person in the accusative: *Co panią boli?* (What hurts? — to a woman), *Boli mnie głowa* (My head hurts). Compare Nepali “मलाई टाउको दुख्छ” — in Polish too the person who feels pain is not the subject.",
-        ne: "वृद्धवृद्धासँग आदरपूर्वक बोल्नुहोस्: *pani* वा *pan* + सम्बोधन रूपको नाम न्यानो र विनम्र सुनिन्छ: *pani Zofio*, *panie Janie*। कस्तो छ भनेर सोध्नुहोस्: *Jak się pani dzisiaj czuje?* दुखाइका लागि पोलिशमा *boli* (दुख्छ) प्रयोग हुन्छ र व्यक्ति accusative मा आउँछ: *Co panią boli?* (के दुख्छ? — महिलालाई), *Boli mnie głowa* (मेरो टाउको दुख्छ)। नेपालीको “मलाई टाउको दुख्छ” सँग तुलना गर्नुहोस् — पोलिशमा पनि दुखाइ महसुस गर्ने व्यक्ति कर्ता हुँदैन।"
+        ne: "वृद्धवृद्धासँग आदरपूर्वक बोल्नुहोस्: *pani* वा *pan* + सम्बोधन रूपको नाम न्यानो र विनम्र सुनिन्छ: *pani Zofio*, *panie Janie*। कस्तो छ भनेर सोध्नुहोस्: *Jak się pani dzisiaj czuje?* दुखाइका लागि पोलिशमा *boli* (दुख्छ) प्रयोग हुन्छ र व्यक्ति कर्म कारक (accusative) मा आउँछ: *Co panią boli?* (के दुख्छ? — महिलालाई), *Boli mnie głowa* (मेरो टाउको दुख्छ)। नेपालीको “मलाई टाउको दुख्छ” सँग तुलना गर्नुहोस् — पोलिशमा पनि दुखाइ महसुस गर्ने व्यक्ति कर्ता हुँदैन।"
       },
       {
         en: "Your “boss” is often the family. Tell them everything important, clearly and quickly: *Pani Zofia ma gorączkę* (Mrs Zofia has a fever), *Skończyły się leki* (The medicine has run out), *Potrzebna jest nowa recepta* (A new prescription is needed). Keep a notebook with medicine times, blood pressure and phone numbers. **Tip:** you are not alone — if you are tired or unsure, call the family or your agency. **Common mistake:** waiting until tomorrow with a health problem. If something is wrong, call the doctor or 112 today.",
@@ -673,7 +673,7 @@ window.SLOWKA_COURSE.push(
       ["rolnik", "farmer", "किसान", "ROL-neek", "ˈरोल्-निक्"],
       ["szklarnia", "greenhouse", "ग्रिनहाउस", "SHKLAR-nya", "ˈश्क्लार्-न्या"],
       ["pole", "field", "खेत", "PO-leh", "ˈपो-ले"],
-      ["zbiór", "harvest", "फसल (बाली भित्र्याउने काम)", "zbyoor", "ज़्ब्युर्"],
+      ["zbiór", "harvest", "फसल (बाली भित्र्‍याउने काम)", "zbyoor", "ज़्ब्युर्"],
       ["zbierać", "to pick / gather", "टिप्नु", "ZBYEH-rach", "ˈज़्ब्ये-राच्"],
       ["truskawki", "strawberries", "स्ट्रबेरी", "troos-KAF-kee", "त्रुस्-ˈकाफ्-कि"],
       ["pomidory", "tomatoes", "गोलभेडा", "po-mee-DO-ri", "पो-मि-ˈदो-रि"],

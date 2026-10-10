@@ -31,11 +31,7 @@
     </div>`;
 
   // Polish bits marked *like this* in a lesson paragraph, as listen chips.
-  const polishBits = (text) => {
-    const out = [];
-    String(text).replace(/\*([^*]+)\*/g, (_, t) => { if (/[a-ząćęłńóśźż]/i.test(t) && !out.includes(t) && t.length < 40) out.push(t); return ''; });
-    return out;
-  };
+  const polishBits = (text) => S.polishBits(text).filter((t) => t.length < 60);
 
   // ---------- step list ----------
 
@@ -152,7 +148,7 @@
             </table></div>`).join('')}`;
       case 'words':
         return `
-          ${step.part === 1 ? say('Now the new words. For each word: **listen**, **repeat out loud** three times, then press **Say it** to check yourself. The coloured block shows where to put the stress.', 'अब नयाँ शब्द। हरेक शब्द: **सुन्नुहोस्**, तीन पटक **ठूलो स्वरमा दोहोर्याउनुहोस्**, अनि **बोल्नुहोस्** थिचेर जाँच्नुहोस्। रङ लगाइएको भागमा जोड दिनुहोस्।') : ''}
+          ${step.part === 1 ? say('Now the new words. For each word: **listen**, **repeat out loud** three times, then press **Say it** to check yourself. The coloured block shows where to put the stress.', 'अब नयाँ शब्द। हरेक शब्द: **सुन्नुहोस्**, तीन पटक **ठूलो स्वरमा दोहोर्‍याउनुहोस्**, अनि **बोल्नुहोस्** थिचेर जाँच्नुहोस्। रङ लगाइएको भागमा जोड दिनुहोस्।') : ''}
           <span class="label">Words ${step.part} of ${step.parts} · शब्दहरू</span>
           <div class="word-cards">${step.words.map((e, k) => wordCard(e, k)).join('')}</div>`;
       case 'quiz': return quizHTML(u);

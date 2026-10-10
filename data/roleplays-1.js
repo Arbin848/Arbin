@@ -139,7 +139,7 @@ window.SLOWKA_ROLEPLAYS.push(
           { pl: "Mam dwadzieścia pięć lat.", en: "I'm twenty-five.", ne: "मेरो उमेर पच्चीस वर्ष हो।", ok: true },
           { pl: "Jestem dwadzieścia pięć lat.", en: "(wrong verb)", ne: "(गलत क्रिया)", ok: false,
             why: { en: "In Polish you **have** years: *Mam … lat* (literally 'I have 25 years'). Don't use *jestem* for age.",
-                   ne: "पोलिशमा उमेर 'हुनु' (*jestem*) ले होइन, 'राख्नु' (*mam* = मसँग छ) ले भनिन्छ: *Mam … lat* (शाब्दिक अर्थ 'मसँग २५ वर्ष छ')। उमेरका लागि *jestem* प्रयोग नगर्नुहोस्।" } },
+                   ne: "पोलिशमा उमेर 'हुनु' (*jestem*) ले होइन, 'मसँग छ' (*mam*) भनेर भनिन्छ: *Mam … lat* (शाब्दिक अर्थ 'मसँग २५ वर्ष छ')। उमेरका लागि *jestem* प्रयोग नगर्नुहोस्।" } },
           { pl: "Mam dwadzieścia pięć lata.", en: "(wrong form of 'years')", ne: "('वर्ष' को गलत रूप)", ok: false,
             why: { en: "*Lata* is only used after 2, 3, 4 (and 22, 23, 24…): *mam dwadzieścia trzy lata*. After 5 and more (and 25, 26…) it is *lat*: *mam dwadzieścia pięć lat*.",
                    ne: "*Lata* केवल २, ३, ४ (र २२, २३, २४…) पछि आउँछ: *mam dwadzieścia trzy lata*। ५ वा बढी (र २५, २६…) पछि *lat* हुन्छ: *mam dwadzieścia pięć lat*।" } }
@@ -601,15 +601,15 @@ window.SLOWKA_ROLEPLAYS.push(
             why: { en: "No. In Poland *parter* is the ground floor, and *pierwsze piętro* is one floor up — the same as in Nepal (भुइँ तल्ला, पहिलो तल्ला). So the canteen is upstairs.",
                    ne: "होइन। पोल्यान्डमा *parter* भुइँ तल्ला हो, र *pierwsze piętro* एक तल्ला माथि — नेपालमा जस्तै (भुइँ तल्ला, पहिलो तल्ला)। त्यसैले क्यान्टिन माथि छ।" } }
         ] },
-      { them: ["Szafki i mikrofalówka są obok stołówki. Teraz najważniejsze: bezpieczeństwo. W magazynie zawsze trzeba nosić kamizelkę odblaskową i buty robocze.", "The lockers and the microwave are next to the canteen. Now the most important thing: safety. In the warehouse you must always wear a high-visibility vest and work boots.", "लकर र माइक्रोवेभ क्यान्टिनको छेउमा छन्। अब सबैभन्दा महत्त्वपूर्ण कुरा: सुरक्षा। गोदाममा सधैं चम्किलो (रिफ्लेक्टिभ) ज्याकेट र कामको जुत्ता लगाउनैपर्छ।"],
+      { them: ["Szafki i mikrofalówka są obok stołówki. Teraz najważniejsze: bezpieczeństwo. W magazynie zawsze trzeba nosić kamizelkę odblaskową i buty robocze.", "The lockers and the microwave are next to the canteen. Now the most important thing: safety. In the warehouse you must always wear a high-visibility vest and work boots.", "लकर र माइक्रोवेभ क्यान्टिनको छेउमा छन्। अब सबैभन्दा महत्त्वपूर्ण कुरा: सुरक्षा। गोदाममा सधैं चम्किलो (रिफ्लेक्टिभ) सुरक्षा भेस्ट र कामको जुत्ता लगाउनैपर्छ।"],
         replies: [
-          { pl: "Rozumiem. Gdzie mogę dostać kamizelkę?", en: "I understand. Where can I get a vest?", ne: "बुझेँ। ज्याकेट कहाँ पाइन्छ?", ok: true },
-          { pl: "Mam buty robocze, ale nie mam kamizelki.", en: "I have work boots, but I don't have a vest.", ne: "मसँग कामको जुत्ता छ, तर ज्याकेट छैन।", ok: true },
+          { pl: "Rozumiem. Gdzie mogę dostać kamizelkę?", en: "I understand. Where can I get a vest?", ne: "बुझेँ। सुरक्षा भेस्ट कहाँ पाइन्छ?", ok: true },
+          { pl: "Mam buty robocze, ale nie mam kamizelki.", en: "I have work boots, but I don't have a vest.", ne: "मसँग कामको जुत्ता छ, तर सुरक्षा भेस्ट छैन।", ok: true },
           { pl: "Mam buty robocze, ale nie mam kamizelkę.", en: "(wrong ending)", ne: "(गलत अन्त्य)", ok: false,
             why: { en: "After *nie mam* the noun goes into the genitive: *kamizelka* → *nie mam kamizelki*. Compare: *mam kamizelkę* (I have a vest) but *nie mam kamizelki* (I don't have a vest).",
-                   ne: "*nie mam* पछि नाम षष्ठी (genitive) मा जान्छ: *kamizelka* → *nie mam kamizelki*। तुलना गर्नुहोस्: *mam kamizelkę* (मसँग ज्याकेट छ) तर *nie mam kamizelki* (मसँग ज्याकेट छैन)।" } }
+                   ne: "*nie mam* पछि नाम षष्ठी (genitive) मा जान्छ: *kamizelka* → *nie mam kamizelki*। तुलना गर्नुहोस्: *mam kamizelkę* (मसँग सुरक्षा भेस्ट छ) तर *nie mam kamizelki* (मसँग सुरक्षा भेस्ट छैन)।" } }
         ] },
-      { them: ["Zaraz przyniosę kamizelkę i rękawice. I jeszcze jedno: nie wolno chodzić tam, gdzie jeżdżą wózki widłowe.", "I'll bring a vest and gloves right away. And one more thing: you must not walk where the forklifts drive.", "म अहिल्यै ज्याकेट र पन्जा ल्याइदिन्छु। अनि अर्को कुरा: फोर्कलिफ्ट चल्ने ठाउँमा हिँड्न पाइँदैन।"],
+      { them: ["Zaraz przyniosę kamizelkę i rękawice. I jeszcze jedno: nie wolno chodzić tam, gdzie jeżdżą wózki widłowe.", "I'll bring a vest and gloves right away. And one more thing: you must not walk where the forklifts drive.", "म अहिल्यै सुरक्षा भेस्ट र पन्जा ल्याइदिन्छु। अनि अर्को कुरा: फोर्कलिफ्ट चल्ने ठाउँमा हिँड्न पाइँदैन।"],
         replies: [
           { pl: "Dobrze, rozumiem. Będę uważać.", en: "OK, I understand. I'll be careful.", ne: "ठीक छ, बुझेँ। म होसियार हुनेछु।", ok: true },
           { pl: "Rozumiem. Gdzie mogę chodzić?", en: "I understand. Where can I walk?", ne: "बुझेँ। म कहाँ हिँड्न सक्छु?", ok: true },
@@ -635,7 +635,7 @@ window.SLOWKA_ROLEPLAYS.push(
       ["od szóstej do czternastej", "from 6:00 to 14:00", "छ बजेदेखि दुई (१४) बजेसम्म", "ot SHOOS-tey do chter-NAS-tey", "ओत् ˈशुस्-तेय् दो च्तेर्-ˈनास्-तेय्"],
       ["Kiedy jest przerwa?", "When is the break?", "ब्रेक कहिले हुन्छ?", "KYEH-di yest PSHER-va", "ˈक्ये-दि येस्त् ˈप्शेर्-भा"],
       ["Ile trwa przerwa?", "How long is the break?", "ब्रेक कति लामो हुन्छ?", "EE-leh trfa PSHER-va", "ˈइ-ले त्र्फ़ा ˈप्शेर्-भा"],
-      ["kamizelka odblaskowa", "high-visibility vest", "चम्किलो सुरक्षा ज्याकेट", "ka-mee-ZEL-ka od-blas-KO-va", "का-मि-ˈज़ेल्-का ओद्-ब्लास्-ˈको-भा"],
+      ["kamizelka odblaskowa", "high-visibility vest", "चम्किलो सुरक्षा भेस्ट", "ka-mee-ZEL-ka od-blas-KO-va", "का-मि-ˈज़ेल्-का ओद्-ब्लास्-ˈको-भा"],
       ["Nie wolno.", "It's forbidden. / You must not.", "पाइँदैन। / निषेधित छ।", "nyeh VOL-no", "न्ये ˈभोल्-नो"],
       ["parter", "ground floor", "भुइँ तल्ला", "PAR-ter", "ˈपार्-तेर्"],
       ["Dziękuję, panie Marku.", "Thank you, Mr Marek.", "धन्यवाद, मारेकजी।", "jen-KOO-yeh PA-nyeh MAR-koo", "जेन्-ˈकु-ये ˈपा-न्ये ˈमार्-कु"]
@@ -793,7 +793,7 @@ window.SLOWKA_ROLEPLAYS.push(
           { pl: "Muszę się zastanowić. Zadzwonię jutro.", en: "I need to think about it. I'll call tomorrow.", ne: "मलाई सोच्नुपर्छ। म भोलि फोन गर्छु।", ok: true },
           { pl: "Pasuję mi. Biorę.", en: "(wrong verb form)", ne: "(क्रियाको गलत रूप)", ok: false,
             why: { en: "The phrase is *pasuje mi* — literally 'it suits me' (the date suits you). *Pasuję* means 'I fit / I pass' — the wrong person. Compare *Boli mnie głowa*: the thing is the subject, you are *mi*/*mnie*.",
-                   ne: "वाक्यांश *pasuje mi* हो — शाब्दिक अर्थ 'यो मलाई मिल्छ' (मिति तपाईंलाई मिल्छ)। *Pasuję* को अर्थ 'म मिल्छु / म पास गर्छु' — गलत पुरुष। *Boli mnie głowa* सँग तुलना गर्नुहोस्: चीज कर्ता हो, तपाईं *mi*/*mnie*।" } }
+                   ne: "वाक्यांश *pasuje mi* हो — शाब्दिक अर्थ 'यो मलाई मिल्छ' (मिति तपाईंलाई मिल्छ)। *Pasuję* को अर्थ 'म मिल्छु / म पास गर्छु' — गलत व्यक्ति (म/तिमी/ऊ)। *Boli mnie głowa* सँग तुलना गर्नुहोस्: चीज कर्ता हो, तपाईं *mi*/*mnie*।" } }
         ] }
     ],
     end: {
@@ -906,7 +906,7 @@ window.SLOWKA_ROLEPLAYS.push(
       ["Szukam ciepłej kurtki.", "I'm looking for a warm jacket.", "म न्यानो ज्याकेट खोज्दैछु।", "SHOO-kam CHEP-wey KOORT-kee", "ˈशु-काम् ˈचेप्-वेय् ˈकुर्त्-कि"],
       ["Noszę rozmiar L.", "I wear size L.", "म L साइज लगाउँछु।", "NO-sheh ROZ-myar el", "ˈनो-शे ˈरोज़्-म्यार् एल्"],
       ["Czy mogę ją przymierzyć?", "Can I try it on? (feminine thing)", "के म यो लगाएर हेर्न सक्छु?", "chi MO-geh yon pshi-MYEH-zhich", "चि ˈमो-गे यों प्शि-ˈम्ये-झिच्"],
-      ["Jest za mała.", "It's too small. (feminine thing)", "यो धेरै सानो भयो।", "yest za MA-wa", "येस्त् ज़ा ˈमा-वा"],
+      ["Jest za mała.", "It's too small. (feminine thing)", "यो अति सानो भयो।", "yest za MA-wa", "येस्त् ज़ा ˈमा-वा"],
       ["Czy jest większy rozmiar?", "Is there a bigger size?", "ठूलो साइज छ?", "chi yest VYENK-shi ROZ-myar", "चि येस्त् ˈभ्येन्क्-शि ˈरोज़्-म्यार्"],
       ["Czy może być taniej?", "Could it be cheaper?", "अलि सस्तो हुन्छ?", "chi MO-zheh bich TA-nyey", "चि ˈमो-झे बिच् ˈता-न्येय्"],
       ["Płacę kartą.", "I'm paying by card.", "म कार्डले तिर्छु।", "PWA-tseh KAR-ton", "ˈप्वा-त्से ˈकार्-तों"],
