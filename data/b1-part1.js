@@ -534,7 +534,7 @@ window.SLOWKA_COURSE.push(
       ["ludzie", "people", "मानिसहरू", "LOO-jeh", "ˈलु-जे"],
       ["dzieci", "children", "बच्चाहरू", "JEH-chee", "ˈजे-चि"],
       ["lata", "years", "वर्षहरू", "LA-ta", "ˈला-ता"],
-      ["oczy", "eyes", "आँखाहरू", "OH-chi", "ˈओ-चि"],
+      ["oczy", "eyes", "आँखाहरू", "O-chi", "ˈओ-चि"],
       ["ręce", "hands", "हातहरू", "REN-tseh", "ˈरेन्-त्से"],
       ["Polacy", "Poles (people)", "पोलिश मानिसहरू", "po-LA-tsi", "पो-ˈला-त्सि"],
       ["Nepalczycy", "Nepalis (men / mixed)", "नेपालीहरू", "neh-pal-CHI-tsi", "ने-पाल्-ˈचि-त्सि"],

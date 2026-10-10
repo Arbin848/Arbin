@@ -187,7 +187,7 @@ window.SLOWKA_COURSE.push(
       ["dla", "for", "को लागि", "dla", "द्ला"],
       ["od", "from (a person); since", "बाट; देखि", "ot", "ओत्"],
       ["do", "to, into; until", "तिर; सम्म", "do", "दो"],
-      ["obok", "next to", "छेउमा", "OH-bok", "ˈओ-बोक्"]
+      ["obok", "next to", "छेउमा", "O-bok", "ˈओ-बोक्"]
     ],
     phrases: [
       ["Nie mam czasu.", "I have no time.", "मसँग समय छैन।", "nye mam CHA-soo", "न्ये माम् ˈचा-सु"],
@@ -196,7 +196,7 @@ window.SLOWKA_COURSE.push(
       ["Piję kawę bez cukru.", "I drink coffee without sugar.", "म चिनी बिनाको कफी पिउँछु।", "PEE-yeh KA-veh bes TSOO-kroo", "ˈपि-ये ˈका-भे बेस् ˈत्सु-क्रु"],
       ["To prezent dla mamy.", "This is a present for mum.", "यो आमाको लागि उपहार हो।", "to PRE-zent dla MA-mi", "तो ˈप्रे-ज़ेन्त् द्ला ˈमा-मि"],
       ["Jestem z Nepalu.", "I'm from Nepal.", "म नेपालबाट हुँ।", "YES-tem z ne-PA-loo", "ˈयेस्-तेम् ज़् ने-ˈपा-लु"],
-      ["Mieszkam obok sklepu.", "I live next to the shop.", "म पसलको छेउमा बस्छु।", "MYESH-kam OH-bok SKLE-poo", "ˈम्येश्-काम् ˈओ-बोक् ˈस्क्ले-पु"],
+      ["Mieszkam obok sklepu.", "I live next to the shop.", "म पसलको छेउमा बस्छु।", "MYESH-kam O-bok SKLE-poo", "ˈम्येश्-काम् ˈओ-बोक् ˈस्क्ले-पु"],
       ["Mam dużo pracy.", "I have a lot of work.", "मसँग धेरै काम छ।", "mam DOO-zho PRA-tsi", "माम् ˈदु-झो ˈप्रा-त्सि"]
     ],
     dialogue: [
