@@ -11,7 +11,7 @@
 
   // Routes are bare tokens so they survive in a link's #anchor: "a1-03", "talk.rp-a1-cafe", "review".
   S.route = { name: 'home' };
-  const PAGES = ['numbers', 'listen', 'revise', 'cert', 'report', 'course', 'practice', 'learn', 'review', 'alphabet', 'dictionary', 'settings', 'talk', 'read', 'exam', 'placement', 'mistakes', 'progress', 'verbs', 'cases', 'sounds', 'check'];
+  const PAGES = ['mywords', 'numbers', 'listen', 'revise', 'cert', 'report', 'course', 'practice', 'learn', 'review', 'alphabet', 'dictionary', 'settings', 'talk', 'read', 'exam', 'placement', 'mistakes', 'progress', 'verbs', 'cases', 'sounds', 'check'];
 
   S.go = (to, opts = {}) => {
     S.Practice.reset();
@@ -64,6 +64,7 @@
     else if (r.name === 'cases') r.arg === 'practice' ? S.Trainers.casePractice(view) : r.arg ? S.Trainers.noun(view, r.arg) : S.Trainers.caseList(view);
     else if (r.name === 'sounds') r.arg ? S.Trainers.sound(view, r.arg) : S.Trainers.soundList(view);
     else if (r.name === 'numbers') S.Numbers.render(view);
+    else if (r.name === 'mywords') S.MyWords.render(view, r.arg);
     else if (r.name === 'listen') r.arg ? S.Listening.task(view, r.arg) : S.Listening.list(view);
     else if (r.name === 'revise') S.Assess.render(view, r.arg);
     else if (r.name === 'cert') S.Assess.certificate(view, r.arg);
@@ -75,7 +76,7 @@
     else renderHome();
   };
   S.onProgress = () => renderStats();
-  const NAV = { numbers: 'practice', listen: 'practice', revise: 'course', cert: 'progress', report: 'progress', home: 'home', course: 'course', unit: 'course', learn: 'course', practice: 'practice', review: 'practice', verbs: 'practice', cases: 'practice', sounds: 'practice', alphabet: 'practice', dictionary: 'practice', mistakes: 'practice', talk: 'practice', read: 'practice', exam: 'practice', placement: 'practice', progress: 'progress', settings: 'progress', check: 'progress' };
+  const NAV = { mywords: 'practice', numbers: 'practice', listen: 'practice', revise: 'course', cert: 'progress', report: 'progress', home: 'home', course: 'course', unit: 'course', learn: 'course', practice: 'practice', review: 'practice', verbs: 'practice', cases: 'practice', sounds: 'practice', alphabet: 'practice', dictionary: 'practice', mistakes: 'practice', talk: 'practice', read: 'practice', exam: 'practice', placement: 'practice', progress: 'progress', settings: 'progress', check: 'progress' };
   function renderNav() {
     const cur = NAV[S.route.name] || 'home';
     document.querySelectorAll('.bottom-nav button').forEach((b) => b.setAttribute('aria-current', b.dataset.to === cur ? 'page' : 'false'));
@@ -282,7 +283,7 @@
         <h2>Train each skill</h2>
         <p class="hint">Use these any time, next to your lessons. · पाठसँगै जुनसुकै बेला प्रयोग गर्नुहोस्।</p>
       </header>
-      ${group('Vocabulary', 'शब्द', [['review', due, 'Daily review', 'दैनिक दोहोर्याइ', due > 0], ['numbers', '123', 'Numbers & prices', 'अङ्क र मूल्य'], ['dictionary', S.ENTRIES.length, 'Dictionary', 'शब्दकोश']])}
+      ${group('Vocabulary', 'शब्द', [['review', due, 'Daily review', 'दैनिक दोहोर्याइ', due > 0], ['mywords', (S.progress.mywords || []).length || '+', 'My words', 'मेरा शब्द'], ['numbers', '123', 'Numbers & prices', 'अङ्क र मूल्य'], ['dictionary', S.ENTRIES.length, 'Dictionary', 'शब्दकोश']])}
       ${group('Grammar', 'व्याकरण', [['verbs', S.Trainers.VERBS.length, 'Verbs', 'क्रियापद'], ['cases', 7, 'Cases', 'विभक्ति'], ['mistakes', mistakes, 'My mistakes', 'मेरा गल्ती', mistakes > 0]])}
       ${group('Pronunciation', 'उच्चारण', [['alphabet', '<span lang="pl">Ąą</span>', 'Alphabet', 'वर्णमाला'], ['sounds', S.Trainers.SOUNDS.length, 'Sounds lab', 'ध्वनि अभ्यास']])}
       ${group('Real life', 'वास्तविक जीवन', [['listen', S.Listening.TASKS.length, 'Listening', 'सुनाइ'], ['talk', S.ROLEPLAYS.length, 'Conversations', 'संवाद'], ['read', S.STORIES.length, 'Reading', 'पढाइ']])}
@@ -509,6 +510,7 @@
   function renderSettings() {
     const langs = [['both', 'Both · दुवै'], ['en', 'English'], ['ne', 'नेपाली']];
     const audioCount = Object.keys(S.AUDIO).length;
+    const ttsCount = Object.keys(S.TTS).length;
     view.innerHTML = `
       ${S.backLink()}
       <header class="unit-head">
@@ -522,7 +524,7 @@
         ${segmented('dir', 'Cards and quiz show', 'कार्डमा पहिले देखाउने', [['pl', 'Polish first'], ['meaning', 'Meaning first']])}
         ${segmented('goal', 'Daily goal (answers)', 'दैनिक लक्ष्य', [['10', '10 · relaxed'], ['20', '20 · normal'], ['40', '40 · serious'], ['60', '60 · intense']])}
         ${S.canSpeak ? segmented('slow', 'Speaking speed', 'बोल्ने गति', [['false', 'Normal'], ['true', 'Slow · बिस्तारै']]) : ''}
-        ${audioCount ? segmented('audio', `Voice (${audioCount} native recordings)`, 'आवाज', [['native', 'Native speakers first'], ['device', 'Device voice only']]) : ''}
+        ${audioCount || ttsCount ? segmented('audio', `Voice (${audioCount} native recordings${ttsCount ? ` + ${ttsCount} built-in` : ''})`, 'आवाज', [['native', 'Recordings first'], ['device', 'Device voice only']]) : ''}
 
         <fieldset class="setting">
           <legend>Use on another phone or computer <span lang="ne">अर्को फोन वा कम्प्युटरमा</span></legend>
@@ -537,7 +539,7 @@
           <legend>Install and use offline <span lang="ne">इन्स्टल र अफलाइन प्रयोग</span></legend>
           <p class="hint">Open the app's website in Chrome (Android) or Safari (iPhone). Then choose <b>Add to Home screen</b> from the browser menu. It then opens like an app and works without internet. The microphone and speaking practice also work there.<br>
           <span lang="ne">एपको वेबसाइट Chrome वा Safari मा खोल्नुहोस्, अनि मेनुबाट <b>Add to Home screen</b> छान्नुहोस्। त्यसपछि यो एपजस्तै खुल्छ र इन्टरनेटबिना पनि चल्छ।</span></p>
-          ${Object.keys(S.AUDIO).length ? `<div class="row start"><button class="btn" data-action="audio-offline">Download all ${Object.keys(S.AUDIO).length} voices for offline (about 7 MB)</button><span class="hint" id="audio-msg"></span></div>` : ''}
+          ${audioCount || ttsCount ? `<div class="row start"><button class="btn" data-action="audio-offline">Download all ${audioCount + ttsCount} recordings for offline${ttsCount ? "" : " (about 7 MB)"}</button><span class="hint" id="audio-msg"></span></div>` : ''}
           ${S.canSpeak ? '' : '<p class="hint">This browser has no text-to-speech, so Listen buttons are hidden.</p>'}
           <p class="hint">No Polish voice? Android: Settings → Text-to-speech → install Polish. iPhone: Settings → Accessibility → Spoken Content → Voices → Polish.</p>
         </fieldset>
@@ -567,6 +569,7 @@
     if (S.Guided.action(a, el, view)) return;
     if (S.Assess.action(a, el, view)) return;
     if (S.Numbers.action(a, el, view)) return;
+    if (S.MyWords.action(a, el, view)) return;
     if (S.Listening.action(a, el, view)) return;
     if (S.Extras.action(a, el, view)) return;
     if (S.Trainers.action(a, el, view)) return;
@@ -589,7 +592,7 @@
       }
       case 'audio-offline': {
         // The service worker keeps each recording it serves; fetching them all fills the cache.
-        const files = [...new Set(Object.values(S.AUDIO))];
+        const files = [...new Set([...Object.values(S.AUDIO), ...Object.values(S.TTS)])];
         const msg = $('#audio-msg');
         el.disabled = true;
         let done = 0;
@@ -646,10 +649,11 @@
     if (S.Practice.submit(ev.target)) return;
     if (S.Assess.submit(ev.target, view)) return;
     if (S.Numbers.submit(ev.target, view)) return;
+    if (S.MyWords.submit(ev.target, view)) return;
     if (S.Trainers.submit(ev.target, view)) return;
     S.Extras.submit(ev.target);
   });
-  document.addEventListener('input', (ev) => { if (!S.Trainers.input(ev.target) && !S.Assess.input(ev.target)) S.Extras.input(ev.target); });
+  document.addEventListener('input', (ev) => { if (!S.MyWords.input(ev.target) && !S.Trainers.input(ev.target) && !S.Assess.input(ev.target)) S.Extras.input(ev.target); });
 
   document.addEventListener('keydown', (ev) => {
     if (ev.metaKey || ev.ctrlKey || ev.altKey) return;

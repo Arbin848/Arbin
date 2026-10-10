@@ -60,7 +60,7 @@ const bad = (name, why) => { results.fail++; results.failures.push(`${name}: ${w
     const { p } = await newPage();
     const D = await data(p);
     console.log(`Course: ${D.units.length} units, ${D.roleplays.length} conversations, ${D.stories.length} texts, ${D.listening.length} listening, ${D.verbs} verbs, ${D.nouns} nouns`);
-    const routes = ['home', 'course', 'practice', 'progress', 'settings', 'review', 'alphabet', 'dictionary', 'mistakes', 'mistakes.practice', 'talk', 'read', 'listen', 'exam', 'placement', 'verbs', 'verbs.practice', 'cases', 'cases.practice', 'sounds', 'numbers', 'check', 'report',
+    const routes = ['home', 'course', 'practice', 'progress', 'settings', 'review', 'alphabet', 'dictionary', 'mistakes', 'mistakes.practice', 'talk', 'read', 'listen', 'exam', 'placement', 'verbs', 'verbs.practice', 'cases', 'cases.practice', 'sounds', 'numbers', 'check', 'report', 'mywords',
       ...D.levels.map((l) => `course.${l}`), ...D.units, ...D.units.map((u) => `learn.${u}`), ...D.units.map((u) => `check.${u}`),
       ...D.roleplays.map((x) => `talk.${x}`), ...D.stories.map((x) => `read.${x}`), ...D.listening.map((x) => `listen.${x}`), ...D.exams.map((x) => `exam.${x}`),
       ...D.sounds.map((x) => `sounds.${x}`), ...D.assess.map((x) => `revise.${x}`), ...Array.from({ length: D.verbs }, (_, i) => `verbs.${i}`), ...Array.from({ length: D.nouns }, (_, i) => `cases.${i}`)];
@@ -423,6 +423,63 @@ const bad = (name, why) => { results.fail++; results.failures.push(`${name}: ${w
       });
     }
     console.log('10. Offline done');
+
+    // ---------- 11. my words, pronunciation rules, built-in audio ----------
+    await check(p, 'pronunciation rules', async () => {
+      const got = await p.evaluate(() => ['dzień dobry', 'przepraszam', 'w Polsce', 'jabłko', 'chleb', 'matematyka', 'będę'].map((w) => window.Slowka.Pron.of(w).pron));
+      const want = ['jeny DO-bri', 'psheh-PRA-sham', 'f POLS-tseh', 'YAP-ko', 'hlep', 'ma-teh-MA-ti-ka', 'BEN-deh'];
+      got.forEach((g, i) => { if (g !== want[i]) throw new Error(`${want[i]} expected, got ${g}`); });
+    });
+    await check(p, 'my words: add, preview, practise, review, remove', async () => {
+      await go(p, 'mywords');
+      await p.fill('input[name="pl"]', 'taśma klej');
+      await p.click('.my-form [data-action="key"][data-key="ą"]');
+      const sy = await p.$$eval('#my-preview .pron:not(.ne) .sy', (x) => x.map((e) => (e.classList.contains('st') ? e.textContent.toUpperCase() : e.textContent)).join('-'));
+      if (sy !== 'TASH-ma-KLEH-yon') throw new Error(`live pronunciation preview: ${sy}`);
+      await p.fill('input[name="pl"]', 'taśma klejąca'); await p.fill('input[name="en"]', 'sticky tape'); await p.fill('input[name="ne"]', 'गोदाम');
+      await p.press('input[name="ne"]', 'Enter');
+      await p.waitForSelector('.entry.mine');
+      for (const [pl, en] of [['zmiana nocna', 'night shift'], ['kubek herbaty', 'a mug of tea']]) {
+        await p.fill('input[name="pl"]', pl); await p.fill('input[name="en"]', en); await p.press('input[name="en"]', 'Enter');
+      }
+      if ((await p.$$('.entry.mine')).length !== 3) throw new Error('words not listed');
+      await p.fill('input[name="pl"]', 'dzień dobry'); await p.fill('input[name="en"]', 'hello'); await p.press('input[name="en"]', 'Enter');
+      if (!/already in the course/.test(await p.textContent('#my-msg'))) throw new Error('course word not detected');
+      const due = await p.evaluate(() => window.Slowka.dueList().map((e) => e.pl));
+      if (!due.includes('taśma klejąca')) throw new Error('word not in daily review');
+      for (const m of ['cards', 'quiz', 'listen', 'speak', 'type']) { await go(p, `mywords.${m}`); await p.waitForSelector('#stage > *'); }
+      await go(p, 'mywords.type');
+      const word = await p.evaluate(() => { const S = window.Slowka; return document.querySelector('#stage .meaning') ? S.MyWords.entries().find((e) => document.querySelector('#stage').textContent.includes(e.en)).pl : null; });
+      if (word) { await p.fill('#type-answer', word); await p.press('#type-answer', 'Enter'); if (!/right/.test(await p.getAttribute('.feedback', 'class'))) throw new Error('typed answer not accepted'); }
+      await go(p, 'mywords');
+      await p.reload(); await p.waitForSelector('#view > *'); await go(p, 'mywords');
+      if ((await p.$$('.entry.mine')).length !== 3) throw new Error('words lost after reload');
+      await p.click('[data-action="my-del"][data-pl="taśma klejąca"]');
+      if ((await p.$$('.entry.mine')).length !== 2) throw new Error('remove failed');
+      if (await p.evaluate(() => window.Slowka.LEXICON.has('taśma klejąca') || !!window.Slowka.progress.items['taśma klejąca'])) throw new Error('removed word still in review');
+    });
+    await check(p, 'built-in audio is used before the device voice', async () => {
+      const r = await p.evaluate(async () => {
+        const S = window.Slowka;
+        const file = Object.values(S.AUDIO)[0];
+        S.TTS['testowe zdanie'] = file;
+        const played = [];
+        const Orig = window.Audio;
+        window.Audio = function (src) { const a = new Orig(src); played.push(src); return a; };
+        S.settings.audio = 'native';
+        S.speak('Testowe zdanie!');
+        S.speakLines([{ text: 'Testowe zdanie.', pitch: 1 }]);
+        S.settings.audio = 'device';
+        S.speak('Testowe zdanie');
+        S.stopSpeaking();
+        window.Audio = Orig;
+        S.settings.audio = 'native';
+        delete S.TTS['testowe zdanie'];
+        return { played, file };
+      });
+      if (r.played.length !== 2 || r.played.some((x) => x !== r.file)) throw new Error(`unexpected playback ${JSON.stringify(r.played)}`);
+    });
+    console.log('11. My words, pronunciation and audio done');
   }
 
   await browser.close();

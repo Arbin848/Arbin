@@ -27,6 +27,7 @@
   S.EXAMS = W.SLOWKA_EXAMS || [];
   S.PLACEMENT = W.SLOWKA_PLACEMENT || [];
   S.AUDIO = W.SLOWKA_AUDIO || {};
+  S.TTS = W.SLOWKA_TTS || {};
 
   // Every Polish form the app can teach, keyed by its exact text. Course entries win.
   S.LEXICON = new Map();
@@ -134,6 +135,7 @@
     if (!data || !data.progress || !data.progress.items) throw new Error('not a Słówka backup');
     S.progress = Object.assign(S.freshProgress(), data.progress);
     Object.assign(S.settings, data.settings || {});
+    if (S.MyWords) S.MyWords.register();
     S.saveProgress();
     S.saveSettings();
   };
@@ -232,7 +234,7 @@
   // ---------- audio: native recordings, device voice, microphone ----------
 
   const synth = window.speechSynthesis;
-  S.canSpeak = !!synth || Object.keys(S.AUDIO).length > 0;
+  S.canSpeak = !!synth || Object.keys(S.AUDIO).length > 0 || Object.keys(S.TTS).length > 0;
   let polishVoice = null;
   function findVoice() {
     try { polishVoice = synth.getVoices().find((v) => /^pl\b/i.test(v.lang)) || null; } catch (e) { polishVoice = null; }
@@ -244,49 +246,65 @@
   S.audioKey = (text) => S.clean(text);
   S.hasNative = (text) => !!S.AUDIO[S.audioKey(text)];
 
+  // Audio file for a text: native speaker first, then the built-in generated voice.
+  // "Device voice only" in Settings skips both.
+  S.audioFile = (text) => {
+    if (S.settings.audio === 'device') return null;
+    const k = S.audioKey(text);
+    return S.AUDIO[k] || S.TTS[k] || null;
+  };
+  S.hasAudio = (text) => !!S.AUDIO[S.audioKey(text)] || !!S.TTS[S.audioKey(text)];
+
   let current = null;
+  let playToken = 0;
+  function playFile(src, isSlow, onEnd, onFail) {
+    const audio = new Audio(src);
+    current = audio;
+    audio.playbackRate = isSlow ? 0.75 : 1;
+    audio.preservesPitch = true;
+    if (onEnd) audio.onended = onEnd;
+    audio.play().catch((err) => { if (err.name !== 'AbortError' && current === audio && onFail) onFail(); });
+  }
   // slow: true plays this one item slowly, whatever the Settings say.
   S.speak = (text, slow) => {
     if (!text) return;
     const isSlow = slow || S.settings.slow;
-    try { if (synth) synth.cancel(); if (current) current.pause(); } catch (e) { /* ignore */ }
-    const src = S.settings.audio === 'native' && S.AUDIO[S.audioKey(text)];
-    if (src) {
-      const audio = new Audio(src);
-      current = audio;
-      audio.playbackRate = isSlow ? 0.7 : 1;
-      audio.preservesPitch = true;
-      audio.play().catch((err) => { if (err.name !== 'AbortError' && current === audio) tts(text, isSlow); });
-      return;
-    }
+    S.stopSpeaking();
+    const src = S.audioFile(text);
+    if (src) { playFile(src, isSlow, null, () => tts(text, isSlow)); return; }
     tts(text, isSlow);
   };
-  // Read several lines in a row; each speaker gets a slightly different voice pitch.
+  // Read several lines in a row: recorded files where they exist, the device voice for the rest
+  // (each speaker then gets a slightly different pitch).
   S.speakLines = (lines, slow) => {
-    if (!synth) return;
-    try {
-      synth.cancel();
-      if (current) current.pause();
-      lines.forEach(({ text, pitch }) => {
-        const u = new SpeechSynthesisUtterance(String(text).replace(/…/g, ''));
-        u.lang = 'pl-PL';
-        if (polishVoice) u.voice = polishVoice;
-        u.rate = slow ? 0.65 : 0.95;
-        u.pitch = pitch || 1;
-        synth.speak(u);
-      });
-    } catch (e) { /* speech unavailable */ }
+    S.stopSpeaking();
+    const token = ++playToken;
+    let i = 0;
+    const next = () => {
+      if (token !== playToken || i >= lines.length) return;
+      const { text, pitch } = lines[i++];
+      const src = S.audioFile(text);
+      const device = () => tts(text, slow, pitch, () => setTimeout(next, 250));
+      if (src) playFile(src, slow, () => setTimeout(next, 350), device);
+      else device();
+    };
+    next();
   };
-  S.stopSpeaking = () => { try { if (synth) synth.cancel(); if (current) current.pause(); } catch (e) { /* ignore */ } };
-  function tts(text, isSlow) {
-    if (!synth) return;
+  S.stopSpeaking = () => {
+    playToken++;
+    try { if (synth) synth.cancel(); if (current) { current.onended = null; current.pause(); } } catch (e) { /* ignore */ }
+  };
+  function tts(text, isSlow, pitch, onEnd) {
+    if (!synth) { if (onEnd) onEnd(); return; }
     try {
       const u = new SpeechSynthesisUtterance(String(text).replace(/…/g, '').replace(/\s\/\s/g, ', ').replace(/___/g, '…'));
       u.lang = 'pl-PL';
       if (polishVoice) u.voice = polishVoice;
       u.rate = isSlow ? 0.55 : 0.85;
+      if (pitch) u.pitch = pitch;
+      if (onEnd) u.onend = onEnd;
       synth.speak(u);
-    } catch (e) { /* speech unavailable */ }
+    } catch (e) { if (onEnd) onEnd(); }
   }
 
   // Speech recognition (Chrome, Edge, Safari). The browser does the listening; the app only compares text.
@@ -413,7 +431,7 @@
     if (!found.length) return '';
     return `<span class="hints">${found.slice(0, max).map(([k, en, ne, lab]) => {
       const inner = `<b lang="pl">${esc(k)}</b> ${S.shows('explain', 'en') ? esc(en) : ''}${S.settings.explain === 'both' ? ' · ' : ''}${S.shows('explain', 'ne') ? `<span lang="ne">${esc(ne)}</span>` : ''}`;
-      return lab ? `<button class="hint-chip" data-action="go" data-to="sounds.${lab}" title="Open the sounds lab">${inner}</button>` : `<span class="hint-chip">${inner}</span>`;
+      return lab ? `<button type="button" class="hint-chip" data-action="go" data-to="sounds.${lab}" title="Open the sounds lab">${inner}</button>` : `<span class="hint-chip">${inner}</span>`;
     }).join('')}</span>`;
   };
   // Explanations written as {en, ne}, shown per the "explain" setting.
