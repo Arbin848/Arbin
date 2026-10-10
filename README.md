@@ -8,7 +8,7 @@ A complete Polish course for Nepali and English speakers, from the alphabet up t
 ## What's inside
 
 - **Start here**: the 32-letter alphabet, letter pairs (sz, cz, rz…), soft sounds, nasal vowels, stress and reading rules, and a survival kit of first words.
-- **A1 Beginner → A2 Elementary → B1 Intermediate → B2 Upper intermediate**: about 45 units covering everyday topics (family, food, time, shopping, work, the doctor, official matters in Poland, renting and banking) and all the core grammar (gender, the seven cases, past and future, aspect, the imperative, the conditional, verbs of motion, participles).
+- **A1 Beginner → A2 Elementary → B1 Intermediate → B2 Upper intermediate**: 48 units and more than 1,000 words and sentences, covering everyday topics (family, food, time, shopping, work, the doctor, official matters in Poland, renting and banking) and all the core grammar (gender, the seven cases, past and future, aspect, the imperative, the conditional, verbs of motion, participles).
 - Each unit has:
   - a **lesson** explained in English and in Nepali, with grammar tables
   - **words** and **example sentences**, each with:
