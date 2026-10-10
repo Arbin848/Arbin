@@ -217,7 +217,7 @@ window.SLOWKA_LISTENING.push(
     lines: [
       ["Rejestratorka", "Przychodnia Zdrowa Rodzina, dzień dobry. W czym mogę pomóc?", "Healthy Family Clinic, good morning. How can I help?", "स्वस्थ परिवार क्लिनिक, नमस्ते। म के मद्दत गरूँ?"],
       ["Ram", "Dzień dobry. Chciałbym umówić się na wizytę u lekarza rodzinnego.", "Good morning. I'd like to book an appointment with the family doctor.", "नमस्ते। म पारिवारिक डाक्टरसँग भेटको समय लिन चाहन्छु।"],
-      ["Rejestratorka", "Czy jest pan naszym pacjentem?", "Are you our patient?", "तपाईं हाम्रो बिरामी (दर्ता भएको) हो?"],
+      ["Rejestratorka", "Czy jest pan naszym pacjentem?", "Are you our patient?", "तपाईं हाम्रो बिरामी (दर्ता भएको) हुनुहुन्छ?"],
       ["Ram", "Tak, jestem zapisany od zeszłego roku. Nazywam się Ram Thapa.", "Yes, I've been registered since last year. My name is Ram Thapa.", "हो, म गत वर्षदेखि दर्ता छु। मेरो नाम राम थापा हो।"],
       ["Rejestratorka", "Dziękuję. Mam wolny termin w czwartek o dziesiątej trzydzieści albo w piątek o szesnastej.", "Thank you. I have a free slot on Thursday at ten thirty or on Friday at four p.m.", "धन्यवाद। बिहीबार साढे दस बजे वा शुक्रबार दिउँसो चार बजे समय खाली छ।"],
       ["Ram", "W czwartek pracuję. Poproszę piątek o szesnastej.", "I work on Thursday. Friday at four p.m., please.", "बिहीबार मेरो काम छ। शुक्रबार चार बजे दिनुहोस्।"],
@@ -280,12 +280,12 @@ window.SLOWKA_LISTENING.push(
 
   {
     id: "ls-a2-04", level: "A2", type: "conversation",
-    title: "Plans for the weekend", titleNe: "सप्ताहन्तको योजना",
+    title: "Plans for the weekend", titleNe: "सप्ताहान्तको योजना",
     context: { en: "During the break your coworker Kasia asks about your weekend.",
-               ne: "ब्रेकमा तपाईंकी सहकर्मी कासियाले तपाईंको सप्ताहन्तबारे सोध्छिन्।" },
+               ne: "ब्रेकमा तपाईंकी सहकर्मी कासियाले तपाईंको सप्ताहान्तबारे सोध्छिन्।" },
     lines: [
-      ["Kasia", "Ram, co robisz w ten weekend?", "Ram, what are you doing this weekend?", "राम, यो सप्ताहन्त के गर्दैछौ?"],
-      ["Ram", "W sobotę pracuję do południa. Potem nie mam planów.", "On Saturday I work until noon. After that I have no plans.", "शनिबार म मध्यान्हसम्म काम गर्छु। त्यसपछि कुनै योजना छैन।"],
+      ["Kasia", "Ram, co robisz w ten weekend?", "Ram, what are you doing this weekend?", "राम, यो सप्ताहान्त के गर्दैछौ?"],
+      ["Ram", "W sobotę pracuję do południa. Potem nie mam planów.", "On Saturday I work until noon. After that I have no plans.", "शनिबार म मध्याह्नसम्म काम गर्छु। त्यसपछि कुनै योजना छैन।"],
       ["Kasia", "Może pojedziesz z nami w niedzielę nad jezioro? Jadą też Tomek i Anita.", "Maybe you'll come with us to the lake on Sunday? Tomek and Anita are going too.", "आइतबार हामीसँग तालतिर जाने? टोमेक र अनिता पनि जाँदैछन्।"],
       ["Ram", "Super! Jak tam pojedziemy?", "Great! How will we get there?", "राम्रो! हामी त्यहाँ कसरी जाने?"],
       ["Kasia", "Tomek ma samochód. Spotykamy się o dziewiątej rano przed sklepem na ulicy Leśnej.", "Tomek has a car. We're meeting at nine in the morning in front of the shop on Leśna Street.", "टोमेकसँग कार छ। हामी बिहान नौ बजे लेश्ना सडकको पसलअगाडि भेट्छौं।"],
@@ -300,7 +300,7 @@ window.SLOWKA_LISTENING.push(
       { q: "Kiedy jadą nad jezioro?", en: "When are they going to the lake?", ne: "उनीहरू तालतिर कहिले जाँदैछन्?",
         options: ["W sobotę rano.", "W niedzielę.", "W sobotę po południu."], answer: 1,
         why: { en: "*Może pojedziesz z nami w niedzielę nad jezioro?* – on Sunday. On Saturday Ram works until noon.",
-               ne: "*Może pojedziesz z nami w niedzielę nad jezioro?* – आइतबार। शनिबार राम मध्यान्हसम्म काम गर्छन्।" } },
+               ne: "*Może pojedziesz z nami w niedzielę nad jezioro?* – आइतबार। शनिबार राम मध्याह्नसम्म काम गर्छन्।" } },
       { q: "Kto ma samochód?", en: "Who has a car?", ne: "कोसँग कार छ?",
         options: ["Kasia.", "Anita.", "Tomek."], answer: 2,
         why: { en: "*Tomek ma samochód* – Tomek has a car.",
@@ -320,7 +320,7 @@ window.SLOWKA_LISTENING.push(
     id: "ls-a2-05", level: "A2", type: "radio",
     title: "Weather forecast", titleNe: "मौसम पूर्वानुमान",
     context: { en: "You listen to the radio on the bus home. The weather forecast for the weekend comes on.",
-               ne: "घर फर्कंदा बसमा तपाईं रेडियो सुन्दै हुनुहुन्छ। सप्ताहन्तको मौसम पूर्वानुमान सुरु हुन्छ।" },
+               ne: "घर फर्कंदा बसमा तपाईं रेडियो सुन्दै हुनुहुन्छ। सप्ताहान्तको मौसम पूर्वानुमान सुरु हुन्छ।" },
     lines: [
       ["Prezenterka", "A teraz prognoza pogody na jutro, czyli na sobotę.", "And now the weather forecast for tomorrow, that is, Saturday.", "अब भोलि, अर्थात् शनिबारको मौसम पूर्वानुमान।"],
       ["Prezenterka", "Rano na północy kraju będzie pochmurno i chłodno, około pięciu stopni.", "In the morning in the north of the country it will be cloudy and cool, about five degrees.", "बिहान देशको उत्तरमा बादल लाग्ने र चिसो हुनेछ, करिब पाँच डिग्री।"],
@@ -338,7 +338,7 @@ window.SLOWKA_LISTENING.push(
       { q: "Gdzie może padać śnieg?", en: "Where might it snow?", ne: "हिउँ कहाँ पर्न सक्छ?",
         options: ["Nad morzem.", "Na północy.", "W górach na południu."], answer: 2,
         why: { en: "*Na południu, w górach, może padać śnieg.* *Południe* = south (it also means noon!).",
-               ne: "*Na południu, w górach, może padać śnieg.* *południe* = दक्षिण (यसको अर्थ मध्यान्ह पनि हुन्छ!)।" } },
+               ne: "*Na południu, w górach, może padać śnieg.* *południe* = दक्षिण (यसको अर्थ मध्याह्न पनि हुन्छ!)।" } },
       { q: "Jaka będzie temperatura w sobotę w dzień?", en: "What will the temperature be on Saturday during the day?", ne: "शनिबार दिउँसो तापक्रम कति हुन्छ?",
         options: ["Od pięciu do ośmiu stopni.", "Od ośmiu do dwunastu stopni.", "Do piętnastu stopni."], answer: 1,
         why: { en: "*Temperatura w dzień od ośmiu do dwunastu stopni.* Five degrees is the morning in the north; fifteen is Sunday.",

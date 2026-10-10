@@ -94,7 +94,7 @@
       ${present}
       <div class="table-wrap"><table>
         <caption>Past · <span lang="ne">भूत</span></caption>
-        <thead><tr><th></th><th scope="col">man / men · पुरुष</th><th scope="col">woman / others · महिला</th></tr></thead>
+        <thead><tr><th></th><th scope="col">man / men · पुरुष</th><th scope="col">woman / others · महिला / अरू</th></tr></thead>
         <tbody>${v.past.m.map((f, i) => `<tr><th scope="row">${pastPersons[i]}</th><td${hl('past', i, 'm')}>${formCell(f)}</td><td${hl('past', i, 'f')}>${formCell(v.past.f[i])}</td></tr>`).join('')}</tbody>
       </table></div>
       <div class="table-wrap"><table>

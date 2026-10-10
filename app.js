@@ -122,7 +122,7 @@
     A1: [['Introduce yourself and your family', 'आफ्नो र परिवारको परिचय दिन'], ['Order food, shop and ask prices', 'खाना अर्डर गर्न, किनमेल गर्न, मूल्य सोध्न'], ['Tell the time, ask the way, say what hurts', 'समय भन्न, बाटो सोध्न, कहाँ दुख्छ भन्न']],
     A2: [['Talk about yesterday and tomorrow', 'हिजो र भोलिको कुरा गर्न'], ['Use all 7 cases in everyday sentences', 'दैनिक वाक्यमा ७ विभक्ति प्रयोग गर्न'], ['Talk about work, shifts, weather and free time', 'काम, सिफ्ट, मौसम र फुर्सदको कुरा गर्न']],
     B1: [['Handle the doctor, offices and the phone', 'डाक्टर, कार्यालय र फोनमा काम चलाउन'], ['Speak politely with Pan/Pani and "would"', 'Pan/Pani र विनम्र रूपमा बोल्न'], ['Give opinions and explain problems', 'राय दिन र समस्या बुझाउन']],
-    B2: [['Write formal emails and do a job interview', 'औपचारिक इमेल लेख्न र अन्तर्वार्ता दिन'], ['Understand contracts, news and idioms', 'सम्झौता, समाचार र उखान बुझ्न'], ['Connect ideas in long, fluent sentences', 'लामो र धाराप्रवाह वाक्यमा विचार जोड्न']],
+    B2: [['Write formal emails and do a job interview', 'औपचारिक इमेल लेख्न र अन्तर्वार्ता दिन'], ['Understand contracts, news and idioms', 'सम्झौता, समाचार र टुक्का बुझ्न'], ['Connect ideas in long, fluent sentences', 'लामो र धाराप्रवाह वाक्यमा विचार जोड्न']],
     Work: [['Understand safety rules and signs at work', 'कामको सुरक्षा नियम र चिन्ह बुझ्न'], ['Talk to your supervisor about tasks', 'सुपरभाइजरसँग कामबारे कुरा गर्न'], ['Know the key words for your job', 'आफ्नो कामका मुख्य शब्द जान्न']],
   };
 
@@ -191,7 +191,7 @@
     const plan = [
       due ? { to: 'review', icon: '↻', en: `Review ${due} ${due === 1 ? 'word' : 'words'}`, ne: 'शब्द दोहोर्‍याउनुहोस्', sub: 'A few minutes · केही मिनेट' } : null,
       { action: 'g-start', unit: next.id, icon: '▶', en: st.done ? `Repeat: ${next.title}` : st.started ? `Continue: ${next.title}` : `Lesson: ${next.title}`, ne: next.titleNe, sub: st.started && !st.done ? `Step ${st.step + 1} of ${st.total} · with your teacher` : 'With your teacher · शिक्षिकासँग', main: true },
-      (() => { const r = S.Assess.dueRevision(); return r ? { to: `revise.${r.id}`, icon: '↻', en: r.title, ne: r.titleNe, sub: 'Revise the last 5 lessons · १० मिनेट' } : null; })(),
+      (() => { const r = S.Assess.dueRevision(); return r ? { to: `revise.${r.id}`, icon: '↻', en: r.title, ne: r.titleNe, sub: 'Revise the last 5 lessons · पछिल्ला ५ पाठ दोहोर्‍याउनुहोस्' } : null; })(),
       (() => { const t = S.Assess.dueTest(); return t ? { to: `revise.${t.id}`, icon: '🎓', en: t.title, ne: t.titleNe, sub: 'Pass with 70% to get your certificate' } : null; })(),
       mistakes ? { to: 'mistakes.practice', icon: '✎', en: `Fix ${mistakes} grammar ${mistakes === 1 ? 'mistake' : 'mistakes'}`, ne: 'व्याकरणका गल्ती सुधार्नुहोस्', sub: '' } : null,
       rp && S.levelIndex(next.level) >= 1 ? { to: `talk.${rp.id}`, icon: '💬', en: `Talk: ${rp.title}`, ne: rp.titleNe, sub: 'Conversation practice · संवाद' } : null,

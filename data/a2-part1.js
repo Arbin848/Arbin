@@ -122,7 +122,7 @@ window.SLOWKA_COURSE.push(
     lesson: [
       {
         en: "The **genitive** (dopełniacz) answers *kogo? czego?* (of whom? of what?). Its basic meaning is like Nepali **-को**: *dom brata* = भाइको घर. But you will use it most in three situations: after **nie** (no / not), after **quantities**, and after some **prepositions**.",
-        ne: "**Genitive** (dopełniacz) ले *kogo? czego?* (कसको? केको?) को उत्तर दिन्छ। यसको मूल अर्थ नेपालीको **-को** जस्तै हो: *dom brata* = भाइको घर। तर तपाईं यसलाई सबैभन्दा बढी तीन ठाउँमा प्रयोग गर्नुहुन्छ: **nie** (छैन/होइन) पछि, **परिमाण** पछि, र केही **नामयोगी (preposition)** पछि।"
+        ne: "**Genitive** (dopełniacz) ले *kogo? czego?* (कसको? केको?) को उत्तर दिन्छ। यसको मूल अर्थ नेपालीको **-को** जस्तै हो: *dom brata* = भाइको घर। तर तपाईं यसलाई सबैभन्दा बढी तीन ठाउँमा प्रयोग गर्नुहुन्छ: **nie** (छैन/होइन) पछि, **परिमाण** पछि, र केही **पूर्वसर्ग (preposition)** पछि।"
       },
       {
         en: "**After negation** the accusative turns into the genitive. *Mam czas* → *Nie mam czasu* (I have no time). *Mam brata* → *Nie mam brata*. *Nie ma* means \"there is no / isn't here\": *Nie ma chleba* (There's no bread), *Nie ma Ani* (Ania isn't here). **Common mistake:** *Nie mam czas* ✗ — always *Nie mam czasu* ✓.",
@@ -134,7 +134,7 @@ window.SLOWKA_COURSE.push(
       },
       {
         en: "**After prepositions**: *od* (from a person / since), *do* (to, into, until), *z* (from, out of), *bez* (without), *dla* (for), *obok* (next to). Examples: *od mamy*, *do domu*, *z Nepalu*, *kawa bez cukru*, *dla brata*, *obok sklepu*. Nepali uses -बाट, -सम्म, बिना, -को लागि, -को छेउमा for the same ideas. **Tip:** *z* + genitive = **from**; later you will see *z* + instrumental = **with**.",
-        ne: "**नामयोगीपछि**: *od* (कसैबाट / देखि), *do* (तिर, भित्र, सम्म), *z* (बाट, भित्रबाट), *bez* (बिना), *dla* (को लागि), *obok* (छेउमा)। उदाहरण: *od mamy* (आमाबाट), *do domu* (घरतिर), *z Nepalu* (नेपालबाट), *kawa bez cukru* (चिनी बिनाको कफी), *dla brata* (भाइको लागि), *obok sklepu* (पसलको छेउमा)। **सुझाव:** *z* + षष्ठी (genitive) = **बाट**; पछि *z* + करण कारक (instrumental) = **सँग** पनि सिक्नुहुनेछ।"
+        ne: "**पूर्वसर्गपछि**: *od* (कसैबाट / देखि), *do* (तिर, भित्र, सम्म), *z* (बाट, भित्रबाट), *bez* (बिना), *dla* (को लागि), *obok* (छेउमा)। उदाहरण: *od mamy* (आमाबाट), *do domu* (घरतिर), *z Nepalu* (नेपालबाट), *kawa bez cukru* (चिनी बिनाको कफी), *dla brata* (भाइको लागि), *obok sklepu* (पसलको छेउमा)। **सुझाव:** *z* + षष्ठी (genitive) = **बाट**; पछि *z* + करण कारक (instrumental) = **सँग** पनि सिक्नुहुनेछ।"
       },
       {
         en: "**Endings:** feminine *-a* → **-y** (*woda → wody*), but after *k, g* and soft consonants → **-i** or **-y** (*Polska → Polski*, *praca → pracy*). Masculine people and animals → **-a** (*brat → brata*, *pies → psa*). Masculine things usually → **-u** (*czas → czasu*, *cukier → cukru*, *sklep → sklepu*), but some take **-a** (*chleb → chleba*, *ser → sera*) — learn them as you go. Neuter → **-a** (*mleko → mleka*). Adjectives: *-ego* (m, n), *-ej* (f): *Nie mam dobrej pracy*.",
@@ -221,7 +221,7 @@ window.SLOWKA_COURSE.push(
     lesson: [
       {
         en: "The **locative** (miejscownik) is the Polish **-मा**. It answers *gdzie?* (where?) and *o kim? o czym?* (about whom? about what?). It is **always used after a preposition**: mostly *w* (in), *na* (on, at) and *o* (about). *Mieszkam w Polsce* = म पोल्यान्डमा बस्छु.",
-        ne: "**Locative** (miejscownik) नेपालीको **-मा** जस्तै हो। यसले *gdzie?* (कहाँ?) र *o kim? o czym?* (कसको बारेमा? केको बारेमा?) को उत्तर दिन्छ। यो **सधैं नामयोगीपछि मात्र** आउँछ: प्रायः *w* (भित्र), *na* (माथि, मा) र *o* (बारेमा)। *Mieszkam w Polsce* = म पोल्यान्डमा बस्छु।"
+        ne: "**Locative** (miejscownik) नेपालीको **-मा** जस्तै हो। यसले *gdzie?* (कहाँ?) र *o kim? o czym?* (कसको बारेमा? केको बारेमा?) को उत्तर दिन्छ। यो **सधैं पूर्वसर्गपछि मात्र** आउँछ: प्रायः *w* (भित्र), *na* (माथि, मा) र *o* (बारेमा)। *Mieszkam w Polsce* = म पोल्यान्डमा बस्छु।"
       },
       {
         en: "**Endings with sound changes.** Most masculine, neuter and feminine *-a* nouns take **-e** or **-ie**, and the last consonant often softens: *sklep → w sklepie*, *Warszawa → w Warszawie*, *Kraków → w Krakowie*, *miasto → w mieście* (st → ście), *biuro → w biurze* (r → rz), *szkoła → w szkole* (ł → l), *Polska → w Polsce* (k → c). Don't panic — learn the common places as ready phrases.",
@@ -233,7 +233,7 @@ window.SLOWKA_COURSE.push(
       },
       {
         en: "**w or na?** Use *w* for **inside** a closed place, and for cities and most countries: *w sklepie*, *w domu*, *w Warszawie*, *w Polsce*. Use *na* for **open places, surfaces and events**, and some places by custom: *na ulicy*, *na dworcu*, *na poczcie*, *na lotnisku*, *na budowie* (on the construction site), *na koncercie*. **Tip:** learn each place together with its preposition. Before *w* or *f* followed by another consonant, *w* becomes *we*: *we Wrocławiu* (but *w Warszawie*).",
-        ne: "**w कि na?** बन्द ठाउँको **भित्र**, सहर र धेरैजसो देशको लागि *w* प्रयोग गर्नुहोस्: *w sklepie* (पसलमा), *w domu* (घरमा), *w Warszawie*, *w Polsce*। **खुला ठाउँ, सतह र कार्यक्रम**, अनि चलनअनुसार केही ठाउँको लागि *na* प्रयोग गर्नुहोस्: *na ulicy* (सडकमा), *na dworcu* (स्टेसनमा), *na poczcie* (हुलाकमा), *na lotnisku* (विमानस्थलमा), *na budowie* (निर्माण स्थलमा), *na koncercie* (कन्सर्टमा)। **सुझाव:** हरेक ठाउँ यसको नामयोगीसँगै सम्झनुहोस्। *w* वा *f* र त्यसपछि अर्को व्यञ्जनबाट सुरु हुने शब्दअघि *w* को सट्टा *we* हुन्छ: *we Wrocławiu* (तर *w Warszawie*)।"
+        ne: "**w कि na?** बन्द ठाउँको **भित्र**, सहर र धेरैजसो देशको लागि *w* प्रयोग गर्नुहोस्: *w sklepie* (पसलमा), *w domu* (घरमा), *w Warszawie*, *w Polsce*। **खुला ठाउँ, सतह र कार्यक्रम**, अनि चलनअनुसार केही ठाउँको लागि *na* प्रयोग गर्नुहोस्: *na ulicy* (सडकमा), *na dworcu* (स्टेसनमा), *na poczcie* (हुलाकमा), *na lotnisku* (विमानस्थलमा), *na budowie* (निर्माण स्थलमा), *na koncercie* (कन्सर्टमा)। **सुझाव:** हरेक ठाउँ यसको पूर्वसर्गसँगै सम्झनुहोस्। *w* वा *f* र त्यसपछि अर्को व्यञ्जनबाट सुरु हुने शब्दअघि *w* को सट्टा *we* हुन्छ: *we Wrocławiu* (तर *w Warszawie*)।"
       },
       {
         en: "**Talking about something:** *mówić o* + locative = to talk about. *Mówię o pracy* (I'm talking about work). *Myślę o rodzinie* (I'm thinking about my family). *O czym mówisz?* (What are you talking about?). **Common mistake:** *Mieszkam w Polska* ✗ → *Mieszkam w Polsce* ✓. After *w, na, o* the noun must change.",
@@ -339,7 +339,7 @@ window.SLOWKA_COURSE.push(
       },
       {
         en: "**Transport — no preposition!** *Jadę autobusem* (I go by bus), *pociągiem* (by train), *tramwajem* (by tram), *samochodem* (by car), *rowerem* (by bike). Just like Nepali *बसले जान्छु*, the vehicle is the \"tool\". **Common mistake:** *Jadę z autobusem* ✗ — that would mean you travel *together with* a bus! But on foot: *idę pieszo*.",
-        ne: "**यातायात — नामयोगी चाहिँदैन!** *Jadę autobusem* (म बसमा जान्छु), *pociągiem* (रेलमा), *tramwajem* (ट्राममा), *samochodem* (कारमा), *rowerem* (साइकलमा)। नेपालीको \"बसले जान्छु\" जस्तै, सवारी साधन \"औजार\" हो। **धेरैले गर्ने गल्ती:** *Jadę z autobusem* ✗ — यसको अर्थ बससँगै यात्रा गर्नु जस्तो हुन्छ! हिँडेर जाँदा: *idę pieszo*।"
+        ne: "**यातायात — पूर्वसर्ग चाहिँदैन!** *Jadę autobusem* (म बसमा जान्छु), *pociągiem* (रेलमा), *tramwajem* (ट्राममा), *samochodem* (कारमा), *rowerem* (साइकलमा)। नेपालीको \"बसले जान्छु\" जस्तै, सवारी साधन \"औजार\" हो। **धेरैले गर्ने गल्ती:** *Jadę z autobusem* ✗ — यसको अर्थ बससँगै यात्रा गर्नु जस्तो हुन्छ! हिँडेर जाँदा: *idę pieszo*।"
       },
       {
         en: "**interesować się + instrumental = to be interested in.** *Interesuję się piłką nożną* (I'm interested in football), *muzyką* (music), *sportem* (sport), *gotowaniem* (cooking). Adjectives in the instrumental: *-ym / -im* (m, n) and *-ą* (f): *z dobrym kolegą*, *z nową koleżanką*.",

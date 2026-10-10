@@ -108,7 +108,7 @@ window.SLOWKA_COURSE.push(
     lesson: [
       {
         en: "Poland has four clear seasons: *wiosna* (spring), *lato* (summer), *jesień* (autumn) and *zima* (winter). There is no monsoon, but winter can be very cold, sometimes below minus ten. To say **when** (\"in spring\"), Polish uses the instrumental with **no preposition**: *wiosną*, *latem*, *jesienią*, *zimą*. **Common mistake:** *w zima* is wrong. Say *zimą*, or use the locative: *w zimie*, *w lecie* (also correct).",
-        ne: "पोल्याण्डमा चार स्पष्ट ऋतु छन्: *wiosna* (वसन्त), *lato* (गर्मी), *jesień* (शरद) र *zima* (जाडो)। यहाँ मनसुन हुँदैन, तर जाडो एकदमै चिसो हुन सक्छ, कहिलेकाहीँ माइनस दसभन्दा तल। **कहिले** (\"वसन्तमा\") भन्न करण कारक (instrumental) प्रयोग हुन्छ, **कुनै नामयोगी बिना**: *wiosną*, *latem*, *jesienią*, *zimą*। **सामान्य गल्ती:** *w zima* गलत हो। *zimą* भन्नुहोस्, वा *w zimie*, *w lecie* (यी पनि सही हुन्)।"
+        ne: "पोल्याण्डमा चार स्पष्ट ऋतु छन्: *wiosna* (वसन्त), *lato* (गर्मी), *jesień* (शरद) र *zima* (जाडो)। यहाँ मनसुन हुँदैन, तर जाडो एकदमै चिसो हुन सक्छ, कहिलेकाहीँ माइनस दसभन्दा तल। **कहिले** (\"वसन्तमा\") भन्न करण कारक (instrumental) प्रयोग हुन्छ, **कुनै पूर्वसर्ग बिना**: *wiosną*, *latem*, *jesienią*, *zimą*। **सामान्य गल्ती:** *w zima* गलत हो। *zimą* भन्नुहोस्, वा *w zimie*, *w lecie* (यी पनि सही हुन्)।"
       },
       {
         en: "To ask about the weather, say *Jaka jest dzisiaj pogoda?* (What's the weather like today?). The answer is often *jest* + a word ending in -o: *jest zimno* (it's cold), *jest ciepło* (it's warm), *jest gorąco* (it's hot), *jest pochmurno* (it's cloudy), *jest słonecznie* (it's sunny). Like Nepali \"जाडो छ\", there is no word for \"it\".",
@@ -309,7 +309,7 @@ window.SLOWKA_COURSE.push(
       },
       {
         en: "*Grać* means both \"play a game\" and \"play an instrument\", but the preposition is different. Games and sports: *grać w* + accusative — *grać w piłkę* (football), *w karty* (cards), *w szachy* (chess), *w krykieta* (cricket). Instruments: *grać na* + locative — *grać na gitarze*, *na pianinie*. **Common mistake:** *grać na piłkę* or *grać w gitarę*.",
-        ne: "*Grać* को अर्थ \"खेल खेल्नु\" र \"बाजा बजाउनु\" दुवै हो, तर नामयोगी फरक हुन्छ। खेलका लागि: *grać w* + कर्म कारक — *grać w piłkę* (फुटबल), *w karty* (तास), *w szachy* (चेस), *w krykieta* (क्रिकेट)। बाजाका लागि: *grać na* + अधिकरण — *grać na gitarze*, *na pianinie*। **सामान्य गल्ती:** *grać na piłkę* वा *grać w gitarę*।"
+        ne: "*Grać* को अर्थ \"खेल खेल्नु\" र \"बाजा बजाउनु\" दुवै हो, तर पूर्वसर्ग फरक हुन्छ। खेलका लागि: *grać w* + कर्म कारक — *grać w piłkę* (फुटबल), *w karty* (तास), *w szachy* (चेस), *w krykieta* (क्रिकेट)। बाजाका लागि: *grać na* + अधिकरण — *grać na gitarze*, *na pianinie*। **सामान्य गल्ती:** *grać na piłkę* वा *grać w gitarę*।"
       },
       {
         en: "Two verbs for \"watching\" and \"listening\" use different cases. *Oglądać* takes the accusative: *oglądam film*, *oglądam telewizję*, *oglądam mecz*. But *słuchać* takes the **genitive**: *słucham muzyki* (not *muzykę*), *słucham radia*. Learn *słuchać* + genitive as a fixed pair.",
@@ -421,7 +421,7 @@ window.SLOWKA_COURSE.push(
       },
       {
         en: "Flying follows the same idea: *lecieć* for one flight (*Jutro lecę do Nepalu* — Tomorrow I'm flying to Nepal) and *latać* for flying in general or often (*Często latam samolotem*). The means of transport goes in the instrumental without a preposition: *autobusem*, *pociągiem*, *samochodem*, *rowerem*, *samolotem*.",
-        ne: "उड्ने कुरामा पनि यही नियम लाग्छ: एक पटकको उडानका लागि *lecieć* (*Jutro lecę do Nepalu* — भोलि म नेपाल उड्दै छु) र सामान्य वा बारम्बार उड्नका लागि *latać* (*Często latam samolotem*)। सवारीको नाम करण कारकमा, नामयोगी बिना आउँछ: *autobusem* (बसमा), *pociągiem* (रेलमा), *samochodem* (कारमा), *rowerem* (साइकलमा), *samolotem* (हवाईजहाजमा)।"
+        ne: "उड्ने कुरामा पनि यही नियम लाग्छ: एक पटकको उडानका लागि *lecieć* (*Jutro lecę do Nepalu* — भोलि म नेपाल उड्दै छु) र सामान्य वा बारम्बार उड्नका लागि *latać* (*Często latam samolotem*)। सवारीको नाम करण कारकमा, पूर्वसर्ग बिना आउँछ: *autobusem* (बसमा), *pociągiem* (रेलमा), *samochodem* (कारमा), *rowerem* (साइकलमा), *samolotem* (हवाईजहाजमा)।"
       },
       {
         en: "Where to? Most destinations take *do* + genitive: buildings, cities, countries and people — *do sklepu*, *do pracy*, *do domu*, *do Krakowa*, *do Polski*, *do lekarza* (to the doctor). Some places and all events take *na* + accusative: *na dworzec* (to the station), *na lotnisko*, *na przystanek*, *na pocztę*, *na koncert*, *na spacer*. The *na*-places must simply be learnt.",

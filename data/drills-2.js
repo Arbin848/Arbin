@@ -724,7 +724,7 @@ window.SLOWKA_DRILLS["a2-03"] = [
   { type: "fill",
     q: "Moja siostra jest w ___. (szkoła)",
     answer: ["szkole"],
-    en: "My sister is at school.", ne: "मेरी बहिनी स्कुलमा छे।",
+    en: "My sister is at school.", ne: "मेरी दिदी/बहिनी स्कुलमा छिन्।",
     why: { en: "*ł* changes to *l* + *-e*: *szkoła* → *w szkole*.",
            ne: "*ł* *l* बन्छ र *-e* थपिन्छ: *szkoła* → *w szkole*।" },
     traps: {

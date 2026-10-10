@@ -14,7 +14,7 @@ window.SLOWKA_COURSE.push(
       },
       {
         en: "Safety rules are called *BHP*, and you get safety training on your first day. Always wear a high-visibility vest and work boots (*buty robocze*). Walk only in the marked pedestrian lanes: a forklift (*wózek widłowy*) is fast and the driver may not see you. You may drive a forklift only with a UDT licence (*uprawnienia UDT*) — never drive one “just to help”. Lift with your legs, not your back, and ask a colleague when something is too heavy (*za ciężkie*). When you hear *Uwaga!*, stop and look around.",
-        ne: "सुरक्षा नियमलाई *BHP* भनिन्छ, र पहिलो दिन नै सुरक्षा तालिम दिइन्छ। सधैँ चम्किलो ज्याकेट र कामका जुत्ता (*buty robocze*) लगाउनुहोस्। चिन्ह लगाइएको पैदल बाटोमा मात्र हिँड्नुहोस्: फोर्कलिफ्ट (*wózek widłowy*) छिटो चल्छ र चालकले तपाईंलाई नदेख्न सक्छ। UDT लाइसेन्स (*uprawnienia UDT*) भए मात्र फोर्कलिफ्ट चलाउन पाइन्छ — “सघाउन” भनेर पनि कहिल्यै नचलाउनुहोस्। भारी सामान ढाड होइन, खुट्टाको बलले उठाउनुहोस्, र धेरै गह्रौं (*za ciężkie*) भए सहकर्मीलाई बोलाउनुहोस्। *Uwaga!* सुन्नेबित्तिकै रोकिएर वरिपरि हेर्नुहोस्।"
+        ne: "सुरक्षा नियमलाई *BHP* भनिन्छ, र पहिलो दिन नै सुरक्षा तालिम दिइन्छ। सधैँ चम्किलो सुरक्षा भेस्ट र कामका जुत्ता (*buty robocze*) लगाउनुहोस्। चिन्ह लगाइएको पैदल बाटोमा मात्र हिँड्नुहोस्: फोर्कलिफ्ट (*wózek widłowy*) छिटो चल्छ र चालकले तपाईंलाई नदेख्न सक्छ। UDT लाइसेन्स (*uprawnienia UDT*) भए मात्र फोर्कलिफ्ट चलाउन पाइन्छ — “सघाउन” भनेर पनि कहिल्यै नचलाउनुहोस्। भारी सामान ढाड होइन, खुट्टाको बलले उठाउनुहोस्, र धेरै गह्रौं (*za ciężkie*) भए सहकर्मीलाई बोलाउनुहोस्। *Uwaga!* सुन्नेबित्तिकै रोकिएर वरिपरि हेर्नुहोस्।"
       },
       {
         en: "Supervisors give short instructions with *proszę* + the infinitive: *Proszę odłożyć paletę* (Please put the pallet down), *Proszę zeskanować etykietę* (Please scan the label). To ask what you should do, use *mam* + the infinitive: *Gdzie mam odłożyć paletę?* (Where should I put the pallet?), *Co mam teraz robić?* (What should I do now?). Here *mam* means “I am supposed to”, just like the Nepali “कहाँ राख्ने?”. **Tip:** learn the names of the zones and ramps (*strefa B*, *rampa 3*) — instructions are full of them.",
@@ -35,7 +35,7 @@ window.SLOWKA_COURSE.push(
           ["*Ruch wózków widłowych*", "Forklift traffic", "फोर्कलिफ्ट चल्ने क्षेत्र"],
           ["*Przejście dla pieszych*", "Pedestrian walkway", "पैदल हिँड्ने बाटो"],
           ["*Zakaz wstępu*", "No entry", "प्रवेश निषेध"],
-          ["*Nakaz noszenia kamizelki odblaskowej*", "High-vis vest must be worn", "चम्किलो ज्याकेट लगाउन अनिवार्य"],
+          ["*Nakaz noszenia kamizelki odblaskowej*", "High-vis vest must be worn", "चम्किलो सुरक्षा भेस्ट लगाउन अनिवार्य"],
           ["*Wyjście ewakuacyjne*", "Emergency exit", "आपतकालीन निकास"],
           ["*Gaśnica*", "Fire extinguisher", "आगो निभाउने यन्त्र"],
           ["*Apteczka*", "First-aid kit", "प्राथमिक उपचार बाकस"],
@@ -103,7 +103,7 @@ window.SLOWKA_COURSE.push(
       },
       {
         en: "Construction is dangerous, so the *BHP* rules are strict. Before you start, you usually need safety training (*szkolenie BHP*) and a medical check. On site always wear a hard hat (*kask*), a high-vis vest (*kamizelka odblaskowa*), safety boots and gloves. When you work at height (*na wysokości*) — on scaffolding (*rusztowanie*), a roof or a ladder — you must wear a safety harness (*szelki*) and clip it on. Never stand under a crane load. **Rule:** if scaffolding looks unsafe, don't climb it — tell the foreman first.",
-        ne: "निर्माण काम खतरनाक हुन्छ, त्यसैले *BHP* नियम कडा छन्। काम सुरु गर्नुअघि प्रायः सुरक्षा तालिम (*szkolenie BHP*) र स्वास्थ्य जाँच चाहिन्छ। साइटमा सधैँ हेल्मेट (*kask*), चम्किलो ज्याकेट (*kamizelka odblaskowa*), सुरक्षा जुत्ता र पन्जा लगाउनुहोस्। उचाइमा (*na wysokości*) — मचान (*rusztowanie*), छाना वा भर्‍याङमा — काम गर्दा सुरक्षा बेल्ट (*szelki*) लगाएर बाँध्नैपर्छ। क्रेनले उठाएको सामानमुनि कहिल्यै नउभिनुहोस्। **नियम:** मचान असुरक्षित देखियो भने नचढ्नुहोस् — पहिले फोरम्यानलाई भन्नुहोस्।"
+        ne: "निर्माण काम खतरनाक हुन्छ, त्यसैले *BHP* नियम कडा छन्। काम सुरु गर्नुअघि प्रायः सुरक्षा तालिम (*szkolenie BHP*) र स्वास्थ्य जाँच चाहिन्छ। साइटमा सधैँ हेल्मेट (*kask*), चम्किलो सुरक्षा भेस्ट (*kamizelka odblaskowa*), सुरक्षा जुत्ता र पन्जा लगाउनुहोस्। उचाइमा (*na wysokości*) — मचान (*rusztowanie*), छाना वा भर्‍याङमा — काम गर्दा सुरक्षा बेल्ट (*szelki*) लगाएर बाँध्नैपर्छ। क्रेनले उठाएको सामानमुनि कहिल्यै नउभिनुहोस्। **नियम:** मचान असुरक्षित देखियो भने नचढ्नुहोस् — पहिले फोरम्यानलाई भन्नुहोस्।"
       },
       {
         en: "Many instructions on site are about bringing and passing things. Learn *Proszę podać…* (Please pass…) with the accusative: *Proszę podać młotek* (the hammer), *Proszę podać wiertarkę* (the drill — *-a* changes to *-ę*). Quantities use the genitive: *dwa worki cementu* (two bags of cement), *sto cegieł* (a hundred bricks). Rules are given with *nie wolno* (it is not allowed): *Bez kasku nie wolno wchodzić na budowę* (You may not enter the site without a hard hat).",
@@ -136,7 +136,7 @@ window.SLOWKA_COURSE.push(
       ["kierownik budowy", "site manager", "साइट म्यानेजर", "kyeh-ROV-neek boo-DO-vi", "क्ये-ˈरोभ्-निक् बु-ˈदो-भि"],
       ["brygadzista", "foreman", "फोरम्यान (टोली नाइके)", "bri-ga-JEES-ta", "ब्रि-गा-ˈजिस्-ता"],
       ["kask", "hard hat", "हेल्मेट", "kask", "कास्क्"],
-      ["kamizelka odblaskowa", "high-vis vest", "चम्किलो सुरक्षा ज्याकेट", "ka-mee-ZEL-ka od-blas-KO-va", "का-मि-ˈज़ेल्-का ओद्-ब्लास्-ˈको-भा"],
+      ["kamizelka odblaskowa", "high-vis vest", "चम्किलो सुरक्षा भेस्ट", "ka-mee-ZEL-ka od-blas-KO-va", "का-मि-ˈज़ेल्-का ओद्-ब्लास्-ˈको-भा"],
       ["szelki", "safety harness", "सुरक्षा बेल्ट (हार्नेस)", "SHEL-kee", "ˈशेल्-कि"],
       ["okulary ochronne", "safety glasses", "सुरक्षा चस्मा", "o-koo-LA-ri o-HRON-neh", "ओ-कु-ˈला-रि ओ-ˈह्रोन्-ने"],
       ["rękawice", "work gloves", "पन्जा", "ren-ka-VEE-tseh", "रेन्-का-ˈभि-त्से"],

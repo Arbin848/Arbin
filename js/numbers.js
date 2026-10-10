@@ -184,7 +184,7 @@
         </tbody>
       </table></div>
       ${S.whyHTML({ en: 'Times use the feminine ordinal: *Jest siódma* (it is seven), *o siódmej* (at seven). Minutes are plain numbers: *siódma trzydzieści* = 7:30. Dates use the genitive: *piętnastego maja* = 15 May. Phone numbers are read in groups of three: *sześćset jeden, dwieście trzydzieści cztery…*',
-        ne: 'समयमा क्रमवाचक स्त्रीलिङ्ग: *Jest siódma* (सात बज्यो), *o siódmej* (सात बजे)। मिनेट सामान्य अङ्क: *siódma trzydzieści* = ७:३०। मितिमा: *piętnastego maja* = मे १५। फोन नम्बर तीन-तीन अङ्कमा पढिन्छ।' })}
+        ne: 'समयमा क्रमसूचक स्त्रीलिङ्ग: *Jest siódma* (सात बज्यो), *o siódmej* (सात बजे)। मिनेट सामान्य अङ्क: *siódma trzydzieści* = ७:३०। मितिमा: *piętnastego maja* = मे १५। फोन नम्बर तीन-तीन अङ्कमा पढिन्छ।' })}
       <div class="chip-row">${[1, 2, 5, 12, 21, 22, 100, 1000, 2000, 5000].map((n) => `<button class="say-chip" data-action="say" data-text="${esc(N.words(n))}">${S.SPEAKER}<b>${n}</b>&nbsp;<span lang="pl">${polish(N.words(n))}</span></button>`).join('')}</div>
     </details>`;
 

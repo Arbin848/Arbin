@@ -8,7 +8,7 @@
 
   S.LEVELS = [
     { id: 'Start', name: 'Start here', ne: 'यहाँबाट सुरु गर्नुहोस्', blurb: 'Alphabet, sounds and reading rules', blurbNe: 'वर्णमाला, उच्चारण र पढ्ने नियम' },
-    { id: 'A1', name: 'A1 · Beginner', ne: 'शुरुआती', blurb: 'Everyday words and simple sentences', blurbNe: 'दैनिक शब्द र सरल वाक्य' },
+    { id: 'A1', name: 'A1 · Beginner', ne: 'सुरुआती', blurb: 'Everyday words and simple sentences', blurbNe: 'दैनिक शब्द र सरल वाक्य' },
     { id: 'A2', name: 'A2 · Elementary', ne: 'प्रारम्भिक', blurb: 'Cases, past and future, daily life and work', blurbNe: 'विभक्ति, भूत र भविष्य काल, दैनिक जीवन र काम' },
     { id: 'B1', name: 'B1 · Intermediate', ne: 'मध्यम', blurb: 'Aspect, polite Polish, life in Poland', blurbNe: 'क्रियाको पक्ष, विनम्र पोलिश, पोल्यान्डमा जीवन' },
     { id: 'B2', name: 'B2 · Upper intermediate', ne: 'उच्च-मध्यम', blurb: 'Fluent, formal and idiomatic Polish', blurbNe: 'धाराप्रवाह, औपचारिक र मुहावरेदार पोलिश' },

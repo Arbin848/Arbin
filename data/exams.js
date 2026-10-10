@@ -12,7 +12,7 @@ window.SLOWKA_PLACEMENT = [
     options: ["dziękuję", "dzienkuje", "dziekuje"], answer: 0 },
   { level: "A1", q: "Dwa plus dwa to ___.", en: "Two plus two is four.", ne: "दुई जोड दुई चार हुन्छ।",
     options: ["trzy", "cztery", "pięć"], answer: 1 },
-  { level: "A1", q: "Dziękuję i do ___!", en: "Thank you and goodbye!", ne: "धन्यवाद, फेरि भेटौँला!",
+  { level: "A1", q: "Dziękuję i do ___!", en: "Thank you and goodbye!", ne: "धन्यवाद, नमस्ते!",
     options: ["dobranoc", "wieczór", "widzenia"], answer: 2 },
 
   // Band 2 — A1
@@ -178,7 +178,7 @@ window.SLOWKA_EXAMS.push(
           {
             q: "Jeśli jutro będzie padać, ___ w domu.", en: "If it rains tomorrow, we will stay at home.", ne: "भोलि पानी पर्‍यो भने हामी घरमै बस्छौँ।",
             options: ["zostaniemy", "zostalibyśmy", "zostawaliśmy"], answer: 0,
-            why: { en: "*Jeśli* + future is a real, possible condition, so the result is also in the future: *zostaniemy* (we will stay). *Zostalibyśmy* is conditional and goes with *gdyby*.", ne: "*jeśli* + भविष्य काल सम्भव हुने सर्त हो, त्यसैले परिणाम पनि भविष्य कालमै हुन्छ: *zostaniemy* (बस्नेछौँ)। *zostalibyśmy* सम्भावनार्थ हो र *gdyby* सँग आउँछ।" }
+            why: { en: "*Jeśli* + future is a real, possible condition, so the result is also in the future: *zostaniemy* (we will stay). *Zostalibyśmy* is conditional and goes with *gdyby*.", ne: "*jeśli* + भविष्य काल सम्भव हुने सर्त हो, त्यसैले परिणाम पनि भविष्य कालमै हुन्छ: *zostaniemy* (बस्नेछौँ)। *zostalibyśmy* शर्तवाचक हो र *gdyby* सँग आउँछ।" }
           },
           {
             q: "Szukam pracy ___ opiekun osób starszych.", en: "I'm looking for work as a carer for elderly people.", ne: "म वृद्धवृद्धाको हेरचाहकर्ताको रूपमा काम खोज्दै छु।",
@@ -208,12 +208,12 @@ window.SLOWKA_EXAMS.push(
           {
             q: "Lekarz powiedział, żebym ___ więcej wody.", en: "The doctor told me to drink more water.", ne: "डाक्टरले मलाई अझ धेरै पानी पिउन भन्नुभयो।",
             options: ["piję", "pił", "pić"], answer: 1,
-            why: { en: "After *żeby* the verb takes the past-tense form (*-ł*), and the person ending sits on *żeby*: *żebym pił* (that I drink), *żebyś pił* (that you drink).", ne: "*żeby* पछि क्रिया भूतकालको रूप (*-ł*) मा आउँछ, र पुरुषको अन्त्य *żeby* मा जोडिन्छ: *żebym pił* (म पिऊँ भनेर), *żebyś pił* (तिमी पिऊ भनेर)।" }
+            why: { en: "After *żeby* the verb takes the past-tense form (*-ł*), and the person ending sits on *żeby*: *żebym pił* (that I drink), *żebyś pił* (that you drink).", ne: "*żeby* पछि क्रिया भूतकालको रूप (*-ł*) मा आउँछ, र व्यक्ति (म/तिमी…) जनाउने अन्त्य *żeby* मा जोडिन्छ: *żebym pił* (म पिऊँ भनेर), *żebyś pił* (तिमी पिऊ भनेर)।" }
           },
           {
             q: "Nie znam nikogo, kto ___ mi pomóc.", en: "I don't know anyone who could help me.", ne: "मलाई सहयोग गर्न सक्ने कसैलाई म चिन्दिनँ।",
             options: ["mogłoby", "mogli", "mógłby"], answer: 2,
-            why: { en: "*Kto* is always grammatically masculine singular, so the verb is *mógłby*. The conditional is used because this person may not exist.", ne: "*kto* व्याकरणमा सधैँ पुलिङ्ग एकवचन हुन्छ, त्यसैले क्रिया *mógłby* हुन्छ। यस्तो व्यक्ति नहुन पनि सक्ने भएकोले सम्भावनार्थ प्रयोग गरिएको हो।" }
+            why: { en: "*Kto* is always grammatically masculine singular, so the verb is *mógłby*. The conditional is used because this person may not exist.", ne: "*kto* व्याकरणमा सधैँ पुलिङ्ग एकवचन हुन्छ, त्यसैले क्रिया *mógłby* हुन्छ। यस्तो व्यक्ति नहुन पनि सक्ने भएकोले शर्तवाचक प्रयोग गरिएको हो।" }
           }
         ]
       },
@@ -224,7 +224,7 @@ window.SLOWKA_EXAMS.push(
             prompt: {
               pl: "Mieszkasz w wynajętym mieszkaniu. Od trzech dni nie działa ogrzewanie. Napisz e-mail do właściciela mieszkania, pana Nowaka. Opisz problem, napisz, od kiedy trwa, i poproś o przysłanie fachowca. Podaj, kiedy jesteś w domu. (60–80 słów)",
               en: "You live in a rented flat. The heating hasn't worked for three days. Write an email to the owner of the flat, Mr Nowak. Describe the problem, say since when it has been going on, and ask him to send a repair person. Say when you are at home. (60–80 words)",
-              ne: "तपाईं भाडाको फ्ल्याटमा बस्नुहुन्छ। तीन दिनदेखि हिटिङ चलेको छैन। फ्ल्याटका मालिक, श्रीमान् नोभाकलाई इमेल लेख्नुहोस्। समस्या बताउनुहोस्, कहिलेदेखि भएको हो लेख्नुहोस्, र मिस्त्री पठाइदिन अनुरोध गर्नुहोस्। तपाईं कहिले घरमा हुनुहुन्छ भन्नुहोस्। (६०–८० शब्द)"
+              ne: "तपाईं भाडाको फ्ल्याटमा बस्नुहुन्छ। तीन दिनदेखि हिटिङ चलेको छैन। फ्ल्याटका मालिक, श्री नोभाकलाई इमेल लेख्नुहोस्। समस्या बताउनुहोस्, कहिलेदेखि भएको हो लेख्नुहोस्, र मिस्त्री पठाइदिन अनुरोध गर्नुहोस्। तपाईं कहिले घरमा हुनुहुन्छ भन्नुहोस्। (६०–८० शब्द)"
             },
             minWords: 60,
             model: {
@@ -370,7 +370,7 @@ window.SLOWKA_EXAMS.push(
           {
             q: "Gdybyś ___ wcześniej, zdążyłbyś na pociąg.", en: "If you had left earlier, you would have made it to the train.", ne: "तिमी अलि चाँडो निस्केको भए रेल समात्न भ्याउने थियौ।",
             options: ["wyszedł", "wyjdziesz", "wychodzisz"], answer: 0,
-            why: { en: "After *gdyby* the verb uses the past-tense form (*-ł*), and the person ending goes on *gdyby*: *gdybyś wyszedł*. The present or future cannot follow *gdyby*.", ne: "*gdyby* पछि क्रिया भूतकालको रूप (*-ł*) मा आउँछ, र पुरुषको अन्त्य *gdyby* मा जोडिन्छ: *gdybyś wyszedł*। *gdyby* पछि वर्तमान वा भविष्य काल आउँदैन।" }
+            why: { en: "After *gdyby* the verb uses the past-tense form (*-ł*), and the person ending goes on *gdyby*: *gdybyś wyszedł*. The present or future cannot follow *gdyby*.", ne: "*gdyby* पछि क्रिया भूतकालको रूप (*-ł*) मा आउँछ, र व्यक्ति (म/तिमी…) जनाउने अन्त्य *gdyby* मा जोडिन्छ: *gdybyś wyszedł*। *gdyby* पछि वर्तमान वा भविष्य काल आउँदैन।" }
           },
           {
             q: "Chciałbym umówić się ___ wizytę u lekarza.", en: "I would like to make an appointment with the doctor.", ne: "म डाक्टरसँग भेटको समय लिन चाहन्छु।",

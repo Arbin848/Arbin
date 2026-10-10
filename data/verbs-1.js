@@ -267,7 +267,7 @@ window.SLOWKA_VERBS.push(
     imperative: { ty: "—", my: "—", wy: "—" },
     note: {
       en: "*s* becomes *sz* in *muszę, muszą*. Past men/mixed plural: *musieliśmy, musieli*. It has no imperative. Future: *będę musieć* or *będę musiał / musiała*. *Muszę iść* = I have to go.",
-      ne: "*muszę, muszą* मा *s* को सट्टा *sz* हुन्छ। पुरुष/मिश्रित बहुवचन भूत: *musieliśmy, musieli*। यसको आज्ञार्थ रूप हुँदैन। भविष्य: *będę musieć* वा *będę musiał / musiała*। *Muszę iść* = म जानैपर्छ।"
+      ne: "*muszę, muszą* मा *s* को सट्टा *sz* हुन्छ। पुरुष/मिश्रित बहुवचन भूत: *musieliśmy, musieli*। यसको आज्ञार्थ रूप हुँदैन। भविष्य: *będę musieć* वा *będę musiał / musiała*। *Muszę iść* = मलाई जानैपर्छ।"
     }
   },
   {
