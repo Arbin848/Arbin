@@ -523,7 +523,9 @@
     const d = s.items[s.i].d;
     if (s.picked.length !== d.words.length) return;
     const built = s.picked.map((k) => d.words[k]).join(' ');
-    finishDrill(S.clean(built) === S.clean(d.words.join(' ')) ? 'right' : 'wrong', d.why || null);
+    // Some sentences have more than one natural order; `alts` lists the others.
+    const accepted = [d.words.join(' '), ...(d.alts || [])].map(S.clean);
+    finishDrill(accepted.includes(S.clean(built)) ? 'right' : 'wrong', d.why || null);
   }
   function drillNext() {
     const s = session;

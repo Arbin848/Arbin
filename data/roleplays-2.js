@@ -55,8 +55,8 @@ window.SLOWKA_ROLEPLAYS.push({
         { pl: "Brałem tylko paracetamol, ale nie pomógł.", en: "I only took paracetamol, but it didn't help.", ne: "मैले पारासिटामोल मात्र खाएँ, तर फाइदा भएन।", ok: true },
         { pl: "Nie, nie biorę żadnych leków. Nie mam też alergii.", en: "No, I'm not taking any medicines. I don't have any allergies either.", ne: "होइन, म कुनै औषधि खाँदिनँ। मलाई कुनै एलर्जी पनि छैन।", ok: true },
         { pl: "Nie, nie biorę żadne leki.", en: "(wrong form after 'nie')", ne: "(*nie* पछि गलत रूप)", ok: false,
-          why: { en: "Again the negative rule: *biorę leki* → *nie biorę żadnych leków* (genitive plural). *Żadne leki* is the form for a positive sentence.",
-                 ne: "फेरि नकारात्मक नियम: *biorę leki* → *nie biorę żadnych leków* (षष्ठी बहुवचन)। *Żadne leki* सकारात्मक वाक्यको रूप हो।" } }
+          why: { en: "Again the negative rule: *biorę leki* → *nie biorę żadnych leków* (genitive plural). *Żadne leki* is the basic (nominative) form, e.g. *Żadne leki nie pomagają* (No medicines help).",
+                 ne: "फेरि नकारात्मक नियम: *biorę leki* → *nie biorę żadnych leków* (षष्ठी बहुवचन)। *Żadne leki* मूल (प्रथमा) रूप हो, जस्तै *Żadne leki nie pomagają* (कुनै औषधिले काम गर्दैन)।" } }
       ]
     },
     {
@@ -429,9 +429,9 @@ window.SLOWKA_ROLEPLAYS.push({
       replies: [
         { pl: "Szesnasta mi pasuje. Będę czekał.", en: "Four o'clock suits me. I'll be waiting.", ne: "चार बजे मलाई मिल्छ। म पर्खिरहन्छु।", ok: true },
         { pl: "Niestety o szesnastej mnie nie będzie. Czy może być o siedemnastej?", en: "Unfortunately I won't be there at four. Could it be at five?", ne: "दुर्भाग्यवश चार बजे म हुँदिनँ। पाँच बजे हुन सक्छ?", ok: true },
-        { pl: "Szesnasta mnie pasuje.", en: "(wrong pronoun case)", ne: "(सर्वनामको गलत विभक्ति)", ok: false,
-          why: { en: "*Pasować* (to suit) takes the dative, like Nepali 'मलाई मिल्छ': *mi pasuje*, *Panu pasuje?* *Mnie* here would be the accusative.",
-                 ne: "*Pasować* (मिल्नु) पछि सम्प्रदान (dative) आउँछ, नेपालीको 'मलाई मिल्छ' जस्तै: *mi pasuje*, *Panu pasuje?* यहाँ *mnie* द्वितीया हुन्छ।" } }
+        { pl: "Szesnasta ja pasuje.", en: "(wrong pronoun case)", ne: "(सर्वनामको गलत विभक्ति)", ok: false,
+          why: { en: "*Pasować* (to suit) takes the dative, like Nepali 'मलाई मिल्छ' (not 'म मिल्छ'): *mi pasuje* (stressed: *mnie pasuje*), *Panu pasuje?* *Ja* is the nominative ('I') and can't be used here.",
+                 ne: "*Pasować* (मिल्नु) पछि सम्प्रदान (dative) आउँछ, नेपालीको 'मलाई मिल्छ' जस्तै ('म मिल्छ' होइन): *mi pasuje* (जोड दिँदा: *mnie pasuje*), *Panu pasuje?* *Ja* प्रथमा ('म') हो, यहाँ प्रयोग हुँदैन।" } }
       ]
     },
     {

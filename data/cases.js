@@ -220,12 +220,12 @@ window.SLOWKA_NOUNS.push(
 window.SLOWKA_CASE_FRAMES = [
   // ---------------------------------------------------------------- genitive
   { case: "gen", number: "sg", who: "any",    q: "Nie ma ___.",                  en: "There is no … / … isn't here.", ne: "… छैन।" },
-  { case: "gen", number: "sg", who: "any",    q: "Nie widzę ___.",               en: "I don't see …", ne: "म … देख्दिनँ।" },
+  { case: "gen", number: "sg", who: "any",    q: "Nie pamiętam ___.",            en: "I don't remember …", ne: "मलाई … याद छैन।" },
   { case: "gen", number: "sg", who: "person", q: "Szukam ___.",                  en: "I'm looking for …", ne: "म …लाई खोज्दै छु।" },
   { case: "gen", number: "sg", who: "person", q: "Mam wiadomość od ___.",        en: "I have a message from …", ne: "मसँग …बाट आएको सन्देश छ।" },
   { case: "gen", number: "pl", who: "any",    q: "Nie ma tu ___.",               en: "There are no … here.", ne: "यहाँ … छैनन्।" },
   { case: "gen", number: "pl", who: "any",    q: "Tu jest dużo ___.",            en: "There are a lot of … here.", ne: "यहाँ धेरै … छन्।" },
-  { case: "gen", number: "pl", who: "any",    q: "Nie widzę ___.",               en: "I don't see (any) …", ne: "म … देख्दिनँ।" },
+  { case: "gen", number: "pl", who: "any",    q: "Nie pamiętam ___.",            en: "I don't remember (the) …", ne: "मलाई … याद छैन।" },
   { case: "gen", number: "pl", who: "person", q: "Szukam ___.",                  en: "I'm looking for …", ne: "म …लाई खोज्दै छु।" },
 
   // ---------------------------------------------------------------- dative
@@ -237,11 +237,11 @@ window.SLOWKA_CASE_FRAMES = [
   { case: "dat", number: "pl", who: "person", q: "Daję prezenty ___.",           en: "I give presents to (the) …", ne: "म …लाई उपहारहरू दिन्छु।" },
 
   // ---------------------------------------------------------------- accusative
-  { case: "acc", number: "sg", who: "any",    q: "Widzę ___.",                   en: "I see …", ne: "म … देख्छु।" },
+  { case: "acc", number: "sg", who: "any",    q: "Pamiętam ___.",                en: "I remember …", ne: "मलाई … याद छ।" },
   { case: "acc", number: "sg", who: "any",    q: "Mam na myśli ___.",            en: "I mean …", ne: "मेरो मतलब … हो।" },
   { case: "acc", number: "sg", who: "person", q: "Czekam na ___.",               en: "I'm waiting for …", ne: "म …लाई पर्खिरहेको छु।" },
   { case: "acc", number: "sg", who: "person", q: "Pytam ___.",                   en: "I'm asking …", ne: "म …लाई सोध्छु।" },
-  { case: "acc", number: "pl", who: "any",    q: "Widzę ___.",                   en: "I see (the) …", ne: "म … देख्छु।" },
+  { case: "acc", number: "pl", who: "any",    q: "Pamiętam ___.",                en: "I remember (the) …", ne: "मलाई … याद छ।" },
   { case: "acc", number: "pl", who: "any",    q: "Mam na myśli ___.",            en: "I mean (the) …", ne: "मेरो मतलब … हो।" },
   { case: "acc", number: "pl", who: "person", q: "Czekam na ___.",               en: "I'm waiting for (the) …", ne: "म …लाई पर्खिरहेको छु।" },
   { case: "acc", number: "pl", who: "person", q: "Pytam ___.",                   en: "I'm asking (the) …", ne: "म …लाई सोध्छु।" },
@@ -249,10 +249,10 @@ window.SLOWKA_CASE_FRAMES = [
   // ---------------------------------------------------------------- instrumental
   { case: "ins", number: "sg", who: "person", q: "Rozmawiam z ___.",             en: "I'm talking with …", ne: "म …सँग कुरा गर्दै छु।" },
   { case: "ins", number: "sg", who: "person", q: "Pracuję z ___.",               en: "I work with …", ne: "म …सँग काम गर्छु।" },
-  { case: "ins", number: "sg", who: "thing",  q: "Interesuję się ___.",          en: "I'm interested in …", ne: "मलाई …मा रुचि छ।" },
+  { case: "ins", number: "sg", who: "thing",  q: "Zajmuję się ___.",             en: "I take care of / deal with …", ne: "म … सम्हाल्छु।" },
   { case: "ins", number: "pl", who: "person", q: "Rozmawiam z ___.",             en: "I'm talking with (the) …", ne: "म …सँग कुरा गर्दै छु।" },
   { case: "ins", number: "pl", who: "person", q: "Pracuję z ___.",               en: "I work with …", ne: "म …सँग काम गर्छु।" },
-  { case: "ins", number: "pl", who: "thing",  q: "Interesuję się ___.",          en: "I'm interested in …", ne: "मलाई …मा रुचि छ।" },
+  { case: "ins", number: "pl", who: "thing",  q: "Zajmuję się ___.",             en: "I take care of / deal with …", ne: "म … सम्हाल्छु।" },
 
   // ---------------------------------------------------------------- locative
   { case: "loc", number: "sg", who: "any",    q: "Rozmawiamy o ___.",            en: "We're talking about …", ne: "हामी …को बारेमा कुरा गर्दै छौं।" },

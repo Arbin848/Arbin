@@ -413,7 +413,7 @@ window.SLOWKA_COURSE.push(
     lesson: [
       {
         en: "In Nepali, *जानु* covers every kind of going. Polish is stricter: it asks **how** you go. On foot you use *iść / chodzić*. By any vehicle — bus, train, car, even a bicycle — you use *jechać / jeździć*. So *Idę do pracy* means you walk to work, but *Jadę do pracy* means you go by bus, car or bike.",
-        ne: "नेपालीमा *जानु* ले हर किसिमको जानेलाई बुझाउँछ। पोलिसमा भने **कसरी** जाने भन्ने कुरा महत्त्वपूर्ण हुन्छ। हिँडेर जाँदा *iść / chodzić* प्रयोग हुन्छ। कुनै पनि सवारीमा — बस, रेल, कार, साइकलमा पनि — *jechać / jeździć* प्रयोग हुन्छ। त्यसैले *Idę do pracy* भनेको हिँडेर काममा जाँदै छु, तर *Jadę do pracy* भनेको बस, कार वा साइकलमा जाँदै छु।"
+        ne: "नेपालीमा *जानु* ले हर किसिमको जानेलाई बुझाउँछ। पोलिशमा भने **कसरी** जाने भन्ने कुरा महत्त्वपूर्ण हुन्छ। हिँडेर जाँदा *iść / chodzić* प्रयोग हुन्छ। कुनै पनि सवारीमा — बस, रेल, कार, साइकलमा पनि — *jechać / jeździć* प्रयोग हुन्छ। त्यसैले *Idę do pracy* भनेको हिँडेर काममा जाँदै छु, तर *Jadę do pracy* भनेको बस, कार वा साइकलमा जाँदै छु।"
       },
       {
         en: "Each pair has two verbs. *Iść* and *jechać* are for **one trip, now or at a definite time**: *Teraz idę do sklepu* (I'm going to the shop now). *Chodzić* and *jeździć* are for **habits and repeated trips**: *Codziennie chodzę do sklepu* (I go to the shop every day). Words like *codziennie*, *często*, *zawsze*, *w każdy poniedziałek* usually point to *chodzić / jeździć*.",

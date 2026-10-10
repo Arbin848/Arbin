@@ -56,6 +56,7 @@ wrong gender, missing diacritics are handled automatically — don't add those).
   why: { en: "*nie* goes directly before the verb.", ne: "*nie* क्रियाको ठीक अगाडि आउँछ।" } }
 ```
 Pick sentences with one clearly natural order (Polish word order is flexible, so avoid ambiguous ones).
+If another order is also natural, list it in `alts: ["…"]` (same words, other order) so it is accepted.
 Punctuation stays attached to the last token. Capitalise the first token.
 
 ---
