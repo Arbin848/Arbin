@@ -5,6 +5,14 @@ It works fully offline, with no AI, no account and no server. Everything is in t
 
 पोलिस भाषा सुरुदेखि सिक्ने कोर्स: वर्णमाला, उच्चारण, व्याकरण, संवाद, पढाइ र परीक्षा तयारी, अंग्रेजी र नेपाली व्याख्यासहित। इन्टरनेट, AI वा खाता बिना चल्छ।
 
+## How it works
+
+- **Home** shows today's plan: your daily review, the next lesson with your teacher, and a conversation or text at your level.
+- **Course** is divided into clear levels: Start (alphabet and sounds) → A1 → A2 → B1 → B2, plus Polish for work. Each level lists what you will be able to do.
+- **Lessons with your teacher**: every unit is taught step by step, like a class: short explanations one at a time, new words one by one (listen, slow, repeat, say it), a quick check, sentences, the dialogue line by line, grammar exercises, dictation and a summary. The app remembers where you stopped.
+- **Practice** groups every tool by skill: vocabulary, grammar, pronunciation, real life and tests.
+- **Pronunciation help everywhere**: words split into syllable blocks with the stressed one highlighted (English letters and Devanagari), tips for the hard letters in each word, slow playback, and native recordings from Wiktionary and Lingua Libre.
+
 ## What's inside
 
 **Course (56 units, 1,200+ words and sentences)**
@@ -58,7 +66,7 @@ Opening `index.html` directly also works, but offline mode and the microphone ne
 ## Native-speaker audio (optional)
 
 The Listen buttons use your device's Polish voice. To add real recordings by native speakers from
-[Lingua Libre](https://lingualibre.org) (free licences, credited in `audio/ATTRIBUTION.md`):
+[Wiktionary](https://www.wiktionary.org) and [Lingua Libre](https://lingualibre.org) (free licences, credited in `audio/ATTRIBUTION.md`):
 
 ```sh
 node tools/fetch-audio.js          # needs Node 18+, ffmpeg and internet access to Wikimedia

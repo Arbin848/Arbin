@@ -1,4 +1,4 @@
-// Downloads native-speaker recordings of course words from Lingua Libre (Wikimedia Commons),
+// Downloads native-speaker recordings of course words from Wiktionary and Lingua Libre (Wikimedia Commons),
 // converts them to small MP3 files in audio/, and writes audio/manifest.js and audio/ATTRIBUTION.md.
 //
 // Usage:  node tools/fetch-audio.js [--limit 200]
@@ -62,8 +62,17 @@ async function api(params) {
 }
 
 // Find a Lingua Libre file named "LL-Q809 (pol)-<speaker>-<word>.wav".
+// Wiktionary recordings are stored as "Pl-<word>.ogg" (sometimes .oga or with a region tag).
+async function findWiktionary(word) {
+  const titles = [`File:Pl-${word}.ogg`, `File:Pl-${word}.oga`, `File:Pl-${word}.wav`];
+  const data = await api({ action: 'query', titles: titles.join('|'), prop: 'imageinfo', iiprop: 'url' });
+  const pages = (data && data.query && data.query.pages) || [];
+  const hit = pages.find((p) => !p.missing && p.imageinfo);
+  return hit ? hit.title : null;
+}
+
 async function findRecording(word) {
-  const want = `-${word}.wav`;
+  const want = `-${word}.wav`; // Lingua Libre names files "LL-Q809 (pol)-<speaker>-<word>.wav"
   const q = word.replace(/"/g, '');
   // Try a strict title search first, then a looser one.
   for (const srsearch of [`intitle:"LL-Q809 (pol)" intitle:"${q}"`, `"LL-Q809 (pol)" "${q}"`]) {
@@ -117,7 +126,7 @@ function save(manifest, credits) {
   const lines = Object.entries(credits).sort(([a], [b]) => a.localeCompare(b, 'pl'))
     .map(([w, c]) => `- **${w}**: ${c.author}, ${c.license}, [source](${c.page})`);
   fs.writeFileSync(path.join(AUDIO, 'ATTRIBUTION.md'),
-    `# Audio credits\n\nThese recordings come from [Lingua Libre](https://lingualibre.org) via Wikimedia Commons, converted to MP3. Each is used under the licence shown.\n\n${lines.join('\n')}\n`);
+    `# Audio credits\n\nThese recordings come from [Wiktionary](https://www.wiktionary.org) and [Lingua Libre](https://lingualibre.org) via Wikimedia Commons, converted to MP3. Each is used under the licence shown.\n\n${lines.join('\n')}\n`);
 }
 
 (async () => {
@@ -134,7 +143,8 @@ function save(manifest, credits) {
     if (checked >= LIMIT) break;
     checked += 1;
     try {
-      const title = await findRecording(word);
+      // Wiktionary first for multi-word phrases and common words, then Lingua Libre.
+      const title = (await findWiktionary(word)) || (await findRecording(word));
       await sleep(150);
       if (!title) continue;
       const info = await fileInfo(title);

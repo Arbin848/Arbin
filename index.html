@@ -21,9 +21,18 @@
       <span class="wordmark" lang="pl">S<span class="dia">ł</span><span class="dia">ó</span>wka</span>
       <span class="tagline">Polish from zero · <span lang="ne">सुरुदेखि पोलिस भाषा</span></span>
     </button>
-    <div class="stats" id="stats"></div>
+    <div class="top-right">
+      <div class="stats" id="stats"></div>
+      <button class="icon-btn gear" data-action="go" data-to="settings" aria-label="Settings">⚙</button>
+    </div>
   </header>
   <main id="view"></main>
+  <nav class="bottom-nav" aria-label="Main">
+    <button data-action="go" data-to="home"><span aria-hidden="true">⌂</span>Home<small lang="ne">गृह</small></button>
+    <button data-action="go" data-to="course"><span aria-hidden="true">☰</span>Course<small lang="ne">पाठ्यक्रम</small></button>
+    <button data-action="go" data-to="practice"><span aria-hidden="true">◎</span>Practice<small lang="ne">अभ्यास</small></button>
+    <button data-action="go" data-to="progress"><span aria-hidden="true">▲</span>Progress<small lang="ne">प्रगति</small></button>
+  </nav>
   <footer class="foot">
     <span>Progress is saved in this browser. Everything works offline, with no AI and no account.</span>
   </footer>
@@ -55,6 +64,7 @@
 <script src="js/practice.js"></script>
 <script src="js/extras.js"></script>
 <script src="js/trainers.js"></script>
+<script src="js/guided.js"></script>
 <script src="app.js"></script>
 </body>
 </html>

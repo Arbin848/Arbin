@@ -11,7 +11,7 @@
 
   // Routes are bare tokens so they survive in a link's #anchor: "a1-03", "talk.rp-a1-cafe", "review".
   S.route = { name: 'home' };
-  const PAGES = ['review', 'alphabet', 'dictionary', 'settings', 'talk', 'read', 'exam', 'placement', 'mistakes', 'progress', 'verbs', 'cases', 'sounds', 'check'];
+  const PAGES = ['course', 'practice', 'learn', 'review', 'alphabet', 'dictionary', 'settings', 'talk', 'read', 'exam', 'placement', 'mistakes', 'progress', 'verbs', 'cases', 'sounds', 'check'];
 
   S.go = (to, opts = {}) => {
     S.Practice.reset();
@@ -29,6 +29,7 @@
 
   S.render = () => {
     renderStats();
+    renderNav();
     const r = S.route;
     if (r.name === 'unit') renderUnit();
     else if (r.name === 'review') renderReview();
@@ -40,14 +41,28 @@
     else if (r.name === 'exam') r.arg ? S.Extras.exam(view, r.arg) : S.Extras.examList(view);
     else if (r.name === 'placement') S.Extras.placement(view);
     else if (r.name === 'mistakes') r.arg === 'practice' ? renderMistakePractice() : S.Extras.mistakes(view);
-    else if (r.name === 'progress') S.Extras.progressPage(view);
+    else if (r.name === 'progress') {
+      S.Extras.progressPage(view);
+      const done = S.COURSE.filter((u) => S.Guided.status(u).done).length;
+      view.insertAdjacentHTML('beforeend', `
+        <p class="hint">Lessons finished with your teacher: <b>${done} of ${S.COURSE.length}</b>.</p>
+        <div class="row start"><button class="btn" data-action="go" data-to="settings">⚙ Settings · सेटिङ</button><button class="btn" data-action="go" data-to="check">Review mode for native speakers</button></div>`);
+    }
     else if (r.name === 'verbs') r.arg === 'practice' ? S.Trainers.verbPractice(view) : r.arg ? S.Trainers.verb(view, r.arg) : S.Trainers.verbList(view);
     else if (r.name === 'cases') r.arg === 'practice' ? S.Trainers.casePractice(view) : r.arg ? S.Trainers.noun(view, r.arg) : S.Trainers.caseList(view);
     else if (r.name === 'sounds') r.arg ? S.Trainers.sound(view, r.arg) : S.Trainers.soundList(view);
+    else if (r.name === 'course') renderCourse();
+    else if (r.name === 'practice') renderPractice();
+    else if (r.name === 'learn') S.Guided.render(view, r.arg);
     else if (r.name === 'check') r.arg ? S.Trainers.checkUnit(view, r.arg) : S.Trainers.checkList(view);
     else renderHome();
   };
   S.onProgress = () => renderStats();
+  const NAV = { home: 'home', course: 'course', unit: 'course', learn: 'course', practice: 'practice', review: 'practice', verbs: 'practice', cases: 'practice', sounds: 'practice', alphabet: 'practice', dictionary: 'practice', mistakes: 'practice', talk: 'practice', read: 'practice', exam: 'practice', placement: 'practice', progress: 'progress', settings: 'progress', check: 'progress' };
+  function renderNav() {
+    const cur = NAV[S.route.name] || 'home';
+    document.querySelectorAll('.bottom-nav button').forEach((b) => b.setAttribute('aria-current', b.dataset.to === cur ? 'page' : 'false'));
+  }
 
   function renderStats() {
     const learned = S.ENTRIES.filter(S.isLearned).length;
@@ -57,8 +72,12 @@
       <div class="stat"><b>${S.dueList().length}</b><span>to review</span></div>`;
   }
 
-  S.backLink = (to = 'home', label = 'All lessons · सबै पाठ') =>
-    `<button class="back" data-action="go" data-to="${to}">← ${label}</button>`;
+  // Without arguments, "back" goes to the section the page belongs to.
+  const PARENT = { course: ['course', 'Course · पाठ्यक्रम'], practice: ['practice', 'Practice · अभ्यास'], progress: ['progress', 'Progress · प्रगति'], home: ['home', 'Home · गृह'] };
+  S.backLink = (to, label) => {
+    if (!to) [to, label] = PARENT[NAV[S.route.name] === S.route.name ? 'home' : NAV[S.route.name] || 'home'];
+    return `<button class="back" data-action="go" data-to="${to}">← ${label}</button>`;
+  };
 
   S.entryRow = (e) => (e ? `
     <li class="entry">
@@ -67,13 +86,48 @@
       <div class="entry-side">${S.boxMeter(e)}${S.listenBtn(e.pl)}</div>
     </li>` : '');
 
-  // ---------- home ----------
+  // ---------- home, course and practice ----------
+
+  // What a learner can do after each level (CEFR "can do" statements, simplified).
+  const CAN_DO = {
+    Start: [['Read any Polish word aloud', 'कुनै पनि पोलिस शब्द ठूलो स्वरमा पढ्न'], ['Know all 32 letters and the hard sounds', '३२ अक्षर र गाह्रा आवाज चिन्न'], ['Say hello, thank you and sorry', 'नमस्ते, धन्यवाद र माफ गर्नुहोस् भन्न']],
+    A1: [['Introduce yourself and your family', 'आफ्नो र परिवारको परिचय दिन'], ['Order food, shop and ask prices', 'खाना अर्डर गर्न, किनमेल गर्न, मूल्य सोध्न'], ['Tell the time, ask the way, say what hurts', 'समय भन्न, बाटो सोध्न, कहाँ दुख्छ भन्न']],
+    A2: [['Talk about yesterday and tomorrow', 'हिजो र भोलिको कुरा गर्न'], ['Use all 7 cases in everyday sentences', 'दैनिक वाक्यमा ७ विभक्ति प्रयोग गर्न'], ['Talk about work, shifts, weather and free time', 'काम, सिफ्ट, मौसम र फुर्सदको कुरा गर्न']],
+    B1: [['Handle the doctor, offices and the phone', 'डाक्टर, कार्यालय र फोनमा काम चलाउन'], ['Speak politely with Pan/Pani and "would"', 'Pan/Pani र विनम्र रूपमा बोल्न'], ['Give opinions and explain problems', 'राय दिन र समस्या बुझाउन']],
+    B2: [['Write formal emails and do a job interview', 'औपचारिक इमेल लेख्न र अन्तर्वार्ता दिन'], ['Understand contracts, news and idioms', 'सम्झौता, समाचार र उखान बुझ्न'], ['Connect ideas in long, fluent sentences', 'लामो र धाराप्रवाह वाक्यमा विचार जोड्न']],
+    Work: [['Understand safety rules and signs at work', 'कामको सुरक्षा नियम र चिन्ह बुझ्न'], ['Talk to your supervisor about tasks', 'सुपरभाइजरसँग कामबारे कुरा गर्न'], ['Know the key words for your job', 'आफ्नो कामका मुख्य शब्द जान्न']],
+  };
 
   function nextUnit() {
     const main = S.COURSE.filter((u) => u.level !== 'Work');
     const last = S.UNIT.get(S.progress.lastUnit);
-    if (last && S.unitLearned(last) < last.entries.length * 0.8) return last;
-    return main.find((u) => S.unitLearned(u) < u.entries.length * 0.8) || main[0];
+    if (last && !S.Guided.status(last).done) return last;
+    return main.find((u) => !S.Guided.status(u).done && S.unitLearned(u) < u.entries.length * 0.8) || main[0];
+  }
+
+  const ring = (done, total) => {
+    const pct = total ? Math.min(1, done / total) : 0;
+    const c = 2 * Math.PI * 26;
+    return `<svg class="ring" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="26" class="ring-bg"/><circle cx="32" cy="32" r="26" class="ring-fg" stroke-dasharray="${c}" stroke-dashoffset="${c * (1 - pct)}"/></svg>`;
+  };
+
+  function unitButton(u) {
+    const st = S.Guided.status(u);
+    const n = u.entries.length;
+    const l = S.unitLearned(u);
+    const state = st.done ? 'done' : st.started || S.unitStarted(u) ? 'started' : '';
+    const drill = S.progress.drills[u.id];
+    return `
+      <li>
+        <button class="unit-row ${state}" data-action="go" data-to="${u.id}">
+          <span class="unit-num">${st.done ? '✓' : esc(u.id.split('-')[1])}</span>
+          <span class="unit-text">
+            <span class="unit-title">${esc(u.title)}</span>
+            <span class="unit-ne" lang="ne">${esc(u.titleNe)}</span>
+          </span>
+          <span class="unit-progress">${drill ? `<small class="ok" title="Best grammar score">${drill.best}%</small>` : ''}${S.bar(l, n)}<small>${l}/${n}</small></span>
+        </button>
+      </li>`;
   }
 
   function renderHome() {
@@ -82,94 +136,122 @@
       return;
     }
     const next = nextUnit();
+    const st = S.Guided.status(next);
     const due = S.dueList().length;
-    const started = S.COURSE.some(S.unitStarted);
     const today = S.todayCount();
     const goal = S.settings.goal;
     const mistakes = S.Extras.mistakeItems().length;
+    const level = S.LEVELS[S.levelIndex(next.level)];
+    const rp = S.ROLEPLAYS.find((r) => r.level === next.level && !S.progress.roleplays[r.id]) || S.ROLEPLAYS.find((r) => !S.progress.roleplays[r.id]);
+    const story = S.STORIES.find((x) => x.level === next.level && S.progress.stories[x.id] == null);
+    const hour = new Date().getHours();
+    const hello = hour < 12 ? ['Dzień dobry!', 'Good morning', 'शुभ प्रभात'] : hour < 18 ? ['Dzień dobry!', 'Good afternoon', 'नमस्ते'] : ['Dobry wieczór!', 'Good evening', 'शुभ सन्ध्या'];
 
-    const levels = S.LEVELS.map((level) => {
-      const units = S.COURSE.filter((u) => u.level === level.id);
-      if (!units.length) return '';
-      const total = units.reduce((n, u) => n + u.entries.length, 0);
-      const done = units.reduce((n, u) => n + S.unitLearned(u), 0);
-      return `
-        <section class="level" aria-labelledby="lvl-${level.id}">
-          <header class="level-head">
-            <div>
-              <h2 id="lvl-${level.id}">${esc(level.name)} <span class="ne-sub" lang="ne">${esc(level.ne)}</span></h2>
-              <p>${esc(level.blurb)} · <span lang="ne">${esc(level.blurbNe)}</span></p>
-            </div>
-            <span class="level-count">${done}/${total}</span>
-          </header>
-          <ol class="units">
-            ${units.map((u) => {
-              const n = u.entries.length;
-              const l = S.unitLearned(u);
-              const state = l >= n * 0.8 ? 'done' : S.unitStarted(u) ? 'started' : '';
-              const drill = S.progress.drills[u.id];
-              return `
-                <li>
-                  <button class="unit-row ${state}" data-action="go" data-to="${u.id}">
-                    <span class="unit-num">${esc(u.id.split('-')[1])}</span>
-                    <span class="unit-text">
-                      <span class="unit-title">${esc(u.title)}</span>
-                      <span class="unit-ne" lang="ne">${esc(u.titleNe)}</span>
-                    </span>
-                    <span class="unit-progress">${drill ? `<small class="ok" title="Best grammar score">${drill.best}%</small>` : ''}${S.bar(l, n)}<small>${l}/${n}</small></span>
-                  </button>
-                </li>`;
-            }).join('')}
-          </ol>
-        </section>`;
-    }).join('');
-
-    const tool = (to, big, en, ne, cls = '') => `<button class="tool ${cls}" data-action="go" data-to="${to}"><b>${big}</b><span>${en}</span><small lang="ne">${ne}</small></button>`;
+    const plan = [
+      due ? { to: 'review', icon: '↻', en: `Review ${due} ${due === 1 ? 'word' : 'words'}`, ne: 'शब्द दोहोर्याउनुहोस्', sub: 'A few minutes · केही मिनेट' } : null,
+      { action: 'g-start', unit: next.id, icon: '▶', en: st.done ? `Repeat: ${next.title}` : st.started ? `Continue: ${next.title}` : `Lesson: ${next.title}`, ne: next.titleNe, sub: st.started && !st.done ? `Step ${st.step + 1} of ${st.total} · with your teacher` : 'With your teacher · शिक्षिकासँग', main: true },
+      mistakes ? { to: 'mistakes.practice', icon: '✎', en: `Fix ${mistakes} grammar ${mistakes === 1 ? 'mistake' : 'mistakes'}`, ne: 'व्याकरणका गल्ती सुधार्नुहोस्', sub: '' } : null,
+      rp && S.levelIndex(next.level) >= 1 ? { to: `talk.${rp.id}`, icon: '💬', en: `Talk: ${rp.title}`, ne: rp.titleNe, sub: 'Conversation practice · संवाद' } : null,
+      story && !rp ? { to: `read.${story.id}`, icon: '📖', en: `Read: ${story.title}`, ne: story.titleNe, sub: 'Reading · पढाइ' } : null,
+    ].filter(Boolean);
 
     view.innerHTML = `
-      <section class="hero">
-        <div class="hero-main">
-          <span class="eyebrow">${started ? 'Continue · जारी राख्नुहोस्' : 'Start here · यहाँबाट सुरु गर्नुहोस्'}</span>
-          <h2>${esc(next.title)}</h2>
-          <p lang="ne">${esc(next.titleNe)}</p>
-          <p class="hint">${esc(next.summary)}</p>
-          <div class="goal">
-            <span>Today · आज <b>${today}</b> / ${goal}</span>${S.bar(Math.min(today, goal), goal)}
-            <small>${today >= goal ? 'Daily goal reached! · आजको लक्ष्य पूरा भयो!' : `${goal - today} more answers to reach your goal`}</small>
+      <section class="today">
+        <div class="today-top">
+          <div>
+            <span class="eyebrow">${hello[1]} · <span lang="ne">${hello[2]}</span></span>
+            <h2 lang="pl">${hello[0]}</h2>
+            <p class="hint">Your level now: <b>${esc(level.name)}</b> · <span lang="ne">${esc(level.ne)}</span></p>
           </div>
-          <div class="row start">
-            <button class="btn primary" data-action="go" data-to="${next.id}">${started ? 'Continue lesson' : 'Begin the course'}</button>
-            ${due ? `<button class="btn" data-action="go" data-to="review">Review ${due} due</button>` : ''}
-            ${!started && !S.progress.placement ? '<button class="btn" data-action="go" data-to="placement">I already know some Polish</button>' : ''}
-          </div>
+          <div class="goal-ring" title="Today's goal">${ring(today, goal)}<span><b>${today}</b>/${goal}</span></div>
         </div>
-        <nav class="tools" aria-label="Tools">
-          ${tool('review', due, 'Daily review', 'दैनिक दोहोर्याइ', due ? 'hot' : '')}
-          ${tool('talk', S.ROLEPLAYS.length, 'Conversations', 'संवाद अभ्यास')}
-          ${tool('read', S.STORIES.length, 'Reading', 'पढाइ')}
-          ${tool('mistakes', mistakes, 'My mistakes', 'मेरा गल्ती', mistakes ? 'hot' : '')}
-          ${tool('verbs', S.Trainers.VERBS.length, 'Verbs', 'क्रियापद')}
-          ${tool('cases', 7, 'Cases', 'विभक्ति')}
-          ${tool('sounds', S.Trainers.SOUNDS.length, 'Sounds lab', 'ध्वनि अभ्यास')}
-          ${tool('exam', 'B1', 'Exam prep', 'परीक्षा तयारी')}
-          ${tool('alphabet', '<span lang="pl">Ąą</span>', 'Alphabet', 'वर्णमाला')}
-          ${tool('dictionary', S.ENTRIES.length, 'Dictionary', 'शब्दकोश')}
-          ${tool('progress', S.currentStreak(), 'Progress', 'प्रगति')}
-          ${tool('settings', '⚙', 'Settings', 'सेटिङ')}
-        </nav>
+        <h3 class="section-h">Today's plan <span class="ne-sub" lang="ne">आजको योजना</span></h3>
+        <ol class="plan">${plan.map((x) => `
+          <li><button class="plan-item ${x.main ? 'main' : ''}" ${x.action ? `data-action="${x.action}" data-unit="${x.unit}"` : `data-action="go" data-to="${x.to}"`}>
+            <span class="plan-icon" aria-hidden="true">${x.icon}</span>
+            <span class="plan-text"><b>${esc(x.en)}</b><span lang="ne">${esc(x.ne)}</span>${x.sub ? `<small>${esc(x.sub)}</small>` : ''}</span>
+            <span class="plan-go" aria-hidden="true">→</span>
+          </button></li>`).join('')}</ol>
+        <p class="hint">${today >= goal ? 'Daily goal reached! Everything more is a bonus. · आजको लक्ष्य पूरा!' : `${goal - today} more answers to reach today's goal. · आजको लक्ष्यका लागि ${goal - today} उत्तर बाँकी।`}</p>
       </section>
-      ${!started ? `
-      <section class="howto">
-        <h2>How to use this course <span class="ne-sub" lang="ne">यो कोर्स कसरी प्रयोग गर्ने</span></h2>
-        <ol>
-          <li><b>Read the lesson</b> in each unit. Every rule is explained in English and Nepali. <span lang="ne">हरेक पाठ पढ्नुहोस्; नियमहरू अंग्रेजी र नेपालीमा छन्।</span></li>
-          <li><b>Listen and repeat</b> every word out loud, then use the <b>Speak</b> tab. <span lang="ne">सुनेर ठूलो स्वरमा दोहोर्याउनुहोस्।</span></li>
-          <li><b>Practise</b> with cards, quiz, listening, typing and grammar exercises. <span lang="ne">अभ्यास गर्नुहोस्।</span></li>
-          <li><b>Talk</b>: after each level, try the conversations and reading texts. <span lang="ne">हरेक स्तरपछि संवाद र पढाइ अभ्यास गर्नुहोस्।</span></li>
-          <li><b>Come back every day</b> for the daily review. <span lang="ne">हरेक दिन दोहोर्याउनुहोस्।</span></li>
-        </ol>
-      </section>` : ''}
-      ${levels}`;
+      ${!S.COURSE.some(S.unitStarted) && !S.progress.placement ? `
+        <section class="card compact first-time">
+          <p><b>New here?</b> Start with the first lesson. Already know some Polish? Take the placement test to find your level.<br><span lang="ne">नयाँ हुनुहुन्छ? पहिलो पाठबाट सुरु गर्नुहोस्। अलि पोलिस आउँछ भने स्तर परीक्षा दिनुहोस्।</span></p>
+          <div class="row start"><button class="btn" data-action="go" data-to="placement">Find my level · स्तर परीक्षा</button></div>
+        </section>` : ''}
+      <section>
+        <h3 class="section-h">Your course <span class="ne-sub" lang="ne">तपाईंको पाठ्यक्रम</span></h3>
+        <div class="level-strip">${S.LEVELS.filter((l) => S.COURSE.some((u) => u.level === l.id)).map((l) => {
+          const units = S.COURSE.filter((u) => u.level === l.id);
+          const done = units.filter((u) => S.Guided.status(u).done).length;
+          return `<button class="level-chip lv-${l.id} ${l.id === next.level ? 'current' : ''}" data-action="go" data-to="course.${l.id}">
+            <b>${esc(l.id === 'Start' ? 'Start' : l.id)}</b><small>${done}/${units.length}</small>${S.bar(done, units.length)}</button>`;
+        }).join('')}</div>
+      </section>`;
+  }
+
+  function renderCourse() {
+    const only = S.route.arg;
+    view.innerHTML = `
+      <header class="unit-head">
+        <span class="eyebrow">Course · पाठ्यक्रम</span>
+        <h2>From zero to fluent</h2>
+        <p class="hint">Six parts, from the alphabet to upper-intermediate (B2), plus Polish for work. Do the lessons in order; each one takes 10–20 minutes with your teacher.<br><span lang="ne">वर्णमालादेखि उच्च-मध्यम (B2) सम्म, साथै कामको पोलिस। पाठहरू क्रमैसँग गर्नुहोस्।</span></p>
+        <div class="seg chips" role="group">${S.LEVELS.filter((l) => S.COURSE.some((u) => u.level === l.id)).map((l) => `<button data-action="go" data-to="course.${l.id}" aria-pressed="${only === l.id}">${esc(l.id)}</button>`).join('')}<button data-action="go" data-to="course" aria-pressed="${!only}">All</button></div>
+      </header>
+      ${S.LEVELS.filter((l) => !only || l.id === only).map((level) => {
+        const units = S.COURSE.filter((u) => u.level === level.id);
+        if (!units.length) return '';
+        const done = units.filter((u) => S.Guided.status(u).done).length;
+        const rps = S.ROLEPLAYS.filter((r) => r.level === level.id);
+        const sts = S.STORIES.filter((x) => x.level === level.id);
+        return `
+          <section class="chapter lv-${level.id}" aria-labelledby="lvl-${level.id}">
+            <header class="chapter-head">
+              <div>
+                <span class="chapter-tag">${level.id === 'Start' ? 'Level 0' : level.id === 'Work' ? 'Extra' : `Level ${level.id}`}</span>
+                <h2 id="lvl-${level.id}">${esc(level.name)} <span class="ne-sub" lang="ne">${esc(level.ne)}</span></h2>
+                <p>${esc(level.blurb)} · <span lang="ne">${esc(level.blurbNe)}</span></p>
+              </div>
+              <span class="chapter-count">${done}/${units.length}<small>lessons</small></span>
+            </header>
+            <div class="can-do">
+              <span class="label">After this level you can · यो स्तरपछि तपाईं सक्नुहुन्छ</span>
+              <ul>${(CAN_DO[level.id] || []).map(([en, ne]) => `<li>${esc(en)} · <span lang="ne">${esc(ne)}</span></li>`).join('')}</ul>
+            </div>
+            <ol class="units">${units.map(unitButton).join('')}</ol>
+            ${rps.length || sts.length || level.id === 'B1' ? `
+              <div class="chapter-extra">
+                <span class="label">Also at this level · यो स्तरमा अरू</span>
+                <div class="chip-row">
+                  ${rps.length ? `<button class="chip-btn" data-action="go" data-to="talk">💬 ${rps.length} conversations</button>` : ''}
+                  ${sts.length ? `<button class="chip-btn" data-action="go" data-to="read">📖 ${sts.length} texts</button>` : ''}
+                  ${level.id === 'B1' ? '<button class="chip-btn" data-action="go" data-to="exam">🎓 B1 exam practice</button>' : ''}
+                </div>
+              </div>` : ''}
+          </section>`;
+      }).join('')}`;
+  }
+
+  function renderPractice() {
+    const due = S.dueList().length;
+    const mistakes = S.Extras.mistakeItems().length;
+    const group = (title, ne, items) => `
+      <section class="pgroup">
+        <h3 class="section-h">${title} <span class="ne-sub" lang="ne">${ne}</span></h3>
+        <div class="tools">${items.map(([to, big, en, sub, hot]) => `<button class="tool ${hot ? 'hot' : ''}" data-action="go" data-to="${to}"><b>${big}</b><span>${en}</span><small lang="ne">${sub}</small></button>`).join('')}</div>
+      </section>`;
+    view.innerHTML = `
+      <header class="unit-head">
+        <span class="eyebrow">Practice · अभ्यास</span>
+        <h2>Train each skill</h2>
+        <p class="hint">Use these any time, next to your lessons. · पाठसँगै जुनसुकै बेला प्रयोग गर्नुहोस्।</p>
+      </header>
+      ${group('Vocabulary', 'शब्द', [['review', due, 'Daily review', 'दैनिक दोहोर्याइ', due > 0], ['dictionary', S.ENTRIES.length, 'Dictionary', 'शब्दकोश']])}
+      ${group('Grammar', 'व्याकरण', [['verbs', S.Trainers.VERBS.length, 'Verbs', 'क्रियापद'], ['cases', 7, 'Cases', 'विभक्ति'], ['mistakes', mistakes, 'My mistakes', 'मेरा गल्ती', mistakes > 0]])}
+      ${group('Pronunciation', 'उच्चारण', [['alphabet', '<span lang="pl">Ąą</span>', 'Alphabet', 'वर्णमाला'], ['sounds', S.Trainers.SOUNDS.length, 'Sounds lab', 'ध्वनि अभ्यास']])}
+      ${group('Real life', 'वास्तविक जीवन', [['talk', S.ROLEPLAYS.length, 'Conversations', 'संवाद'], ['read', S.STORIES.length, 'Reading', 'पढाइ']])}
+      ${group('Tests', 'परीक्षा', [['placement', '30', 'Find my level', 'स्तर परीक्षा'], ['exam', 'B1', 'B1 exam practice', 'B1 परीक्षा']])}`;
   }
 
   // ---------- unit ----------
@@ -204,6 +286,15 @@
         <p class="hint">${esc(u.summary)}<br><span lang="ne">${esc(u.summaryNe)}</span></p>
         <div class="unit-meter">${S.bar(l, n)}<small>${l} of ${n} learned${drill ? ` · grammar best ${drill.best}%` : ''}</small></div>
       </header>
+      ${(() => {
+        const st = S.Guided.status(u);
+        return `<div class="teach-cta">
+          <div><b>${st.done ? 'Lesson finished ✓' : st.started ? `Continue the lesson · step ${st.step + 1} of ${st.total}` : 'Learn this unit with your teacher'}</b>
+          <span lang="ne">${st.done ? 'पाठ सकियो · फेरि गर्न सक्नुहुन्छ' : st.started ? 'पाठ जारी राख्नुहोस्' : 'शिक्षिकासँग चरणबद्ध रूपमा सिक्नुहोस्'}</span></div>
+          <button class="btn primary" data-action="g-start" data-unit="${u.id}">${st.done ? 'Repeat lesson' : st.started ? 'Continue →' : 'Start lesson →'}</button>
+        </div>
+        <h3 class="section-h">Or practise freely <span class="ne-sub" lang="ne">वा आफैँ अभ्यास गर्नुहोस्</span></h3>`;
+      })()}
       <nav class="tabs" role="tablist" aria-label="Lesson sections">
         ${tabs.map((t) => `<button class="tab" role="tab" aria-selected="${S.route.tab === t.id}" data-action="tab" data-tab="${t.id}">${t.en}<small lang="ne">${t.ne}</small></button>`).join('')}
       </nav>
@@ -437,6 +528,7 @@
     const a = el.dataset.action;
     if (el.tagName !== 'INPUT') ev.preventDefault();
     if (S.Practice.action(a, el)) return;
+    if (S.Guided.action(a, el, view)) return;
     if (S.Extras.action(a, el, view)) return;
     if (S.Trainers.action(a, el, view)) return;
     switch (a) {
@@ -447,7 +539,7 @@
         renderUnit();
         $('.tabs').scrollIntoView({ block: 'nearest' });
         break;
-      case 'say': S.speak(el.dataset.text); break;
+      case 'say': S.speak(el.dataset.text, el.dataset.slow === '1'); break;
       case 'key': S.insertKey(el.dataset.key); break;
       case 'set': {
         const v = el.dataset.value;
@@ -502,6 +594,7 @@
     if (/^(INPUT|TEXTAREA)$/.test(ev.target.tagName) && !ev.target.readOnly) return;
     if (S.Practice.key(ev)) return;
     if (S.Trainers.key(ev)) return;
+    if (S.Guided.key(ev)) return;
     S.Extras.key(ev);
   });
 

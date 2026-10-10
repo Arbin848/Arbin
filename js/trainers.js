@@ -16,7 +16,7 @@
   const LEVELS = ['A1', 'A2', 'B1', 'B2'];
 
   const prog = (key) => (S.progress[key] = S.progress[key] || {});
-  const head = (eyebrow, title, titleNe, text, back = 'home', backLabel) => `
+  const head = (eyebrow, title, titleNe, text, back, backLabel) => `
     ${S.backLink(back, backLabel)}
     <header class="unit-head">
       <span class="eyebrow">${eyebrow}</span>
