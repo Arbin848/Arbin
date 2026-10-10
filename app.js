@@ -25,6 +25,9 @@
     try { history.replaceState(null, '', S.route.name === 'home' ? location.pathname + location.search : `#${to}`); } catch (e) { /* not allowed here */ }
     S.render();
     window.scrollTo(0, 0);
+    // Screen readers: start reading the new page from its heading.
+    const h = view.querySelector('h2');
+    if (h && !view.querySelector('[data-autofocus]')) { h.setAttribute('tabindex', '-1'); h.focus({ preventScroll: true }); }
   };
 
   S.render = () => {
@@ -52,7 +55,7 @@
           const certs = S.progress.certs || {};
           const ids = Object.keys(certs);
           return `<h3 class="section-h">Certificates <span class="ne-sub" lang="ne">प्रमाणपत्र</span></h3>
-            ${ids.length ? `<div class="chip-row">${ids.map((l) => `<button class="chip-btn" data-action="go" data-to="cert.${l}">🎓 ${esc(l)} · ${certs[l].score}%</button>`).join('')}</div>`
+            ${ids.length ? `<div class="chip-row">${ids.map((l) => `<button class="chip-btn" data-action="go" data-to="cert.${esc(l)}">🎓 ${esc(l)} · ${Number(certs[l].score) || 0}%</button>`).join('')}</div>`
               : '<p class="hint">Pass a level test (at the end of each level in the Course) to earn a certificate. · हरेक स्तरको अन्त्यमा परीक्षा पास गरेर प्रमाणपत्र पाउनुहोस्।</p>'}`;
         })()}
         <div class="row start"><button class="btn" data-action="go" data-to="settings">⚙ Settings · सेटिङ</button><button class="btn" data-action="go" data-to="check">Review mode for native speakers</button></div>`);
@@ -139,7 +142,7 @@
             <span class="unit-title">${esc(u.title)}</span>
             <span class="unit-ne" lang="ne">${esc(u.titleNe)}</span>
           </span>
-          <span class="unit-progress">${drill ? `<small class="ok" title="Best grammar score">${drill.best}%</small>` : ''}${S.bar(l, n)}<small>${l}/${n}</small></span>
+          <span class="unit-progress">${drill ? `<small class="ok" title="Best grammar score">${Number(drill.best) || 0}%</small>` : ''}${S.bar(l, n)}<small>${l}/${n}</small></span>
         </button>
       </li>`;
   }
@@ -316,7 +319,7 @@
         <h2>${esc(u.title)}</h2>
         <p class="unit-head-ne" lang="ne">${esc(u.titleNe)}</p>
         <p class="hint">${esc(u.summary)}<br><span lang="ne">${esc(u.summaryNe)}</span></p>
-        <div class="unit-meter">${S.bar(l, n)}<small>${l} of ${n} learned${drill ? ` · grammar best ${drill.best}%` : ''}</small></div>
+        <div class="unit-meter">${S.bar(l, n)}<small>${l} of ${n} learned${drill ? ` · grammar best ${Number(drill.best) || 0}%` : ''}</small></div>
       </header>
       ${(() => {
         const st = S.Guided.status(u);
@@ -330,7 +333,7 @@
       <nav class="tabs" role="tablist" aria-label="Lesson sections">
         ${tabs.map((t) => `<button class="tab" role="tab" aria-selected="${S.route.tab === t.id}" data-action="tab" data-tab="${t.id}">${t.en}<small lang="ne">${t.ne}</small></button>`).join('')}
       </nav>
-      <section class="stage" id="stage" aria-live="polite"></section>
+      <section class="stage" id="stage"></section>
       <nav class="pager">
         ${idx > 0 ? `<button class="btn" data-action="go" data-to="${S.COURSE[idx - 1].id}">← ${esc(S.COURSE[idx - 1].title)}</button>` : '<span></span>'}
         ${idx < S.COURSE.length - 1 ? `<button class="btn" data-action="go" data-to="${S.COURSE[idx + 1].id}">${esc(S.COURSE[idx + 1].title)} →</button>` : ''}
@@ -405,7 +408,7 @@
         <p class="hint">Words you have practised come back on a schedule: tomorrow, then in 2, 4, 7 and 14 days. A few minutes every day is the fastest way to remember.<br>
         <span lang="ne">अभ्यास गरेका शब्दहरू तालिका अनुसार फर्कन्छन्: भोलि, अनि २, ४, ७ र १४ दिनपछि। हरेक दिन केही मिनेट दोहोर्याउनु नै छिटो सम्झने उपाय हो।</span></p>
       </header>
-      <section class="stage" id="stage" aria-live="polite"></section>
+      <section class="stage" id="stage"></section>
       ${S.Extras.mistakeItems().length ? `<section class="card compact extra-review"><span class="label">Also due · यो पनि दोहोर्याउनुहोस्</span>
         <p>You have <b>${S.Extras.mistakeItems().length}</b> grammar ${S.Extras.mistakeItems().length === 1 ? 'mistake' : 'mistakes'} to practise again.</p>
         <button class="btn" data-action="go" data-to="mistakes.practice">Practise my mistakes →</button></section>` : ''}`;
@@ -417,7 +420,7 @@
     view.innerHTML = `
       ${S.backLink('mistakes', 'My mistakes · मेरा गल्ती')}
       <header class="unit-head"><span class="eyebrow">Mistakes notebook · गल्ती कापी</span><h2>Practise my mistakes</h2></header>
-      <section class="stage" id="stage" aria-live="polite"></section>`;
+      <section class="stage" id="stage"></section>`;
     S.Practice.render($('#stage'), { key: 'mistakes', mode: 'drill', drills: items, mixed: true, pool: [] });
   }
 
@@ -534,6 +537,7 @@
           <legend>Install and use offline <span lang="ne">इन्स्टल र अफलाइन प्रयोग</span></legend>
           <p class="hint">Open the app's website in Chrome (Android) or Safari (iPhone). Then choose <b>Add to Home screen</b> from the browser menu. It then opens like an app and works without internet. The microphone and speaking practice also work there.<br>
           <span lang="ne">एपको वेबसाइट Chrome वा Safari मा खोल्नुहोस्, अनि मेनुबाट <b>Add to Home screen</b> छान्नुहोस्। त्यसपछि यो एपजस्तै खुल्छ र इन्टरनेटबिना पनि चल्छ।</span></p>
+          ${Object.keys(S.AUDIO).length ? `<div class="row start"><button class="btn" data-action="audio-offline">Download all ${Object.keys(S.AUDIO).length} voices for offline (about 7 MB)</button><span class="hint" id="audio-msg"></span></div>` : ''}
           ${S.canSpeak ? '' : '<p class="hint">This browser has no text-to-speech, so Listen buttons are hidden.</p>'}
           <p class="hint">No Polish voice? Android: Settings → Text-to-speech → install Polish. iPhone: Settings → Accessibility → Spoken Content → Voices → Polish.</p>
         </fieldset>
@@ -575,12 +579,33 @@
         $('.tabs').scrollIntoView({ block: 'nearest' });
         break;
       case 'say': S.speak(el.dataset.text, el.dataset.slow === '1'); break;
-      case 'key': S.insertKey(el.dataset.key); break;
+      case 'key': S.insertKey(el.dataset.key, el); break;
       case 'set': {
         const v = el.dataset.value;
         S.settings[el.dataset.key] = v === 'true' ? true : v === 'false' ? false : /^\d+$/.test(v) ? Number(v) : v;
         S.saveSettings();
         renderSettings();
+        break;
+      }
+      case 'audio-offline': {
+        // The service worker keeps each recording it serves; fetching them all fills the cache.
+        const files = [...new Set(Object.values(S.AUDIO))];
+        const msg = $('#audio-msg');
+        el.disabled = true;
+        let done = 0;
+        let failed = 0;
+        const next = async () => {
+          while (files.length) {
+            const f = files.shift();
+            try { const r = await fetch(f); if (!r.ok) failed++; } catch (e) { failed++; }
+            done++;
+            if (msg) msg.textContent = `${done} / ${done + files.length}`;
+          }
+        };
+        Promise.all([next(), next(), next(), next()]).then(() => {
+          if (msg) msg.textContent = failed ? `Done, ${failed} could not be downloaded. Try again later.` : 'All voices saved for offline ✓';
+          el.disabled = false;
+        });
         break;
       }
       case 'backup-copy': {
