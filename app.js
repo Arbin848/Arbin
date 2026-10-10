@@ -11,10 +11,11 @@
 
   // Routes are bare tokens so they survive in a link's #anchor: "a1-03", "talk.rp-a1-cafe", "review".
   S.route = { name: 'home' };
-  const PAGES = ['review', 'alphabet', 'dictionary', 'settings', 'talk', 'read', 'exam', 'placement', 'mistakes', 'progress'];
+  const PAGES = ['review', 'alphabet', 'dictionary', 'settings', 'talk', 'read', 'exam', 'placement', 'mistakes', 'progress', 'verbs', 'cases', 'sounds', 'check'];
 
   S.go = (to, opts = {}) => {
     S.Practice.reset();
+    S.Trainers.resetSessions(opts.keep);
     const [name, arg] = String(to || 'home').split(/\.(.+)/);
     if (S.UNIT.has(to)) S.route = { name: 'unit', id: to, tab: 'learn' };
     else if (PAGES.includes(name)) S.route = { name, arg: arg || null, q: opts.q || '' };
@@ -40,6 +41,10 @@
     else if (r.name === 'placement') S.Extras.placement(view);
     else if (r.name === 'mistakes') r.arg === 'practice' ? renderMistakePractice() : S.Extras.mistakes(view);
     else if (r.name === 'progress') S.Extras.progressPage(view);
+    else if (r.name === 'verbs') r.arg === 'practice' ? S.Trainers.verbPractice(view) : r.arg ? S.Trainers.verb(view, r.arg) : S.Trainers.verbList(view);
+    else if (r.name === 'cases') r.arg === 'practice' ? S.Trainers.casePractice(view) : r.arg ? S.Trainers.noun(view, r.arg) : S.Trainers.caseList(view);
+    else if (r.name === 'sounds') r.arg ? S.Trainers.sound(view, r.arg) : S.Trainers.soundList(view);
+    else if (r.name === 'check') r.arg ? S.Trainers.checkUnit(view, r.arg) : S.Trainers.checkList(view);
     else renderHome();
   };
   S.onProgress = () => renderStats();
@@ -143,6 +148,9 @@
           ${tool('talk', S.ROLEPLAYS.length, 'Conversations', 'संवाद अभ्यास')}
           ${tool('read', S.STORIES.length, 'Reading', 'पढाइ')}
           ${tool('mistakes', mistakes, 'My mistakes', 'मेरा गल्ती', mistakes ? 'hot' : '')}
+          ${tool('verbs', S.Trainers.VERBS.length, 'Verbs', 'क्रियापद')}
+          ${tool('cases', 7, 'Cases', 'विभक्ति')}
+          ${tool('sounds', S.Trainers.SOUNDS.length, 'Sounds lab', 'ध्वनि अभ्यास')}
           ${tool('exam', 'B1', 'Exam prep', 'परीक्षा तयारी')}
           ${tool('alphabet', '<span lang="pl">Ąą</span>', 'Alphabet', 'वर्णमाला')}
           ${tool('dictionary', S.ENTRIES.length, 'Dictionary', 'शब्दकोश')}
@@ -173,6 +181,7 @@
     { id: 'listen', en: 'Listen', ne: 'सुनाइ', show: () => S.canSpeak },
     { id: 'speak', en: 'Speak', ne: 'बोलाइ' },
     { id: 'type', en: 'Type', ne: 'लेखाइ' },
+    { id: 'dictate', en: 'Dictation', ne: 'श्रुतलेख', show: () => S.canSpeak },
     { id: 'drill', en: 'Grammar', ne: 'व्याकरण', show: (u) => (S.DRILLS[u.id] || []).length > 0 },
   ];
 
@@ -273,7 +282,10 @@
         <p class="hint">Words you have practised come back on a schedule: tomorrow, then in 2, 4, 7 and 14 days. A few minutes every day is the fastest way to remember.<br>
         <span lang="ne">अभ्यास गरेका शब्दहरू तालिका अनुसार फर्कन्छन्: भोलि, अनि २, ४, ७ र १४ दिनपछि। हरेक दिन केही मिनेट दोहोर्याउनु नै छिटो सम्झने उपाय हो।</span></p>
       </header>
-      <section class="stage" id="stage" aria-live="polite"></section>`;
+      <section class="stage" id="stage" aria-live="polite"></section>
+      ${S.Extras.mistakeItems().length ? `<section class="card compact extra-review"><span class="label">Also due · यो पनि दोहोर्याउनुहोस्</span>
+        <p>You have <b>${S.Extras.mistakeItems().length}</b> grammar ${S.Extras.mistakeItems().length === 1 ? 'mistake' : 'mistakes'} to practise again.</p>
+        <button class="btn" data-action="go" data-to="mistakes.practice">Practise my mistakes →</button></section>` : ''}`;
     S.Practice.render($('#stage'), { key: 'review', mode: 'cards', pool: due, review: true });
   }
 
@@ -408,6 +420,11 @@
           <p class="hint">Clearing your progress cannot be undone. Copy your backup code first.</p>
           <button class="btn again" data-action="reset">Clear all progress</button>
         </fieldset>
+        <fieldset class="setting">
+          <legend>Native speakers <span lang="ne">मातृभाषी</span></legend>
+          <p class="hint">Do you speak Polish or Nepali as your first language? Help check this course. · यो कोर्स जाँच्न सहयोग गर्नुहोस्।</p>
+          <button class="btn" data-action="go" data-to="check">Open review mode</button>
+        </fieldset>
         <p class="hint">How pronunciation is written: in English letters the stressed syllable is in CAPITALS (<span class="pron">jen DOB-ri</span>). In Devanagari the stressed syllable comes after <span class="pron ne">ˈ</span> (<span class="pron ne" lang="ne">जेन् ˈदोब्-रि</span>). Both are approximations: always listen too.</p>
       </div>`;
   }
@@ -421,6 +438,7 @@
     if (el.tagName !== 'INPUT') ev.preventDefault();
     if (S.Practice.action(a, el)) return;
     if (S.Extras.action(a, el, view)) return;
+    if (S.Trainers.action(a, el, view)) return;
     switch (a) {
       case 'go': S.go(el.dataset.to, { q: el.dataset.q }); break;
       case 'tab':
@@ -474,14 +492,16 @@
   document.addEventListener('submit', (ev) => {
     ev.preventDefault();
     if (S.Practice.submit(ev.target)) return;
+    if (S.Trainers.submit(ev.target, view)) return;
     S.Extras.submit(ev.target);
   });
-  document.addEventListener('input', (ev) => { S.Extras.input(ev.target); });
+  document.addEventListener('input', (ev) => { if (!S.Trainers.input(ev.target)) S.Extras.input(ev.target); });
 
   document.addEventListener('keydown', (ev) => {
     if (ev.metaKey || ev.ctrlKey || ev.altKey) return;
     if (/^(INPUT|TEXTAREA)$/.test(ev.target.tagName) && !ev.target.readOnly) return;
     if (S.Practice.key(ev)) return;
+    if (S.Trainers.key(ev)) return;
     S.Extras.key(ev);
   });
 
