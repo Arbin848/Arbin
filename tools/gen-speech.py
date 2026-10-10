@@ -42,10 +42,13 @@ def speech_text(text):
     return re.sub(r'\s/\s', ', ', t).strip()
 
 
-def slug(key, voice):
-    ascii_ = unicodedata.normalize('NFD', key).encode('ascii', 'ignore').decode().replace('ł', 'l')
+def slug(key, voice, say=None):
+    """File name for a clip. When the text is read differently from its spelling (say), the name
+    changes with it, so editing the spoken form makes a new recording."""
+    ascii_ = unicodedata.normalize('NFD', key).encode('ascii', 'ignore').decode()  # unchanged: existing file names depend on it
     ascii_ = re.sub(r'[^a-z0-9]+', '-', ascii_).strip('-')[:40] or 'x'
-    return f"{ascii_}-{hashlib.md5((key + voice).encode()).hexdigest()[:8]}-{voice}.mp3"
+    h = hashlib.md5((key + voice + (('|' + say) if say else '')).encode()).hexdigest()[:8]
+    return f"{ascii_}-{h}-{voice}.mp3"
 
 
 def read_js_object(path, name):
@@ -89,12 +92,18 @@ def main():
             skipped += 1
             continue
         v = item['voice']
-        name = slug(key, v)
-        rel = f'audio/tts/{name}'
-        if not only and key in manifest and os.path.exists(os.path.join(ROOT, manifest[key])):
+        say = item.get('say')
+        rel = f'audio/tts/{slug(key, v, say)}'
+        # Keep an existing clip if it was made from the same spoken text (by either voice:
+        # the quality check may have swapped it for the other one).
+        fine = {f'audio/tts/{slug(key, x, say)}' for x in VOICES}
+        if not only and manifest.get(key) in fine and os.path.exists(os.path.join(ROOT, manifest[key])):
             continue
         try:
-            synth(voices[v], speech_text(item['text']), os.path.join(ROOT, rel))
+            old = manifest.get(key)
+            synth(voices[v], speech_text(say or item['text']), os.path.join(ROOT, rel))
+            if old and old != rel and os.path.exists(os.path.join(ROOT, old)):
+                os.remove(os.path.join(ROOT, old))
             manifest[key] = rel
             done += 1
         except Exception as e:  # keep going; the app falls back to the device voice
@@ -102,8 +111,17 @@ def main():
         if done and done % 200 == 0:
             write_manifest(manifest)
             print(f'  {done} generated ({i + 1}/{len(items)})', flush=True)
+    # Texts that are no longer in the app: remove their clips.
+    wanted = {clean(x['text']) for x in items}
+    removed = 0
+    if not only:
+        for key in [k for k in manifest if k not in wanted or k in native]:
+            f = os.path.join(ROOT, manifest.pop(key))
+            if os.path.exists(f):
+                os.remove(f)
+            removed += 1
     write_manifest(manifest)
-    print(f'Done: {done} new clips, {len(manifest)} in total, {skipped} covered by native recordings.')
+    print(f'Done: {done} new clips, {removed} removed, {len(manifest)} in total, {skipped} covered by native recordings.')
 
 
 if __name__ == '__main__':

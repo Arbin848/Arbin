@@ -462,7 +462,7 @@
     let fb = '';
     if (a) {
       const title = { right: 'Dobrze! Correct · सही', close: 'Almost: check the accents · लगभग सही', wrong: 'Not quite · मिलेन' }[a.result];
-      const correct = d.type === 'order' ? d.words.join(' ') : d.type === 'choose' ? d.q.replace('___', d.options[d.answer]) : d.q.replace(/\s*\([^)]*\)\s*$/, '').replace('___', d.answer[0]);
+      const correct = S.drillSentence(d);
       fb = `
         <div class="feedback ${a.result}" role="status">
           <div class="fb-text">
@@ -471,7 +471,7 @@
             ${S.transHTML(d.en, d.ne)}
             ${S.whyHTML(a.why)}
           </div>
-          <div class="row">${S.listenBtn(correct, true)}<button class="btn primary" data-action="drill-next" data-autofocus><kbd>Enter</kbd> Next</button></div>
+          <div class="row">${S.listenBtn(S.drillSpeech(d), true)}<button class="btn primary" data-action="drill-next" data-autofocus><kbd>Enter</kbd> Next</button></div>
         </div>`;
     }
     const unit = S.UNIT.get(it.unit);

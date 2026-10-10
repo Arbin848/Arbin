@@ -73,6 +73,15 @@
     if (!/\s/.test(e.pl.trim())) { const k = S.tokenKey(e.pl); if (!S.WORD_INDEX.has(k)) S.WORD_INDEX.set(k, e); }
   }
 
+  // The Polish a grammar exercise's Listen button says: the finished sentence without English hints.
+  // ("(Walking into a shop at 8 pm) ___!" -> "Dobry wieczór!"; "co? — it sounds like 'tso'" -> "co?")
+  // Exercises about sounds give the word to say in d.say. tools/list-texts.js uses the same rule.
+  S.drillSentence = (d) => (d.type === 'order' ? d.words.join(' ') : d.type === 'choose' ? d.q.replace('___', d.options[d.answer]) : d.q.replace(/\s*\([^)]*\)\s*$/, '').replace('___', d.answer[0]));
+  S.drillSpeech = (d) => {
+    if (d.say) return d.say;
+    return S.drillSentence(d).split(' — ')[0].replace(/\([^)]*\)/g, ' ').replace(/\s+([,.!?;:])/g, '$1').replace(/\s+/g, ' ').trim();
+  };
+
   // Similarity 0–1 between two strings (Levenshtein), on folded text.
   S.similarity = (a, b) => {
     a = S.fold(a); b = S.fold(b);

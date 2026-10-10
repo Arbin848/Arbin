@@ -189,7 +189,7 @@
     let body = '';
     if (q.t === 'drill') {
       const d = q.d;
-      const correct = d.type === 'order' ? d.words.join(' ') : d.type === 'choose' ? d.q.replace('___', d.options[d.answer]) : d.q.replace(/\s*\([^)]*\)\s*$/, '').replace('___', d.answer[0]);
+      const correct = S.drillSentence(d);
       body = `<span class="answer" lang="pl">${polish(correct)}</span>${S.transHTML(d.en, d.ne)}${S.whyHTML(a.why || d.why)}`;
     } else if (q.t === 'speak') {
       body = `<span class="answer" lang="pl">${polish(q.e.pl)}</span>${a.heard != null ? `<span class="heard">Heard · सुनियो: <b lang="pl">${esc(a.heard)}</b> · ${Math.round(a.match * 100)}%</span>` : '<span class="hint">Skipped</span>'}${S.pronHTML(q.e)}`;
@@ -197,7 +197,7 @@
       body = `<span class="answer" lang="pl">${polish(q.e.pl)}</span>${S.pronHTML(q.e)}${S.meaningHTML(q.e)}`;
     }
     return `<div class="feedback ${kind}" role="status"><div class="fb-text"><strong>${title}</strong>${body}</div>
-      <div class="row">${S.listenBtn(q.t === 'drill' ? (q.d.type === 'order' ? q.d.words.join(' ') : q.d.type === 'choose' ? q.d.q.replace('___', q.d.options[q.d.answer]) : q.d.q.replace(/\s*\([^)]*\)\s*$/, '').replace('___', q.d.answer[0])) : q.e.pl)}<button class="btn primary" data-action="as-next" data-autofocus><kbd>Enter</kbd> ${run.i + 1 < run.qs.length ? 'Next' : 'See result'}</button></div></div>`;
+      <div class="row">${S.listenBtn(q.t === 'drill' ? S.drillSpeech(q.d) : q.e.pl)}<button class="btn primary" data-action="as-next" data-autofocus><kbd>Enter</kbd> ${run.i + 1 < run.qs.length ? 'Next' : 'See result'}</button></div></div>`;
   }
 
   function answer(score, extra = {}) {
