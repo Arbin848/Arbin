@@ -427,17 +427,38 @@
 
   // ---------- alphabet ----------
 
+  const pronPair = (pron, proNe) => S.pronHTML({ pron, proNe });
+  const meaningPair = (en, ne) => `<span class="ex-m">${S.shows('meaning', 'en') ? esc(en) : ''}${S.settings.meaning === 'both' ? ' · ' : ''}${S.shows('meaning', 'ne') ? `<span lang="ne">${esc(ne)}</span>` : ''}</span>`;
+  const soundLines = (a) => `${S.shows('explain', 'en') ? `<span class="sound">${esc(a.soundEn)}</span>` : ''}${S.shows('explain', 'ne') ? `<span class="sound" lang="ne">${esc(a.soundNe)}</span>` : ''}`;
+  const exampleHTML = (a) => `
+        <span class="example">
+          <span class="ex-word"><b lang="pl">${polish(a.example)}</b>${S.listenBtn(a.example)}</span>
+          ${pronPair(a.pron, a.proNe)}
+          ${meaningPair(a.exampleEn, a.exampleNe)}
+        </span>`;
+
   function alphabetGrid() {
-    return `<div class="letters">${S.ALPHABET.map((a) => `
+    return `
+      ${S.canSpeak ? `<div class="row start abc-play"><button type="button" class="btn primary" data-action="abc-play">${S.SPEAKER} Listen to the whole alphabet <span lang="ne">पूरा वर्णमाला सुन्नुहोस्</span></button><button type="button" class="btn" data-action="abc-stop">■ Stop</button></div>` : ''}
+      <div class="letters">${S.ALPHABET.map((a) => `
       <div class="letter">
-        <div class="letter-top"><span class="glyph" lang="pl">${polish(a.letter)}</span>${S.listenBtn(a.example)}</div>
-        ${S.shows('explain', 'en') ? `<span class="sound">${esc(a.soundEn)}</span>` : ''}
-        ${S.shows('explain', 'ne') ? `<span class="sound" lang="ne">${esc(a.soundNe)}</span>` : ''}
-        <span class="example"><b lang="pl">${polish(a.example)}</b>
-          ${S.shows('pron', 'en') ? `<span class="pron">${esc(a.pron)}</span>` : ''}${S.shows('pron', 'ne') ? `<span class="pron ne" lang="ne">${esc(a.proNe)}</span>` : ''}
-          <span class="ex-m">${S.shows('meaning', 'en') ? esc(a.exampleEn) : ''}${S.settings.meaning === 'both' ? ' · ' : ''}${S.shows('meaning', 'ne') ? `<span lang="ne">${esc(a.exampleNe)}</span>` : ''}</span>
-        </span>
-      </div>`).join('')}</div>`;
+        <div class="letter-top">
+          <span class="glyph" lang="pl">${polish(a.letter)}</span>
+          ${a.say ? `<button type="button" class="name-chip" data-action="say" data-text="${esc(a.say)}" title="Hear the name of the letter" aria-label="Hear the letter ${esc(a.say)}">${S.SPEAKER}<span class="name-pl" lang="pl">${polish(a.say)}</span></button>` : ''}
+        </div>
+        ${a.namePron ? `<span class="letter-name"><span class="label">Name · नाम</span>${pronPair(a.namePron, a.nameNe)}</span>` : ''}
+        ${soundLines(a)}
+        ${exampleHTML(a)}
+      </div>`).join('')}</div>
+      ${S.LETTER_PAIRS.length ? `
+      <h3 class="section-h">Letter pairs: two letters, one sound <span class="ne-sub" lang="ne">दुई अक्षर, एउटा आवाज</span></h3>
+      <p class="hint">These pairs are always read as one sound. · यी जोडी सधैं एउटै आवाजमा पढिन्छन्।</p>
+      <div class="letters">${S.LETTER_PAIRS.map((a) => `
+      <div class="letter">
+        <div class="letter-top"><span class="glyph" lang="pl">${polish(a.letters)}</span></div>
+        ${soundLines(a)}
+        ${exampleHTML(a)}
+      </div>`).join('')}</div>` : ''}`;
   }
 
   function renderAlphabet() {
@@ -582,6 +603,14 @@
         $('.tabs').scrollIntoView({ block: 'nearest' });
         break;
       case 'say': S.speak(el.dataset.text, el.dataset.slow === '1'); break;
+      case 'abc-play': {
+        // Each letter: its name, then the example word.
+        const lines = [];
+        S.ALPHABET.forEach((x) => { if (x.say) lines.push({ text: x.say, pitch: 1 }); lines.push({ text: x.example, pitch: 1 }); });
+        S.speakLines(lines, S.settings.slow);
+        break;
+      }
+      case 'abc-stop': S.stopSpeaking(); break;
       case 'key': S.insertKey(el.dataset.key, el); break;
       case 'set': {
         const v = el.dataset.value;

@@ -31,7 +31,8 @@ const words = (text) => text.split(/\s+/).forEach((part) => {
   if (w && /\p{L}/u.test(w)) add(w);
 });
 
-(W.SLOWKA_ALPHABET || []).forEach((a) => add(a.example));
+(W.SLOWKA_ALPHABET || []).forEach((a) => { add(a.say); add(a.example); });
+(W.SLOWKA_LETTER_PAIRS || []).forEach((a) => add(a.example));
 (W.SLOWKA_COURSE || []).forEach((u) => {
   [...(u.words || []), ...(u.phrases || [])].forEach((e) => { add(e[0]); if (e[0].includes(' / ')) e[0].split(' / ').forEach((x) => add(x)); });
   const v = voicer(u.dialogue || []);

@@ -1026,3 +1026,16 @@ button.hint-chip:hover { border-color: var(--accent); border-style: solid; }
   .entry.mine { grid-template-columns: minmax(0, 1fr) auto; }
   .entry.mine .my-del { grid-column: 2; grid-row: 3; justify-self: center; }
 }
+
+/* Alphabet: letter names */
+.name-chip { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); font: inherit; cursor: pointer; }
+.name-chip:hover, .name-chip:focus-visible { border-color: var(--accent); color: var(--accent); }
+.name-chip svg { width: 16px; height: 16px; flex: none; }
+.name-pl { font-family: var(--font-display); font-weight: 700; }
+.letter-name { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 8px; font-size: 0.88rem; }
+.letter-name .label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); }
+.ex-word { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.abc-play { margin-bottom: 12px; }
+.abc-play .btn svg { width: 18px; height: 18px; flex: none; }
+.letter-top { flex-wrap: wrap; }
+.name-chip { max-width: 100%; text-align: left; }

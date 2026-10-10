@@ -69,6 +69,10 @@ for (const file of files) {
   const counts = [];
 
   if (w.SLOWKA_ALPHABET) { checkAlphabet(name, w.SLOWKA_ALPHABET); counts.push(`${w.SLOWKA_ALPHABET.length} letters`); }
+  if (w.SLOWKA_LETTER_PAIRS) {
+    w.SLOWKA_LETTER_PAIRS.forEach((l, i) => { for (const k of ['letters', 'soundEn', 'soundNe', 'example', 'exampleEn', 'exampleNe', 'pron', 'proNe']) if (!str(l[k])) fail(name, `letter pair ${i} missing ${k}`); });
+    counts.push(`${w.SLOWKA_LETTER_PAIRS.length} letter pairs`);
+  }
   if (w.SLOWKA_COURSE) { w.SLOWKA_COURSE.forEach((u) => checkUnit(name, u)); counts.push(`${w.SLOWKA_COURSE.length} units, ${w.SLOWKA_COURSE.reduce((n, u) => n + (u.words || []).length + (u.phrases || []).length, 0)} entries`); }
   if (w.SLOWKA_DRILLS) {
     const ids = Object.keys(w.SLOWKA_DRILLS);
@@ -292,7 +296,7 @@ function checkListening(file, x) {
 function checkAlphabet(file, letters) {
   if (!Array.isArray(letters) || letters.length < 32) fail(file, `SLOWKA_ALPHABET needs all 32 letters, has ${letters && letters.length}`);
   (letters || []).forEach((l, i) => {
-    for (const k of ['letter', 'soundEn', 'soundNe', 'example', 'exampleEn', 'exampleNe', 'pron', 'proNe']) if (!str(l[k])) fail(file, `alphabet[${i}] missing ${k}`);
+    for (const k of ['letter', 'say', 'namePron', 'nameNe', 'soundEn', 'soundNe', 'example', 'exampleEn', 'exampleNe', 'pron', 'proNe']) if (!str(l[k])) fail(file, `alphabet[${i}] missing ${k}`);
   });
 }
 
