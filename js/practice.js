@@ -27,6 +27,7 @@
     else if (m === 'speak') drawSpeak();
     else if (m === 'type') drawType();
     else if (m === 'drill') drawDrill();
+    else if (m === 'dictate') drawDictate();
     const focus = stage.querySelector('[data-autofocus]');
     if (focus) focus.focus({ preventScroll: true });
   }
@@ -312,6 +313,74 @@
     S.speak(s.word.pl);
   }
 
+  // ---------- dictation ----------
+
+  // Hear a sentence (or word), write it, then see each word marked right or wrong.
+  function newDictate() {
+    const prev = session && session.mode === 'dictate' ? session : { score: 0, total: 0 };
+    const phrases = ctx.pool.filter((e) => e.kind === 'phrase');
+    const pool = phrases.length >= 3 ? phrases : ctx.pool;
+    session = { mode: 'dictate', score: prev.score, total: prev.total, word: S.pickOne(pool, prev.word), result: null, given: '' };
+    setTimeout(() => S.speak(session.word.pl), 200);
+  }
+
+  function diffWords(target, given) {
+    const tw = target.replace(/…/g, '').split(/\s+/).filter(Boolean);
+    const gw = S.clean(given).split(' ').filter(Boolean);
+    let gi = 0;
+    return tw.map((w) => {
+      const k = S.clean(w).replace(/\s/g, '');
+      // Look a couple of words ahead so one missing word doesn't mark the rest wrong.
+      for (let j = gi; j < Math.min(gw.length, gi + 3); j++) {
+        if (gw[j] === k) { gi = j + 1; return `<span class="w-ok">${polish(w)}</span>`; }
+        if (S.stripMarks(gw[j]) === S.stripMarks(k)) { gi = j + 1; return `<span class="w-bad" title="check the accents: you wrote ${esc(gw[j])}">${polish(w)}</span>`; }
+      }
+      if (gi < gw.length && S.similarity(gw[gi], k) >= 0.5) { const typed = gw[gi]; gi += 1; return `<span class="w-bad" title="you wrote ${esc(typed)}">${polish(w)}</span>`; }
+      return `<span class="w-miss">${polish(w)}</span>`;
+    }).join(' ');
+  }
+
+  function drawDictate() {
+    if (!session || session.mode !== 'dictate') newDictate();
+    const s = session;
+    const e = s.word;
+    const r = s.result;
+    stage.innerHTML = `
+      <div class="meta"><span>Score ${s.score} / ${s.total}</span>${S.boxMeter(e)}</div>
+      <form class="card" data-form="dictate" autocomplete="off">
+        <span class="label">Write what you hear · सुनेको कुरा लेख्नुहोस्</span>
+        <button type="button" class="play" data-action="say" data-text="${esc(e.pl)}" aria-label="Play again">${S.SPEAKER}</button>
+        <span class="hint">Tap to play again · फेरि सुन्न थिच्नुहोस्</span>
+        <input class="type-input wide" id="dictate-answer" data-keys-target lang="pl" spellcheck="false" autocapitalize="off" autocorrect="off" aria-label="What you heard" value="${esc(s.given)}" ${r ? 'readonly' : 'data-autofocus'}>
+        ${r ? '' : `${S.keysHTML()}<div class="row"><button type="button" class="btn" data-action="dictate-giveup">Show me</button><button type="submit" class="btn primary"><kbd>Enter</kbd> Check</button></div>`}
+      </form>
+      ${r ? `
+        <div class="feedback ${r.kind}" role="status">
+          <div class="fb-text">
+            <strong>${{ right: 'Bezbłędnie! Perfect · उत्कृष्ट', close: 'Almost · लगभग', wrong: 'Keep practising · अभ्यास जारी राख्नुहोस्' }[r.kind]} · ${r.pct}%</strong>
+            <div class="dict-words" lang="pl">${diffWords(e.pl, s.given)}</div>
+            <span class="hint">Green: right · Red underline: misspelled · Dashed: missing</span>
+            ${S.pronHTML(e)}${S.meaningHTML(e)}
+          </div>
+          <div class="row">${S.listenBtn(e.pl, true)}<button class="btn primary" data-action="next-dictate" data-autofocus><kbd>Enter</kbd> Next</button></div>
+        </div>` : ''}`;
+  }
+
+  function checkDictate(giveUp) {
+    const s = session;
+    const input = stage.querySelector('#dictate-answer');
+    if (!s || s.mode !== 'dictate' || s.result || !input) return;
+    if (!giveUp && !input.value.trim()) return;
+    s.given = giveUp ? '' : input.value;
+    const exact = S.clean(s.given) === S.clean(s.word.pl.replace(/…/g, ''));
+    const pct = Math.round(S.similarity(s.given, s.word.pl.replace(/…/g, '')) * 100);
+    const kind = exact ? 'right' : pct >= 85 ? 'close' : 'wrong';
+    s.result = { kind, pct: exact ? 100 : pct };
+    s.total += 1;
+    if (kind === 'right') { s.score += 1; S.review(s.word, 1); } else S.review(s.word, kind === 'close' ? 0 : -1);
+    draw();
+  }
+
   // ---------- grammar drills ----------
 
   // ctx.drills is a list of { d, unit, idx } so mistake reviews can mix units.
@@ -474,6 +543,8 @@
       case 'answer': answer(Number(el.dataset.index)); return true;
       case 'next-choice': newChoice(session.mode); draw(); return true;
       case 'next-type': newType(); draw(); return true;
+      case 'next-dictate': newDictate(); draw(); return true;
+      case 'dictate-giveup': checkDictate(true); return true;
       case 'hint': {
         const input = stage.querySelector('#type-answer');
         if (input) session.given = input.value;
@@ -509,6 +580,7 @@
 
   P.submit = (form) => {
     if (form.dataset.form === 'type') { checkType(); return true; }
+    if (form.dataset.form === 'dictate') { checkDictate(false); return true; }
     if (form.dataset.form === 'drill-fill') { drillFill(); return true; }
     return false;
   };

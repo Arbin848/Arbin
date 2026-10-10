@@ -27,6 +27,11 @@ for (const file of fs.readdirSync(dir).filter((f) => f.endsWith('.js')).sort().m
 }
 const knownUnits = new Set((shared.window.SLOWKA_COURSE || []).map((u) => u.id));
 
+const six = (x) => Array.isArray(x) && x.length === 6 && x.every(str);
+const seenVerbs = new Set();
+const CASE_KEYS = ['nom', 'gen', 'dat', 'acc', 'ins', 'loc', 'voc'];
+const seenNouns = new Set();
+const MOUTHS = ['retro', 'palatal', 'dental', 'back', 'nasal', 'front-vowel', 'mid-vowel', 'round'];
 const seenIds = new Set();
 function uniqueId(at, id, pattern, example) {
   if (!pattern.test(id || '')) fail(at, `id must look like "${example}"`);
@@ -73,6 +78,11 @@ for (const file of files) {
   if (w.SLOWKA_STORIES) { w.SLOWKA_STORIES.forEach((s) => checkStory(name, s)); counts.push(`${w.SLOWKA_STORIES.length} texts`); }
   if (w.SLOWKA_PLACEMENT) { checkPlacement(name, w.SLOWKA_PLACEMENT); counts.push(`${w.SLOWKA_PLACEMENT.length} placement questions`); }
   if (w.SLOWKA_EXAMS) { w.SLOWKA_EXAMS.forEach((x) => checkExam(name, x)); counts.push(`${w.SLOWKA_EXAMS.length} exams`); }
+  if (w.SLOWKA_VERBS) { w.SLOWKA_VERBS.forEach((v) => checkVerb(name, v)); counts.push(`${w.SLOWKA_VERBS.length} verbs`); }
+  if (w.SLOWKA_CASES) { checkCases(name, w.SLOWKA_CASES); counts.push('case guide'); }
+  if (w.SLOWKA_NOUNS) { w.SLOWKA_NOUNS.forEach((n) => checkNoun(name, n)); counts.push(`${w.SLOWKA_NOUNS.length} nouns`); }
+  if (w.SLOWKA_CASE_FRAMES) { w.SLOWKA_CASE_FRAMES.forEach((f, i) => checkFrame(`${name} frames[${i}]`, f)); counts.push(`${w.SLOWKA_CASE_FRAMES.length} case frames`); }
+  if (w.SLOWKA_SOUNDS) { w.SLOWKA_SOUNDS.forEach((x) => checkSound(name, x)); counts.push(`${w.SLOWKA_SOUNDS.length} sound groups`); }
   if (!counts.length) fail(name, 'defines no known content');
   perFile.push(`${name}: ${counts.join(', ')}`);
 }
@@ -203,6 +213,62 @@ function checkExam(file, x) {
       checkOptions(w2, q);
       bilingual(w2, q.why, 'why');
     });
+  });
+}
+
+function checkVerb(file, v) {
+  const at = `${file} verb ${v.inf || '(no inf)'}`;
+  if (!str(v.inf) || !str(v.en) || !ne(v.ne)) fail(at, 'needs inf, en, Nepali ne');
+  if (seenVerbs.has(v.inf)) fail(at, 'duplicate verb');
+  seenVerbs.add(v.inf);
+  if (!CEFR.includes(v.level)) fail(at, 'level must be A1, A2, B1 or B2');
+  if (!['impf', 'pf'].includes(v.aspect)) fail(at, 'aspect must be impf or pf');
+  if (typeof v.pair !== 'string') fail(at, 'pair must be a string ("" if none)');
+  if (!str(v.group)) fail(at, 'needs group');
+  if (v.aspect === 'impf' ? !six(v.present) : v.present !== null) fail(at, v.aspect === 'impf' ? 'present needs 6 forms' : 'perfective present must be null');
+  if (!v.past || !six(v.past.m) || !six(v.past.f)) fail(at, 'past needs m and f with 6 forms each');
+  if (!six(v.future)) fail(at, 'future needs 6 forms');
+  if (!v.imperative || !str(v.imperative.ty) || !str(v.imperative.my) || !str(v.imperative.wy)) fail(at, 'imperative needs ty, my, wy');
+  if (v.note) bilingual(at, v.note, 'note');
+  const all = [v.inf, ...(v.present || []), ...(v.past ? [...(v.past.m || []), ...(v.past.f || [])] : []), ...(v.future || [])];
+  if (all.some((f) => typeof f === 'string' && f !== f.toLowerCase())) fail(at, 'forms must be lowercase');
+}
+function checkCases(file, c) {
+  CASE_KEYS.forEach((k) => {
+    const x = c[k];
+    if (!x || !str(x.name) || !str(x.pl) || !ne(x.ne) || !str(x.q)) fail(`${file} cases.${k}`, 'needs name, pl, Nepali ne, q');
+    else bilingual(`${file} cases.${k}`, x.use, 'use');
+  });
+}
+function checkNoun(file, n) {
+  const at = `${file} noun ${n.word || '(no word)'}`;
+  if (!str(n.word) || !str(n.en) || !ne(n.ne)) fail(at, 'needs word, en, Nepali ne');
+  if (seenNouns.has(n.word)) fail(at, 'duplicate noun');
+  seenNouns.add(n.word);
+  if (!CEFR.includes(n.level)) fail(at, 'level must be A1, A2, B1 or B2');
+  if (!['m-pers', 'm-anim', 'm-inan', 'f', 'n'].includes(n.gender)) fail(at, 'bad gender');
+  if (typeof n.person !== 'boolean') fail(at, 'person must be true or false');
+  const table = (t, key) => { if (!t || CASE_KEYS.some((k) => !str(t[k]))) fail(at, `${key} needs all 7 cases`); };
+  table(n.sg, 'sg');
+  if (n.pl !== null) table(n.pl, 'pl');
+  if (n.sg && n.sg.nom !== n.word) fail(at, 'sg.nom must equal word');
+}
+function checkFrame(at, f) {
+  if (!CASE_KEYS.slice(1).includes(f.case)) fail(at, 'case must be gen, dat, acc, ins, loc or voc');
+  if (!['sg', 'pl'].includes(f.number)) fail(at, 'number must be sg or pl');
+  if (!['any', 'person', 'thing'].includes(f.who)) fail(at, 'who must be any, person or thing');
+  if (!str(f.q) || f.q.split('___').length !== 2) fail(at, 'q must contain exactly one ___');
+  if (!str(f.en) || !ne(f.ne)) fail(at, 'needs en and Nepali ne');
+}
+function checkSound(file, x) {
+  const at = `${file} sound ${x.id || '(no id)'}`;
+  uniqueId(at, x.id, /^[a-z0-9-]+$/, 'sz-s');
+  if (!str(x.title) || !ne(x.titleNe)) fail(at, 'needs title and Nepali titleNe');
+  for (const k of ['a', 'b']) if (!x[k] || !str(x[k].label) || !MOUTHS.includes(x[k].mouth)) fail(at, `${k} needs label and a known mouth`);
+  bilingual(at, x.tip, 'tip');
+  if (!Array.isArray(x.pairs) || x.pairs.length < 5) fail(at, 'needs at least 5 pairs');
+  (x.pairs || []).forEach((p, i) => {
+    if (!Array.isArray(p) || p.length !== 2 || p.some((w) => !Array.isArray(w) || w.length !== 3 || !str(w[0]) || !str(w[1]) || !ne(w[2]))) fail(at, `pairs[${i}] must be [[pl, en, ne], [pl, en, ne]]`);
   });
 }
 

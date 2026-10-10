@@ -39,6 +39,9 @@ function loadWords() {
   (w.SLOWKA_COURSE || []).forEach((u) => [...(u.words || []), ...(u.phrases || [])].forEach((e) => add(e[0])));
   (w.SLOWKA_ALPHABET || []).forEach((a) => add(a.example));
   (w.SLOWKA_STORIES || []).forEach((s) => (s.glossary || []).forEach((e) => add(e[0])));
+  (w.SLOWKA_SOUNDS || []).forEach((x) => x.pairs.forEach((p) => p.forEach((e) => add(e[0]))));
+  (w.SLOWKA_VERBS || []).forEach((v) => { add(v.inf); (v.present || []).forEach(add); });
+  (w.SLOWKA_NOUNS || []).forEach((n) => { add(n.sg.nom); if (n.pl) add(n.pl.nom); });
   return [...words];
 }
 

@@ -152,3 +152,69 @@ Exam questions are in Polish like the real *egzamin certyfikatowy*; translations
 Work packs are ordinary course units (same shape as in `CONTENT_GUIDE.md`) with `level: "Work"` and ids
 `work-01`…. They may have up to 25 words. Lessons explain the job context, safety rules and the most
 important phrases in English and Nepali.
+
+---
+
+## 6. Verbs — `window.SLOWKA_VERBS`
+
+```js
+window.SLOWKA_VERBS = window.SLOWKA_VERBS || [];
+window.SLOWKA_VERBS.push({
+  inf: "mówić", en: "to speak", ne: "बोल्नु",
+  level: "A1",                     // A1 | A2 | B1 | B2 (when a learner needs it)
+  aspect: "impf",                  // "impf" (imperfective) | "pf" (perfective)
+  pair: "powiedzieć",              // the aspect partner's infinitive, or "" if none
+  group: "-ić/-yć: -ę, -isz",      // short conjugation pattern label (same label for verbs that conjugate alike)
+  present: ["mówię", "mówisz", "mówi", "mówimy", "mówicie", "mówią"],   // ja, ty, on/ona, my, wy, oni/one; null for perfective verbs
+  past: {
+    m: ["mówiłem", "mówiłeś", "mówił", "mówiliśmy", "mówiliście", "mówili"],
+    f: ["mówiłam", "mówiłaś", "mówiła", "mówiłyśmy", "mówiłyście", "mówiły"]
+  },
+  future: ["będę mówić", "będziesz mówić", "będzie mówić", "będziemy mówić", "będziecie mówić", "będą mówić"],
+                                   // imperfective: będę + infinitive; perfective: the simple future (powiem, powiesz…)
+  imperative: { ty: "mów", my: "mówmy", wy: "mówcie" },
+  note: { en: "…", ne: "…" }       // OPTIONAL: an irregularity or tip worth knowing
+});
+```
+All forms in lowercase with correct diacritics. Past plural "m" = masculine-personal (men or mixed group), "f" = everything else.
+
+## 7. Nouns and cases — `window.SLOWKA_NOUNS`, `window.SLOWKA_CASES`, `window.SLOWKA_CASE_FRAMES`
+
+```js
+window.SLOWKA_CASES = {            // exactly these 7 keys
+  nom: { name: "Nominative", pl: "mianownik", ne: "कर्ता", q: "kto? co?", use: { en: "…", ne: "…" } },
+  gen: …, dat: …, acc: …, ins: …, loc: …, voc: …
+};
+
+window.SLOWKA_NOUNS = window.SLOWKA_NOUNS || [];
+window.SLOWKA_NOUNS.push({
+  word: "kawa", en: "coffee", ne: "कफी", level: "A1",
+  gender: "f",                     // "m-pers" (male person) | "m-anim" (animal) | "m-inan" | "f" | "n"
+  person: false,                   // true for people (used to pick sentence frames)
+  sg: { nom: "kawa", gen: "kawy", dat: "kawie", acc: "kawę", ins: "kawą", loc: "kawie", voc: "kawo" },
+  pl: { nom: "kawy", gen: "kaw", dat: "kawom", acc: "kawy", ins: "kawami", loc: "kawach", voc: "kawy" }   // or null if not normally plural
+});
+
+window.SLOWKA_CASE_FRAMES = [      // sentence frames used to practise one case; ___ is the noun
+  { case: "gen", number: "sg", who: "any",    q: "Nie ma ___.",  en: "There is no …", ne: "… छैन।" },
+  { case: "dat", number: "sg", who: "person", q: "Daję prezent ___.", en: "I give a present to …", ne: "म …लाई उपहार दिन्छु।" }
+];
+// who: "any" | "person" | "thing". Frames must be grammatical for EVERY noun they can apply to.
+// No frames for "nom". Use "…" in en/ne where the noun goes.
+```
+
+## 8. Sounds — `window.SLOWKA_SOUNDS`
+
+```js
+window.SLOWKA_SOUNDS = [{
+  id: "sz-s", title: "sz or ś", titleNe: "sz कि ś",
+  a: { label: "sz", mouth: "retro" },     // mouth: "retro" (tongue tip up and back: sz, cz, rz/ż, dż)
+  b: { label: "ś",  mouth: "palatal" },   //        "palatal" (tongue middle raised, lips spread: ś, ć, ź, dź, ń)
+                                          //        "dental" (tongue tip behind teeth: s, c, z, dz, t, d)
+                                          //        "back" (back of tongue raised: k, g, ch/h)
+                                          //        "nasal" (air through the nose: ą, ę)
+                                          //        "front-vowel" (i), "mid-vowel" (y), "round" (u/ó, o)
+  tip: { en: "how to make each sound, for a Nepali speaker", ne: "…" },
+  pairs: [ [ ["kasza", "porridge", "दलिया"], ["Kasia", "Kasia (a name)", "कासिया (नाम)"] ], … ]   // 5–8 real word pairs
+}];
+```
