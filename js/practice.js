@@ -196,7 +196,7 @@
     if (r) {
       const pct = Math.round(r.score * 100);
       const kind = r.score >= 0.85 ? 'right' : r.score >= 0.6 ? 'close' : 'wrong';
-      const title = { right: 'Świetnie! Great pronunciation · उत्कृष्ट', close: 'Close. Listen again and repeat · नजिक छ, फेरि सुनेर दोहोर्याउनुहोस्', wrong: 'Not yet. Listen slowly and try again · फेरि प्रयास गर्नुहोस्' }[kind];
+      const title = { right: 'Świetnie! Great pronunciation · उत्कृष्ट', close: 'Close. Listen again and repeat · नजिक छ, फेरि सुनेर दोहोर्‍याउनुहोस्', wrong: 'Not yet. Listen slowly and try again · फेरि प्रयास गर्नुहोस्' }[kind];
       result = `
         <div class="feedback ${kind}" role="status">
           <div class="fb-text">
@@ -222,7 +222,7 @@
         ${s.recUrl ? `<div class="compare"><span class="label">Compare · तुलना गर्नुहोस्</span><audio controls src="${s.recUrl}"></audio>${S.listenBtn(e.pl, true)}
           ${S.canRecognize ? '' : `<div class="row"><button class="btn again" data-action="self-rate" data-ok="0">Not yet · अझै होइन</button><button class="btn good" data-action="self-rate" data-ok="1">Sounds right · ठीक सुनियो</button></div>`}</div>` : ''}
         ${s.error ? `<p class="hint err">${esc(s.error)}</p>` : ''}
-        ${!S.canRecognize && !S.canRecord ? '<p class="hint">This browser has no microphone support. Listen and repeat out loud, then tap Next. · सुनेर ठूलो स्वरमा दोहोर्याउनुहोस्।</p><button class="btn primary" data-action="next-speak">Next word</button>' : ''}
+        ${!S.canRecognize && !S.canRecord ? '<p class="hint">This browser has no microphone support. Listen and repeat out loud, then tap Next. · सुनेर ठूलो स्वरमा दोहोर्‍याउनुहोस्।</p><button class="btn primary" data-action="next-speak">Next word</button>' : ''}
         ${S.canRecognize ? '<p class="hint small">Your browser turns your speech into text (in Chrome this uses an internet service); the app then compares it with the right answer.</p>' : ''}
       </div>
       ${result}`;
@@ -417,7 +417,7 @@
         <div class="card summary">
           <span class="label">Exercises complete · अभ्यास सकियो</span>
           <h2>${pct}%</h2>
-          <p class="hint">${s.score} of ${s.items.length} right. ${pct >= 80 ? 'Excellent! You can move on. · उत्कृष्ट! अगाडि बढ्नुहोस्।' : 'Read the lesson again and repeat the exercises. · पाठ फेरि पढेर अभ्यास दोहोर्याउनुहोस्।'}</p>
+          <p class="hint">${s.score} of ${s.items.length} right. ${pct >= 80 ? 'Excellent! You can move on. · उत्कृष्ट! अगाडि बढ्नुहोस्।' : 'Read the lesson again and repeat the exercises. · पाठ फेरि पढेर अभ्यास दोहोर्‍याउनुहोस्।'}</p>
           <div class="row"><button class="btn primary" data-action="drill-restart" data-autofocus>Practise again</button></div>
         </div>`;
       if (ctx.unitId && !s.saved) {

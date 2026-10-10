@@ -336,7 +336,7 @@ window.SLOWKA_ROLEPLAYS.push({
                  ne: "*Stary* (यार/दोस्त) नजिकका साथीका लागि हो। सुपरभाइजरले *Pan* प्रयोग गर्नुहुन्छ, त्यसैले औपचारिक रहनुहोस्: *Dziękuję, Panie Marku.*" } },
         { pl: "Dziękuję. To ja się odezwę w piątek.", en: "Thank you. I'll get back to you on Friday then.", ne: "धन्यवाद। म शुक्रबार खबर गर्छु।", ok: false,
           why: { en: "He said **he** will contact you. If you repeat *ja się odezwę*, you promise to contact him. Better: *To czekam na wiadomość w piątek.* (So I'll wait for news on Friday.)",
-                 ne: "उहाँले **उहाँ** आफैं खबर गर्छु भन्नुभयो। तपाईंले *ja się odezwę* दोहोर्याउँदा तपाईं खबर गर्छु भनेको हुन्छ। राम्रो: *To czekam na wiadomość w piątek.* (म शुक्रबार खबर पर्खन्छु।)" } }
+                 ne: "उहाँले **उहाँ** आफैं खबर गर्छु भन्नुभयो। तपाईंले *ja się odezwę* दोहोर्‍याउँदा तपाईं खबर गर्छु भनेको हुन्छ। राम्रो: *To czekam na wiadomość w piątek.* (म शुक्रबार खबर पर्खन्छु।)" } }
       ]
     }
   ],
@@ -1109,7 +1109,7 @@ window.SLOWKA_ROLEPLAYS.push({
       ]
     },
     {
-      them: ["O, super. Ja byłam w górach, ale cały czas padało.", "Oh, great. I was in the mountains, but it rained the whole time.", "ओहो, राम्रो। म पहाडतिर गएकी थिएँ, तर पूरै समय पानी पर्यो।"],
+      them: ["O, super. Ja byłam w górach, ale cały czas padało.", "Oh, great. I was in the mountains, but it rained the whole time.", "ओहो, राम्रो। म पहाडतिर गएकी थिएँ, तर पूरै समय पानी पर्‍यो।"],
       replies: [
         { pl: "Szkoda, że miałaś pecha z pogodą! W jakich górach byłaś?", en: "Too bad you were unlucky with the weather! Which mountains were you in?", ne: "मौसमले साथ नदिएकोमा दुःख लाग्यो! कुन पहाडमा गएकी थियौ?", ok: true },
         { pl: "Szkoda! A gdzie byłeś w górach?", en: "(wrong gender of the verb)", ne: "(क्रियाको गलत लिङ्ग)", ok: false,

@@ -186,7 +186,7 @@ window.SLOWKA_STORIES.push(
 
   {
     id: "st-a1-04", level: "A1", kind: "notice",
-    title: "Notice in the stairwell", titleNe: "भर्याङमा टाँसिएको सूचना",
+    title: "Notice in the stairwell", titleNe: "भर्‍याङमा टाँसिएको सूचना",
     paragraphs: [
       { pl: "OGŁOSZENIE. Szanowni Mieszkańcy!",
         en: "NOTICE. Dear Residents!",

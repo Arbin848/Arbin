@@ -107,7 +107,7 @@
             <span class="teacher-name">Your teacher · <span lang="ne">तपाईंको शिक्षिका</span></span>
             ${def.kind === 'test'
               ? `<p>This test checks everything from the ${lessons} lessons of this level: words, listening, grammar, writing${S.canRecognize ? ' and speaking' : ''}. Score at least <b>${PASS}%</b> to pass and get your certificate.</p><p lang="ne">यो परीक्षाले यस स्तरका ${lessons} पाठ जाँच्छ। प्रमाणपत्रका लागि कम्तीमा <b>${PASS}%</b> ल्याउनुहोस्।</p>`
-              : `<p>Time to revise! This mixes words, listening and grammar from the last ${lessons} lessons, so you don't forget them. It takes about 10 minutes.</p><p lang="ne">दोहोर्याउने समय! अघिल्ला ${lessons} पाठका शब्द, सुनाइ र व्याकरण मिसाइएको छ। करिब १० मिनेट लाग्छ।</p>`}
+              : `<p>Time to revise! This mixes words, listening and grammar from the last ${lessons} lessons, so you don't forget them. It takes about 10 minutes.</p><p lang="ne">दोहोर्‍याउने समय! अघिल्ला ${lessons} पाठका शब्द, सुनाइ र व्याकरण मिसाइएको छ। करिब १० मिनेट लाग्छ।</p>`}
           </div>
         </div>
         <ul class="hint-list">${def.units.map((u) => `<li>${S.Guided.status(u).done ? '✓' : '○'} ${esc(u.title)}</li>`).join('')}</ul>

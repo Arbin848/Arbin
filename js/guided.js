@@ -152,7 +152,7 @@
             </table></div>`).join('')}`;
       case 'words':
         return `
-          ${step.part === 1 ? say('Now the new words. For each word: **listen**, **repeat out loud** three times, then press **Say it** to check yourself. The coloured block shows where to put the stress.', 'अब नयाँ शब्द। हरेक शब्द: **सुन्नुहोस्**, तीन पटक **ठूलो स्वरमा दोहोर्याउनुहोस्**, अनि **बोल्नुहोस्** थिचेर जाँच्नुहोस्। रङ लगाइएको भागमा जोड दिनुहोस्।') : ''}
+          ${step.part === 1 ? say('Now the new words. For each word: **listen**, **repeat out loud** three times, then press **Say it** to check yourself. The coloured block shows where to put the stress.', 'अब नयाँ शब्द। हरेक शब्द: **सुन्नुहोस्**, तीन पटक **ठूलो स्वरमा दोहोर्‍याउनुहोस्**, अनि **बोल्नुहोस्** थिचेर जाँच्नुहोस्। रङ लगाइएको भागमा जोड दिनुहोस्।') : ''}
           <span class="label">Words ${step.part} of ${step.parts} · शब्दहरू</span>
           <div class="word-cards">${step.words.map((e, k) => wordCard(e, k)).join('')}</div>`;
       case 'quiz': return quizHTML(u);

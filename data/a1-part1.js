@@ -10,7 +10,7 @@ window.SLOWKA_COURSE.push(
     lesson: [
       {
         en: "Poland has two kinds of greeting. *Dzień dobry* (literally “good day”) is the polite one. Use it from morning until about 6 pm with anyone you don't know well: in shops, at the office, with your boss, a doctor or a neighbour. *Cześć* is casual. Use it only with friends, family, children and colleagues who already say *cześć* to you. **Tip:** *cześć* means both “hi” and “bye”. Don't greet your boss or an older stranger with *cześć* — it sounds far too familiar.",
-        ne: "पोल्याण्डमा अभिवादनका दुई तरिका छन्। *Dzień dobry* (शाब्दिक अर्थ “राम्रो दिन”) विनम्र अभिवादन हो। बिहानदेखि साँझ करिब ६ बजेसम्म राम्ररी नचिनेका जोसुकैलाई यही भन्नुहोस् — पसलमा, अफिसमा, हाकिमलाई, डाक्टरलाई वा छिमेकीलाई। *Cześć* अनौपचारिक हो — साथी, परिवार, बच्चा र तपाईंलाई पहिल्यै *cześć* भन्ने सहकर्मीसँग मात्र प्रयोग गर्नुहोस्। **सुझाव:** *cześć* को अर्थ “हाइ” र “बाई” दुवै हो। हाकिम वा उमेर पुगेका अपरिचितलाई *cześć* भन्दा धेरै अनौपचारिक सुनिन्छ।"
+        ne: "पोल्याण्डमा अभिवादनका दुई तरिका छन्। *Dzień dobry* (शाब्दिक अर्थ “राम्रो दिन”) विनम्र अभिवादन हो। बिहानदेखि साँझ करिब ६ बजेसम्म राम्ररी नचिनेका जोसुकैलाई यही भन्नुहोस् — पसलमा, अफिसमा, हाकिमलाई, डाक्टरलाई वा छिमेकीलाई। *Cześć* अनौपचारिक हो — साथी, परिवार, बच्चा र तपाईंलाई पहिल्यै *cześć* भन्ने सहकर्मीसँग मात्र प्रयोग गर्नुहोस्। **सुझाव:** *cześć* को अर्थ “हाइ” र “बाई” दुवै हो। हाकिम वा आफूभन्दा जेठा अपरिचितलाई *cześć* भन्दा धेरै अनौपचारिक सुनिन्छ।"
       },
       {
         en: "In the evening say *dobry wieczór* (good evening). *Dobranoc* (good night) is not a greeting: say it only when you leave late at night or go to bed. To say goodbye politely use *do widzenia*. With friends use *cześć*, *na razie* (see you) or *do zobaczenia* (see you again). **Common mistake:** walking into a shop at 9 pm and saying *dobranoc* — say *dobry wieczór* instead.",
@@ -22,7 +22,7 @@ window.SLOWKA_COURSE.push(
       },
       {
         en: "Four magic words: *proszę* (please; also “here you are” and “you're welcome”), *dziękuję* (thank you), *dzięki* (thanks, casual) and *przepraszam* (sorry / excuse me). Use *przepraszam* both to apologise and to get someone's attention: *Przepraszam, gdzie jest…?* (Excuse me, where is…?). When someone says *dziękuję*, answer *proszę* or *nie ma za co* (no problem). **Tip:** Poles say *dziękuję* and *proszę* very often — using them makes a great first impression.",
-        ne: "चार जादुई शब्द: *proszę* (कृपया; “लिनुहोस्” र “स्वागत छ” पनि), *dziękuję* (धन्यवाद), *dzięki* (धन्यवाद, अनौपचारिक) र *przepraszam* (माफ गर्नुहोस् / सुन्नुहोस् त)। *Przepraszam* माफी माग्न र कसैको ध्यान खिच्न दुवैमा प्रयोग हुन्छ: *Przepraszam, gdzie jest…?* (माफ गर्नुहोस्, … कहाँ छ?)। कसैले *dziękuję* भन्यो भने *proszę* वा *nie ma za co* (केही छैन) भनेर जवाफ दिनुहोस्। **सुझाव:** पोलिशहरू *dziękuję* र *proszę* धेरै भन्छन् — तपाईंले पनि भन्नुभयो भने राम्रो छाप पर्छ।"
+        ne: "चार जादुई शब्द: *proszę* (कृपया; “लिनुहोस्” र “केही छैन” पनि), *dziękuję* (धन्यवाद), *dzięki* (धन्यवाद, अनौपचारिक) र *przepraszam* (माफ गर्नुहोस् / सुन्नुहोस् त)। *Przepraszam* माफी माग्न र कसैको ध्यान खिच्न दुवैमा प्रयोग हुन्छ: *Przepraszam, gdzie jest…?* (माफ गर्नुहोस्, … कहाँ छ?)। कसैले *dziękuję* भन्यो भने *proszę* वा *nie ma za co* (केही छैन) भनेर जवाफ दिनुहोस्। **सुझाव:** पोलिशहरू *dziękuję* र *proszę* धेरै भन्छन् — तपाईंले पनि भन्नुभयो भने राम्रो छाप पर्छ।"
       }
     ],
     tables: [
@@ -77,7 +77,7 @@ window.SLOWKA_COURSE.push(
       ["Nie ma za co.", "You're welcome. / No problem.", "केही छैन।", "nyeh ma za tso", "न्ये मा ज़ा त्सो"],
       ["Przepraszam, nie rozumiem.", "Sorry, I don't understand.", "माफ गर्नुहोस्, मैले बुझिनँ।", "psheh-PRA-sham nyeh ro-ZOO-myem", "प्शे-ˈप्रा-शाम् न्ये रो-ˈज़ु-म्येम्"],
       ["Miło mi.", "Nice to meet you.", "भेटेर खुसी लाग्यो।", "MEE-wo mee", "ˈमि-वो मि"],
-      ["Proszę bardzo.", "Here you are. / You're welcome.", "लिनुहोस्। / स्वागत छ।", "PRO-sheh BAR-dzo", "ˈप्रो-शे ˈबार्-द्ज़ो"],
+      ["Proszę bardzo.", "Here you are. / You're welcome.", "लिनुहोस्। / केही छैन।", "PRO-sheh BAR-dzo", "ˈप्रो-शे ˈबार्-द्ज़ो"],
       ["Do zobaczenia jutro!", "See you tomorrow!", "भोलि भेटौँला!", "do zo-ba-CHEH-nya YOO-tro", "दो ज़ो-बा-ˈचे-न्या ˈयु-त्रो"]
     ],
     dialogue: [
@@ -476,7 +476,7 @@ window.SLOWKA_COURSE.push(
     ],
     dialogue: [
       ["Ola", "Kto to jest?", "Who is this?", "यो को हो?"],
-      ["Ram", "To jest moja żona, Sita.", "This is my wife, Sita.", "यो मेरी श्रीमती सीता हुन्।"],
+      ["Ram", "To jest moja żona, Sita.", "This is my wife, Sita.", "यिनी मेरी श्रीमती सीता हुन्।"],
       ["Ola", "Bardzo ładne zdjęcie! A to? To twój syn?", "Very nice photo! And this? Is this your son?", "धेरै राम्रो फोटो! अनि यो? तिम्रो छोरा हो?"],
       ["Ram", "Tak, to mój syn. Ma siedem lat.", "Yes, it's my son. He's seven.", "हो, मेरो छोरा। ऊ सात वर्षको भयो।"],
       ["Ola", "Masz też córkę?", "Do you have a daughter too?", "तिम्री छोरी पनि छ?"],

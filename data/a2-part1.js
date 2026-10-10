@@ -15,7 +15,7 @@ window.SLOWKA_COURSE.push(
       },
       {
         en: "Polish has **7 cases**. Each one answers its own question words (see the table). Don't try to learn all of them today. In this level we learn them one by one: accusative, genitive, locative and instrumental. **Tip:** when you learn a new phrase, notice the question it answers: *Kogo widzisz?* (Whom do you see?) → *Widzę brata.*",
-        ne: "पोलिशमा **७ वटा case** छन्। हरेकको आफ्नै प्रश्नवाचक शब्द हुन्छ (तालिका हेर्नुहोस्)। आजै सबै सिक्ने कोसिस नगर्नुहोस्। यो तहमा हामी एक-एक गरी सिक्छौं: accusative, genitive, locative र instrumental। **सुझाव:** नयाँ वाक्य सिक्दा त्यसले कुन प्रश्नको उत्तर दिन्छ ध्यान दिनुहोस्: *Kogo widzisz?* (कसलाई देख्छौ?) → *Widzę brata.* (भाइलाई देख्छु।)"
+        ne: "पोलिशमा **७ वटा case** छन्। हरेकको आफ्नै प्रश्नवाचक शब्द हुन्छ (तालिका हेर्नुहोस्)। आजै सबै सिक्ने कोसिस नगर्नुहोस्। यो तहमा हामी एक-एक गरी सिक्छौं: कर्म कारक (accusative), षष्ठी (genitive), अधिकरण (locative) र करण कारक (instrumental)। **सुझाव:** नयाँ वाक्य सिक्दा त्यसले कुन प्रश्नको उत्तर दिन्छ ध्यान दिनुहोस्: *Kogo widzisz?* (कसलाई देख्छौ?) → *Widzę brata.* (भाइलाई देख्छु।)"
       },
       {
         en: "The **accusative** (biernik) is the case of the **direct object**: the thing or person you have, like, see, buy, eat or drink. It comes after verbs like *mam* (I have), *lubię* (I like), *widzę* (I see), *kupuję* (I buy), *jem* (I eat), *piję* (I drink). In Nepali we say *रामलाई देखें* with -लाई for people, but nothing for things: *चिया पिउँछु*. Polish changes the ending for some things too: *kawa* → *Piję kawę*.",
@@ -27,7 +27,7 @@ window.SLOWKA_COURSE.push(
       },
       {
         en: "**Common mistake:** saying *Piję kawa* or *Mam brat*. Correct: *Piję kawę*, *Mam brata*. **Tip:** a few masculine words for people end in -a, like *kolega* (friend) — they behave like feminine words: *Mam kolegę*. Also remember: after **nie** (not) the accusative becomes the genitive — that is the next unit.",
-        ne: "**धेरैले गर्ने गल्ती:** *Piję kawa* वा *Mam brat* भन्नु। सही: *Piję kawę*, *Mam brata*। **सुझाव:** मान्छे जनाउने केही पुलिंगी शब्द -a मा टुंगिन्छन्, जस्तै *kolega* (साथी) — यिनीहरू स्त्रीलिंगी जस्तै बदलिन्छन्: *Mam kolegę*। अनि याद राख्नुहोस्: **nie** (होइन/नगर्नु) पछि accusative को सट्टा genitive आउँछ — त्यो अर्को पाठमा।"
+        ne: "**धेरैले गर्ने गल्ती:** *Piję kawa* वा *Mam brat* भन्नु। सही: *Piję kawę*, *Mam brata*। **सुझाव:** मान्छे जनाउने केही पुलिंगी शब्द -a मा टुंगिन्छन्, जस्तै *kolega* (साथी) — यिनीहरू स्त्रीलिंगी जस्तै बदलिन्छन्: *Mam kolegę*। अनि याद राख्नुहोस्: **nie** (होइन/नगर्नु) पछि कर्म कारक (accusative) को सट्टा षष्ठी (genitive) आउँछ — त्यो अर्को पाठमा।"
       }
     ],
     tables: [
@@ -126,15 +126,15 @@ window.SLOWKA_COURSE.push(
       },
       {
         en: "**After negation** the accusative turns into the genitive. *Mam czas* → *Nie mam czasu* (I have no time). *Mam brata* → *Nie mam brata*. *Nie ma* means \"there is no / isn't here\": *Nie ma chleba* (There's no bread), *Nie ma Ani* (Ania isn't here). **Common mistake:** *Nie mam czas* ✗ — always *Nie mam czasu* ✓.",
-        ne: "**नकारात्मक वाक्यमा** accusative को सट्टा genitive आउँछ। *Mam czas* → *Nie mam czasu* (मसँग समय छैन)। *Mam brata* → *Nie mam brata* (मेरो भाइ छैन)। *Nie ma* को अर्थ \"छैन / यहाँ छैन\": *Nie ma chleba* (पाउरोटी छैन), *Nie ma Ani* (आन्या यहाँ छैनन्)। **धेरैले गर्ने गल्ती:** *Nie mam czas* ✗ — सधैं *Nie mam czasu* ✓।"
+        ne: "**नकारात्मक वाक्यमा** कर्म कारक (accusative) को सट्टा षष्ठी (genitive) आउँछ। *Mam czas* → *Nie mam czasu* (मसँग समय छैन)। *Mam brata* → *Nie mam brata* (मेरो भाइ छैन)। *Nie ma* को अर्थ \"छैन / यहाँ छैन\": *Nie ma chleba* (पाउरोटी छैन), *Nie ma Ani* (आन्या यहाँ छैनन्)। **धेरैले गर्ने गल्ती:** *Nie mam czas* ✗ — सधैं *Nie mam czasu* ✓।"
       },
       {
         en: "**After quantities**: *dużo* (a lot of), *mało* (little), *trochę* (a bit of), and containers or measures: *butelka wody* (a bottle of water), *szklanka mleka* (a glass of milk), *kilogram cukru* (a kilo of sugar). Nepali says *एक बोतल पानी*; Polish says \"a bottle **of** water\", with the genitive.",
-        ne: "**परिमाणपछि**: *dużo* (धेरै), *mało* (थोरै), *trochę* (अलिकति), र भाँडा वा नाप: *butelka wody* (एक बोतल पानी), *szklanka mleka* (एक गिलास दूध), *kilogram cukru* (एक किलो चिनी)। नेपालीमा \"एक बोतल पानी\" भन्छौं; पोलिशमा \"पानी**को** बोतल\" जस्तो genitive प्रयोग हुन्छ।"
+        ne: "**परिमाणपछि**: *dużo* (धेरै), *mało* (थोरै), *trochę* (अलिकति), र भाँडा वा नाप: *butelka wody* (एक बोतल पानी), *szklanka mleka* (एक गिलास दूध), *kilogram cukru* (एक किलो चिनी)। नेपालीमा \"एक बोतल पानी\" भन्छौं; पोलिशमा \"पानी**को** बोतल\" जस्तो षष्ठी (genitive) प्रयोग हुन्छ।"
       },
       {
         en: "**After prepositions**: *od* (from a person / since), *do* (to, into, until), *z* (from, out of), *bez* (without), *dla* (for), *obok* (next to). Examples: *od mamy*, *do domu*, *z Nepalu*, *kawa bez cukru*, *dla brata*, *obok sklepu*. Nepali uses -बाट, -सम्म, बिना, -को लागि, -को छेउमा for the same ideas. **Tip:** *z* + genitive = **from**; later you will see *z* + instrumental = **with**.",
-        ne: "**नामयोगीपछि**: *od* (कसैबाट / देखि), *do* (तिर, भित्र, सम्म), *z* (बाट, भित्रबाट), *bez* (बिना), *dla* (को लागि), *obok* (छेउमा)। उदाहरण: *od mamy* (आमाबाट), *do domu* (घरतिर), *z Nepalu* (नेपालबाट), *kawa bez cukru* (चिनी बिनाको कफी), *dla brata* (भाइको लागि), *obok sklepu* (पसलको छेउमा)। **सुझाव:** *z* + genitive = **बाट**; पछि *z* + instrumental = **सँग** पनि सिक्नुहुनेछ।"
+        ne: "**नामयोगीपछि**: *od* (कसैबाट / देखि), *do* (तिर, भित्र, सम्म), *z* (बाट, भित्रबाट), *bez* (बिना), *dla* (को लागि), *obok* (छेउमा)। उदाहरण: *od mamy* (आमाबाट), *do domu* (घरतिर), *z Nepalu* (नेपालबाट), *kawa bez cukru* (चिनी बिनाको कफी), *dla brata* (भाइको लागि), *obok sklepu* (पसलको छेउमा)। **सुझाव:** *z* + षष्ठी (genitive) = **बाट**; पछि *z* + करण कारक (instrumental) = **सँग** पनि सिक्नुहुनेछ।"
       },
       {
         en: "**Endings:** feminine *-a* → **-y** (*woda → wody*), but after *k, g* and soft consonants → **-i** or **-y** (*Polska → Polski*, *praca → pracy*). Masculine people and animals → **-a** (*brat → brata*, *pies → psa*). Masculine things usually → **-u** (*czas → czasu*, *cukier → cukru*, *sklep → sklepu*), but some take **-a** (*chleb → chleba*, *ser → sera*) — learn them as you go. Neuter → **-a** (*mleko → mleka*). Adjectives: *-ego* (m, n), *-ej* (f): *Nie mam dobrej pracy*.",
@@ -237,7 +237,7 @@ window.SLOWKA_COURSE.push(
       },
       {
         en: "**Talking about something:** *mówić o* + locative = to talk about. *Mówię o pracy* (I'm talking about work). *Myślę o rodzinie* (I'm thinking about my family). *O czym mówisz?* (What are you talking about?). **Common mistake:** *Mieszkam w Polska* ✗ → *Mieszkam w Polsce* ✓. After *w, na, o* the noun must change.",
-        ne: "**कुनै कुराको बारेमा बोल्दा:** *mówić o* + locative = को बारेमा बोल्नु। *Mówię o pracy* (म कामको बारेमा बोल्दैछु)। *Myślę o rodzinie* (म परिवारको बारेमा सोच्दैछु)। *O czym mówisz?* (तिमी केको बारेमा बोल्दैछौ?)। **धेरैले गर्ने गल्ती:** *Mieszkam w Polska* ✗ → *Mieszkam w Polsce* ✓। *w, na, o* पछि नाउँ बदलिनैपर्छ।"
+        ne: "**कुनै कुराको बारेमा बोल्दा:** *mówić o* + अधिकरण (locative) = को बारेमा बोल्नु। *Mówię o pracy* (म कामको बारेमा बोल्दैछु)। *Myślę o rodzinie* (म परिवारको बारेमा सोच्दैछु)। *O czym mówisz?* (तिमी केको बारेमा बोल्दैछौ?)। **धेरैले गर्ने गल्ती:** *Mieszkam w Polska* ✗ → *Mieszkam w Polsce* ✓। *w, na, o* पछि नाउँ बदलिनैपर्छ।"
       }
     ],
     tables: [
@@ -331,11 +331,11 @@ window.SLOWKA_COURSE.push(
       },
       {
         en: "**z + instrumental = together with**: *z bratem* (with my brother), *z mamą* (with mum), *kawa z mlekiem* (coffee with milk), *ze mną* (with me). **Endings are easy:** masculine and neuter → **-em** (after *k, g* → **-iem**), feminine → **-ą**. Masculine words in *-a* also take **-ą**: *kolega → z kolegą*. Plural → **-ami**: *z kolegami*.",
-        ne: "**z + instrumental = सँगै**: *z bratem* (भाइसँग), *z mamą* (आमासँग), *kawa z mlekiem* (दूधसहितको कफी), *ze mną* (मसँग)। **अन्त्य सजिलो छ:** पुलिंगी र नपुंसकलिंगी → **-em** (*k, g* पछि → **-iem**), स्त्रीलिंगी → **-ą**। -a मा टुंगिने पुलिंगी शब्दमा पनि **-ą**: *kolega → z kolegą*। बहुवचन → **-ami**: *z kolegami* (साथीहरूसँग)।"
+        ne: "**z + करण कारक (instrumental) = सँगै**: *z bratem* (भाइसँग), *z mamą* (आमासँग), *kawa z mlekiem* (दूधसहितको कफी), *ze mną* (मसँग)। **अन्त्य सजिलो छ:** पुलिंगी र नपुंसकलिंगी → **-em** (*k, g* पछि → **-iem**), स्त्रीलिंगी → **-ą**। -a मा टुंगिने पुलिंगी शब्दमा पनि **-ą**: *kolega → z kolegą*। बहुवचन → **-ami**: *z kolegami* (साथीहरूसँग)।"
       },
       {
         en: "**jestem + instrumental = I am (a job / role).** *Jestem kucharzem* (I'm a cook, man), *Jestem kucharką* (woman), *Jestem studentem / studentką*, *On jest kierowcą* (He's a driver). In Nepali the word doesn't change (*म भान्से हुँ*), but in Polish it must. **Common mistake:** *Jestem kucharz* ✗. But after *to* use the normal form: *To jest kucharz* ✓ (That is a cook).",
-        ne: "**jestem + instrumental = म (पेसा / भूमिका) हुँ।** *Jestem kucharzem* (म भान्से हुँ — पुरुष), *Jestem kucharką* (महिला), *Jestem studentem / studentką* (विद्यार्थी), *On jest kierowcą* (उनी चालक हुन्)। नेपालीमा शब्द बदलिँदैन (म भान्से हुँ), तर पोलिशमा बदलिनैपर्छ। **धेरैले गर्ने गल्ती:** *Jestem kucharz* ✗। तर *to* पछि सामान्य रूप नै प्रयोग हुन्छ: *To jest kucharz* ✓ (उहाँ भान्से हुनुहुन्छ)।"
+        ne: "**jestem + करण कारक (instrumental) = म (पेसा / भूमिका) हुँ।** *Jestem kucharzem* (म भान्से हुँ — पुरुष), *Jestem kucharką* (महिला), *Jestem studentem / studentką* (विद्यार्थी), *On jest kierowcą* (उनी चालक हुन्)। नेपालीमा शब्द बदलिँदैन (म भान्से हुँ), तर पोलिशमा बदलिनैपर्छ। **धेरैले गर्ने गल्ती:** *Jestem kucharz* ✗। तर *to* पछि सामान्य रूप नै प्रयोग हुन्छ: *To jest kucharz* ✓ (उहाँ भान्से हुनुहुन्छ)।"
       },
       {
         en: "**Transport — no preposition!** *Jadę autobusem* (I go by bus), *pociągiem* (by train), *tramwajem* (by tram), *samochodem* (by car), *rowerem* (by bike). Just like Nepali *बसले जान्छु*, the vehicle is the \"tool\". **Common mistake:** *Jadę z autobusem* ✗ — that would mean you travel *together with* a bus! But on foot: *idę pieszo*.",
@@ -343,7 +343,7 @@ window.SLOWKA_COURSE.push(
       },
       {
         en: "**interesować się + instrumental = to be interested in.** *Interesuję się piłką nożną* (I'm interested in football), *muzyką* (music), *sportem* (sport), *gotowaniem* (cooking). Adjectives in the instrumental: *-ym / -im* (m, n) and *-ą* (f): *z dobrym kolegą*, *z nową koleżanką*.",
-        ne: "**interesować się + instrumental = केमा रुचि हुनु।** *Interesuję się piłką nożną* (मलाई फुटबलमा रुचि छ), *muzyką* (संगीतमा), *sportem* (खेलकुदमा), *gotowaniem* (खाना पकाउनमा)। Instrumental मा विशेषण: *-ym / -im* (पुलिंग, नपुंसक) र *-ą* (स्त्रीलिंग): *z dobrym kolegą* (असल साथीसँग), *z nową koleżanką* (नयाँ साथी (महिला) सँग)।"
+        ne: "**interesować się + करण कारक (instrumental) = केमा रुचि हुनु।** *Interesuję się piłką nożną* (मलाई फुटबलमा रुचि छ), *muzyką* (संगीतमा), *sportem* (खेलकुदमा), *gotowaniem* (खाना पकाउनमा)। Instrumental मा विशेषण: *-ym / -im* (पुलिंग, नपुंसक) र *-ą* (स्त्रीलिंग): *z dobrym kolegą* (असल साथीसँग), *z nową koleżanką* (नयाँ साथी (महिला) सँग)।"
       }
     ],
     tables: [
@@ -519,16 +519,16 @@ window.SLOWKA_COURSE.push(
       ["Wczoraj byłem w pracy.", "Yesterday I was at work. (m)", "हिजो म काममा थिएँ। (पुरुष)", "FCHO-ray BI-wem f PRA-tsi", "ˈफ़्चो-राय् ˈबि-वेम् फ़् ˈप्रा-त्सि"],
       ["Gdzie byłaś wczoraj?", "Where were you yesterday? (to a woman)", "हिजो तिमी कहाँ थियौ? (महिलालाई)", "gjeh BI-wash FCHO-ray", "ग्जे ˈबि-वाश् ˈफ़्चो-राय्"],
       ["Byliśmy w Krakowie rok temu.", "We were in Kraków a year ago.", "हामी एक वर्षअघि क्राकोवमा थियौं।", "BI-leesh-mi f kra-KO-vye rok TE-moo", "ˈबि-लिश्-मि फ़् क्रा-ˈको-भ्ये रोक् ˈते-मु"],
-      ["Co robiłeś w sobotę?", "What did you do on Saturday? (to a man)", "शनिबार तिमीले के गर्यौ? (पुरुषलाई)", "tso ro-BEE-wesh f so-BO-teh", "त्सो रो-ˈबि-वेश् फ़् सो-ˈबो-ते"],
+      ["Co robiłeś w sobotę?", "What did you do on Saturday? (to a man)", "शनिबार तिमीले के गर्‍यौ? (पुरुषलाई)", "tso ro-BEE-wesh f so-BO-teh", "त्सो रो-ˈबि-वेश् फ़् सो-ˈबो-ते"],
       ["Jadłam obiad o drugiej.", "I had lunch at two. (f)", "मैले दुई बजे खाना खाएँ। (महिला)", "YAD-wam O-byat o DROO-gyey", "ˈयाद्-वाम् ˈओ-ब्यात् ओ ˈद्रु-ग्येय्"],
       ["Wczoraj szłam do pracy pieszo.", "Yesterday I walked to work. (f)", "हिजो म हिँडेर काममा गएँ। (महिला)", "FCHO-ray shwam do PRA-tsi PYE-sho", "ˈफ़्चो-राय् श्वाम् दो ˈप्रा-त्सि ˈप्ये-शो"],
       ["W zeszłym tygodniu miałem dużo pracy.", "Last week I had a lot of work. (m)", "गत हप्ता मसँग धेरै काम थियो। (पुरुष)", "v ZESH-wim ti-GOD-nyoo MYA-wem DOO-zho PRA-tsi", "भ् ˈज़ेश्-विम् ति-ˈगोद्-न्यु ˈम्या-वेम् ˈदु-झो ˈप्रा-त्सि"],
       ["Kupiłam nowy telefon.", "I bought a new phone. (f)", "मैले नयाँ फोन किनें। (महिला)", "koo-PEE-wam NO-vi te-LE-fon", "कु-ˈपि-वाम् ˈनो-भि ते-ˈले-फ़ोन्"]
     ],
     dialogue: [
-      ["Kasia", "Cześć, Bikash! Co robiłeś w weekend?", "Hi, Bikash! What did you do at the weekend?", "नमस्ते बिकास! सप्ताहान्तमा के गर्यौ?"],
+      ["Kasia", "Cześć, Bikash! Co robiłeś w weekend?", "Hi, Bikash! What did you do at the weekend?", "नमस्ते बिकास! सप्ताहान्तमा के गर्‍यौ?"],
       ["Bikash", "W sobotę pracowałem, a w niedzielę byłem w Krakowie.", "On Saturday I worked, and on Sunday I was in Kraków.", "शनिबार काम गरें, अनि आइतबार क्राकोवमा थिएँ।"],
-      ["Kasia", "Naprawdę? Co tam robiłeś?", "Really? What did you do there?", "साँच्चै? त्यहाँ के गर्यौ?"],
+      ["Kasia", "Naprawdę? Co tam robiłeś?", "Really? What did you do there?", "साँच्चै? त्यहाँ के गर्‍यौ?"],
       ["Bikash", "Byłem z kolegami na Wawelu. Potem jedliśmy pierogi!", "I was at Wawel castle with friends. Then we ate pierogi!", "साथीहरूसँग वावेल दरबार गएँ। त्यसपछि हामीले पिएरोगी (मःम जस्तै) खायौं!"],
       ["Kasia", "Super! A ja byłam w domu i dużo spałam.", "Great! And I was at home and slept a lot.", "राम्रो! म चाहिँ घरमै थिएँ र धेरै सुतें।"],
       ["Bikash", "Odpoczynek też jest ważny!", "Rest is important too!", "आराम पनि त जरुरी छ!"]
@@ -550,7 +550,7 @@ window.SLOWKA_COURSE.push(
       },
       {
         en: "Polish verbs come in **pairs**. An **imperfective** verb is about a process or something repeated (*robić* — to be doing). A **perfective** verb is about one complete result (*zrobić* — to get it done). For **imperfective** verbs, the future is **będę + infinitive**: *Będę pracować* (I will work / will be working), *Będziemy czekać* (We'll wait).",
-        ne: "पोलिश क्रियाहरू **जोडीमा** आउँछन्। **Imperfective** क्रियाले चलिरहेको वा दोहोरिने काम जनाउँछ (*robić* — गर्दै हुनु)। **Perfective** क्रियाले एउटा पूरा भएको नतिजा जनाउँछ (*zrobić* — गरेर सिध्याउनु)। **Imperfective** क्रियाको भविष्य **będę + मूल रूप (infinitive)** हो: *Będę pracować* (म काम गर्नेछु / गरिरहेको हुनेछु), *Będziemy czekać* (हामी पर्खनेछौं)।"
+        ne: "पोलिश क्रियाहरू **जोडीमा** आउँछन्। **अपूर्ण (imperfective)** क्रियाले चलिरहेको वा दोहोरिने काम जनाउँछ (*robić* — गर्दै हुनु)। **पूर्ण (perfective)** क्रियाले एउटा पूरा भएको नतिजा जनाउँछ (*zrobić* — गरेर सिध्याउनु)। **अपूर्ण (imperfective)** क्रियाको भविष्य **będę + मूल रूप (infinitive)** हो: *Będę pracować* (म काम गर्नेछु / गरिरहेको हुनेछु), *Będziemy czekać* (हामी पर्खनेछौं)।"
       },
       {
         en: "Instead of the infinitive you can also use the **past-tense form** (with gender): *będę pracował* (m), *będę pracowała* (f). Both mean the same. **Tip:** the infinitive version is easier because it has no gender — use *będę pracować* and you are always right.",
@@ -558,7 +558,7 @@ window.SLOWKA_COURSE.push(
       },
       {
         en: "**Perfective verbs** have no *będę*. Their \"present\" form already means the future: *zrobię* (I'll do it), *kupię* (I'll buy), *pójdę* (I'll go), *zadzwonię* (I'll call), *napiszę* (I'll write). They conjugate like normal present verbs: *zrobię, zrobisz, zrobi, zrobimy…* **Common mistake:** *będę zrobić* ✗ — never put *będę* before a perfective verb. Say *zrobię* ✓.",
-        ne: "**Perfective क्रियामा** *będę* लाग्दैन। तिनीहरूको \"वर्तमान\" जस्तो देखिने रूपले नै भविष्य जनाउँछ: *zrobię* (म गरिदिनेछु), *kupię* (किन्नेछु), *pójdę* (जानेछु), *zadzwonię* (फोन गर्नेछु), *napiszę* (लेख्नेछु)। यिनीहरू सामान्य वर्तमान कालजस्तै रूपान्तरित हुन्छन्: *zrobię, zrobisz, zrobi, zrobimy…* **धेरैले गर्ने गल्ती:** *będę zrobić* ✗ — perfective क्रियाअघि कहिल्यै *będę* नराख्नुहोस्। *zrobię* ✓ भन्नुहोस्।"
+        ne: "**पूर्ण (perfective) क्रियामा** *będę* लाग्दैन। तिनीहरूको \"वर्तमान\" जस्तो देखिने रूपले नै भविष्य जनाउँछ: *zrobię* (म गरिदिनेछु), *kupię* (किन्नेछु), *pójdę* (जानेछु), *zadzwonię* (फोन गर्नेछु), *napiszę* (लेख्नेछु)। यिनीहरू सामान्य वर्तमान कालजस्तै रूपान्तरित हुन्छन्: *zrobię, zrobisz, zrobi, zrobimy…* **धेरैले गर्ने गल्ती:** *będę zrobić* ✗ — पूर्ण (perfective) क्रियाअघि कहिल्यै *będę* नराख्नुहोस्। *zrobię* ✓ भन्नुहोस्।"
       },
       {
         en: "**Time words for the future:** *jutro* (tomorrow), *pojutrze* (the day after tomorrow), *wieczorem* (in the evening), *w przyszłym tygodniu* (next week), *w przyszłym roku* (next year), *niedługo* (soon). For \"in (an hour / a week)\" use **za**: *za godzinę*, *za tydzień*, *za dwa dni*. **Common mistake:** *w godzinę* ✗ for \"in an hour from now\" — say *za godzinę* ✓.",

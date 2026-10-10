@@ -189,7 +189,7 @@
     const hello = hour < 12 ? ['Dzień dobry!', 'Good morning', 'शुभ प्रभात'] : hour < 18 ? ['Dzień dobry!', 'Good afternoon', 'नमस्ते'] : ['Dobry wieczór!', 'Good evening', 'शुभ सन्ध्या'];
 
     const plan = [
-      due ? { to: 'review', icon: '↻', en: `Review ${due} ${due === 1 ? 'word' : 'words'}`, ne: 'शब्द दोहोर्याउनुहोस्', sub: 'A few minutes · केही मिनेट' } : null,
+      due ? { to: 'review', icon: '↻', en: `Review ${due} ${due === 1 ? 'word' : 'words'}`, ne: 'शब्द दोहोर्‍याउनुहोस्', sub: 'A few minutes · केही मिनेट' } : null,
       { action: 'g-start', unit: next.id, icon: '▶', en: st.done ? `Repeat: ${next.title}` : st.started ? `Continue: ${next.title}` : `Lesson: ${next.title}`, ne: next.titleNe, sub: st.started && !st.done ? `Step ${st.step + 1} of ${st.total} · with your teacher` : 'With your teacher · शिक्षिकासँग', main: true },
       (() => { const r = S.Assess.dueRevision(); return r ? { to: `revise.${r.id}`, icon: '↻', en: r.title, ne: r.titleNe, sub: 'Revise the last 5 lessons · १० मिनेट' } : null; })(),
       (() => { const t = S.Assess.dueTest(); return t ? { to: `revise.${t.id}`, icon: '🎓', en: t.title, ne: t.titleNe, sub: 'Pass with 70% to get your certificate' } : null; })(),
@@ -417,10 +417,10 @@
         <span class="eyebrow">Daily review · दैनिक दोहोर्याइ</span>
         <h2>${due.length ? `${due.length} ${due.length === 1 ? 'word is' : 'words are'} due today` : 'Daily review'}</h2>
         <p class="hint">Words you have practised come back on a schedule: tomorrow, then in 2, 4, 7 and 14 days. A few minutes every day is the fastest way to remember.<br>
-        <span lang="ne">अभ्यास गरेका शब्दहरू तालिका अनुसार फर्कन्छन्: भोलि, अनि २, ४, ७ र १४ दिनपछि। हरेक दिन केही मिनेट दोहोर्याउनु नै छिटो सम्झने उपाय हो।</span></p>
+        <span lang="ne">अभ्यास गरेका शब्दहरू तालिका अनुसार फर्कन्छन्: भोलि, अनि २, ४, ७ र १४ दिनपछि। हरेक दिन केही मिनेट दोहोर्‍याउनु नै छिटो सम्झने उपाय हो।</span></p>
       </header>
       <section class="stage" id="stage"></section>
-      ${S.Extras.mistakeItems().length ? `<section class="card compact extra-review"><span class="label">Also due · यो पनि दोहोर्याउनुहोस्</span>
+      ${S.Extras.mistakeItems().length ? `<section class="card compact extra-review"><span class="label">Also due · यो पनि दोहोर्‍याउनुहोस्</span>
         <p>You have <b>${S.Extras.mistakeItems().length}</b> grammar ${S.Extras.mistakeItems().length === 1 ? 'mistake' : 'mistakes'} to practise again.</p>
         <button class="btn" data-action="go" data-to="mistakes.practice">Practise my mistakes →</button></section>` : ''}`;
     S.Practice.render($('#stage'), { key: 'review', mode: 'cards', pool: due, review: true });
@@ -480,7 +480,7 @@
         <h2>The Polish alphabet</h2>
         <p class="unit-head-ne" lang="ne">पोलिश वर्णमाला</p>
         <p class="hint">32 letters. Polish is read exactly as it is written, so once you know these sounds you can read any word. Stress falls on the second-to-last syllable.<br>
-        <span lang="ne">३२ अक्षर। पोलिश जस्तो लेखिन्छ त्यस्तै पढिन्छ। जोड प्राय: अन्तिमभन्दा अघिल्लो अक्षरमा पर्छ।</span></p>
+        <span lang="ne">३२ अक्षर। पोलिश जस्तो लेखिन्छ त्यस्तै पढिन्छ। जोड प्राय: अन्तिमभन्दा अघिल्लो शब्दांशमा पर्छ।</span></p>
       </header>
       ${S.ALPHABET.length ? alphabetGrid() : '<p class="empty">The alphabet did not load.</p>'}
       ${first ? `<div class="row start"><button class="btn primary" data-action="go" data-to="${first.id}">Start the first lesson →</button></div>` : ''}`;
