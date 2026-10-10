@@ -36,18 +36,18 @@ window.SLOWKA_COURSE.push(
         titleNe: "महिनाहरू — miesiące",
         head: ["English", "Polish", "Say it", "Nepali"],
         rows: [
-          ["January", "*styczeń*", "STI-chen", "जनवरी"],
+          ["January", "*styczeń*", "STI-cheny", "जनवरी"],
           ["February", "*luty*", "LOO-ti", "फेब्रुअरी"],
           ["March", "*marzec*", "MA-zhets", "मार्च"],
-          ["April", "*kwiecień*", "KFYEH-chen", "अप्रिल"],
+          ["April", "*kwiecień*", "KFYEH-cheny", "अप्रिल"],
           ["May", "*maj*", "may", "मे"],
           ["June", "*czerwiec*", "CHER-vyets", "जुन"],
           ["July", "*lipiec*", "LEE-pyets", "जुलाई"],
-          ["August", "*sierpień*", "SHER-pyen", "अगस्ट"],
-          ["September", "*wrzesień*", "VZHEH-shen", "सेप्टेम्बर"],
+          ["August", "*sierpień*", "SHER-pyeny", "अगस्ट"],
+          ["September", "*wrzesień*", "VZHEH-sheny", "सेप्टेम्बर"],
           ["October", "*październik*", "pazh-JER-neek", "अक्टोबर"],
           ["November", "*listopad*", "lee-STO-pat", "नोभेम्बर"],
-          ["December", "*grudzień*", "GROO-jen", "डिसेम्बर"]
+          ["December", "*grudzień*", "GROO-jeny", "डिसेम्बर"]
         ]
       },
       {
@@ -95,8 +95,8 @@ window.SLOWKA_COURSE.push(
       ["dzisiaj", "today", "आज", "JEE-shay", "ˈजि-शाय्"],
       ["jutro", "tomorrow", "भोलि", "YOO-tro", "ˈयु-त्रो"],
       ["wczoraj", "yesterday", "हिजो", "FCHO-ray", "ˈफ़्चो-राय्"],
-      ["dzień", "day", "दिन", "jen", "जेन्य्"],
-      ["tydzień", "week", "हप्ता", "TI-jen", "ˈति-जेन्य्"],
+      ["dzień", "day", "दिन", "jeny", "जेन्य्"],
+      ["tydzień", "week", "हप्ता", "TI-jeny", "ˈति-जेन्य्"],
       ["miesiąc", "month", "महिना", "MYEH-shonts", "ˈम्ये-शोन्त्स्"],
       ["rok", "year", "वर्ष / साल", "rok", "रोक्"],
       ["godzina", "hour; o'clock", "घण्टा; बजे", "go-JEE-na", "गो-ˈजि-ना"],
@@ -107,7 +107,7 @@ window.SLOWKA_COURSE.push(
     phrases: [
       ["Która jest godzina?", "What time is it?", "कति बज्यो?", "KTOO-ra yest go-JEE-na", "ˈक्तु-रा येस्त् गो-ˈजि-ना"],
       ["Jest ósma.", "It's eight o'clock.", "आठ बज्यो।", "yest OOS-ma", "येस्त् ˈउस्-मा"],
-      ["Jaki dzisiaj jest dzień?", "What day is it today?", "आज कुन बार हो?", "YA-kee JEE-shay yest jen", "ˈया-कि ˈजि-शाय् येस्त् जेन्य्"],
+      ["Jaki dzisiaj jest dzień?", "What day is it today?", "आज कुन बार हो?", "YA-kee JEE-shay yest jeny", "ˈया-कि ˈजि-शाय् येस्त् जेन्य्"],
       ["Dzisiaj jest poniedziałek.", "Today is Monday.", "आज सोमबार हो।", "JEE-shay yest po-nyeh-JA-wek", "ˈजि-शाय् येस्त् पो-न्ये-ˈजा-वेक्"],
       ["O której zaczynasz pracę?", "What time do you start work?", "तिमी कति बजे काम सुरु गर्छौ?", "o KTOO-rey za-CHI-nash PRA-tseh", "ओ ˈक्तु-रेय् ज़ा-ˈचि-नाश् ˈप्रा-त्से"],
       ["Zaczynam pracę o siódmej rano.", "I start work at seven in the morning.", "म बिहान सात बजे काम सुरु गर्छु।", "za-CHI-nam PRA-tseh o SHOOD-mey RA-no", "ज़ा-ˈचि-नाम् ˈप्रा-त्से ओ ˈशुद्-मेय् ˈरा-नो"],
@@ -575,9 +575,9 @@ window.SLOWKA_COURSE.push(
       ["tabletka", "tablet, pill", "चक्की / ट्याब्लेट", "ta-BLET-ka", "ता-ˈब्लेत्-का"]
     ],
     phrases: [
-      ["Boli mnie głowa.", "I have a headache.", "मेरो टाउको दुख्छ।", "BO-lee mneh GWO-va", "ˈबो-लि म्ने ˈग्वो-भा"],
-      ["Boli mnie brzuch.", "I have a stomach ache.", "मेरो पेट दुख्छ।", "BO-lee mneh bzhooh", "ˈबो-लि म्ने ब्झुह्"],
-      ["Bolą mnie nogi.", "My legs hurt.", "मेरा खुट्टा दुख्छन्।", "BO-lon mneh NO-gee", "ˈबो-लों म्ने ˈनो-गि"],
+      ["Boli mnie głowa.", "I have a headache.", "मेरो टाउको दुख्छ।", "BO-lee mnyeh GWO-va", "ˈबो-लि म्न्ये ˈग्वो-भा"],
+      ["Boli mnie brzuch.", "I have a stomach ache.", "मेरो पेट दुख्छ।", "BO-lee mnyeh bzhooh", "ˈबो-लि म्न्ये ब्झुह्"],
+      ["Bolą mnie nogi.", "My legs hurt.", "मेरा खुट्टा दुख्छन्।", "BO-lon mnyeh NO-gee", "ˈबो-लों म्न्ये ˈनो-गि"],
       ["Jestem chory.", "I'm ill. (said by a man)", "म बिरामी छु। (पुरुषले भन्ने)", "YES-tem HO-ri", "ˈयेस्-तेम् ˈहो-रि"],
       ["Mam gorączkę.", "I have a fever.", "मलाई ज्वरो आएको छ।", "mam go-RONCH-keh", "माम् गो-ˈरोंच्-के"],
       ["Muszę iść do lekarza.", "I have to go to the doctor.", "म डाक्टरकहाँ जानुपर्छ।", "MOO-sheh eeshch do leh-KA-zha", "ˈमु-शे इश्च् दो ले-ˈका-झा"],

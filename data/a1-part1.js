@@ -52,7 +52,7 @@ window.SLOWKA_COURSE.push(
       }
     ],
     words: [
-      ["dzień dobry", "good morning / hello (formal)", "शुभ प्रभात / नमस्ते (औपचारिक)", "jen DOB-ri", "जेन्य् ˈदोब्-रि"],
+      ["dzień dobry", "good morning / hello (formal)", "शुभ प्रभात / नमस्ते (औपचारिक)", "jeny DOB-ri", "जेन्य् ˈदोब्-रि"],
       ["dobry wieczór", "good evening", "शुभ साँझ", "DOB-ri VYEH-choor", "ˈदोब्-रि ˈभ्ये-चुर्"],
       ["dobranoc", "good night", "शुभ रात्रि", "dob-RA-nots", "दोब्-ˈरा-नोत्स्"],
       ["cześć", "hi / bye (informal)", "हाइ / बाई (अनौपचारिक)", "cheshch", "चेश्च्"],
@@ -65,7 +65,7 @@ window.SLOWKA_COURSE.push(
       ["przepraszam", "sorry / excuse me", "माफ गर्नुहोस्", "psheh-PRA-sham", "प्शे-ˈप्रा-शाम्"],
       ["pan", "you / sir (formal, to a man)", "तपाईं (पुरुषलाई)", "pan", "पान्"],
       ["pani", "you / madam (formal, to a woman)", "तपाईं (महिलालाई)", "PA-nee", "ˈपा-नि"],
-      ["państwo", "you (formal, to a group)", "तपाईंहरू", "PANY-stfo", "ˈपान्य्-स्त्फो"],
+      ["państwo", "you (formal, to a group)", "तपाईंहरू", "PANY-stfo", "ˈपान्य्-स्त्फ़ो"],
       ["ty", "you (informal)", "तिमी", "ti", "ति"],
       ["tak", "yes", "हो / हजुर", "tak", "ताक्"],
       ["nie", "no / not", "होइन", "nyeh", "न्ये"]
@@ -268,7 +268,7 @@ window.SLOWKA_COURSE.push(
       ["liczyć", "to count", "गन्नु", "LEE-chich", "ˈलि-चिच्"]
     ],
     phrases: [
-      ["Jaki jest twój numer telefonu?", "What's your phone number?", "तिम्रो फोन नम्बर के हो?", "YA-kee yest tfooy NOO-mer teh-leh-FO-noo", "ˈया-कि येस्त् त्फुय् ˈनु-मेर् ते-ले-ˈफ़ो-नु"],
+      ["Jaki jest twój numer telefonu?", "What's your phone number?", "तिम्रो फोन नम्बर के हो?", "YA-kee yest tfooy NOO-mer teh-leh-FO-noo", "ˈया-कि येस्त् त्फ़ुय् ˈनु-मेर् ते-ले-ˈफ़ो-नु"],
       ["Dwa plus trzy to pięć.", "Two plus three is five.", "दुई जोड तीन बराबर पाँच।", "dva ploos tshi to pyench", "द्भा प्लुस् त्शि तो प्येन्च्"],
       ["Ile osób?", "How many people?", "कति जना?", "EE-leh O-soop", "ˈइ-ले ˈओ-सुप्"],
       ["Proszę powtórzyć.", "Please repeat.", "कृपया फेरि भन्नुहोस्।", "PRO-sheh pof-TOO-zhich", "ˈप्रो-शे पोफ़्-ˈतु-झिच्"],
@@ -360,7 +360,7 @@ window.SLOWKA_COURSE.push(
       ["pięćset", "five hundred (500)", "पाँच सय (५००)", "PYENCH-set", "ˈप्येन्च्-सेत्"],
       ["tysiąc", "thousand (1000)", "हजार (१०००)", "TI-shonts", "ˈति-शोन्त्स्"],
       ["złoty", "zloty (Polish money)", "ज्लोती (पोलिश पैसा)", "ZWO-ti", "ˈज़्वो-ति"],
-      ["grosz", "grosz (1/100 of a zloty)", "ग्रोस (ज्लोतीको सयौँ भाग)", "grosh", "ग्रोश्"],
+      ["grosz", "grosz (1/100 of a zloty)", "ग्रोश (ज्लोतीको सयौँ भाग)", "grosh", "ग्रोश्"],
       ["kosztować", "to cost", "मूल्य पर्नु", "kosh-TO-vach", "कोश्-ˈतो-भाच्"],
       ["cena", "price", "मूल्य", "TSEH-na", "ˈत्से-ना"],
       ["drogi", "expensive", "महँगो", "DRO-gee", "ˈद्रो-गि"],
@@ -411,7 +411,7 @@ window.SLOWKA_COURSE.push(
       },
       {
         en: "“My” and informal “your” agree with the noun's gender: *mój brat, moja siostra, moje dziecko*; *twój syn, twoja córka, twoje imię*. Nepali does something similar: मेरो छोरा but मेरी छोरी. It doesn't matter whether the speaker is a man or a woman — only the noun counts. A woman says *mój mąż*, a man says *moja żona*. **Pronunciation:** *mój* = mooy, *twój* = tfooy.",
-        ne: "“मेरो” र “तिम्रो” नामको लिङ्गअनुसार बदलिन्छन्: *mój brat, moja siostra, moje dziecko*; *twój syn, twoja córka, twoje imię*। नेपालीमा पनि “मेरो छोरा” तर “मेरी छोरी” भनिन्छ — यो उस्तै हो। बोल्ने मान्छे पुरुष हो कि महिला भन्ने फरक पर्दैन, नामको लिङ्ग मात्र हेरिन्छ। महिलाले *mój mąż* र पुरुषले *moja żona* भन्छन्। **उच्चारण:** *mój* = मुय्, *twój* = त्फुय्।"
+        ne: "“मेरो” र “तिम्रो” नामको लिङ्गअनुसार बदलिन्छन्: *mój brat, moja siostra, moje dziecko*; *twój syn, twoja córka, twoje imię*। नेपालीमा पनि “मेरो छोरा” तर “मेरी छोरी” भनिन्छ — यो उस्तै हो। बोल्ने मान्छे पुरुष हो कि महिला भन्ने फरक पर्दैन, नामको लिङ्ग मात्र हेरिन्छ। महिलाले *mój mąż* र पुरुषले *moja żona* भन्छन्। **उच्चारण:** *mój* = मुय्, *twój* = त्फ़ुय्।"
       },
       {
         en: "Preview: after *mam* (I have) nouns change a little. Feminine *-a* becomes *-ę*: *siostra → Mam siostrę*, *córka → Mam córkę*. Masculine words for people add *-a*: *brat → Mam brata*, *syn → Mam syna*. Neuter stays the same: *Mam dziecko*. You'll practise this more in later units.",
@@ -471,7 +471,7 @@ window.SLOWKA_COURSE.push(
       ["Moja rodzina mieszka w Nepalu.", "My family lives in Nepal.", "मेरो परिवार नेपालमा बस्छ।", "MO-ya ro-JEE-na MYESH-ka v neh-PA-loo", "ˈमो-या रो-ˈजि-ना ˈम्येश्-का भ् ने-ˈपा-लु"],
       ["Czy masz dzieci?", "Do you have children?", "तिम्रा बच्चाहरू छन्?", "chi mash JEH-chee", "चि माश् ˈजे-चि"],
       ["Mam syna i córkę.", "I have a son and a daughter.", "मेरो एउटा छोरा र एउटी छोरी छन्।", "mam SI-na ee TSOOR-keh", "माम् ˈसि-ना इ ˈत्सुर्-के"],
-      ["Jak ma na imię twoja żona?", "What's your wife's name?", "तिम्री श्रीमतीको नाम के हो?", "yak ma na EE-myeh TFO-ya ZHO-na", "याक् मा ना ˈइ-म्ये ˈत्फो-या ˈझो-ना"],
+      ["Jak ma na imię twoja żona?", "What's your wife's name?", "तिम्री श्रीमतीको नाम के हो?", "yak ma na EE-myeh TFO-ya ZHO-na", "याक् मा ना ˈइ-म्ये ˈत्फ़ो-या ˈझो-ना"],
       ["Moje dziecko ma pięć lat.", "My child is five.", "मेरो बच्चा पाँच वर्षको भयो।", "MO-yeh JETS-ko ma pyench lat", "ˈमो-ये ˈजेत्स्-को मा प्येन्च् लात्"]
     ],
     dialogue: [
@@ -498,8 +498,8 @@ window.SLOWKA_COURSE.push(
         ne: "जे पनि अर्डर गर्ने सबैभन्दा सजिलो तरिका *Poproszę* + वस्तु हो: *Poproszę kawę.* (एउटा कफी दिनुहोस्।) यो विनम्र छ र जहाँ पनि चल्छ — क्याफे, पसल, बेकरी वा कामको क्यान्टिनमा। वेटर वा पसलेले *Co dla pana?* / *Co dla pani?* (तपाईंलाई के दिऊँ?) वा छोटकरीमा *Co podać?* भनेर सोध्न सक्छन्।"
       },
       {
-        en: "Another polite way is “I would like”: a man says *chciałbym*, a woman says *chciałabym*. The verb changes with the speaker's gender, just like Nepali म आएको छु / म आएकी छु. Careful with stress: *chciałbym* is HCHAW-bim and *chciałabym* is HCHA-wa-bim — here the stress is not on the second-to-last syllable.",
-        ne: "अर्को विनम्र तरिका “मलाई … चाहियो” हो: पुरुषले *chciałbym* र महिलाले *chciałabym* भन्छन्। नेपालीमा “म आएको छु / म आएकी छु” भनेजस्तै यहाँ पनि बोल्नेको लिङ्गअनुसार क्रियापद बदलिन्छ। जोडमा ध्यान दिनुहोस्: *chciałbym* = ˈह्चाव्-बिम्, *chciałabym* = ˈह्चा-वा-बिम् — यहाँ जोड अन्तिमभन्दा अघिल्लो अक्षरमा पर्दैन।"
+        en: "Another polite way is “I would like”: a man says *chciałbym*, a woman says *chciałabym*. The verb changes with the speaker's gender, just like Nepali म आएको छु / म आएकी छु. Careful with stress: *chciałbym* is HCHAW-bim (normal stress), but *chciałabym* is HCHA-wa-bim — here the stress is not on the second-to-last syllable.",
+        ne: "अर्को विनम्र तरिका “मलाई … चाहियो” हो: पुरुषले *chciałbym* र महिलाले *chciałabym* भन्छन्। नेपालीमा “म आएको छु / म आएकी छु” भनेजस्तै यहाँ पनि बोल्नेको लिङ्गअनुसार क्रियापद बदलिन्छ। जोडमा ध्यान दिनुहोस्: *chciałbym* = ˈह्चाव्-बिम् (सामान्य जोड), तर *chciałabym* = ˈह्चा-वा-बिम् — यहाँ जोड अन्तिमभन्दा अघिल्लो अक्षरमा पर्दैन।"
       },
       {
         en: "After *poproszę* and *chciałbym/chciałabym*, feminine nouns change *-a* to *-ę*: *kawa → kawę*, *woda → wodę*, *herbata → herbatę*, *zupa → zupę*. Masculine things and neuter nouns stay the same: *Poproszę sok / chleb / piwo / mleko.* **Common mistake:** *Poproszę kawa.* — it must be *kawę*. Poles will still understand you, but the correct form sounds much better.",
