@@ -1,0 +1,383 @@
+// Słówka core: course data, saved progress, spaced repetition, audio and shared UI helpers.
+// Everything here works offline. Nothing calls an AI or any server.
+(() => {
+  'use strict';
+  const S = (window.Slowka = window.Slowka || {});
+
+  // ---------- levels and data ----------
+
+  S.LEVELS = [
+    { id: 'Start', name: 'Start here', ne: 'यहाँबाट सुरु गर्नुहोस्', blurb: 'Alphabet, sounds and reading rules', blurbNe: 'वर्णमाला, उच्चारण र पढ्ने नियम' },
+    { id: 'A1', name: 'A1 · Beginner', ne: 'शुरुआती', blurb: 'Everyday words and simple sentences', blurbNe: 'दैनिक शब्द र सरल वाक्य' },
+    { id: 'A2', name: 'A2 · Elementary', ne: 'प्रारम्भिक', blurb: 'Cases, past and future, daily life and work', blurbNe: 'विभक्ति, भूत र भविष्य काल, दैनिक जीवन र काम' },
+    { id: 'B1', name: 'B1 · Intermediate', ne: 'मध्यम', blurb: 'Aspect, polite Polish, life in Poland', blurbNe: 'क्रियाको पक्ष, विनम्र पोलिस, पोल्यान्डमा जीवन' },
+    { id: 'B2', name: 'B2 · Upper intermediate', ne: 'उच्च-मध्यम', blurb: 'Fluent, formal and idiomatic Polish', blurbNe: 'धाराप्रवाह, औपचारिक र मुहावरेदार पोलिस' },
+    { id: 'Work', name: 'Polish for work', ne: 'कामको लागि पोलिस', blurb: 'Word packs for common jobs in Poland', blurbNe: 'पोल्यान्डका सामान्य कामका शब्दहरू' },
+  ];
+  S.levelIndex = (id) => S.LEVELS.findIndex((l) => l.id === id);
+
+  const W = window;
+  S.COURSE = (W.SLOWKA_COURSE || [])
+    .filter((u) => u && u.id && S.levelIndex(u.level) >= 0)
+    .sort((a, b) => S.levelIndex(a.level) - S.levelIndex(b.level) || a.id.localeCompare(b.id, 'en', { numeric: true }));
+  S.ALPHABET = W.SLOWKA_ALPHABET || [];
+  S.DRILLS = W.SLOWKA_DRILLS || {};
+  S.ROLEPLAYS = (W.SLOWKA_ROLEPLAYS || []).slice().sort((a, b) => a.level.localeCompare(b.level));
+  S.STORIES = (W.SLOWKA_STORIES || []).slice().sort((a, b) => a.id.localeCompare(b.id, 'en', { numeric: true }));
+  S.EXAMS = W.SLOWKA_EXAMS || [];
+  S.PLACEMENT = W.SLOWKA_PLACEMENT || [];
+  S.AUDIO = W.SLOWKA_AUDIO || {};
+
+  // Every Polish form the app can teach, keyed by its exact text. Course entries win.
+  S.LEXICON = new Map();
+  const toEntry = (kind, source) => ([pl, en, ne, pron, proNe]) => ({ pl, en, ne, pron, proNe, kind, source });
+  S.COURSE.forEach((u) => {
+    u.entries = [...(u.words || []).map(toEntry('word', u.id)), ...(u.phrases || []).map(toEntry('phrase', u.id))];
+    u.entries.forEach((e) => { if (!S.LEXICON.has(e.pl)) S.LEXICON.set(e.pl, e); });
+  });
+  S.ENTRIES = [...S.LEXICON.values()]; // course entries only (for the dictionary and stats)
+  S.ROLEPLAYS.forEach((r) => (r.useful || []).forEach((x) => {
+    const e = toEntry('phrase', r.id)(x);
+    if (!S.LEXICON.has(e.pl)) S.LEXICON.set(e.pl, e);
+  }));
+  S.STORIES.forEach((s) => (s.glossary || []).forEach((x) => {
+    const e = toEntry('word', s.id)(x);
+    if (!S.LEXICON.has(e.pl)) S.LEXICON.set(e.pl, e);
+  }));
+  S.UNIT = new Map(S.COURSE.map((u) => [u.id, u]));
+
+  // ---------- text helpers ----------
+
+  S.esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  S.highlight = (escaped) => escaped.replace(/[ąćęłńóśźżĄĆĘŁŃÓŚŹŻ]/g, '<span class="dia">$&</span>');
+  S.polish = (s) => S.highlight(S.esc(s));
+  // Lesson markup on escaped text: *polish words* and **bold**.
+  S.markup = (s) => S.esc(s)
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\*(.+?)\*/g, (_, t) => `<span class="pl" lang="pl">${S.highlight(t)}</span>`);
+
+  S.stripMarks = (s) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/ł/g, 'l').replace(/Ł/g, 'L');
+  S.clean = (s) => String(s).toLowerCase().replace(/[?!.,…¿¡:;"„”«»()–—]/g, ' ').replace(/\s+/g, ' ').trim();
+  S.fold = (s) => S.stripMarks(S.clean(s));
+  S.tokenKey = (w) => S.clean(w).replace(/\s/g, '');
+
+  // Story glossaries are looked up by the word as written in the text.
+  S.STORIES.forEach((s) => {
+    s.glossaryMap = new Map((s.glossary || []).map((x) => [S.tokenKey(x[0]), toEntry('word', s.id)(x)]));
+  });
+  // Single words from the whole course, for tap-to-translate in reading.
+  S.WORD_INDEX = new Map();
+  for (const e of S.LEXICON.values()) {
+    if (!/\s/.test(e.pl.trim())) { const k = S.tokenKey(e.pl); if (!S.WORD_INDEX.has(k)) S.WORD_INDEX.set(k, e); }
+  }
+
+  // Similarity 0–1 between two strings (Levenshtein), on folded text.
+  S.similarity = (a, b) => {
+    a = S.fold(a); b = S.fold(b);
+    if (!a.length && !b.length) return 1;
+    const m = a.length, n = b.length;
+    let prev = Array.from({ length: n + 1 }, (_, j) => j);
+    for (let i = 1; i <= m; i++) {
+      const cur = [i];
+      for (let j = 1; j <= n; j++) cur[j] = Math.min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+      prev = cur;
+    }
+    return 1 - prev[n] / Math.max(m, n);
+  };
+
+  S.shuffle = (list) => {
+    const a = list.slice();
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  };
+
+  // ---------- storage ----------
+
+  const PROGRESS_KEY = 'slowka-progress-v2';
+  const SETTINGS_KEY = 'slowka-settings-v2';
+  function readJSON(key) {
+    try { return JSON.parse(localStorage.getItem(key)) || null; } catch (e) { return null; }
+  }
+  function writeJSON(key, value) {
+    try { localStorage.setItem(key, JSON.stringify(value)); } catch (e) { /* storage unavailable */ }
+  }
+
+  S.freshProgress = () => ({
+    items: {}, streak: 0, lastDay: null, history: {}, lastUnit: null,
+    drills: {}, mistakes: {}, exams: {}, roleplays: {}, stories: {}, placement: null,
+  });
+  S.progress = Object.assign(S.freshProgress(), readJSON(PROGRESS_KEY));
+  // Older saves lack the newer fields.
+  for (const [k, v] of Object.entries(S.freshProgress())) if (S.progress[k] == null && v !== null) S.progress[k] = v;
+  if (S.progress.todayDay && S.progress.todayCount && !S.progress.history[S.progress.todayDay]) {
+    S.progress.history[S.progress.todayDay] = S.progress.todayCount;
+  }
+  S.saveProgress = () => writeJSON(PROGRESS_KEY, S.progress);
+
+  S.settings = Object.assign(
+    { meaning: 'both', pron: 'both', explain: 'both', dir: 'pl', slow: false, goal: 20, audio: 'native' },
+    readJSON(SETTINGS_KEY)
+  );
+  S.saveSettings = () => writeJSON(SETTINGS_KEY, S.settings);
+  S.shows = (key, lang) => S.settings[key] === 'both' || S.settings[key] === lang;
+
+  // Backup code: everything saved, as text the learner can copy to another device.
+  S.backupCode = () => {
+    const json = JSON.stringify({ v: 2, progress: S.progress, settings: S.settings });
+    return btoa(unescape(encodeURIComponent(json)));
+  };
+  S.restoreBackup = (code) => {
+    const data = JSON.parse(decodeURIComponent(escape(atob(code.trim()))));
+    if (!data || !data.progress || !data.progress.items) throw new Error('not a Słówka backup');
+    S.progress = Object.assign(S.freshProgress(), data.progress);
+    Object.assign(S.settings, data.settings || {});
+    S.saveProgress();
+    S.saveSettings();
+  };
+
+  // ---------- days, activity and spaced repetition ----------
+
+  S.dayKey = (d = new Date()) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+  S.addDays = (n) => { const d = new Date(); d.setDate(d.getDate() + n); return S.dayKey(d); };
+  S.daysBetween = (a, b) => Math.round((new Date(`${b}T12:00`) - new Date(`${a}T12:00`)) / 864e5);
+
+  // Leitner boxes 0–5 with intervals in days. Box 3+ counts as learned.
+  S.INTERVALS = [0, 1, 2, 4, 7, 14];
+  S.MAX_BOX = 5;
+  S.LEARNED_BOX = 3;
+
+  S.itemOf = (e) => S.progress.items[e.pl];
+  S.boxOf = (e) => (S.itemOf(e) ? S.itemOf(e).b : 0);
+  S.isLearned = (e) => S.boxOf(e) >= S.LEARNED_BOX;
+
+  // Any practice answer counts toward today's goal and the streak.
+  S.logActivity = () => {
+    const today = S.dayKey();
+    S.progress.history[today] = (S.progress.history[today] || 0) + 1;
+    if (S.progress.lastDay !== today) {
+      S.progress.streak = S.progress.lastDay && S.daysBetween(S.progress.lastDay, today) === 1 ? S.progress.streak + 1 : 1;
+      S.progress.lastDay = today;
+    }
+  };
+  S.todayCount = () => S.progress.history[S.dayKey()] || 0;
+  S.currentStreak = () => (S.progress.lastDay && S.daysBetween(S.progress.lastDay, S.dayKey()) <= 1 ? S.progress.streak : 0);
+
+  S.review = (entry, change) => {
+    const b = change === 'reset' ? 0 : Math.max(0, Math.min(S.MAX_BOX, S.boxOf(entry) + change));
+    S.progress.items[entry.pl] = { b, due: S.addDays(S.INTERVALS[b]) };
+    S.logActivity();
+    S.saveProgress();
+    if (S.onProgress) S.onProgress();
+  };
+  S.addToReview = (entry) => {
+    if (!S.itemOf(entry)) { S.progress.items[entry.pl] = { b: 0, due: S.dayKey() }; S.saveProgress(); }
+    if (S.onProgress) S.onProgress();
+  };
+  S.dueList = () => {
+    const today = S.dayKey();
+    const list = [];
+    for (const [pl, item] of Object.entries(S.progress.items)) {
+      const e = S.LEXICON.get(pl);
+      if (e && item.due <= today) list.push(e);
+    }
+    return list.sort((a, b) => S.itemOf(a).due.localeCompare(S.itemOf(b).due) || S.boxOf(a) - S.boxOf(b));
+  };
+  S.unitLearned = (u) => u.entries.filter(S.isLearned).length;
+  S.unitStarted = (u) => u.entries.some((e) => S.itemOf(e)) || !!S.progress.drills[u.id];
+
+  // Weak items first, with jitter so rounds differ.
+  S.pickSession = (list, n) => list.map((e) => ({ e, k: S.boxOf(e) + Math.random() * 1.5 }))
+    .sort((a, b) => a.k - b.k).slice(0, n).map((x) => x.e);
+  S.pickOne = (list, avoid) => {
+    const c = list.length > 1 ? list.filter((e) => e !== avoid) : list;
+    const weights = c.map((e) => (S.MAX_BOX + 1 - S.boxOf(e)) ** 2);
+    let r = Math.random() * weights.reduce((a, b) => a + b, 0);
+    for (let i = 0; i < c.length; i++) { r -= weights[i]; if (r <= 0) return c[i]; }
+    return c[c.length - 1];
+  };
+  // Wrong options of the same kind: the given pool first, then the whole course.
+  S.distractors = (target, list, key) => {
+    const same = (pool) => S.shuffle(pool.filter((e) => e.kind === target.kind && e[key] !== target[key]));
+    const any = S.shuffle(S.ENTRIES.filter((e) => e[key] !== target[key]));
+    const picked = [];
+    const seen = new Set([target[key]]);
+    for (const e of [...same(list), ...same(S.ENTRIES), ...any]) {
+      if (picked.length === 3) break;
+      if (!seen.has(e[key])) { seen.add(e[key]); picked.push(e); }
+    }
+    return picked;
+  };
+
+  // ---------- audio: native recordings, device voice, microphone ----------
+
+  const synth = window.speechSynthesis;
+  S.canSpeak = !!synth || Object.keys(S.AUDIO).length > 0;
+  let polishVoice = null;
+  function findVoice() {
+    try { polishVoice = synth.getVoices().find((v) => /^pl\b/i.test(v.lang)) || null; } catch (e) { polishVoice = null; }
+  }
+  if (synth) {
+    findVoice();
+    if (synth.addEventListener) synth.addEventListener('voiceschanged', findVoice);
+  }
+  S.audioKey = (text) => S.clean(text);
+  S.hasNative = (text) => !!S.AUDIO[S.audioKey(text)];
+
+  let current = null;
+  S.speak = (text) => {
+    if (!text) return;
+    try { if (synth) synth.cancel(); if (current) current.pause(); } catch (e) { /* ignore */ }
+    const src = S.settings.audio === 'native' && S.AUDIO[S.audioKey(text)];
+    if (src) {
+      current = new Audio(src);
+      current.playbackRate = S.settings.slow ? 0.75 : 1;
+      current.play().catch(() => tts(text));
+      return;
+    }
+    tts(text);
+  };
+  function tts(text) {
+    if (!synth) return;
+    try {
+      const u = new SpeechSynthesisUtterance(String(text).replace(/…/g, '').replace(/\s\/\s/g, ', ').replace(/___/g, '…'));
+      u.lang = 'pl-PL';
+      if (polishVoice) u.voice = polishVoice;
+      u.rate = S.settings.slow ? 0.6 : 0.85;
+      synth.speak(u);
+    } catch (e) { /* speech unavailable */ }
+  }
+
+  // Speech recognition (Chrome, Edge, Safari). The browser does the listening; the app only compares text.
+  const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  S.canRecognize = !!Recognition;
+  S.recognize = () => new Promise((resolve, reject) => {
+    if (!Recognition) { reject(new Error('unsupported')); return; }
+    const r = new Recognition();
+    r.lang = 'pl-PL';
+    r.maxAlternatives = 5;
+    r.interimResults = false;
+    let done = false;
+    r.onresult = (ev) => {
+      done = true;
+      const alts = [];
+      for (let i = 0; i < ev.results[0].length; i++) alts.push(ev.results[0][i].transcript);
+      resolve(alts);
+    };
+    r.onerror = (ev) => { done = true; reject(new Error(ev.error || 'error')); };
+    r.onend = () => { if (!done) reject(new Error('no-speech')); };
+    try { r.start(); } catch (e) { reject(e); }
+    S.stopRecognition = () => { try { r.stop(); } catch (e) { /* ignore */ } };
+  });
+
+  // Record the learner's voice to compare with the model. Stays on the device.
+  S.canRecord = !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia && window.MediaRecorder);
+  S.recordVoice = async (maxMs = 6000) => {
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    const rec = new MediaRecorder(stream);
+    const chunks = [];
+    rec.ondataavailable = (ev) => { if (ev.data.size) chunks.push(ev.data); };
+    const stopped = new Promise((resolve) => { rec.onstop = resolve; });
+    rec.start();
+    const timer = setTimeout(() => { if (rec.state !== 'inactive') rec.stop(); }, maxMs);
+    S.stopRecording = () => { clearTimeout(timer); if (rec.state !== 'inactive') rec.stop(); };
+    await stopped;
+    stream.getTracks().forEach((t) => t.stop());
+    return URL.createObjectURL(new Blob(chunks, { type: rec.mimeType || 'audio/webm' }));
+  };
+  S.micErrorText = (err) => {
+    const m = String(err && err.message || err);
+    if (/not-allowed|NotAllowed|denied|Permission|service-not-allowed/i.test(m)) {
+      return 'The microphone is blocked here. Open the app as a website (see Settings → Install) and allow the microphone when the browser asks. · माइक्रोफोन बन्द छ। एपलाई वेबसाइटको रूपमा खोल्नुहोस् र माइक्रोफोनलाई अनुमति दिनुहोस्।';
+    }
+    if (/no-speech/i.test(m)) return 'No speech heard. Tap and speak clearly, close to the phone. · आवाज सुनिएन। नजिकबाट स्पष्ट बोल्नुहोस्।';
+    if (/network/i.test(m)) return 'Speech checking needs an internet connection in this browser. You can still record yourself and compare. · यो ब्राउजरमा बोली जाँच्न इन्टरनेट चाहिन्छ।';
+    if (/unsupported/i.test(m)) return 'This browser cannot check speech. Use Chrome, Edge or Safari, or record yourself and compare. · यो ब्राउजरले बोली जाँच्न सक्दैन।';
+    return `Something went wrong with the microphone (${m}).`;
+  };
+
+  // ---------- shared UI pieces ----------
+
+  const { esc } = S;
+  S.SPEAKER = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg>';
+  S.MIC = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>';
+
+  S.meaningHTML = (e, cls = '') => {
+    const parts = [];
+    if (S.shows('meaning', 'en')) parts.push(`<span class="m-en">${esc(e.en)}</span>`);
+    if (S.shows('meaning', 'ne')) parts.push(`<span class="m-ne" lang="ne">${esc(e.ne)}</span>`);
+    return `<span class="meaning ${cls}">${parts.join('')}</span>`;
+  };
+  S.pronHTML = (e) => {
+    const parts = [];
+    if (S.shows('pron', 'en')) parts.push(`<span class="pron" title="Capitals mark the stressed syllable">${esc(e.pron)}</span>`);
+    if (S.shows('pron', 'ne')) parts.push(`<span class="pron ne" lang="ne" title="ˈ चिन्हपछिको अक्षरमा जोड दिनुहोस्">${esc(e.proNe)}</span>`);
+    return `<span class="prons">${parts.join('')}</span>`;
+  };
+  // Explanations written as {en, ne}, shown per the "explain" setting.
+  S.whyHTML = (why) => {
+    if (!why) return '';
+    const parts = [];
+    if (S.shows('explain', 'en')) parts.push(`<p>${S.markup(why.en)}</p>`);
+    if (S.shows('explain', 'ne')) parts.push(`<p lang="ne">${S.markup(why.ne)}</p>`);
+    return `<div class="why">${parts.join('')}</div>`;
+  };
+  S.transHTML = (en, ne) => {
+    const parts = [];
+    if (S.shows('meaning', 'en') && en) parts.push(`<span class="m-en">${esc(en)}</span>`);
+    if (S.shows('meaning', 'ne') && ne) parts.push(`<span class="m-ne" lang="ne">${esc(ne)}</span>`);
+    return `<span class="meaning">${parts.join('')}</span>`;
+  };
+  S.listenBtn = (text, big) => {
+    if (!S.canSpeak) return '';
+    return big
+      ? `<button class="btn listen" data-action="say" data-text="${esc(text)}">${S.SPEAKER} Listen <span lang="ne">सुन्नुहोस्</span></button>`
+      : `<button class="icon-btn" data-action="say" data-text="${esc(text)}" aria-label="Listen to ${esc(text)}">${S.SPEAKER}</button>`;
+  };
+  S.boxMeter = (e) => {
+    const b = S.boxOf(e);
+    let cells = '';
+    for (let i = 1; i <= S.MAX_BOX; i++) cells += `<i class="${i <= b ? 'on' : ''}"></i>`;
+    return `<span class="boxes" title="Memory strength ${b} of ${S.MAX_BOX}" aria-label="Memory strength ${b} of ${S.MAX_BOX}">${cells}</span>`;
+  };
+  S.bar = (done, total) => {
+    const pct = total ? Math.round((done / total) * 100) : 0;
+    return `<span class="bar" role="progressbar" aria-valuenow="${pct}" aria-valuemin="0" aria-valuemax="100"><i style="width:${pct}%"></i></span>`;
+  };
+  S.POLISH_KEYS = ['ą', 'ć', 'ę', 'ł', 'ń', 'ó', 'ś', 'ź', 'ż'];
+  S.keysHTML = () => `<div class="keys" aria-label="Polish letters">${S.POLISH_KEYS.map((k) => `<button type="button" class="key" data-action="key" data-key="${k}">${k}</button>`).join('')}</div>`;
+  S.insertKey = (ch) => {
+    const input = document.activeElement && /^(INPUT|TEXTAREA)$/.test(document.activeElement.tagName)
+      ? document.activeElement
+      : document.querySelector('[data-keys-target]');
+    if (!input || input.readOnly) return null;
+    const start = input.selectionStart ?? input.value.length;
+    const end = input.selectionEnd ?? input.value.length;
+    input.value = input.value.slice(0, start) + ch + input.value.slice(end);
+    input.focus();
+    input.setSelectionRange(start + 1, start + 1);
+    input.dispatchEvent(new Event('input', { bubbles: true }));
+    return input;
+  };
+
+  // "Report a mistake" opens a pre-filled GitHub issue in a new tab.
+  S.REPO = 'Arbin848/Arbin';
+  S.reportLink = (what, where) => {
+    const title = `Mistake: ${what}`.slice(0, 120);
+    const body = `**Where:** ${where}\n**Text:** ${what}\n\n**What is wrong / what it should be:**\n\n`;
+    return `https://github.com/${S.REPO}/issues/new?title=${encodeURIComponent(title)}&body=${encodeURIComponent(body)}`;
+  };
+  S.reportHTML = (what, where) => `<a class="report" href="${esc(S.reportLink(what, where))}" target="_blank" rel="noopener">Report a mistake · गल्ती रिपोर्ट गर्नुहोस्</a>`;
+
+  // Answer checking shared by typing practice, drills and conversations.
+  // Returns 'right', 'close' (only accents differ) or 'wrong'.
+  S.checkAnswer = (given, answers) => {
+    const got = S.clean(given);
+    const list = answers.map(S.clean);
+    if (list.includes(got)) return 'right';
+    if (list.map(S.stripMarks).includes(S.stripMarks(got))) return 'close';
+    return 'wrong';
+  };
+})();

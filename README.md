@@ -1,42 +1,82 @@
 # Słówka
 
 A complete Polish course for Nepali and English speakers, from the alphabet up to B2.
-*Słówka* is what Polish learners call their vocab words.
+It works fully offline, with no AI, no account and no server. Everything is in this repository.
 
-पोलिस भाषा सुरुदेखि सिक्ने कोर्स: वर्णमाला, उच्चारण, व्याकरण र दैनिक जीवनका शब्दहरू, अंग्रेजी र नेपाली व्याख्यासहित।
+पोलिस भाषा सुरुदेखि सिक्ने कोर्स: वर्णमाला, उच्चारण, व्याकरण, संवाद, पढाइ र परीक्षा तयारी, अंग्रेजी र नेपाली व्याख्यासहित। इन्टरनेट, AI वा खाता बिना चल्छ।
 
 ## What's inside
 
-- **Start here**: the 32-letter alphabet, letter pairs (sz, cz, rz…), soft sounds, nasal vowels, stress and reading rules, and a survival kit of first words.
-- **A1 Beginner → A2 Elementary → B1 Intermediate → B2 Upper intermediate**: 48 units and more than 1,000 words and sentences, covering everyday topics (family, food, time, shopping, work, the doctor, official matters in Poland, renting and banking) and all the core grammar (gender, the seven cases, past and future, aspect, the imperative, the conditional, verbs of motion, participles).
-- Each unit has:
-  - a **lesson** explained in English and in Nepali, with grammar tables
-  - **words** and **example sentences**, each with:
-    - its meaning in English and Nepali
-    - pronunciation in English letters (`jen DOB-ri`) and in Devanagari (`जेन् ˈदोब्-रि`), with the stressed syllable marked
-  - a short **dialogue**
-  - practice: **flashcards**, a **quiz**, a **listening** quiz and **typing** with on-screen keys for ą ć ę ł ń ó ś ź ż
-- **Daily review** brings practised words back on a spaced-repetition schedule (1, 2, 4, 7 and 14 days).
-- A **dictionary** to search every word in Polish, English or Nepali (Polish works without accents), and an **alphabet** reference.
-- **Settings** to show meanings, pronunciation and lesson explanations in English, Nepali or both, and to slow down speech.
+**Course (56 units, 1,200+ words and sentences)**
+- **Start here**: the 32-letter alphabet, letter pairs, soft sounds, nasal vowels, stress and reading rules.
+- **A1 → A2 → B1 → B2**: everyday topics and all core grammar (gender, the seven cases, tenses, aspect, the imperative, the conditional, verbs of motion, participles, formal Polish).
+- **Polish for work**: warehouse, construction, factory, restaurant and hotel, cleaning, driving, care work, farming.
 
-Progress is saved in your browser's localStorage. The Listen buttons use your device's Polish text-to-speech voice when it has one.
+Every unit has a lesson in English and Nepali with grammar tables, words and sentences (meaning in English and Nepali, pronunciation in English letters and Devanagari), and a dialogue.
 
-Keyboard: `Space` flips a card, `1`/`2`/`3` rate it, `1`–`4` answer the quiz and listening questions, and `Enter` checks or moves on.
+**Practice in every unit**
+- **Cards**: spaced-repetition flashcards.
+- **Quiz** and **Listen**: multiple choice from text or sound.
+- **Speak**: say the word and the app checks it with your browser's speech recognition, or record yourself and compare with the model.
+- **Type**: write the Polish, with keys for ą ć ę ł ń ó ś ź ż.
+- **Grammar**: 550 exercises (choose the form, fill the gap, build the sentence). Every wrong answer gets an explanation in English and Nepali, including targeted explanations for common mistakes.
+
+**Beyond the units**
+- **Conversations**: 20 real-life role-plays (café, doctor, supervisor, office for foreigners, landlord, bank, job interview…). Choose, type or speak your reply; wrong replies are explained.
+- **Reading**: 22 stories and real-life texts (SMS from a boss, notices, receipts, a contract, news) with tap-to-translate words and comprehension questions.
+- **Exam prep**: a 30-question placement test and two full B1 certificate practice tests (listening, reading, grammar, writing with model answers).
+- **My mistakes**: every grammar mistake is saved with its explanation, to practise again.
+- **Daily review**: words come back after 1, 2, 4, 7 and 14 days.
+- **Progress**: streak, daily goal, activity chart and level-by-level progress.
+- **Dictionary** in Polish, English or Nepali, and an **alphabet** reference.
+- **Settings**: meanings, pronunciation and explanations in English, Nepali or both; slow speech; daily goal; a **backup code** to move progress to another device.
+- **Report a mistake** links open a pre-filled GitHub issue.
+- **Installable and offline**: add it to your phone's home screen; it keeps working without internet.
 
 ## Run it
 
-There's no build step. Open `index.html` in a browser, or serve the folder:
+There's no build step. Serve the folder with any web server:
 
 ```sh
 python3 -m http.server 8000
 # then visit http://localhost:8000
 ```
 
+Opening `index.html` directly also works, but offline mode and the microphone need a web server (or GitHub Pages).
+
+## Publish it free on GitHub Pages
+
+1. Merge this into the `main` branch.
+2. In the repository go to **Settings → Pages** and set **Source** to **GitHub Actions**.
+3. The workflow in `.github/workflows/pages.yml` checks the content and publishes the app at `https://<your-username>.github.io/<repository>/` on every push to `main`.
+
+## Native-speaker audio (optional)
+
+The Listen buttons use your device's Polish voice. To add real recordings by native speakers from
+[Lingua Libre](https://lingualibre.org) (free licences, credited in `audio/ATTRIBUTION.md`):
+
+```sh
+node tools/fetch-audio.js          # needs Node 18+, ffmpeg and internet access to Wikimedia
+```
+
+The files are saved in `audio/` and used automatically, offline. Words without a recording keep using the device voice.
+
 ## Add or edit content
 
-Course content lives in `data/*.js`. See [`tools/CONTENT_GUIDE.md`](tools/CONTENT_GUIDE.md) for the format and the pronunciation conventions, then check your changes:
+All content is plain data in `data/*.js`:
+
+| File | What |
+|---|---|
+| `start.js`, `a1-*.js`, `a2-*.js`, `b1-*.js`, `b2.js`, `work.js` | units: lessons, words, sentences, dialogues |
+| `drills-*.js` | grammar exercises for each unit |
+| `roleplays-*.js` | conversations |
+| `stories-*.js` | reading texts |
+| `exams.js` | placement test and B1 practice tests |
+
+The formats are described in [`tools/CONTENT_GUIDE.md`](tools/CONTENT_GUIDE.md) and [`tools/PRACTICE_GUIDE.md`](tools/PRACTICE_GUIDE.md). Check your changes with:
 
 ```sh
 node tools/validate.js
 ```
+
+The content was written with AI help and checked automatically. A review by native Polish and Nepali speakers is welcome: use the "Report a mistake" links or open an issue.
