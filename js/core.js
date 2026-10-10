@@ -166,6 +166,11 @@
   S.currentStreak = () => (S.progress.lastDay && S.daysBetween(S.progress.lastDay, S.dayKey()) <= 1 ? S.progress.streak : 0);
 
   S.review = (entry, change) => {
+    // Count forgotten answers per word for the weak-spot report.
+    if (change === 'reset' || change < 0) {
+      S.progress.lapses = S.progress.lapses || {};
+      S.progress.lapses[entry.pl] = (S.progress.lapses[entry.pl] || 0) + 1;
+    }
     const b = change === 'reset' ? 0 : Math.max(0, Math.min(S.MAX_BOX, S.boxOf(entry) + change));
     S.progress.items[entry.pl] = { b, due: S.addDays(S.INTERVALS[b]) };
     S.logActivity();
@@ -184,6 +189,12 @@
       if (e && item.due <= today) list.push(e);
     }
     return list.sort((a, b) => S.itemOf(a).due.localeCompare(S.itemOf(b).due) || S.boxOf(a) - S.boxOf(b));
+  };
+  // Latest speaking score per word (0–1), for the weak-spot report.
+  S.recordSpeech = (pl, score) => {
+    S.progress.speech = S.progress.speech || {};
+    S.progress.speech[pl] = Math.round(score * 100) / 100;
+    S.saveProgress();
   };
   S.unitLearned = (u) => u.entries.filter(S.isLearned).length;
   S.unitStarted = (u) => u.entries.some((e) => S.itemOf(e)) || !!S.progress.drills[u.id];

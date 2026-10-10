@@ -11,7 +11,7 @@
 
   // Routes are bare tokens so they survive in a link's #anchor: "a1-03", "talk.rp-a1-cafe", "review".
   S.route = { name: 'home' };
-  const PAGES = ['course', 'practice', 'learn', 'review', 'alphabet', 'dictionary', 'settings', 'talk', 'read', 'exam', 'placement', 'mistakes', 'progress', 'verbs', 'cases', 'sounds', 'check'];
+  const PAGES = ['revise', 'cert', 'report', 'course', 'practice', 'learn', 'review', 'alphabet', 'dictionary', 'settings', 'talk', 'read', 'exam', 'placement', 'mistakes', 'progress', 'verbs', 'cases', 'sounds', 'check'];
 
   S.go = (to, opts = {}) => {
     S.Practice.reset();
@@ -46,11 +46,22 @@
       const done = S.COURSE.filter((u) => S.Guided.status(u).done).length;
       view.insertAdjacentHTML('beforeend', `
         <p class="hint">Lessons finished with your teacher: <b>${done} of ${S.COURSE.length}</b>.</p>
+        <section class="card compact report-cta"><b>Weak-spot report · कमजोरी रिपोर्ट</b><span class="hint">See which words, grammar and sounds need more practice.</span><button class="btn primary" data-action="go" data-to="report">Open my report →</button></section>
+        ${(() => {
+          const certs = S.progress.certs || {};
+          const ids = Object.keys(certs);
+          return `<h3 class="section-h">Certificates <span class="ne-sub" lang="ne">प्रमाणपत्र</span></h3>
+            ${ids.length ? `<div class="chip-row">${ids.map((l) => `<button class="chip-btn" data-action="go" data-to="cert.${l}">🎓 ${esc(l)} · ${certs[l].score}%</button>`).join('')}</div>`
+              : '<p class="hint">Pass a level test (at the end of each level in the Course) to earn a certificate. · हरेक स्तरको अन्त्यमा परीक्षा पास गरेर प्रमाणपत्र पाउनुहोस्।</p>'}`;
+        })()}
         <div class="row start"><button class="btn" data-action="go" data-to="settings">⚙ Settings · सेटिङ</button><button class="btn" data-action="go" data-to="check">Review mode for native speakers</button></div>`);
     }
     else if (r.name === 'verbs') r.arg === 'practice' ? S.Trainers.verbPractice(view) : r.arg ? S.Trainers.verb(view, r.arg) : S.Trainers.verbList(view);
     else if (r.name === 'cases') r.arg === 'practice' ? S.Trainers.casePractice(view) : r.arg ? S.Trainers.noun(view, r.arg) : S.Trainers.caseList(view);
     else if (r.name === 'sounds') r.arg ? S.Trainers.sound(view, r.arg) : S.Trainers.soundList(view);
+    else if (r.name === 'revise') S.Assess.render(view, r.arg);
+    else if (r.name === 'cert') S.Assess.certificate(view, r.arg);
+    else if (r.name === 'report') S.Assess.report(view);
     else if (r.name === 'course') renderCourse();
     else if (r.name === 'practice') renderPractice();
     else if (r.name === 'learn') S.Guided.render(view, r.arg);
@@ -58,7 +69,7 @@
     else renderHome();
   };
   S.onProgress = () => renderStats();
-  const NAV = { home: 'home', course: 'course', unit: 'course', learn: 'course', practice: 'practice', review: 'practice', verbs: 'practice', cases: 'practice', sounds: 'practice', alphabet: 'practice', dictionary: 'practice', mistakes: 'practice', talk: 'practice', read: 'practice', exam: 'practice', placement: 'practice', progress: 'progress', settings: 'progress', check: 'progress' };
+  const NAV = { revise: 'course', cert: 'progress', report: 'progress', home: 'home', course: 'course', unit: 'course', learn: 'course', practice: 'practice', review: 'practice', verbs: 'practice', cases: 'practice', sounds: 'practice', alphabet: 'practice', dictionary: 'practice', mistakes: 'practice', talk: 'practice', read: 'practice', exam: 'practice', placement: 'practice', progress: 'progress', settings: 'progress', check: 'progress' };
   function renderNav() {
     const cur = NAV[S.route.name] || 'home';
     document.querySelectorAll('.bottom-nav button').forEach((b) => b.setAttribute('aria-current', b.dataset.to === cur ? 'page' : 'false'));
@@ -130,6 +141,19 @@
       </li>`;
   }
 
+  function checkpointRow(def, icon, en, ne) {
+    const r = S.Assess.result(def.id);
+    const done = r && (def.kind === 'test' ? r.passed : true);
+    return `
+      <li class="checkpoint ${def.kind}">
+        <button class="unit-row ${done ? 'done' : ''}" data-action="go" data-to="revise.${def.id}">
+          <span class="unit-num">${done ? '✓' : icon}</span>
+          <span class="unit-text"><span class="unit-title">${esc(def.title)}</span><span class="unit-ne" lang="ne">${en} · ${ne}</span></span>
+          <span class="unit-progress">${r ? `<small class="${done ? 'ok' : 'err'}">${r.best}%</small>` : '<small class="hint">not taken</small>'}</span>
+        </button>
+      </li>`;
+  }
+
   function renderHome() {
     if (!S.COURSE.length) {
       view.innerHTML = '<p class="empty">The course content did not load. Check that the files in the <code>data</code> folder are next to this page.</p>';
@@ -150,6 +174,8 @@
     const plan = [
       due ? { to: 'review', icon: '↻', en: `Review ${due} ${due === 1 ? 'word' : 'words'}`, ne: 'शब्द दोहोर्याउनुहोस्', sub: 'A few minutes · केही मिनेट' } : null,
       { action: 'g-start', unit: next.id, icon: '▶', en: st.done ? `Repeat: ${next.title}` : st.started ? `Continue: ${next.title}` : `Lesson: ${next.title}`, ne: next.titleNe, sub: st.started && !st.done ? `Step ${st.step + 1} of ${st.total} · with your teacher` : 'With your teacher · शिक्षिकासँग', main: true },
+      (() => { const r = S.Assess.dueRevision(); return r ? { to: `revise.${r.id}`, icon: '↻', en: r.title, ne: r.titleNe, sub: 'Revise the last 5 lessons · १० मिनेट' } : null; })(),
+      (() => { const t = S.Assess.dueTest(); return t ? { to: `revise.${t.id}`, icon: '🎓', en: t.title, ne: t.titleNe, sub: 'Pass with 70% to get your certificate' } : null; })(),
       mistakes ? { to: 'mistakes.practice', icon: '✎', en: `Fix ${mistakes} grammar ${mistakes === 1 ? 'mistake' : 'mistakes'}`, ne: 'व्याकरणका गल्ती सुधार्नुहोस्', sub: '' } : null,
       rp && S.levelIndex(next.level) >= 1 ? { to: `talk.${rp.id}`, icon: '💬', en: `Talk: ${rp.title}`, ne: rp.titleNe, sub: 'Conversation practice · संवाद' } : null,
       story && !rp ? { to: `read.${story.id}`, icon: '📖', en: `Read: ${story.title}`, ne: story.titleNe, sub: 'Reading · पढाइ' } : null,
@@ -219,7 +245,10 @@
               <span class="label">After this level you can · यो स्तरपछि तपाईं सक्नुहुन्छ</span>
               <ul>${(CAN_DO[level.id] || []).map(([en, ne]) => `<li>${esc(en)} · <span lang="ne">${esc(ne)}</span></li>`).join('')}</ul>
             </div>
-            <ol class="units">${units.map(unitButton).join('')}</ol>
+            <ol class="units">${units.map((u) => {
+              const rev = S.Assess.revisionAfter(u.id);
+              return unitButton(u) + (rev ? checkpointRow(rev, '↻', 'Revision', 'दोहोर्याइ') : '');
+            }).join('')}${(() => { const t = S.Assess.testFor(level.id); return t ? checkpointRow(t, '🎓', 'Level test', 'स्तर परीक्षा') : ''; })()}</ol>
             ${rps.length || sts.length || level.id === 'B1' ? `
               <div class="chapter-extra">
                 <span class="label">Also at this level · यो स्तरमा अरू</span>
@@ -529,6 +558,7 @@
     if (el.tagName !== 'INPUT') ev.preventDefault();
     if (S.Practice.action(a, el)) return;
     if (S.Guided.action(a, el, view)) return;
+    if (S.Assess.action(a, el, view)) return;
     if (S.Extras.action(a, el, view)) return;
     if (S.Trainers.action(a, el, view)) return;
     switch (a) {
@@ -584,10 +614,11 @@
   document.addEventListener('submit', (ev) => {
     ev.preventDefault();
     if (S.Practice.submit(ev.target)) return;
+    if (S.Assess.submit(ev.target, view)) return;
     if (S.Trainers.submit(ev.target, view)) return;
     S.Extras.submit(ev.target);
   });
-  document.addEventListener('input', (ev) => { if (!S.Trainers.input(ev.target)) S.Extras.input(ev.target); });
+  document.addEventListener('input', (ev) => { if (!S.Trainers.input(ev.target) && !S.Assess.input(ev.target)) S.Extras.input(ev.target); });
 
   document.addEventListener('keydown', (ev) => {
     if (ev.metaKey || ev.ctrlKey || ev.altKey) return;
@@ -595,6 +626,7 @@
     if (S.Practice.key(ev)) return;
     if (S.Trainers.key(ev)) return;
     if (S.Guided.key(ev)) return;
+    if (S.Assess.key(ev)) return;
     S.Extras.key(ev);
   });
 

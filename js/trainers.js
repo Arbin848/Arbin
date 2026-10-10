@@ -218,7 +218,9 @@
     s.result = result;
     s.total += 1;
     const st = prog('verbs')[s.q.v.inf] || { r: 0, w: 0 };
-    if (result === 'right') { s.score += 1; st.r += 1; } else st.w += 1;
+    const ts = prog('tenseStats')[s.q.tense] || { r: 0, w: 0 };
+    if (result === 'right') { s.score += 1; st.r += 1; ts.r += 1; } else { st.w += 1; ts.w += 1; }
+    prog('tenseStats')[s.q.tense] = ts;
     prog('verbs')[s.q.v.inf] = st;
     S.logActivity();
     S.saveProgress();
@@ -374,7 +376,10 @@
     }
     s.total += 1;
     const st = prog('cases')[s.q.n.word] || { r: 0, w: 0 };
-    if (s.result === 'right') { s.score += 1; st.r += 1; } else st.w += 1;
+    const key = `${s.q.f.case}-${s.q.f.number}`;
+    const cs = prog('caseStats')[key] || { r: 0, w: 0 };
+    if (s.result === 'right') { s.score += 1; st.r += 1; cs.r += 1; } else { st.w += 1; cs.w += 1; }
+    prog('caseStats')[key] = cs;
     prog('cases')[s.q.n.word] = st;
     S.logActivity();
     S.saveProgress();

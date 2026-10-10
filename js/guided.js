@@ -292,6 +292,7 @@
       let best = { heard: alts[0] || '', score: 0 };
       for (const a of alts) { const sc = S.similarity(a, e.pl.replace(/…/g, '')); if (sc > best.score) best = { heard: a, score: sc }; }
       local.said[e.pl] = best;
+      S.recordSpeech(e.pl, best.score);
       S.review(e, best.score >= 0.85 ? 1 : 0);
     } catch (err) {
       local.said[e.pl] = { error: S.micErrorText(err) };
