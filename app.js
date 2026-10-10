@@ -1,507 +1,503 @@
+// Słówka app: navigation, home, unit pages, review, alphabet, dictionary and settings.
+// Practice engines live in js/practice.js, conversations/reading/exams in js/extras.js.
 (() => {
   'use strict';
-
-  const TOPICS = window.SLOWKA_TOPICS;
-  const LETTERS = window.SLOWKA_LETTERS;
-  const ALL = TOPICS.flatMap((t) =>
-    t.words.map(([pl, en, pron]) => ({ pl, en, pron, topic: t.id }))
-  );
-
-  // Leitner boxes: 0 = new or forgotten, 5 = solid. A word counts as learned from box 3.
-  const MAX_BOX = 5;
-  const LEARNED_BOX = 3;
-  const SESSION_SIZE = 10;
-  const PROGRESS_KEY = 'slowka-progress-v1';
-  const UI_KEY = 'slowka-ui-v1';
-  const POLISH_KEYS = ['ą', 'ć', 'ę', 'ł', 'ń', 'ó', 'ś', 'ź', 'ż'];
-
-  // ---------- storage ----------
-
-  function readJSON(key) {
-    try { return JSON.parse(localStorage.getItem(key)) || null; } catch (e) { return null; }
-  }
-  function writeJSON(key, value) {
-    try { localStorage.setItem(key, JSON.stringify(value)); } catch (e) { /* storage unavailable */ }
-  }
-
-  const freshProgress = () => ({ boxes: {}, streak: 0, lastDay: null, todayDay: null, todayCount: 0 });
-  let progress = Object.assign(freshProgress(), readJSON(PROGRESS_KEY));
-  const ui = Object.assign({ mode: 'cards', topic: 'all', dir: 'pl-en' }, readJSON(UI_KEY));
-  if (ui.topic !== 'all' && !TOPICS.some((t) => t.id === ui.topic)) ui.topic = 'all';
-
-  function dayKey(d = new Date()) {
-    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
-  }
-  function daysBetween(a, b) {
-    return Math.round((new Date(`${b}T12:00`) - new Date(`${a}T12:00`)) / 864e5);
-  }
-
-  const boxOf = (w) => progress.boxes[w.pl] || 0;
-
-  function review(word, change) {
-    const next = change === 'reset' ? 0 : Math.max(0, Math.min(MAX_BOX, boxOf(word) + change));
-    progress.boxes[word.pl] = next;
-
-    const today = dayKey();
-    if (progress.todayDay !== today) { progress.todayDay = today; progress.todayCount = 0; }
-    progress.todayCount += 1;
-    if (progress.lastDay !== today) {
-      const consecutive = progress.lastDay && daysBetween(progress.lastDay, today) === 1;
-      progress.streak = consecutive ? progress.streak + 1 : 1;
-      progress.lastDay = today;
-    }
-    writeJSON(PROGRESS_KEY, progress);
-    renderStats();
-    renderChips();
-  }
-
-  function currentStreak() {
-    if (!progress.lastDay) return 0;
-    return daysBetween(progress.lastDay, dayKey()) <= 1 ? progress.streak : 0;
-  }
-
-  // ---------- helpers ----------
-
+  const S = window.Slowka;
+  const { esc, polish } = S;
   const $ = (sel) => document.querySelector(sel);
-  const stage = $('#stage');
+  const view = $('#view');
 
-  function esc(s) {
-    return String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-  }
-  // Escape, then colour the letters English doesn't have.
-  function polish(s) {
-    return esc(s).replace(/[ąćęłńóśźżĄĆĘŁŃÓŚŹŻ]/g, '<span class="dia">$&</span>');
-  }
+  // ---------- navigation ----------
 
-  function shuffle(list) {
-    const a = list.slice();
-    for (let i = a.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [a[i], a[j]] = [a[j], a[i]];
-    }
-    return a;
-  }
+  // Routes are bare tokens so they survive in a link's #anchor: "a1-03", "talk.rp-a1-cafe", "review".
+  S.route = { name: 'home' };
+  const PAGES = ['review', 'alphabet', 'dictionary', 'settings', 'talk', 'read', 'exam', 'placement', 'mistakes', 'progress'];
 
-  const pool = () => (ui.topic === 'all' ? ALL : ALL.filter((w) => w.topic === ui.topic));
+  S.go = (to, opts = {}) => {
+    S.Practice.reset();
+    const [name, arg] = String(to || 'home').split(/\.(.+)/);
+    if (S.UNIT.has(to)) S.route = { name: 'unit', id: to, tab: 'learn' };
+    else if (PAGES.includes(name)) S.route = { name, arg: arg || null, q: opts.q || '' };
+    else S.route = { name: 'home' };
+    if (S.route.name === 'unit') { S.progress.lastUnit = to; S.saveProgress(); }
+    if (S.route.name === 'placement') S.Extras.resetPlacement();
+    try { history.replaceState(null, '', S.route.name === 'home' ? location.pathname + location.search : `#${to}`); } catch (e) { /* not allowed here */ }
+    S.render();
+    window.scrollTo(0, 0);
+  };
 
-  // Lower boxes come first, with some jitter so sessions don't repeat exactly.
-  function pickSession(words, n) {
-    return words
-      .map((w) => ({ w, k: boxOf(w) + Math.random() * 1.5 }))
-      .sort((a, b) => a.k - b.k)
-      .slice(0, n)
-      .map((x) => x.w);
-  }
-
-  // Weighted pick: weak words come up far more often than solid ones.
-  function pickOne(words, avoid) {
-    const candidates = words.length > 1 ? words.filter((w) => w !== avoid) : words;
-    const weights = candidates.map((w) => (MAX_BOX + 1 - boxOf(w)) ** 2);
-    let r = Math.random() * weights.reduce((a, b) => a + b, 0);
-    for (let i = 0; i < candidates.length; i++) {
-      r -= weights[i];
-      if (r <= 0) return candidates[i];
-    }
-    return candidates[candidates.length - 1];
-  }
-
-  function boxMeter(w) {
-    const b = boxOf(w);
-    let cells = '';
-    for (let i = 1; i <= MAX_BOX; i++) cells += `<i class="${i <= b ? 'on' : ''}"></i>`;
-    return `<span class="boxes" title="Memory strength ${b} of ${MAX_BOX}" aria-label="Memory strength ${b} of ${MAX_BOX}">${cells}</span>`;
-  }
-
-  // ---------- speech ----------
-
-  const synth = window.speechSynthesis;
-  let polishVoice = null;
-  function findVoice() {
-    try { polishVoice = synth.getVoices().find((v) => /^pl\b/i.test(v.lang)) || null; } catch (e) { polishVoice = null; }
-  }
-  if (synth) {
-    findVoice();
-    if (synth.addEventListener) synth.addEventListener('voiceschanged', findVoice);
-  }
-  function speak(text) {
-    if (!synth) return;
-    try {
-      synth.cancel();
-      const u = new SpeechSynthesisUtterance(text.replace(/…/g, ''));
-      u.lang = 'pl-PL';
-      if (polishVoice) u.voice = polishVoice;
-      u.rate = 0.85;
-      synth.speak(u);
-    } catch (e) { /* speech unavailable */ }
-  }
-  const SPEAKER = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg>';
-  function listenButton(text, compact) {
-    if (!synth) return '';
-    if (compact) {
-      return `<button class="icon-btn" data-action="say" data-text="${esc(text)}" aria-label="Listen to ${esc(text)}">${SPEAKER}</button>`;
-    }
-    return `<button class="btn listen" data-action="say" data-text="${esc(text)}">${SPEAKER} Listen</button>`;
-  }
-
-  // ---------- header, tabs, chips ----------
+  S.render = () => {
+    renderStats();
+    const r = S.route;
+    if (r.name === 'unit') renderUnit();
+    else if (r.name === 'review') renderReview();
+    else if (r.name === 'alphabet') renderAlphabet();
+    else if (r.name === 'dictionary') renderDictionary();
+    else if (r.name === 'settings') renderSettings();
+    else if (r.name === 'talk') r.arg ? S.Extras.talk(view, r.arg) : S.Extras.talkList(view);
+    else if (r.name === 'read') r.arg ? S.Extras.read(view, r.arg) : S.Extras.readList(view);
+    else if (r.name === 'exam') r.arg ? S.Extras.exam(view, r.arg) : S.Extras.examList(view);
+    else if (r.name === 'placement') S.Extras.placement(view);
+    else if (r.name === 'mistakes') r.arg === 'practice' ? renderMistakePractice() : S.Extras.mistakes(view);
+    else if (r.name === 'progress') S.Extras.progressPage(view);
+    else renderHome();
+  };
+  S.onProgress = () => renderStats();
 
   function renderStats() {
-    const learned = ALL.filter((w) => boxOf(w) >= LEARNED_BOX).length;
-    const todayCount = progress.todayDay === dayKey() ? progress.todayCount : 0;
-    const streak = currentStreak();
+    const learned = S.ENTRIES.filter(S.isLearned).length;
     $('#stats').innerHTML = `
-      <div class="stat"><b>${streak}</b><span>day streak</span></div>
-      <div class="stat"><b>${learned}<small style="font-size:0.6em;color:var(--muted)">/${ALL.length}</small></b><span>learned</span></div>
-      <div class="stat"><b>${todayCount}</b><span>today</span></div>`;
+      <div class="stat"><b>${S.currentStreak()}</b><span>day streak</span></div>
+      <div class="stat"><b>${learned}<small>/${S.ENTRIES.length}</small></b><span>learned</span></div>
+      <div class="stat"><b>${S.dueList().length}</b><span>to review</span></div>`;
   }
 
-  function renderTabs() {
-    document.querySelectorAll('.tab').forEach((t) => {
-      t.setAttribute('aria-selected', String(t.dataset.mode === ui.mode));
-    });
-    $('#controls').hidden = ui.mode === 'sounds';
-    const dir = $('#dir');
-    dir.hidden = ui.mode === 'type';
-    dir.innerHTML = ui.dir === 'pl-en' ? 'Direction: <b>Polish → English</b>' : 'Direction: <b>English → Polish</b>';
+  S.backLink = (to = 'home', label = 'All lessons · सबै पाठ') =>
+    `<button class="back" data-action="go" data-to="${to}">← ${label}</button>`;
+
+  S.entryRow = (e) => (e ? `
+    <li class="entry">
+      <div class="entry-pl"><span lang="pl">${polish(e.pl)}</span>${S.pronHTML(e)}</div>
+      ${S.meaningHTML(e)}
+      <div class="entry-side">${S.boxMeter(e)}${S.listenBtn(e.pl)}</div>
+    </li>` : '');
+
+  // ---------- home ----------
+
+  function nextUnit() {
+    const main = S.COURSE.filter((u) => u.level !== 'Work');
+    const last = S.UNIT.get(S.progress.lastUnit);
+    if (last && S.unitLearned(last) < last.entries.length * 0.8) return last;
+    return main.find((u) => S.unitLearned(u) < u.entries.length * 0.8) || main[0];
   }
 
-  function renderChips() {
-    const chip = (id, name, words) => {
-      const learned = words.filter((w) => boxOf(w) >= LEARNED_BOX).length;
-      return `<button class="chip" data-action="topic" data-topic="${id}" aria-pressed="${ui.topic === id}">${esc(name)} <small>${learned}/${words.length}</small></button>`;
-    };
-    $('#chips').innerHTML =
-      chip('all', 'All topics', ALL) +
-      TOPICS.map((t) => chip(t.id, t.name, ALL.filter((w) => w.topic === t.id))).join('');
-  }
-
-  // ---------- flashcards ----------
-
-  let deck = null;
-
-  function startDeck() {
-    deck = { cards: pickSession(pool(), SESSION_SIZE), i: 0, flipped: false, tally: { again: 0, good: 0, easy: 0 } };
-  }
-
-  function renderCards() {
-    if (!deck) startDeck();
-    if (deck.i >= deck.cards.length) {
-      const t = deck.tally;
-      stage.innerHTML = `
-        <div class="card summary">
-          <span class="label">Round complete</span>
-          <h2>Dobra robota!</h2>
-          <p class="hint">"Good job!" You went through ${deck.cards.length} cards.</p>
-          <div class="tally">
-            <div><b style="color:var(--accent)">${t.again}</b><span class="label">Again</span></div>
-            <div><b style="color:var(--good)">${t.good}</b><span class="label">Good</span></div>
-            <div><b>${t.easy}</b><span class="label">Easy</span></div>
-          </div>
-        </div>
-        <div class="row"><button class="btn primary" data-action="new-deck">Start another round</button></div>`;
+  function renderHome() {
+    if (!S.COURSE.length) {
+      view.innerHTML = '<p class="empty">The course content did not load. Check that the files in the <code>data</code> folder are next to this page.</p>';
       return;
     }
-    const w = deck.cards[deck.i];
-    const plFirst = ui.dir === 'pl-en';
-    const front = plFirst
-      ? `<span class="label">Polish</span><span class="word" lang="pl">${polish(w.pl)}</span>`
-      : `<span class="label">English</span><span class="word en">${esc(w.en)}</span>`;
-    const back = plFirst
-      ? `<span class="rule"></span><span class="label">English</span><span class="meaning">${esc(w.en)}</span><span class="pron">${esc(w.pron)}</span>`
-      : `<span class="rule"></span><span class="label">Polish</span><span class="meaning pl" lang="pl">${polish(w.pl)}</span><span class="pron">${esc(w.pron)}</span>`;
+    const next = nextUnit();
+    const due = S.dueList().length;
+    const started = S.COURSE.some(S.unitStarted);
+    const today = S.todayCount();
+    const goal = S.settings.goal;
+    const mistakes = S.Extras.mistakeItems().length;
 
-    stage.innerHTML = `
-      <div class="meta"><span>Card ${deck.i + 1} of ${deck.cards.length}</span>${boxMeter(w)}</div>
-      <button class="card flip-in" data-action="flip" aria-label="${deck.flipped ? 'Card' : 'Show answer'}">
-        ${front}
-        ${deck.flipped ? back : '<span class="hint">Tap the card or press Space to see the answer</span>'}
-      </button>
-      <div class="row">
-        ${plFirst || deck.flipped ? listenButton(w.pl) : ''}
-        ${deck.flipped
-          ? `<button class="btn again" data-action="rate" data-rate="again"><kbd>1</kbd> Again</button>
-             <button class="btn good" data-action="rate" data-rate="good"><kbd>2</kbd> Good</button>
-             <button class="btn" data-action="rate" data-rate="easy"><kbd>3</kbd> Easy</button>`
-          : '<button class="btn primary" data-action="flip"><kbd>Space</kbd> Show answer</button>'}
-      </div>`;
-  }
-
-  function flip() {
-    if (!deck || deck.flipped || deck.i >= deck.cards.length) return;
-    deck.flipped = true;
-    renderCards();
-    if (ui.dir === 'en-pl') speak(deck.cards[deck.i].pl);
-  }
-
-  function rate(kind) {
-    if (!deck || !deck.flipped) return;
-    const w = deck.cards[deck.i];
-    review(w, kind === 'again' ? 'reset' : kind === 'good' ? 1 : 2);
-    deck.tally[kind] += 1;
-    deck.i += 1;
-    deck.flipped = false;
-    renderCards();
-  }
-
-  // ---------- quiz ----------
-
-  let quiz = null;
-
-  function nextQuestion() {
-    const words = pool();
-    const target = pickOne(words, quiz && quiz.word);
-    const answerOf = (w) => (ui.dir === 'pl-en' ? w.en : w.pl);
-    const distractors = shuffle(words.filter((w) => w !== target && answerOf(w) !== answerOf(target))).slice(0, 3);
-    quiz = {
-      score: quiz ? quiz.score : 0,
-      total: quiz ? quiz.total : 0,
-      word: target,
-      options: shuffle([target, ...distractors]),
-      picked: null,
-    };
-  }
-
-  function renderQuiz() {
-    if (!quiz) nextQuestion();
-    const { word: w, options, picked } = quiz;
-    const plFirst = ui.dir === 'pl-en';
-    const answered = picked !== null;
-    const prompt = plFirst
-      ? `<span class="label">What does this mean?</span><span class="word" lang="pl">${polish(w.pl)}</span>`
-      : `<span class="label">How do you say this in Polish?</span><span class="word en">${esc(w.en)}</span>`;
-
-    const opts = options.map((o, i) => {
-      let cls = 'option' + (plFirst ? '' : ' pl');
-      if (answered && o === w) cls += ' right';
-      else if (answered && o === picked) cls += ' wrong';
-      const text = plFirst ? esc(o.en) : polish(o.pl);
-      return `<button class="${cls}" data-action="answer" data-index="${i}" ${answered ? 'disabled' : ''}><kbd>${i + 1}</kbd><span${plFirst ? '' : ' lang="pl"'}>${text}</span></button>`;
+    const levels = S.LEVELS.map((level) => {
+      const units = S.COURSE.filter((u) => u.level === level.id);
+      if (!units.length) return '';
+      const total = units.reduce((n, u) => n + u.entries.length, 0);
+      const done = units.reduce((n, u) => n + S.unitLearned(u), 0);
+      return `
+        <section class="level" aria-labelledby="lvl-${level.id}">
+          <header class="level-head">
+            <div>
+              <h2 id="lvl-${level.id}">${esc(level.name)} <span class="ne-sub" lang="ne">${esc(level.ne)}</span></h2>
+              <p>${esc(level.blurb)} · <span lang="ne">${esc(level.blurbNe)}</span></p>
+            </div>
+            <span class="level-count">${done}/${total}</span>
+          </header>
+          <ol class="units">
+            ${units.map((u) => {
+              const n = u.entries.length;
+              const l = S.unitLearned(u);
+              const state = l >= n * 0.8 ? 'done' : S.unitStarted(u) ? 'started' : '';
+              const drill = S.progress.drills[u.id];
+              return `
+                <li>
+                  <button class="unit-row ${state}" data-action="go" data-to="${u.id}">
+                    <span class="unit-num">${esc(u.id.split('-')[1])}</span>
+                    <span class="unit-text">
+                      <span class="unit-title">${esc(u.title)}</span>
+                      <span class="unit-ne" lang="ne">${esc(u.titleNe)}</span>
+                    </span>
+                    <span class="unit-progress">${drill ? `<small class="ok" title="Best grammar score">${drill.best}%</small>` : ''}${S.bar(l, n)}<small>${l}/${n}</small></span>
+                  </button>
+                </li>`;
+            }).join('')}
+          </ol>
+        </section>`;
     }).join('');
 
-    let feedback = '';
-    if (answered) {
-      const right = picked === w;
-      feedback = `
-        <div class="feedback ${right ? 'right' : 'wrong'}" role="status">
-          <span><strong>${right ? 'Dobrze! Correct.' : 'Not quite.'}</strong>
-          <span class="answer" lang="pl">${polish(w.pl)}</span> <span class="pron">${esc(w.pron)}</span></span>
-          <span class="row">${listenButton(w.pl)}<button class="btn primary" data-action="next-question"><kbd>Enter</kbd> Next</button></span>
-        </div>`;
-    }
+    const tool = (to, big, en, ne, cls = '') => `<button class="tool ${cls}" data-action="go" data-to="${to}"><b>${big}</b><span>${en}</span><small lang="ne">${ne}</small></button>`;
 
-    stage.innerHTML = `
-      <div class="meta"><span>Score ${quiz.score} / ${quiz.total}</span>${boxMeter(w)}</div>
-      <div class="card">
-        ${prompt}
-        ${plFirst && !answered ? `<div class="row">${listenButton(w.pl)}</div>` : ''}
-      </div>
-      <div class="options">${opts}</div>
-      ${feedback}`;
-
-    if (answered) {
-      const next = stage.querySelector('[data-action="next-question"]');
-      if (next) next.focus({ preventScroll: true });
-    }
+    view.innerHTML = `
+      <section class="hero">
+        <div class="hero-main">
+          <span class="eyebrow">${started ? 'Continue · जारी राख्नुहोस्' : 'Start here · यहाँबाट सुरु गर्नुहोस्'}</span>
+          <h2>${esc(next.title)}</h2>
+          <p lang="ne">${esc(next.titleNe)}</p>
+          <p class="hint">${esc(next.summary)}</p>
+          <div class="goal">
+            <span>Today · आज <b>${today}</b> / ${goal}</span>${S.bar(Math.min(today, goal), goal)}
+            <small>${today >= goal ? 'Daily goal reached! · आजको लक्ष्य पूरा भयो!' : `${goal - today} more answers to reach your goal`}</small>
+          </div>
+          <div class="row start">
+            <button class="btn primary" data-action="go" data-to="${next.id}">${started ? 'Continue lesson' : 'Begin the course'}</button>
+            ${due ? `<button class="btn" data-action="go" data-to="review">Review ${due} due</button>` : ''}
+            ${!started && !S.progress.placement ? '<button class="btn" data-action="go" data-to="placement">I already know some Polish</button>' : ''}
+          </div>
+        </div>
+        <nav class="tools" aria-label="Tools">
+          ${tool('review', due, 'Daily review', 'दैनिक दोहोर्याइ', due ? 'hot' : '')}
+          ${tool('talk', S.ROLEPLAYS.length, 'Conversations', 'संवाद अभ्यास')}
+          ${tool('read', S.STORIES.length, 'Reading', 'पढाइ')}
+          ${tool('mistakes', mistakes, 'My mistakes', 'मेरा गल्ती', mistakes ? 'hot' : '')}
+          ${tool('exam', 'B1', 'Exam prep', 'परीक्षा तयारी')}
+          ${tool('alphabet', '<span lang="pl">Ąą</span>', 'Alphabet', 'वर्णमाला')}
+          ${tool('dictionary', S.ENTRIES.length, 'Dictionary', 'शब्दकोश')}
+          ${tool('progress', S.currentStreak(), 'Progress', 'प्रगति')}
+          ${tool('settings', '⚙', 'Settings', 'सेटिङ')}
+        </nav>
+      </section>
+      ${!started ? `
+      <section class="howto">
+        <h2>How to use this course <span class="ne-sub" lang="ne">यो कोर्स कसरी प्रयोग गर्ने</span></h2>
+        <ol>
+          <li><b>Read the lesson</b> in each unit. Every rule is explained in English and Nepali. <span lang="ne">हरेक पाठ पढ्नुहोस्; नियमहरू अंग्रेजी र नेपालीमा छन्।</span></li>
+          <li><b>Listen and repeat</b> every word out loud, then use the <b>Speak</b> tab. <span lang="ne">सुनेर ठूलो स्वरमा दोहोर्याउनुहोस्।</span></li>
+          <li><b>Practise</b> with cards, quiz, listening, typing and grammar exercises. <span lang="ne">अभ्यास गर्नुहोस्।</span></li>
+          <li><b>Talk</b>: after each level, try the conversations and reading texts. <span lang="ne">हरेक स्तरपछि संवाद र पढाइ अभ्यास गर्नुहोस्।</span></li>
+          <li><b>Come back every day</b> for the daily review. <span lang="ne">हरेक दिन दोहोर्याउनुहोस्।</span></li>
+        </ol>
+      </section>` : ''}
+      ${levels}`;
   }
 
-  function answerQuiz(index) {
-    if (!quiz || quiz.picked !== null) return;
-    const picked = quiz.options[index];
-    if (!picked) return;
-    quiz.picked = picked;
-    quiz.total += 1;
-    if (picked === quiz.word) {
-      quiz.score += 1;
-      review(quiz.word, 1);
-    } else {
-      review(quiz.word, -1);
-    }
-    renderQuiz();
-  }
+  // ---------- unit ----------
 
-  // ---------- typing ----------
+  const TABS = [
+    { id: 'learn', en: 'Learn', ne: 'पाठ' },
+    { id: 'cards', en: 'Cards', ne: 'कार्ड' },
+    { id: 'quiz', en: 'Quiz', ne: 'प्रश्न' },
+    { id: 'listen', en: 'Listen', ne: 'सुनाइ', show: () => S.canSpeak },
+    { id: 'speak', en: 'Speak', ne: 'बोलाइ' },
+    { id: 'type', en: 'Type', ne: 'लेखाइ' },
+    { id: 'drill', en: 'Grammar', ne: 'व्याकरण', show: (u) => (S.DRILLS[u.id] || []).length > 0 },
+  ];
 
-  let typing = null;
+  function renderUnit() {
+    const u = S.UNIT.get(S.route.id);
+    const idx = S.COURSE.indexOf(u);
+    const level = S.LEVELS[S.levelIndex(u.level)];
+    const n = u.entries.length;
+    const l = S.unitLearned(u);
+    const tabs = TABS.filter((t) => !t.show || t.show(u));
+    if (!tabs.some((t) => t.id === S.route.tab)) S.route.tab = 'learn';
+    const drill = S.progress.drills[u.id];
 
-  const clean = (s) => s.toLowerCase().replace(/[?!.,…¿¡]/g, '').replace(/\s+/g, ' ').trim();
-  const stripMarks = (s) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/ł/g, 'l');
+    view.innerHTML = `
+      ${S.backLink()}
+      <header class="unit-head">
+        <span class="eyebrow">${esc(level.name)} · Unit ${esc(u.id.split('-')[1])}</span>
+        <h2>${esc(u.title)}</h2>
+        <p class="unit-head-ne" lang="ne">${esc(u.titleNe)}</p>
+        <p class="hint">${esc(u.summary)}<br><span lang="ne">${esc(u.summaryNe)}</span></p>
+        <div class="unit-meter">${S.bar(l, n)}<small>${l} of ${n} learned${drill ? ` · grammar best ${drill.best}%` : ''}</small></div>
+      </header>
+      <nav class="tabs" role="tablist" aria-label="Lesson sections">
+        ${tabs.map((t) => `<button class="tab" role="tab" aria-selected="${S.route.tab === t.id}" data-action="tab" data-tab="${t.id}">${t.en}<small lang="ne">${t.ne}</small></button>`).join('')}
+      </nav>
+      <section class="stage" id="stage" aria-live="polite"></section>
+      <nav class="pager">
+        ${idx > 0 ? `<button class="btn" data-action="go" data-to="${S.COURSE[idx - 1].id}">← ${esc(S.COURSE[idx - 1].title)}</button>` : '<span></span>'}
+        ${idx < S.COURSE.length - 1 ? `<button class="btn" data-action="go" data-to="${S.COURSE[idx + 1].id}">${esc(S.COURSE[idx + 1].title)} →</button>` : ''}
+      </nav>
+      ${S.route.tab === 'learn' ? `<p class="report-row">${S.reportHTML(u.title, `Unit ${u.id}`)}</p>` : ''}`;
 
-  function nextTyping() {
-    typing = {
-      score: typing ? typing.score : 0,
-      total: typing ? typing.total : 0,
-      word: pickOne(pool(), typing && typing.word),
-      result: null,
-      given: '',
-      hint: 0,
-    };
-  }
-
-  function renderTyping() {
-    if (!typing) nextTyping();
-    const { word: w, result, hint } = typing;
-    const target = w.pl.replace(/…/g, '');
-    const hintText = hint ? `${esc(target.slice(0, hint))}${'·'.repeat(Math.max(0, target.length - hint))}` : '';
-
-    let feedback = '';
-    if (result) {
-      const title = result === 'right' ? 'Perfect!' : result === 'close' ? 'Almost. Check the accents:' : 'The answer is:';
-      feedback = `
-        <div class="feedback ${result}" role="status">
-          <span><strong>${title}</strong> <span class="answer" lang="pl">${polish(w.pl)}</span> <span class="pron">${esc(w.pron)}</span></span>
-          <span class="row">${listenButton(w.pl)}<button class="btn primary" data-action="next-typing"><kbd>Enter</kbd> Next</button></span>
-        </div>`;
-    }
-
-    stage.innerHTML = `
-      <div class="meta"><span>Score ${typing.score} / ${typing.total}</span>${boxMeter(w)}</div>
-      <form class="card" id="type-form" autocomplete="off">
-        <span class="label">Type it in Polish</span>
-        <span class="word en">${esc(w.en)}</span>
-        <input class="type-input" id="type-answer" lang="pl" spellcheck="false" autocapitalize="off" autocorrect="off"
-          aria-label="Your answer in Polish" value="${esc(typing.given)}" ${result ? 'readonly' : ''}>
-        ${hintText ? `<span class="pron" style="letter-spacing:0.15em">${hintText}</span>` : ''}
-        ${result ? '' : `<div class="keys" aria-label="Polish letters">${POLISH_KEYS.map((k) => `<button type="button" class="key" data-action="key" data-key="${k}">${k}</button>`).join('')}</div>`}
-        ${result ? '' : `<div class="row">
-          <button type="button" class="btn" data-action="hint">Hint</button>
-          <button type="submit" class="btn primary"><kbd>Enter</kbd> Check</button>
-        </div>`}
-      </form>
-      ${feedback}`;
-
-    if (result) {
-      const next = stage.querySelector('[data-action="next-typing"]');
-      if (next) next.focus({ preventScroll: true });
-    } else {
-      const input = $('#type-answer');
-      input.focus({ preventScroll: true });
-      input.setSelectionRange(input.value.length, input.value.length);
+    const stage = $('#stage');
+    if (S.route.tab === 'learn') stage.innerHTML = learnHTML(u);
+    else {
+      const drills = (S.DRILLS[u.id] || []).map((d, i) => ({ d, unit: u.id, idx: i }));
+      S.Practice.render(stage, { key: `${u.id}:${S.route.tab}`, mode: S.route.tab, pool: u.entries, unitId: u.id, drills });
     }
   }
 
-  function checkTyping() {
-    if (!typing || typing.result) return;
-    const given = $('#type-answer').value;
-    if (!given.trim()) return;
-    typing.given = given;
-    const want = clean(typing.word.pl);
-    const got = clean(given);
-    typing.total += 1;
-    if (got === want) {
-      typing.result = 'right';
-      typing.score += 1;
-      review(typing.word, typing.hint ? 0 : 1);
-    } else if (stripMarks(got) === stripMarks(want)) {
-      typing.result = 'close';
-      review(typing.word, 0);
-    } else {
-      typing.result = 'wrong';
-      review(typing.word, -1);
-    }
-    renderTyping();
-    speak(typing.word.pl);
-  }
-
-  function insertKey(ch) {
-    const input = $('#type-answer');
-    if (!input || input.readOnly) return;
-    const start = input.selectionStart ?? input.value.length;
-    const end = input.selectionEnd ?? input.value.length;
-    input.value = input.value.slice(0, start) + ch + input.value.slice(end);
-    input.focus();
-    input.setSelectionRange(start + 1, start + 1);
-    typing.given = input.value;
-  }
-
-  // ---------- sounds ----------
-
-  function renderSounds() {
-    stage.innerHTML = `
-      <p class="intro">Polish is spelled the way it sounds. Once you know these letters you can read any word aloud.
-      Stress almost always falls on the <b>second-to-last syllable</b>: <b lang="pl">ko-CHAM</b> is wrong, <b lang="pl">KO-cham</b> is right.</p>
-      <div class="letters">
-        ${LETTERS.map(([glyph, sound, example, meaning]) => `
-          <div class="letter">
-            <span class="glyph" lang="pl">${esc(glyph)}</span>
-            <span class="sound">${esc(sound)}</span>
-            <span class="example"><span><b lang="pl">${polish(example)}</b> · ${esc(meaning)}</span>${listenButton(example, true)}</span>
+  function learnHTML(u) {
+    const paragraphs = u.lesson.map((p) => `
+      <div class="para">
+        ${S.shows('explain', 'en') ? `<p>${S.markup(p.en)}</p>` : ''}
+        ${S.shows('explain', 'ne') ? `<p class="ne" lang="ne">${S.markup(p.ne)}</p>` : ''}
+      </div>`).join('');
+    const tables = (u.tables || []).map((t) => `
+      <div class="table-wrap">
+        <table>
+          <caption>${esc(t.title)}${t.titleNe ? ` · <span lang="ne">${esc(t.titleNe)}</span>` : ''}</caption>
+          <thead><tr>${t.head.map((h) => `<th scope="col">${S.markup(h)}</th>`).join('')}</tr></thead>
+          <tbody>${t.rows.map((r) => `<tr>${r.map((c) => `<td>${S.markup(c)}</td>`).join('')}</tr>`).join('')}</tbody>
+        </table>
+      </div>`).join('');
+    const alphabet = u.id === 'start-01' && S.ALPHABET.length ? `<h3>All 32 letters <span class="ne-sub" lang="ne">सबै ३२ अक्षर</span></h3>${alphabetGrid()}` : '';
+    const words = u.entries.filter((e) => e.kind === 'word');
+    const phrases = u.entries.filter((e) => e.kind === 'phrase');
+    const dialogue = (u.dialogue || []).length ? `
+      <h3>Dialogue <span class="ne-sub" lang="ne">संवाद</span></h3>
+      <div class="dialogue">
+        ${u.dialogue.map(([who, pl, en, ne], i) => `
+          <div class="line ${i % 2 ? 'right' : ''}">
+            <span class="who">${esc(who)}</span>
+            <div class="bubble">
+              <div class="bubble-pl"><span lang="pl">${polish(pl)}</span>${S.listenBtn(pl)}</div>
+              ${S.shows('meaning', 'en') ? `<div class="m-en">${esc(en)}</div>` : ''}
+              ${S.shows('meaning', 'ne') ? `<div class="m-ne" lang="ne">${esc(ne)}</div>` : ''}
+            </div>
           </div>`).join('')}
+      </div>` : '';
+    const hasDrills = (S.DRILLS[u.id] || []).length > 0;
+    return `
+      <article class="lesson">
+        <h3>Lesson <span class="ne-sub" lang="ne">पाठ</span></h3>
+        ${paragraphs}
+        ${tables}
+        ${alphabet}
+        <h3>Words <span class="ne-sub" lang="ne">शब्दहरू</span> <small>${words.length}</small></h3>
+        <ul class="entries">${words.map(S.entryRow).join('')}</ul>
+        ${phrases.length ? `<h3>Sentences <span class="ne-sub" lang="ne">वाक्यहरू</span> <small>${phrases.length}</small></h3><ul class="entries">${phrases.map(S.entryRow).join('')}</ul>` : ''}
+        ${dialogue}
+        <div class="row start">
+          <button class="btn primary" data-action="tab" data-tab="cards">Practise the words → <span lang="ne">अभ्यास</span></button>
+          ${hasDrills ? '<button class="btn" data-action="tab" data-tab="drill">Grammar exercises → <span lang="ne">व्याकरण</span></button>' : ''}
+        </div>
+      </article>`;
+  }
+
+  // ---------- review and mistakes practice ----------
+
+  function renderReview() {
+    const due = S.dueList();
+    view.innerHTML = `
+      ${S.backLink()}
+      <header class="unit-head">
+        <span class="eyebrow">Daily review · दैनिक दोहोर्याइ</span>
+        <h2>${due.length ? `${due.length} ${due.length === 1 ? 'word is' : 'words are'} due today` : 'Daily review'}</h2>
+        <p class="hint">Words you have practised come back on a schedule: tomorrow, then in 2, 4, 7 and 14 days. A few minutes every day is the fastest way to remember.<br>
+        <span lang="ne">अभ्यास गरेका शब्दहरू तालिका अनुसार फर्कन्छन्: भोलि, अनि २, ४, ७ र १४ दिनपछि। हरेक दिन केही मिनेट दोहोर्याउनु नै छिटो सम्झने उपाय हो।</span></p>
+      </header>
+      <section class="stage" id="stage" aria-live="polite"></section>`;
+    S.Practice.render($('#stage'), { key: 'review', mode: 'cards', pool: due, review: true });
+  }
+
+  function renderMistakePractice() {
+    const items = S.Extras.mistakeItems().map(({ m }) => ({ d: S.DRILLS[m.unit][m.idx], unit: m.unit, idx: m.idx }));
+    view.innerHTML = `
+      ${S.backLink('mistakes', 'My mistakes · मेरा गल्ती')}
+      <header class="unit-head"><span class="eyebrow">Mistakes notebook · गल्ती कापी</span><h2>Practise my mistakes</h2></header>
+      <section class="stage" id="stage" aria-live="polite"></section>`;
+    S.Practice.render($('#stage'), { key: 'mistakes', mode: 'drill', drills: items, mixed: true, pool: [] });
+  }
+
+  // ---------- alphabet ----------
+
+  function alphabetGrid() {
+    return `<div class="letters">${S.ALPHABET.map((a) => `
+      <div class="letter">
+        <div class="letter-top"><span class="glyph" lang="pl">${polish(a.letter)}</span>${S.listenBtn(a.example)}</div>
+        ${S.shows('explain', 'en') ? `<span class="sound">${esc(a.soundEn)}</span>` : ''}
+        ${S.shows('explain', 'ne') ? `<span class="sound" lang="ne">${esc(a.soundNe)}</span>` : ''}
+        <span class="example"><b lang="pl">${polish(a.example)}</b>
+          ${S.shows('pron', 'en') ? `<span class="pron">${esc(a.pron)}</span>` : ''}${S.shows('pron', 'ne') ? `<span class="pron ne" lang="ne">${esc(a.proNe)}</span>` : ''}
+          <span class="ex-m">${S.shows('meaning', 'en') ? esc(a.exampleEn) : ''}${S.settings.meaning === 'both' ? ' · ' : ''}${S.shows('meaning', 'ne') ? `<span lang="ne">${esc(a.exampleNe)}</span>` : ''}</span>
+        </span>
+      </div>`).join('')}</div>`;
+  }
+
+  function renderAlphabet() {
+    const first = S.COURSE.find((u) => u.level === 'Start');
+    view.innerHTML = `
+      ${S.backLink()}
+      <header class="unit-head">
+        <span class="eyebrow">Reference · सन्दर्भ</span>
+        <h2>The Polish alphabet</h2>
+        <p class="unit-head-ne" lang="ne">पोलिस वर्णमाला</p>
+        <p class="hint">32 letters. Polish is read exactly as it is written, so once you know these sounds you can read any word. Stress falls on the second-to-last syllable.<br>
+        <span lang="ne">३२ अक्षर। पोलिस जस्तो लेखिन्छ त्यस्तै पढिन्छ। जोड प्राय: अन्तिमभन्दा अघिल्लो अक्षरमा पर्छ।</span></p>
+      </header>
+      ${S.ALPHABET.length ? alphabetGrid() : '<p class="empty">The alphabet did not load.</p>'}
+      ${first ? `<div class="row start"><button class="btn primary" data-action="go" data-to="${first.id}">Start the first lesson →</button></div>` : ''}`;
+  }
+
+  // ---------- dictionary ----------
+
+  function renderDictionary() {
+    view.innerHTML = `
+      ${S.backLink()}
+      <header class="unit-head">
+        <span class="eyebrow">Reference · सन्दर्भ</span>
+        <h2>Dictionary</h2>
+        <p class="unit-head-ne" lang="ne">शब्दकोश</p>
+        <p class="hint">Search every word and sentence in Polish, English or Nepali. You can type Polish without accents.</p>
+      </header>
+      <input class="search" id="dict-q" type="search" placeholder="Search: dom, house, घर…" aria-label="Search the dictionary" value="${esc(S.route.q || '')}">
+      <p class="hint" id="dict-count"></p>
+      <ul class="entries" id="dict-results"></ul>`;
+    const input = $('#dict-q');
+    input.addEventListener('input', updateDictionary);
+    updateDictionary();
+    input.focus({ preventScroll: true });
+  }
+
+  function updateDictionary() {
+    const raw = $('#dict-q').value.trim();
+    const q = S.fold(raw);
+    const all = [...S.LEXICON.values()];
+    const hits = raw
+      ? all.filter((e) => S.fold(e.pl).includes(q) || e.en.toLowerCase().includes(raw.toLowerCase()) || e.ne.includes(raw))
+      : S.ENTRIES.filter((e) => e.kind === 'word');
+    // Exact and prefix matches first.
+    if (raw) hits.sort((a, b) => (S.fold(b.pl).startsWith(q) - S.fold(a.pl).startsWith(q)) || a.pl.length - b.pl.length);
+    const shown = hits.slice(0, 80);
+    $('#dict-count').textContent = raw
+      ? `${hits.length} ${hits.length === 1 ? 'result' : 'results'}${hits.length > shown.length ? `, showing the first ${shown.length}` : ''}`
+      : `Showing the first ${shown.length} of ${hits.length} words. Type to search.`;
+    $('#dict-results').innerHTML = shown.map((e) => {
+      const u = S.UNIT.get(e.source);
+      const link = u ? `<button class="from" data-action="go" data-to="${u.id}">${esc(u.level)} · ${esc(u.title)}</button>` : '';
+      return S.entryRow(e).replace(/<\/li>\s*$/, `${link}</li>`);
+    }).join('');
+  }
+
+  // ---------- settings ----------
+
+  function segmented(key, label, labelNe, options) {
+    return `
+      <fieldset class="setting">
+        <legend>${label} <span lang="ne">${labelNe}</span></legend>
+        <div class="seg">
+          ${options.map(([value, text]) => `<button type="button" data-action="set" data-key="${key}" data-value="${value}" aria-pressed="${String(S.settings[key]) === String(value)}">${text}</button>`).join('')}
+        </div>
+      </fieldset>`;
+  }
+
+  function renderSettings() {
+    const langs = [['both', 'Both · दुवै'], ['en', 'English'], ['ne', 'नेपाली']];
+    const audioCount = Object.keys(S.AUDIO).length;
+    view.innerHTML = `
+      ${S.backLink()}
+      <header class="unit-head">
+        <span class="eyebrow">Settings · सेटिङ</span>
+        <h2>Make it yours</h2>
+      </header>
+      <div class="settings">
+        ${segmented('meaning', 'Show meanings in', 'अर्थ देखाउने भाषा', langs)}
+        ${segmented('pron', 'Show pronunciation in', 'उच्चारण देखाउने लिपि', [['both', 'Both · दुवै'], ['en', 'English letters'], ['ne', 'देवनागरी']])}
+        ${segmented('explain', 'Explain lessons in', 'पाठको व्याख्या', langs)}
+        ${segmented('dir', 'Cards and quiz show', 'कार्डमा पहिले देखाउने', [['pl', 'Polish first'], ['meaning', 'Meaning first']])}
+        ${segmented('goal', 'Daily goal (answers)', 'दैनिक लक्ष्य', [['10', '10 · relaxed'], ['20', '20 · normal'], ['40', '40 · serious'], ['60', '60 · intense']])}
+        ${S.canSpeak ? segmented('slow', 'Speaking speed', 'बोल्ने गति', [['false', 'Normal'], ['true', 'Slow · बिस्तारै']]) : ''}
+        ${audioCount ? segmented('audio', `Voice (${audioCount} native recordings)`, 'आवाज', [['native', 'Native speakers first'], ['device', 'Device voice only']]) : ''}
+
+        <fieldset class="setting">
+          <legend>Use on another phone or computer <span lang="ne">अर्को फोन वा कम्प्युटरमा</span></legend>
+          <p class="hint">Your progress is saved in this browser. Copy this backup code and paste it on your other device to move your progress. · यो कोड अर्को उपकरणमा टाँस्नुहोस्।</p>
+          <textarea class="code" id="backup-out" readonly rows="3">${esc(S.backupCode())}</textarea>
+          <div class="row start"><button class="btn" data-action="backup-copy">Copy backup code</button></div>
+          <textarea class="code" id="backup-in" rows="3" placeholder="Paste a backup code here…"></textarea>
+          <div class="row start"><button class="btn" data-action="backup-restore">Restore from code</button><span class="hint" id="backup-msg"></span></div>
+        </fieldset>
+
+        <fieldset class="setting">
+          <legend>Install and use offline <span lang="ne">इन्स्टल र अफलाइन प्रयोग</span></legend>
+          <p class="hint">Open the app's website in Chrome (Android) or Safari (iPhone). Then choose <b>Add to Home screen</b> from the browser menu. It then opens like an app and works without internet. The microphone and speaking practice also work there.<br>
+          <span lang="ne">एपको वेबसाइट Chrome वा Safari मा खोल्नुहोस्, अनि मेनुबाट <b>Add to Home screen</b> छान्नुहोस्। त्यसपछि यो एपजस्तै खुल्छ र इन्टरनेटबिना पनि चल्छ।</span></p>
+          ${S.canSpeak ? '' : '<p class="hint">This browser has no text-to-speech, so Listen buttons are hidden.</p>'}
+          <p class="hint">No Polish voice? Android: Settings → Text-to-speech → install Polish. iPhone: Settings → Accessibility → Spoken Content → Voices → Polish.</p>
+        </fieldset>
+
+        <fieldset class="setting">
+          <legend>Progress <span lang="ne">प्रगति</span></legend>
+          <p class="hint">Clearing your progress cannot be undone. Copy your backup code first.</p>
+          <button class="btn again" data-action="reset">Clear all progress</button>
+        </fieldset>
+        <p class="hint">How pronunciation is written: in English letters the stressed syllable is in CAPITALS (<span class="pron">jen DOB-ri</span>). In Devanagari the stressed syllable comes after <span class="pron ne">ˈ</span> (<span class="pron ne" lang="ne">जेन् ˈदोब्-रि</span>). Both are approximations: always listen too.</p>
       </div>`;
   }
 
-  // ---------- routing ----------
+  // ---------- events ----------
 
-  function render() {
-    renderTabs();
-    if (ui.mode === 'cards') renderCards();
-    else if (ui.mode === 'quiz') renderQuiz();
-    else if (ui.mode === 'type') renderTyping();
-    else renderSounds();
-  }
-
-  function resetSessions() { deck = null; quiz = null; typing = null; }
-  function saveUI() { writeJSON(UI_KEY, ui); }
-
-  document.addEventListener('click', (e) => {
-    const el = e.target.closest('[data-action]');
+  document.addEventListener('click', (ev) => {
+    const el = ev.target.closest('[data-action]');
     if (!el) return;
-    const action = el.dataset.action;
-    switch (action) {
-      case 'mode':
-        ui.mode = el.dataset.mode; saveUI(); render(); break;
-      case 'topic':
-        ui.topic = el.dataset.topic; saveUI(); resetSessions(); renderChips(); render(); break;
-      case 'dir':
-        ui.dir = ui.dir === 'pl-en' ? 'en-pl' : 'pl-en'; saveUI(); deck = null; quiz = null; render(); break;
-      case 'flip': flip(); break;
-      case 'rate': rate(el.dataset.rate); break;
-      case 'new-deck': startDeck(); renderCards(); break;
-      case 'answer': answerQuiz(Number(el.dataset.index)); break;
-      case 'next-question': nextQuestion(); renderQuiz(); break;
-      case 'next-typing': nextTyping(); renderTyping(); break;
-      case 'key': insertKey(el.dataset.key); break;
-      case 'hint':
-        typing.given = $('#type-answer').value;
-        typing.hint = Math.min(typing.hint + 1, typing.word.pl.length);
-        renderTyping();
+    const a = el.dataset.action;
+    if (el.tagName !== 'INPUT') ev.preventDefault();
+    if (S.Practice.action(a, el)) return;
+    if (S.Extras.action(a, el, view)) return;
+    switch (a) {
+      case 'go': S.go(el.dataset.to, { q: el.dataset.q }); break;
+      case 'tab':
+        S.route.tab = el.dataset.tab;
+        S.Practice.reset();
+        renderUnit();
+        $('.tabs').scrollIntoView({ block: 'nearest' });
         break;
-      case 'say': speak(el.dataset.text); break;
+      case 'say': S.speak(el.dataset.text); break;
+      case 'key': S.insertKey(el.dataset.key); break;
+      case 'set': {
+        const v = el.dataset.value;
+        S.settings[el.dataset.key] = v === 'true' ? true : v === 'false' ? false : /^\d+$/.test(v) ? Number(v) : v;
+        S.saveSettings();
+        renderSettings();
+        break;
+      }
+      case 'backup-copy': {
+        const out = $('#backup-out');
+        const fallback = () => { out.focus(); out.select(); el.textContent = 'Selected: copy it now'; };
+        if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(out.value).then(() => { el.textContent = 'Copied ✓'; }, fallback);
+        else fallback();
+        break;
+      }
+      case 'backup-restore':
+        try {
+          S.restoreBackup($('#backup-in').value);
+          renderStats();
+          renderSettings();
+          $('#backup-msg').textContent = 'Progress restored ✓';
+        } catch (e) {
+          $('#backup-msg').textContent = 'That code did not work. Copy the whole code and try again.';
+        }
+        break;
       case 'reset':
         if (el.dataset.armed === 'true') {
-          progress = freshProgress();
-          writeJSON(PROGRESS_KEY, progress);
-          resetSessions();
-          renderStats(); renderChips(); render();
+          S.progress = S.freshProgress();
+          S.saveProgress();
+          renderStats();
           el.dataset.armed = 'false';
           el.textContent = 'Progress cleared';
         } else {
           el.dataset.armed = 'true';
-          el.textContent = 'Tap again to clear all progress';
+          el.textContent = 'Tap again to clear everything';
         }
         break;
+      default: break;
     }
   });
 
-  document.addEventListener('submit', (e) => {
-    if (e.target.id === 'type-form') { e.preventDefault(); checkTyping(); }
+  document.addEventListener('submit', (ev) => {
+    ev.preventDefault();
+    if (S.Practice.submit(ev.target)) return;
+    S.Extras.submit(ev.target);
+  });
+  document.addEventListener('input', (ev) => { S.Extras.input(ev.target); });
+
+  document.addEventListener('keydown', (ev) => {
+    if (ev.metaKey || ev.ctrlKey || ev.altKey) return;
+    if (/^(INPUT|TEXTAREA)$/.test(ev.target.tagName) && !ev.target.readOnly) return;
+    if (S.Practice.key(ev)) return;
+    S.Extras.key(ev);
   });
 
-  document.addEventListener('keydown', (e) => {
-    if (e.metaKey || e.ctrlKey || e.altKey) return;
-    const inField = e.target.tagName === 'INPUT' && !e.target.readOnly;
-    if (inField) return;
-    if (ui.mode === 'cards' && deck) {
-      if (e.key === ' ' && !deck.flipped) { e.preventDefault(); flip(); }
-      else if (deck.flipped && ['1', '2', '3'].includes(e.key)) rate(['again', 'good', 'easy'][Number(e.key) - 1]);
-    } else if (ui.mode === 'quiz' && quiz) {
-      if (quiz.picked === null && /^[1-4]$/.test(e.key)) answerQuiz(Number(e.key) - 1);
-      else if (quiz.picked !== null && e.key === 'Enter' && e.target.tagName !== 'BUTTON') { nextQuestion(); renderQuiz(); }
-    } else if (ui.mode === 'type' && typing && typing.result && e.key === 'Enter' && e.target.tagName !== 'BUTTON') {
-      nextTyping(); renderTyping();
-    }
-  });
+  // ---------- offline support ----------
 
-  renderStats();
-  renderChips();
-  render();
+  if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) {
+    try { navigator.serviceWorker.register('sw.js').catch(() => {}); } catch (e) { /* not available here */ }
+  }
+
+  // ---------- start ----------
+
+  window.addEventListener('hashchange', () => {
+    const to = (location.hash || '').slice(1);
+    if (to) S.go(to);
+  });
+  const initial = (location.hash || '').slice(1);
+  if (initial) S.go(initial);
+  else S.render();
 })();
