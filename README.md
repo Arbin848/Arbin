@@ -28,6 +28,11 @@ Every unit has a lesson in English and Nepali with grammar tables, words and sen
 - **My mistakes**: every grammar mistake is saved with its explanation, to practise again.
 - **Daily review**: words come back after 1, 2, 4, 7 and 14 days.
 - **Progress**: streak, daily goal, activity chart and level-by-level progress.
+- **Verb trainer**: 97 verbs with full tables (present, past for men and women, future, commands) and typing practice.
+- **Case trainer**: the 7 cases explained with Nepali comparisons, 60 nouns with full singular and plural tables, and practice in real sentences that names the case you used by mistake.
+- **Sounds lab**: 10 sound contrasts that are hard for Nepali speakers (sz/ś, cz/ć, y/i, ą/o, l/ł…), with mouth diagrams, tips and a minimal-pair listening game.
+- **Dictation** in every unit: hear a sentence, write it, and see each word marked.
+- **Review mode for native speakers**: mark each line of a unit as correct or wrong and send the corrections as a GitHub issue (Settings → Native speakers).
 - **Dictionary** in Polish, English or Nepali, and an **alphabet** reference.
 - **Settings**: meanings, pronunciation and explanations in English, Nepali or both; slow speech; daily goal; a **backup code** to move progress to another device.
 - **Report a mistake** links open a pre-filled GitHub issue.
@@ -72,6 +77,9 @@ All content is plain data in `data/*.js`:
 | `roleplays-*.js` | conversations |
 | `stories-*.js` | reading texts |
 | `exams.js` | placement test and B1 practice tests |
+| `verbs-*.js` | verb tables |
+| `cases.js` | case guide, noun tables and practice sentences |
+| `sounds.js` | sound contrasts and minimal pairs |
 
 The formats are described in [`tools/CONTENT_GUIDE.md`](tools/CONTENT_GUIDE.md) and [`tools/PRACTICE_GUIDE.md`](tools/PRACTICE_GUIDE.md). Check your changes with:
 

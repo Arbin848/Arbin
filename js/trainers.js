@@ -335,8 +335,9 @@
         </div>
         <details class="model"><summary>Full table of <span lang="pl">${polish(q.n.word)}</span></summary>${T.nounTable(q.n, { case: q.f.case, number: q.f.number })}</details>`;
     }
-    const en = q.f.en.replace('…', q.f.number === 'pl' ? `${q.n.en} (plural)` : q.n.en);
-    const ne = q.f.ne.replace('…', q.n.ne);
+    const plural = q.f.number === 'pl';
+    const en = q.f.en.replace('…', plural ? `[${q.n.en}, plural]` : q.n.en);
+    const ne = q.f.ne.replace('…', plural && !/[\s/]/.test(q.n.ne) ? `${q.n.ne}हरू` : q.n.ne);
     view.innerHTML = `
       ${head('Cases · विभक्ति', 'Practise cases', 'विभक्ति अभ्यास', '', 'cases', 'Case trainer · विभक्ति')}
       ${settings}
@@ -441,7 +442,8 @@
     if (!g.q && g.round < g.total) {
       const pair = x.pairs[Math.floor(Math.random() * x.pairs.length)];
       g.q = { pair, side: Math.random() < 0.5 ? 0 : 1 };
-      setTimeout(() => S.speak(g.q.pair[g.q.side][0]), 200);
+      const first = g.q.pair[g.q.side][0];
+      setTimeout(() => { if (game === g) S.speak(first); }, 200);
     }
     let gameHTML;
     if (g.round >= g.total) {

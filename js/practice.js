@@ -321,7 +321,8 @@
     const phrases = ctx.pool.filter((e) => e.kind === 'phrase');
     const pool = phrases.length >= 3 ? phrases : ctx.pool;
     session = { mode: 'dictate', score: prev.score, total: prev.total, word: S.pickOne(pool, prev.word), result: null, given: '' };
-    setTimeout(() => S.speak(session.word.pl), 200);
+    const text = session.word.pl;
+    setTimeout(() => S.speak(text), 200);
   }
 
   function diffWords(target, given) {
