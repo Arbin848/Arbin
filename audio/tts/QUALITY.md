@@ -4,12 +4,12 @@ Every generated clip was played to an offline Polish speech recognizer (Vosk) an
 compared with the text. Short words and names are often misheard by the recognizer even when
 the audio is fine, so a low score means "listen and check", not "wrong".
 
-- Clips checked: **8565**
-- Understood well (80%+): **6543** (76%)
-- Mostly understood (60–79%): **1328**
-- Unclear (below 60%): **694**
-- Unclear clips regenerated with the other voice: 790, improved: 188
-- Average match: **87.7%**
+- Clips checked: **10260**
+- Understood well (80%+): **7843** (76%)
+- Mostly understood (60–79%): **1519**
+- Unclear (below 60%): **898**
+- Unclear clips regenerated with the other voice: 283, improved: 138
+- Average match: **87.5%**
 
 ## Lowest scores (please listen to these)
 
@@ -22,58 +22,89 @@ the audio is fine, so a low score means "listen and check", not "wrong".
 | 0% | -c | dlatego |
 | 0% | -i | (nothing) |
 | 0% | -i- | (nothing) |
+| 0% | -ie | (nothing) |
+| 0% | -j- | i od |
 | 0% | -li | jeden |
 | 0% | -m | jeden |
 | 0% | -my | tak |
+| 0% | -n- | jeden |
 | 0% | -o | (nothing) |
+| 0% | -r- | jeden |
 | 0% | -sz | (nothing) |
 | 0% | -szy | jeden |
 | 0% | -u | (nothing) |
+| 0% | -wa- | (nothing) |
+| 0% | -wie | (nothing) |
 | 0% | -y- | wiek |
+| 0% | -ł | (nothing) |
+| 0% | -ł- | (nothing) |
+| 0% | -łeś | idź |
 | 0% | -ły | (nothing) |
+| 0% | -ś | dziękuję |
 | 0% | a | (nothing) |
+| 0% | b | wiem |
 | 0% | be | mamy |
 | 0% | c | dlatego |
+| 0% | chód | dlatego |
 | 0% | er | (nothing) |
+| 0% | ewa | tak |
 | 0% | eł | tak |
 | 0% | f | jeden |
 | 0% | g | (nothing) |
 | 0% | gr | wiem |
+| 0% | groch | (nothing) |
+| 0% | głów | (nothing) |
 | 0% | h | dlatego |
 | 0% | ha | (nothing) |
+| 0% | hej | tak |
 | 0% | i | (nothing) |
+| 0% | ia | (nothing) |
 | 0% | ich | (nothing) |
 | 0% | jedź | nie |
 | 0% | kg | przedstawia |
 | 0% | kilku | co |
 | 0% | kto | tak |
+| 0% | ku | (nothing) |
 | 0% | kurz | (nothing) |
+| 0% | l ł | ale |
 | 0% | m | jeden |
+| 0% | ni | (nothing) |
 | 0% | o | jeden |
+| 0% | od- | (nothing) |
 | 0% | p | dlatego |
 | 0% | pili | (nothing) |
+| 0% | pip | tak |
 | 0% | po | tak |
+| 0% | pod- | tak |
+| 0% | pra | (nothing) |
 | 0% | proś | dobra |
 | 0% | przy | tak |
 | 0% | przy- | więc |
 | 0% | psu | (nothing) |
+| 0% | pół | tak |
 | 0% | q | jeśli |
+| 0% | r | dlatego |
 | 0% | rur | no |
 | 0% | ryż | dlatego |
+| 0% | s | dlatego |
 | 0% | się | (nothing) |
+| 0% | ska | tak |
 | 0% | sp | (nothing) |
+| 0% | st | (nothing) |
 | 0% | sunil | jest |
 | 0% | sz | (nothing) |
 | 0% | szcz | jeden |
 | 0% | szefów | według |
 | 0% | szli | tak |
 | 0% | szt | (nothing) |
+| 0% | sł | (nothing) |
 | 0% | słów | tu |
 | 0% | to | (nothing) |
 | 0% | u | jeden |
 | 0% | ul | (nothing) |
 | 0% | v | rafał |
 | 0% | w | (nothing) |
+| 0% | w czynsz | (nothing) |
 | 0% | w- | (nothing) |
 | 0% | wu | tak |
 | 0% | wy- | (nothing) |
@@ -85,9 +116,14 @@ the audio is fine, so a low score means "listen and check", not "wrong".
 | 0% | ę | d |
 | 0% | ł | (nothing) |
 | 0% | śpisz | (nothing) |
+| 0% | św | podjęte |
+| 0% | ź | najpierw |
 | 0% | ż | dlatego |
 | 7% | m² | przemek wad rad |
+| 8% | -i/-y | i zle szpilek |
 | 11% | swoje | posłuchaj |
+| 11% | -uj- | posłuchaj |
+| 12% | -jd- | oddech d |
 | 12% | -ć | dlaczego |
 | 12% | chlebach | prawda |
 | 12% | kawom | podstawą |
@@ -97,6 +133,10 @@ the audio is fine, so a low score means "listen and check", not "wrong".
 | 12% | ręką | jeden co |
 | 12% | wszedł | pierwszy |
 | 12% | zimą | podjęłam |
+| 14% | -wa | dlatego |
+| 14% | cię | dlatego |
+| 14% | ko | dlatego |
+| 14% | ta | dlatego |
 | 14% | -e | dlatego |
 | 14% | -ej | dlatego |
 | 14% | -o / -e | e |
@@ -110,6 +150,11 @@ the audio is fine, so a low score means "listen and check", not "wrong".
 | 14% | l | dlatego |
 | 14% | lwu | dlatego |
 | 14% | t | dlatego |
+| 17% | -rze- | jestem |
+| 17% | ch/h | dotychczas lecz ha |
+| 17% | córkę | tu oka |
+| 17% | grochu | zero |
+| 17% | hindus | i bez |
 | 17% | dź | oddaję |
 | 17% | k g | ja wie |
 | 17% | kimś | pewien |
@@ -120,48 +165,3 @@ the audio is fine, so a low score means "listen and check", not "wrong".
 | 17% | pe | jestem |
 | 17% | pisz | jesteś |
 | 17% | rok | jednak |
-| 17% | rz | spędzę |
-| 17% | rąk | wygląd |
-| 17% | zimach | nie ma |
-| 17% | ząb | muzeum |
-| 17% | żurek | cztery |
-| 18% | -jść | i o świecie |
-| 18% | gazową | jestem sobą |
-| 18% | nwm | jeden byłem |
-| 20% | -ę | jeden |
-| 20% | bułki | mówi |
-| 20% | dadzą | tak dalece |
-| 20% | e | jeden |
-| 20% | ef | jeden |
-| 20% | em | jeden |
-| 20% | eś | jeden |
-| 20% | grafiku | wiele firm |
-| 20% | jot | i jak |
-| 20% | konto | rozpoczęta |
-| 20% | kw | prawo |
-| 20% | lwach | pa |
-| 20% | lwom | pomyślałam |
-| 20% | mleko | co |
-| 20% | psach | tak |
-| 20% | re | jeden |
-| 20% | rycz | patrz |
-| 20% | spoko | to co |
-| 20% | stołu | są |
-| 20% | syn | jeden |
-| 20% | sz cz | sezon |
-| 20% | szkół | co |
-| 20% | szuka | k |
-| 20% | we | jeden |
-| 20% | wziął | wideo |
-| 20% | ń | jeden |
-| 20% | ś | jeśli |
-| 20% | śpij | jeśli |
-| 20% | że | jeden |
-| 20% | żet | jeden |
-| 22% | błędy | przemiany |
-| 22% | chory | materiały |
-| 22% | cz | recenzent |
-| 22% | dbać | zatrzymać |
-| 22% | dż | dobrze że |
-| 22% | prądu | naturalną |
-| 22% | ść | jeśli cię |
