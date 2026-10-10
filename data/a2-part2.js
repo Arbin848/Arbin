@@ -618,7 +618,7 @@ window.SLOWKA_COURSE.push(
       ["Mamo, gdzie jesteś?", "Mum, where are you?", "आमा, कहाँ हुनुहुन्छ?", "MA-mo, gje YES-tesh", "ˈमा-मो, ग्जे ˈयेस्-तेश्"]
     ],
     dialogue: [
-      ["Ram", "Proszę pani! Pani Anno, czy może mi pani pomóc?", "Excuse me! Ms Anna, can you help me?", "सुन्नुहोस् न! आना जी, मलाई मद्दत गर्न सक्नुहुन्छ?"],
+      ["Ram", "Pani Anno, czy może mi pani pomóc?", "Ms Anna, can you help me?", "आना जी, मलाई मद्दत गर्न सक्नुहुन्छ?"],
       ["Anna", "Oczywiście. Co się stało?", "Of course. What happened?", "पक्कै पनि। के भयो?"],
       ["Ram", "Chcę wysłać bratu pieniądze do Nepalu.", "I want to send money to my brother in Nepal.", "म नेपालमा भाइलाई पैसा पठाउन चाहन्छु।"],
       ["Anna", "Pokażę panu, jak to zrobić w aplikacji.", "I'll show you how to do it in the app.", "म तपाईंलाई एपमा कसरी गर्ने भनेर देखाउँछु।"],
