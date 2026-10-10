@@ -11,6 +11,9 @@ It works fully offline, with no AI, no account and no server. Everything is in t
 - **Course** is divided into clear levels: Start (alphabet and sounds) → A1 → A2 → B1 → B2, plus Polish for work. Each level lists what you will be able to do.
 - **Lessons with your teacher**: every unit is taught step by step, like a class: short explanations one at a time, new words one by one (listen, slow, repeat, say it), a quick check, sentences, the dialogue line by line, grammar exercises, dictation and a summary. The app remembers where you stopped.
 - **Practice** groups every tool by skill: vocabulary, grammar, pronunciation, real life and tests.
+- **Revision lessons** after every 5 lessons mix words, listening, grammar, dictation and speaking from those lessons, so nothing is forgotten.
+- **Level tests** at the end of each level (Start, A1, A2, B1, B2): score 70% to pass and get a course certificate (not an official state certificate).
+- **Weak-spot report** (Progress → report): the words you keep forgetting, the grammar topics, cases and tenses you get wrong most, the sounds you find hardest, and your skill scores, each with a button to practise it.
 - **Pronunciation help everywhere**: words split into syllable blocks with the stressed one highlighted (English letters and Devanagari), tips for the hard letters in each word, slow playback, and native recordings from Wiktionary and Lingua Libre.
 
 ## What's inside
