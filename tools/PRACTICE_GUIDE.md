@@ -192,6 +192,7 @@ window.SLOWKA_NOUNS.push({
   word: "kawa", en: "coffee", ne: "कफी", level: "A1",
   gender: "f",                     // "m-pers" (male person) | "m-anim" (animal) | "m-inan" | "f" | "n"
   person: false,                   // true for people (used to pick sentence frames)
+  abstract: true,                  // OPTIONAL: time words and names (rok, noc, Polska) — practised only in locative "about" frames
   sg: { nom: "kawa", gen: "kawy", dat: "kawie", acc: "kawę", ins: "kawą", loc: "kawie", voc: "kawo" },
   pl: { nom: "kawy", gen: "kaw", dat: "kawom", acc: "kawy", ins: "kawami", loc: "kawach", voc: "kawy" }   // or null if not normally plural
 });

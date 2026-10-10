@@ -294,6 +294,8 @@
       if (f.number === 'pl' && !n.pl) continue;
       if (f.who === 'person' && !n.person) continue;
       if (f.who === 'thing' && n.person) continue;
+      // Time words and names like "rok" or "Polska" only fit "talking/thinking about" sentences.
+      if (n.abstract && f.case !== 'loc') continue;
       const answer = n[f.number][f.case];
       if (!answer || answer === '—') continue;
       return { n, f, answer };
