@@ -440,7 +440,7 @@ window.SLOWKA_LISTENING.push(
       ["Kadrowa", "Zamiast dwóch zmian będą trzy. Pan będzie pracował na zmianie popołudniowej, od czternastej do dwudziestej drugiej.", "Instead of two shifts there will be three. You will work the afternoon shift, from two p.m. to ten p.m.", "दुई सिफ्टको सट्टा तीन सिफ्ट हुनेछ। तपाईं दिउँसोको सिफ्टमा, दुई बजेदेखि राति दस बजेसम्म काम गर्नुहुनेछ।"],
       ["Ram", "No dobrze. A soboty?", "Well, OK. And Saturdays?", "ल ठीक छ। अनि शनिबार?"],
       ["Kadrowa", "Raz w miesiącu będzie pracująca sobota. Za nią dostanie pan dzień wolny w tygodniu albo dodatek, do wyboru.", "Once a month there will be a working Saturday. For it you'll get a day off during the week or extra pay – your choice.", "महिनामा एक पटक शनिबार काम हुनेछ। त्यसको बदलामा हप्ताभित्र एक दिन बिदा वा थप भत्ता पाउनुहुन्छ, जुन रोज्नुहुन्छ।"],
-      ["Ram", "Rozumiem. Tylko że w czwartki rano mam kurs polskiego. Czy wtedy mogę czasem zamienić zmianę?", "I see. It's just that on Thursday mornings I have a Polish course. Could I sometimes swap shifts then?", "बुझें। तर बिहीबार बिहान मेरो पोलिश भाषाको कक्षा हुन्छ। त्यसबेला कहिलेकाहीँ सिफ्ट साट्न मिल्छ?"],
+      ["Ram", "Rozumiem. Tylko że w czwartki po południu mam kurs polskiego. Czy wtedy mogę czasem zamienić zmianę?", "I see. It's just that on Thursday afternoons I have a Polish course. Could I sometimes swap shifts then?", "बुझें। तर बिहीबार दिउँसो मेरो पोलिश भाषाको कक्षा हुन्छ। त्यसबेला कहिलेकाहीँ सिफ्ट साट्न मिल्छ?"],
       ["Kadrowa", "Proszę napisać prośbę do kierownika zmiany. Jeśli ktoś się z panem zamieni, nie będzie problemu.", "Please write a request to the shift manager. If someone swaps with you, there won't be a problem.", "सिफ्ट प्रबन्धकलाई लिखित अनुरोध दिनुहोस्। कसैले तपाईंसँग साट्यो भने कुनै समस्या हुँदैन।"],
       ["Kadrowa", "Nowy grafik wyślę mailem do piątku. Proszę go podpisać i oddać w kadrach.", "I'll email the new schedule by Friday. Please sign it and return it to HR.", "नयाँ तालिका शुक्रबारसम्म इमेलबाट पठाउँछु। त्यसमा हस्ताक्षर गरेर HR मा बुझाउनुहोला।"],
       ["Ram", "Dobrze, dziękuję. Do usłyszenia.", "OK, thank you. Talk soon.", "हुन्छ, धन्यवाद। फेरि कुरा गरौंला।"]
@@ -677,7 +677,7 @@ window.SLOWKA_LISTENING.push(
         why: { en: "*Czasowo zablokowaliśmy kartę* – we temporarily blocked the card. *Czasowo* = for a time.",
                ne: "*Czasowo zablokowaliśmy kartę* – कार्ड अस्थायी रूपमा बन्द गर्‍यौं। *czasowo* = केही समयका लागि।" } },
       { q: "Na jaki numer Ram powinien oddzwonić?", en: "Which number should Ram call back?", ne: "रामले कुन नम्बरमा फोन गर्नुपर्छ?",
-        options: ["Na numer, z którego przyszła wiadomość.", "Na numer z odwrotu karty albo z aplikacji banku.", "Na numer policji."], answer: 1,
+        options: ["Na numer, z którego przyszła wiadomość.", "Na numer podany na odwrocie karty albo w aplikacji banku.", "Na numer policji."], answer: 1,
         why: { en: "*Numer infolinii, który jest na odwrocie karty albo w aplikacji.* Always use the number from the card or the app, never one given in a call: fraudsters can fake a bank's caller ID.",
                ne: "*Numer infolinii, który jest na odwrocie karty albo w aplikacji.* सधैं कार्ड वा एपमा भएको नम्बर प्रयोग गर्नुहोस्, फोनमा दिइएको नम्बर होइन: ठगहरूले बैंकको नम्बर देखिने गरी नक्कली फोन गर्न सक्छन्।" } },
       { q: "O co bank NIGDY nie prosi?", en: "What does the bank NEVER ask for?", ne: "बैंकले कहिल्यै के माग्दैन?",

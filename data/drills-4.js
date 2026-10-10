@@ -515,7 +515,7 @@ window.SLOWKA_DRILLS["b2-01"] = [
     why: { en: "*Jak* + infinitive asks 'how to'. *Do dworca* (to the station) comes after the verb.",
            ne: "*Jak* + infinitive ले 'कसरी गर्ने' सोध्छ। *Do dworca* (स्टेसनसम्म) क्रियापछि आउँछ।" } },
   { type: "order",
-    words: ["Musi", "pan", "przejść", "przez", "most."],
+    words: ["Musi", "pan", "przejść", "przez", "most."], alts: ["Pan musi przejść przez most."],
     en: "You have to cross the bridge. (to a man)", ne: "तपाईंले पुल पार गर्नुपर्छ। (पुरुषलाई)",
     why: { en: "*Musi pan* + infinitive; *przejść* is followed by *przez* + accusative: *przez most*.",
            ne: "*Musi pan* + infinitive; *przejść* पछि *przez* + accusative आउँछ: *przez most*।" } }
@@ -871,7 +871,7 @@ window.SLOWKA_DRILLS["b2-05"] = [
       "czerwcu": { en: "*czerwcu* is the locative (*w czerwcu* = in June). In a date: *pierwszego czerwca*.", ne: "*czerwcu* locative हो (*w czerwcu* = जुनमा)। मितिमा: *pierwszego czerwca*।" },
       "czerwieca": { en: "The *ie* drops out: *czerwiec* → *czerwca*.", ne: "*ie* हराउँछ: *czerwiec* → *czerwca*।" } } },
   { type: "order",
-    words: ["Z", "góry", "dziękuję", "za", "odpowiedź."],
+    words: ["Z", "góry", "dziękuję", "za", "odpowiedź."], alts: ["Dziękuję z góry za odpowiedź."],
     en: "Thank you in advance for your reply.", ne: "जवाफका लागि अग्रिम धन्यवाद।",
     why: { en: "*Z góry* (in advance) comes first, then *dziękuję za* + accusative.",
            ne: "*Z góry* (अग्रिम) पहिले आउँछ, त्यसपछि *dziękuję za* + accusative।" } },

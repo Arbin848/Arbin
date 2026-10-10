@@ -26,7 +26,7 @@ window.SLOWKA_PLACEMENT = [
     options: ["mieszkają", "mieszka", "mieszkamy"], answer: 0 },
   { level: "A1", q: "Poproszę ___ z mlekiem.", en: "A coffee with milk, please.", ne: "दूधसहितको कफी दिनुहोस्।",
     options: ["kawa", "kawy", "kawę"], answer: 2 },
-  { level: "A1", q: "Codziennie ___ do pracy autobusem.", en: "Every day I go to work by bus.", ne: "म हरेक दिन बसमा काममा जान्छु।",
+  { level: "A1", q: "Dzisiaj ___ do pracy autobusem.", en: "Today I'm going to work by bus.", ne: "आज म बसमा काममा जाँदैछु।",
     options: ["jedzie", "jadę", "jechać"], answer: 1 },
 
   // Band 3 — A2

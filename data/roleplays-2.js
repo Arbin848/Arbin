@@ -1115,7 +1115,7 @@ window.SLOWKA_ROLEPLAYS.push({
         { pl: "Szkoda! A gdzie byłeś w górach?", en: "(wrong gender of the verb)", ne: "(क्रियाको गलत लिङ्ग)", ok: false,
           why: { en: "Kasia is a woman — she said *byłam*. Talking to her, the past tense is *byłaś* (to a man: *byłeś*). Polish past tense always shows gender.",
                  ne: "कासिया महिला हुन् — उनले *byłam* भनिन्। उनलाई भन्दा भूतकाल *byłaś* हुन्छ (पुरुषलाई: *byłeś*)। पोलिश भूतकालले सधैं लिङ्ग देखाउँछ।" } },
-        { pl: "Szkoda. U nas na szczęście było słonecznie.", en: "Pity. Where we were it was luckily sunny.", ne: "दुःखको कुरा। हामीतिर भने भाग्यवश घमाइलो थियो।", ok: true }
+        { pl: "Szkoda. U nas na szczęście było słonecznie. A w jakich górach byłaś?", en: "Pity. Where we were it was luckily sunny. And which mountains were you in?", ne: "दुःखको कुरा। हामीतिर भने भाग्यवश घमाइलो थियो। अनि तपाईं कुन पहाडमा जानुभएको थियो?", ok: true }
       ]
     },
     {

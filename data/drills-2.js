@@ -322,7 +322,7 @@ window.SLOWKA_DRILLS["a1-10"] = [
       "rozumieć": { en: "*rozumieć* is the dictionary form. \"I understand\" is *rozumiem*.", ne: "*rozumieć* शब्दकोशको रूप हो। \"म बुझ्छु\" = *rozumiem*।" },
       "rozumię": { en: "This verb takes *-m* for \"I\", not *-ę*: *rozumiem*.", ne: "यो क्रियामा \"म\" का लागि *-ę* होइन *-m* लाग्छ: *rozumiem*।" } } },
   { type: "order",
-    words: ["Mówię", "trochę", "po", "polsku."],
+    words: ["Mówię", "trochę", "po", "polsku."], alts: ["Trochę mówię po polsku."],
     en: "I speak a little Polish.", ne: "म अलिअलि पोलिश बोल्छु।",
     why: { en: "*trochę* (a little) comes right after the verb; *po polsku* (in Polish) goes together.", ne: "*trochę* (अलिअलि) क्रियाको ठीक पछि आउँछ; *po polsku* (पोलिशमा) सँगै रहन्छ।" } },
   { type: "order",
@@ -1007,7 +1007,7 @@ window.SLOWKA_DRILLS["a2-06"] = [
     en: "What will you do on Saturday?", ne: "तिमी शनिबार के गर्नेछौ?",
     why: { en: "*będziesz* + infinitive *robić* stay together after the question word.", ne: "प्रश्नवाचक शब्दपछि *będziesz* + मूल क्रिया *robić* सँगै आउँछन्।" } },
   { type: "order",
-    words: ["W", "przyszłym", "roku", "pojadę", "do", "Nepalu."],
+    words: ["W", "przyszłym", "roku", "pojadę", "do", "Nepalu."], alts: ["Pojadę do Nepalu w przyszłym roku."],
     en: "Next year I'll go to Nepal.", ne: "अर्को वर्ष म नेपाल जानेछु।",
     why: { en: "The time phrase *w przyszłym roku* comes first; *pojadę* is a perfective future (no *będę*).", ne: "समय जनाउने *w przyszłym roku* सुरुमा आउँछ; *pojadę* पूर्ण पक्षको भविष्यकाल हो (*będę* बिना)।" } }
 ];
