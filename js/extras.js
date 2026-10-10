@@ -466,7 +466,9 @@
           <span class="label">Your level · तपाईंको स्तर</span>
           <h2>${esc(label)}</h2>
           <p class="hint">Start with <b>${esc(unit.title)}</b> (<span lang="ne">${esc(unit.titleNe)}</span>). You can still open any unit at any time.</p>
-          <div class="row"><button class="btn primary" data-action="go" data-to="${unit.id}">Go to ${esc(unit.title)}</button><button class="btn" data-action="place-restart">Take the test again</button></div>
+          ${S.COURSE.indexOf(unit) > 0 ? `<div class="row"><button class="btn primary" data-action="place-skip" data-unit="${unit.id}">Start here: mark earlier lessons as known · यहाँबाट सुरु गर्नुहोस्</button></div>
+            <p class="hint">Earlier lessons stay open, so you can go back to them any time. · अघिल्ला पाठ जुनसुकै बेला खोल्न सकिन्छ।</p>` : ''}
+          <div class="row"><button class="btn ${S.COURSE.indexOf(unit) > 0 ? '' : 'primary'}" data-action="go" data-to="${unit.id}">Go to ${esc(unit.title)}</button><button class="btn" data-action="place-restart">Take the test again</button></div>
         </div>
         <ul class="result-list">${BANDS.map((b, k) => `<li><span>${b.name === 'Start' ? 'Basics' : b.name}</span>${S.bar(bandScores[k], 6)}<b>${bandScores[k]}/6</b></li>`).join('')}</ul>
         <h3 class="section-h">Your answers <span class="ne-sub" lang="ne">तपाईंका उत्तर</span></h3>
@@ -596,6 +598,17 @@
       case 'exam-restart': startExam(exam.x); exam.si = 0; S.render(); window.scrollTo(0, 0); return true;
       case 'exam-tick': exam.ticks[el.dataset.key] = el.checked; return true;
       case 'place-answer': placement.answers[placement.i] = Number(el.dataset.index); placement.i += 1; S.render(); return true;
+      case 'place-skip': {
+        // Mark every main-course lesson before the placement result as known.
+        const target = S.UNIT.get(el.dataset.unit);
+        const main = S.COURSE.filter((u) => u.level !== 'Work');
+        const g = (S.progress.guided = S.progress.guided || {});
+        main.slice(0, main.indexOf(target)).forEach((u) => { if (!(g[u.id] && g[u.id].done)) g[u.id] = { step: 0, done: S.dayKey(), skipped: true }; });
+        S.progress.lastUnit = target.id;
+        S.saveProgress();
+        S.go('home');
+        return true;
+      }
       case 'place-restart': placement = null; S.render(); return true;
       default: return false;
     }

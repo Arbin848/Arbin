@@ -13,6 +13,10 @@ It works fully offline, with no AI, no account and no server. Everything is in t
 - **Practice** groups every tool by skill: vocabulary, grammar, pronunciation, real life and tests.
 - **Revision lessons** after every 5 lessons mix words, listening, grammar, dictation and speaking from those lessons, so nothing is forgotten.
 - **Level tests** at the end of each level (Start, A1, A2, B1, B2): score 70% to pass and get a course certificate (not an official state certificate).
+- **Numbers trainer**: numbers, prices (*dwa złote* / *pięć złotych*), times (*o siódmej trzydzieści*), dates (*piętnastego maja*) and phone numbers, generated from Polish rules so practice never runs out.
+- **Listening**: 20 phone calls, voicemails, announcements and conversations (A1–B2) at natural speed, with questions; the transcript appears after you answer.
+- **Placement auto-start**: after the placement test, lessons below your level are marked as known and you start at the right lesson.
+- **Badges** for lessons, streaks, words learned, conversations, listening, sounds and certificates.
 - **Weak-spot report** (Progress → report): the words you keep forgetting, the grammar topics, cases and tenses you get wrong most, the sounds you find hardest, and your skill scores, each with a button to practise it.
 - **Pronunciation help everywhere**: words split into syllable blocks with the stressed one highlighted (English letters and Devanagari), tips for the hard letters in each word, slow playback, and native recordings from Wiktionary and Lingua Libre.
 

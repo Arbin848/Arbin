@@ -11,7 +11,7 @@
 
   // Routes are bare tokens so they survive in a link's #anchor: "a1-03", "talk.rp-a1-cafe", "review".
   S.route = { name: 'home' };
-  const PAGES = ['revise', 'cert', 'report', 'course', 'practice', 'learn', 'review', 'alphabet', 'dictionary', 'settings', 'talk', 'read', 'exam', 'placement', 'mistakes', 'progress', 'verbs', 'cases', 'sounds', 'check'];
+  const PAGES = ['numbers', 'listen', 'revise', 'cert', 'report', 'course', 'practice', 'learn', 'review', 'alphabet', 'dictionary', 'settings', 'talk', 'read', 'exam', 'placement', 'mistakes', 'progress', 'verbs', 'cases', 'sounds', 'check'];
 
   S.go = (to, opts = {}) => {
     S.Practice.reset();
@@ -46,6 +46,7 @@
       const done = S.COURSE.filter((u) => S.Guided.status(u).done).length;
       view.insertAdjacentHTML('beforeend', `
         <p class="hint">Lessons finished with your teacher: <b>${done} of ${S.COURSE.length}</b>.</p>
+        ${S.Listening.badgesHTML()}
         <section class="card compact report-cta"><b>Weak-spot report · कमजोरी रिपोर्ट</b><span class="hint">See which words, grammar and sounds need more practice.</span><button class="btn primary" data-action="go" data-to="report">Open my report →</button></section>
         ${(() => {
           const certs = S.progress.certs || {};
@@ -59,6 +60,8 @@
     else if (r.name === 'verbs') r.arg === 'practice' ? S.Trainers.verbPractice(view) : r.arg ? S.Trainers.verb(view, r.arg) : S.Trainers.verbList(view);
     else if (r.name === 'cases') r.arg === 'practice' ? S.Trainers.casePractice(view) : r.arg ? S.Trainers.noun(view, r.arg) : S.Trainers.caseList(view);
     else if (r.name === 'sounds') r.arg ? S.Trainers.sound(view, r.arg) : S.Trainers.soundList(view);
+    else if (r.name === 'numbers') S.Numbers.render(view);
+    else if (r.name === 'listen') r.arg ? S.Listening.task(view, r.arg) : S.Listening.list(view);
     else if (r.name === 'revise') S.Assess.render(view, r.arg);
     else if (r.name === 'cert') S.Assess.certificate(view, r.arg);
     else if (r.name === 'report') S.Assess.report(view);
@@ -69,7 +72,7 @@
     else renderHome();
   };
   S.onProgress = () => renderStats();
-  const NAV = { revise: 'course', cert: 'progress', report: 'progress', home: 'home', course: 'course', unit: 'course', learn: 'course', practice: 'practice', review: 'practice', verbs: 'practice', cases: 'practice', sounds: 'practice', alphabet: 'practice', dictionary: 'practice', mistakes: 'practice', talk: 'practice', read: 'practice', exam: 'practice', placement: 'practice', progress: 'progress', settings: 'progress', check: 'progress' };
+  const NAV = { numbers: 'practice', listen: 'practice', revise: 'course', cert: 'progress', report: 'progress', home: 'home', course: 'course', unit: 'course', learn: 'course', practice: 'practice', review: 'practice', verbs: 'practice', cases: 'practice', sounds: 'practice', alphabet: 'practice', dictionary: 'practice', mistakes: 'practice', talk: 'practice', read: 'practice', exam: 'practice', placement: 'practice', progress: 'progress', settings: 'progress', check: 'progress' };
   function renderNav() {
     const cur = NAV[S.route.name] || 'home';
     document.querySelectorAll('.bottom-nav button').forEach((b) => b.setAttribute('aria-current', b.dataset.to === cur ? 'page' : 'false'));
@@ -131,7 +134,7 @@
     return `
       <li>
         <button class="unit-row ${state}" data-action="go" data-to="${u.id}">
-          <span class="unit-num">${st.done ? '✓' : esc(u.id.split('-')[1])}</span>
+          <span class="unit-num">${st.done ? (st.skipped ? '•' : '✓') : esc(u.id.split('-')[1])}</span>
           <span class="unit-text">
             <span class="unit-title">${esc(u.title)}</span>
             <span class="unit-ne" lang="ne">${esc(u.titleNe)}</span>
@@ -276,10 +279,10 @@
         <h2>Train each skill</h2>
         <p class="hint">Use these any time, next to your lessons. · पाठसँगै जुनसुकै बेला प्रयोग गर्नुहोस्।</p>
       </header>
-      ${group('Vocabulary', 'शब्द', [['review', due, 'Daily review', 'दैनिक दोहोर्याइ', due > 0], ['dictionary', S.ENTRIES.length, 'Dictionary', 'शब्दकोश']])}
+      ${group('Vocabulary', 'शब्द', [['review', due, 'Daily review', 'दैनिक दोहोर्याइ', due > 0], ['numbers', '123', 'Numbers & prices', 'अङ्क र मूल्य'], ['dictionary', S.ENTRIES.length, 'Dictionary', 'शब्दकोश']])}
       ${group('Grammar', 'व्याकरण', [['verbs', S.Trainers.VERBS.length, 'Verbs', 'क्रियापद'], ['cases', 7, 'Cases', 'विभक्ति'], ['mistakes', mistakes, 'My mistakes', 'मेरा गल्ती', mistakes > 0]])}
       ${group('Pronunciation', 'उच्चारण', [['alphabet', '<span lang="pl">Ąą</span>', 'Alphabet', 'वर्णमाला'], ['sounds', S.Trainers.SOUNDS.length, 'Sounds lab', 'ध्वनि अभ्यास']])}
-      ${group('Real life', 'वास्तविक जीवन', [['talk', S.ROLEPLAYS.length, 'Conversations', 'संवाद'], ['read', S.STORIES.length, 'Reading', 'पढाइ']])}
+      ${group('Real life', 'वास्तविक जीवन', [['listen', S.Listening.TASKS.length, 'Listening', 'सुनाइ'], ['talk', S.ROLEPLAYS.length, 'Conversations', 'संवाद'], ['read', S.STORIES.length, 'Reading', 'पढाइ']])}
       ${group('Tests', 'परीक्षा', [['placement', '30', 'Find my level', 'स्तर परीक्षा'], ['exam', 'B1', 'B1 exam practice', 'B1 परीक्षा']])}`;
   }
 
@@ -559,6 +562,8 @@
     if (S.Practice.action(a, el)) return;
     if (S.Guided.action(a, el, view)) return;
     if (S.Assess.action(a, el, view)) return;
+    if (S.Numbers.action(a, el, view)) return;
+    if (S.Listening.action(a, el, view)) return;
     if (S.Extras.action(a, el, view)) return;
     if (S.Trainers.action(a, el, view)) return;
     switch (a) {
@@ -615,6 +620,7 @@
     ev.preventDefault();
     if (S.Practice.submit(ev.target)) return;
     if (S.Assess.submit(ev.target, view)) return;
+    if (S.Numbers.submit(ev.target, view)) return;
     if (S.Trainers.submit(ev.target, view)) return;
     S.Extras.submit(ev.target);
   });
@@ -627,6 +633,7 @@
     if (S.Trainers.key(ev)) return;
     if (S.Guided.key(ev)) return;
     if (S.Assess.key(ev)) return;
+    if (S.Numbers.key(ev)) return;
     S.Extras.key(ev);
   });
 

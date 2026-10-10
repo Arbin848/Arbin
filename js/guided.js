@@ -14,7 +14,7 @@
     const g = state()[u.id];
     const total = buildSteps(u).length;
     if (!g) return { started: false, done: false, step: 0, total };
-    return { started: true, done: !!g.done, step: Math.min(g.step || 0, total - 1), total };
+    return { started: true, done: !!g.done, skipped: !!g.skipped, step: Math.min(g.step || 0, total - 1), total };
   };
 
   // ---------- the teacher ----------

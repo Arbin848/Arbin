@@ -1000,3 +1000,13 @@ button.hint-chip:hover { border-color: var(--accent); border-style: solid; }
 .cert-level { margin: 4px 0; font-family: var(--font-display); font-weight: 800; font-size: 1.5rem; color: var(--lv); }
 .cert-foot { display: flex; justify-content: space-between; width: 100%; margin-top: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
 .cert-note { margin: 8px 0 0; font-size: 0.75rem; color: var(--muted); }
+
+/* ---------- v7: numbers, listening, badges ---------- */
+.num-display { font-variant-numeric: tabular-nums; }
+.listen-player { gap: 12px; }
+.badges { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 140px), 1fr)); gap: 8px; }
+.badge-card { border: 1px dashed var(--line); border-radius: 12px; padding: 10px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 2px; opacity: 0.55; filter: grayscale(1); }
+.badge-card.on { opacity: 1; filter: none; border-style: solid; border-color: var(--good); background: var(--good-soft); }
+.badge-icon { font-size: 1.8rem; line-height: 1.2; }
+.badge-card b { font-size: 0.9rem; }
+.badge-card small { font-size: 0.72rem; }
