@@ -21,6 +21,7 @@
     .filter((u) => u && u.id && S.levelIndex(u.level) >= 0)
     .sort((a, b) => S.levelIndex(a.level) - S.levelIndex(b.level) || a.id.localeCompare(b.id, 'en', { numeric: true }));
   S.ALPHABET = W.SLOWKA_ALPHABET || [];
+  S.LETTER_PAIRS = W.SLOWKA_LETTER_PAIRS || [];
   S.DRILLS = W.SLOWKA_DRILLS || {};
   S.ROLEPLAYS = (W.SLOWKA_ROLEPLAYS || []).slice().sort((a, b) => a.level.localeCompare(b.level));
   S.STORIES = (W.SLOWKA_STORIES || []).slice().sort((a, b) => a.id.localeCompare(b.id, 'en', { numeric: true }));

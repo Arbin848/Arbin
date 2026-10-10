@@ -483,6 +483,24 @@ const bad = (name, why) => { results.fail++; results.failures.push(`${name}: ${w
       });
       if (r.played.length !== 3 || r.played.some((x) => !x.endsWith(r.file))) throw new Error(`unexpected playback ${JSON.stringify(r.played)}`);
     });
+    await check(p, 'alphabet: every letter name and letter pair can be heard', async () => {
+      await go(p, 'alphabet');
+      const r = await p.evaluate(() => ({ chips: [...document.querySelectorAll('.name-chip')].map((b) => b.dataset.text), pairs: document.querySelectorAll('.letters')[1].querySelectorAll('.letter').length, pairListen: document.querySelectorAll('.letters')[1].querySelectorAll('[data-action="say"]').length }));
+      if (r.chips.length !== 32 || r.chips.some((x) => !x)) throw new Error(`letter names: ${r.chips.length}`);
+      if (r.pairs < 12 || r.pairListen < 12) throw new Error('letter pairs missing');
+      const said = await p.evaluate(async () => {
+        const S = window.Slowka; const out = [];
+        const sp = speechSynthesis.speak.bind(speechSynthesis);
+        speechSynthesis.speak = (u) => { out.push(u.text); setTimeout(() => u.onend && u.onend(), 10); };
+        S.settings.audio = 'device';
+        document.querySelector('[data-action="abc-play"]').click();
+        await new Promise((res) => setTimeout(res, 2500));
+        document.querySelector('[data-action="abc-stop"]').click();
+        speechSynthesis.speak = sp; S.settings.audio = 'native';
+        return out;
+      });
+      if (said.slice(0, 4).join('|') !== 'a|mama|ą|mąż') throw new Error(`whole alphabet plays ${said.slice(0, 4).join('|')}`);
+    });
     console.log('11. My words, pronunciation and audio done');
   }
 
