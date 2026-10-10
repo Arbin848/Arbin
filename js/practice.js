@@ -89,8 +89,8 @@
     const e = s.cards[s.i];
     const plFirst = S.settings.dir === 'pl';
     const front = plFirst
-      ? `<span class="label">Polish · पोलिस</span><span class="word" lang="pl">${polish(e.pl)}</span>`
-      : `<span class="label">Say it in Polish · पोलिसमा भन्नुहोस्</span>${S.meaningHTML(e, 'big')}`;
+      ? `<span class="label">Polish · पोलिश</span><span class="word" lang="pl">${polish(e.pl)}</span>`
+      : `<span class="label">Say it in Polish · पोलिशमा भन्नुहोस्</span>${S.meaningHTML(e, 'big')}`;
     const back = plFirst
       ? `<span class="rule"></span>${S.meaningHTML(e, 'big')}${S.pronHTML(e)}`
       : `<span class="rule"></span><span class="word sm" lang="pl">${polish(e.pl)}</span>${S.pronHTML(e)}`;
@@ -151,7 +151,7 @@
     } else if (plFirst) {
       prompt = `<span class="label">What does it mean? · यसको अर्थ के हो?</span><span class="word" lang="pl">${polish(e.pl)}</span>${answered ? '' : `<div class="row">${S.listenBtn(e.pl, true)}</div>`}`;
     } else {
-      prompt = `<span class="label">Choose the Polish · पोलिस छान्नुहोस्</span>${S.meaningHTML(e, 'big')}`;
+      prompt = `<span class="label">Choose the Polish · पोलिश छान्नुहोस्</span>${S.meaningHTML(e, 'big')}`;
     }
     const opts = s.options.map((o, i) => {
       let cls = 'option';
@@ -288,7 +288,7 @@
     stage.innerHTML = `
       <div class="meta"><span>Score ${s.score} / ${s.total}</span>${S.boxMeter(e)}</div>
       <form class="card" data-form="type" autocomplete="off">
-        <span class="label">Write it in Polish · पोलिसमा लेख्नुहोस्</span>
+        <span class="label">Write it in Polish · पोलिशमा लेख्नुहोस्</span>
         ${S.meaningHTML(e, 'big')}
         <input class="type-input" id="type-answer" data-keys-target lang="pl" spellcheck="false" autocapitalize="off" autocorrect="off"
           aria-label="Your answer in Polish" value="${esc(s.given)}" ${s.result ? 'readonly' : 'data-autofocus'}>

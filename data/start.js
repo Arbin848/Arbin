@@ -574,7 +574,7 @@ window.SLOWKA_COURSE.push(
 
 // Letter pairs that make one sound. Shown on the alphabet page.
 window.SLOWKA_LETTER_PAIRS = [
-  { letters: "ch", soundEn: "throaty h, the same sound as h", soundNe: "घाँटीबाट 'ह' (h जस्तै)", example: "chleb", exampleEn: "bread", exampleNe: "रोटी", pron: "hlep", proNe: "ह्लेप्" },
+  { letters: "ch", soundEn: "throaty h, the same sound as h", soundNe: "घाँटीबाट 'ह' (h जस्तै)", example: "chleb", exampleEn: "bread", exampleNe: "पाउरोटी", pron: "hlep", proNe: "ह्लेप्" },
   { letters: "cz", soundEn: "hard ch, as in 'church'", soundNe: "कडा 'च'", example: "czas", exampleEn: "time", exampleNe: "समय", pron: "chas", proNe: "चास्" },
   { letters: "sz", soundEn: "hard sh: tongue up, lips round", soundNe: "कडा 'श' (जिब्रो माथि, ओठ गोलो)", example: "szkoła", exampleEn: "school", exampleNe: "विद्यालय", pron: "SHKO-wa", proNe: "ˈश्को-वा" },
   { letters: "rz", soundEn: "zh as in 'pleasure', the same sound as ż", soundNe: "'झ' (ż जस्तै)", example: "rzeka", exampleEn: "river", exampleNe: "नदी", pron: "ZHEH-ka", proNe: "ˈझे-का" },

@@ -295,7 +295,7 @@ window.SLOWKA_COURSE.push(
       ["mówić o", "to talk about", "को बारेमा बोल्नु", "MOO-veech o", "ˈमु-भिच् ओ"]
     ],
     phrases: [
-      ["Mieszkam w Polsce.", "I live in Poland.", "म पोल्यान्डमा बस्छु।", "MYESH-kam f POL-tseh", "ˈम्येश्-काम् फ़् ˈपोल्-त्से"],
+      ["Mieszkam w Polsce.", "I live in Poland.", "म पोल्यान्डमा बस्छु।", "MYESH-kam f POL-stseh", "ˈम्येश्-काम् फ़् ˈपोल्-स्त्से"],
       ["Pracuję w Warszawie.", "I work in Warsaw.", "म वार्सामा काम गर्छु।", "pra-TSOO-yeh v var-SHA-vye", "प्रा-ˈत्सु-ये भ् भार्-ˈशा-भ्ये"],
       ["Jestem w pracy.", "I'm at work.", "म काममा छु।", "YES-tem f PRA-tsi", "ˈयेस्-तेम् फ़् ˈप्रा-त्सि"],
       ["Czekam na dworcu.", "I'm waiting at the station.", "म स्टेसनमा पर्खिरहेको छु।", "CHE-kam na DVOR-tsoo", "ˈचे-काम् ना ˈद्भोर्-त्सु"],
@@ -403,7 +403,7 @@ window.SLOWKA_COURSE.push(
       ["pielęgniarka", "nurse (f)", "नर्स", "pye-leng-NYAR-ka", "प्ये-लेङ्-ˈन्यार्-का"],
       ["interesować się", "to be interested in", "रुचि हुनु", "een-te-re-SO-vach sheh", "इन्-ते-रे-ˈसो-भाच् शे"],
       ["piłka nożna", "football", "फुटबल", "PEEW-ka NOZH-na", "ˈपिव्-का ˈनोझ्-ना"],
-      ["muzyka", "music", "संगीत", "moo-ZI-ka", "मु-ˈज़ि-का"],
+      ["muzyka", "music", "संगीत", "MOO-zi-ka", "ˈमु-ज़ि-का"],
       ["gotowanie", "cooking", "खाना पकाउने काम", "go-to-VA-nye", "गो-तो-ˈभा-न्ये"],
       ["długopis", "pen", "कलम", "dwoo-GO-pees", "द्वु-ˈगो-पिस्"]
     ],
@@ -601,7 +601,7 @@ window.SLOWKA_COURSE.push(
           ["*pisać*", "*będę pisać*", "*napisać*", "*napiszę*", "write"],
           ["*dzwonić*", "*będę dzwonić*", "*zadzwonić*", "*zadzwonię*", "call"],
           ["*gotować*", "*będę gotować*", "*ugotować*", "*ugotuję*", "cook"],
-          ["*chodzić* (regularly)", "*będę chodzić*", "*pójść*", "*pójdę*", "go on foot"]
+          ["*iść*", "*będę iść*", "*pójść*", "*pójdę*", "go on foot"]
         ]
       }
     ],

@@ -390,6 +390,8 @@ const bad = (name, why) => { results.fail++; results.failures.push(`${name}: ${w
       for (const [k, v] of buttons) await p.click(`[data-action="set"][data-key="${k}"][data-value="${v}"]`);
       await p.click('[data-action="set"][data-key="meaning"][data-value="both"]'); await p.click('[data-action="set"][data-key="explain"][data-value="both"]'); await p.click('[data-action="set"][data-key="pron"][data-value="both"]');
       const code = await p.inputValue('#backup-out'); await p.fill('#backup-in', code); await p.click('[data-action="backup-restore"]');
+      if (!/Tap again/.test(await p.textContent('[data-action="backup-restore"]'))) throw new Error('restore did not ask for a second tap');
+      await p.click('[data-action="backup-restore"]');
       if (!/restored/.test(await p.textContent('#backup-msg'))) throw new Error('backup restore failed');
       await p.fill('#backup-in', 'not a code'); await p.click('[data-action="backup-restore"]');
       if (!/did not work/.test(await p.textContent('#backup-msg'))) throw new Error('bad code not rejected');
@@ -500,6 +502,49 @@ const bad = (name, why) => { results.fail++; results.failures.push(`${name}: ${w
         return out;
       });
       if (said.slice(0, 4).join('|') !== 'a|mama|ą|mąż') throw new Error(`whole alphabet plays ${said.slice(0, 4).join('|')}`);
+    });
+    await check(p, 'review fixes: spaced repetition, numbers, slashes, safe restore', async () => {
+      const r = await p.evaluate(() => {
+        const S = window.Slowka; const out = {};
+        const e = S.COURSE[3].entries[0];
+        S.progress.items[e.pl] = { b: 4, due: S.dayKey() };
+        S.review(e, 0);
+        out.halfRightStaysDue = S.progress.items[e.pl].due === S.dayKey() && S.progress.items[e.pl].b === 4;
+        delete S.progress.items[e.pl];
+        out.digits = S.spokenDigits('mam 2 koty i 21 lat');
+        out.slash = S.checkAnswer('robić/zrobić', ['robić / zrobić']);
+        const evil = { v: 2, progress: { items: {}, stories: { 'st-a1-01': '<img src=x onerror="window.__x=1">' } }, settings: { goal: '<img src=x onerror="window.__x=1">', meaning: 'en' } };
+        const keep = { p: JSON.stringify(S.progress), s: JSON.stringify(S.settings) };
+        S.restoreBackup(btoa(unescape(encodeURIComponent(JSON.stringify(evil)))));
+        out.goal = S.settings.goal; out.meaning = S.settings.meaning; out.story = S.progress.stories['st-a1-01'];
+        S.progress = JSON.parse(keep.p); S.settings = Object.assign(S.settings, JSON.parse(keep.s)); S.saveProgress(); S.saveSettings();
+        return out;
+      });
+      if (!r.halfRightStaysDue) throw new Error('a half-right answer moved the word out of today\'s review');
+      if (r.digits !== 'mam dwa koty i dwadzieścia jeden lat') throw new Error(`spoken digits: ${r.digits}`);
+      if (r.slash !== 'right') throw new Error('robić/zrobić without spaces not accepted');
+      if (r.goal !== 20 && r.goal !== 10 && r.goal !== 40 && r.goal !== 60) throw new Error(`bad goal restored: ${r.goal}`);
+      if (/</.test(r.story) || r.meaning !== 'en') throw new Error('backup not cleaned');
+      await go(p, 'read'); await go(p, 'home');
+      if (await p.evaluate(() => window.__x)) throw new Error('markup from a backup code ran');
+    });
+    await check(p, 'phone Back button returns to the previous page', async () => {
+      await go(p, 'home'); await p.click('.bottom-nav [data-to="course"]'); await p.waitForTimeout(80);
+      await p.evaluate(() => window.Slowka.go('a1-01')); await p.waitForTimeout(80);
+      await p.goBack(); await p.waitForTimeout(200);
+      const route = await p.evaluate(() => window.Slowka.route.name);
+      if (route !== 'course') throw new Error(`Back went to ${route}`);
+    });
+    await check(p, 'listening task can be tried again; focus stays after answering', async () => {
+      const id = await p.evaluate(() => window.Slowka.Listening.TASKS[0].id);
+      await go(p, `listen.${id}`);
+      const n = await p.$$eval('[data-action="ls-answer"][data-index="0"]', (x) => x.length);
+      for (let i = 0; i < n; i++) await p.click(`[data-action="ls-answer"][data-q="${i}"][data-index="0"]`);
+      await p.click('[data-action="ls-restart"]');
+      if ((await p.$$('[data-action="ls-answer"][disabled]')).length) throw new Error('answers not cleared');
+      await p.focus('[data-action="ls-answer"][data-q="0"][data-index="1"]'); await p.keyboard.press('Enter'); await p.waitForTimeout(50);
+      const focused = await p.evaluate(() => document.activeElement && document.activeElement.tagName);
+      if (focused === 'BODY') throw new Error('focus lost after answering');
     });
     console.log('11. My words, pronunciation and audio done');
   }

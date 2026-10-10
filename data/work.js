@@ -154,7 +154,7 @@ window.SLOWKA_COURSE.push(
       ["łopata", "shovel", "बेल्चा", "wo-PA-ta", "वो-ˈपा-ता"],
       ["taczka", "wheelbarrow", "ठेलागाडा", "TACH-ka", "ˈताच्-का"],
       ["wysokość", "height", "उचाइ", "vi-SO-koshch", "भि-ˈसो-कोश्च्"],
-      ["niebezpieczeństwo", "danger", "खतरा", "nyeh-bes-pyeh-CHEN-stfo", "न्ये-बेस्-प्ये-ˈचेन्-स्त्फो"],
+      ["niebezpieczeństwo", "danger", "खतरा", "nyeh-bes-pyeh-CHENY-stfo", "न्ये-बेस्-प्ये-ˈचेन्य्-स्त्फो"],
       ["mieszać", "to mix", "मिसाउनु", "MYEH-shach", "ˈम्ये-शाच्"]
     ],
     phrases: [
@@ -219,7 +219,7 @@ window.SLOWKA_COURSE.push(
       }
     ],
     words: [
-      ["fabryka", "factory", "कारखाना", "fa-BRI-ka", "फा-ˈब्रि-का"],
+      ["fabryka", "factory", "कारखाना", "FA-bri-ka", "ˈफा-ब्रि-का"],
       ["zakład", "plant / workplace", "कारखाना / कार्यस्थल", "ZAK-wat", "ˈज़ाक्-वात्"],
       ["linia produkcyjna", "production line", "उत्पादन लाइन", "LEE-nya pro-dook-TSIY-na", "ˈलि-न्या प्रो-दुक्-ˈत्सिय्-ना"],
       ["taśma", "conveyor belt", "कन्भेयर बेल्ट", "TASH-ma", "ˈताश्-मा"],
@@ -434,7 +434,7 @@ window.SLOWKA_COURSE.push(
       ["Czym mam to umyć?", "What should I wash this with?", "यो केले धुने?", "chim mam to OO-mich", "चिम् माम् तो ˈउ-मिच्"],
       ["Które pokoje mam dzisiaj posprzątać?", "Which rooms should I clean today?", "आज कुन-कुन कोठा सफा गर्ने?", "KTOO-reh po-KO-yeh mam JEE-shay po-SPSHON-tach", "ˈक्तु-रे पो-ˈको-ये माम् ˈजि-शाय् पो-ˈस्प्शोन्-ताच्"],
       ["Gdzie są worki na śmieci?", "Where are the bin bags?", "फोहोर हाल्ने झोला कहाँ छन्?", "gjeh son VOR-kee na SHMYEH-chee", "ग्जे सोन् ˈभोर्-कि ना ˈश्म्ये-चि"],
-      ["Skończył się płyn do naczyń.", "The washing-up liquid has run out.", "भाँडा माझ्ने झोल सकियो।", "SKON-chiw sheh pwin do NA-chiny", "ˈस्कोन्-चिव् शे प्विन् दो ˈना-चिन्य्"],
+      ["Skończył się płyn do naczyń.", "The washing-up liquid has run out.", "भाँडा माझ्ने झोल सकियो।", "SKONY-chiw sheh pwin do NA-chiny", "ˈस्कोन्य्-चिव् शे प्विन् दो ˈना-चिन्य्"],
       ["Nie wolno mieszać tych środków.", "You must not mix these products.", "यी झोलहरू मिसाउन पाइँदैन।", "nyeh VOL-no MYEH-shach tih SHROT-koof", "न्ये ˈभोल्-नो ˈम्ये-शाच् तिह् ˈश्रोत्-कुफ्"],
       ["Łazienka jest już posprzątana.", "The bathroom is already cleaned.", "बाथरुम सफा भइसक्यो।", "wa-ZHEN-ka yest yoosh po-spshon-TA-na", "वा-ˈझेन्-का येस्त् युश् पो-स्प्शोन्-ˈता-ना"],
       ["Plastik wyrzucamy do żółtego kosza.", "Plastic goes in the yellow bin.", "प्लास्टिक पहेँलो डस्टबिनमा फाल्छौँ।", "PLAS-teek vi-zhoo-TSA-mi do zhoow-TEH-go KO-sha", "ˈप्लास्-तिक् भि-झु-ˈत्सा-मि दो झुव्-ˈते-गो ˈको-शा"],
@@ -516,7 +516,7 @@ window.SLOWKA_COURSE.push(
       ["parkować", "to park", "पार्क गर्नु", "par-KO-vach", "पार्-ˈको-भाच्"],
       ["mandat", "fine (ticket)", "जरिवाना", "MAN-dat", "ˈमान्-दात्"],
       ["policja", "police", "प्रहरी", "po-LEETS-ya", "पो-ˈलित्स्-या"],
-      ["pas bezpieczeństwa", "seat belt", "सिट बेल्ट", "pas bes-pyeh-CHEN-stfa", "पास् बेस्-प्ये-ˈचेन्-स्त्फा"],
+      ["pas bezpieczeństwa", "seat belt", "सिट बेल्ट", "pas bes-pyeh-CHENY-stfa", "पास् बेस्-प्ये-ˈचेन्य्-स्त्फा"],
       ["dowód rejestracyjny", "vehicle registration document", "गाडीको दर्ता कागज (ब्लुबुक)", "DO-voot reh-yes-tra-TSIY-ni", "ˈदो-भुत् रे-येस्-त्रा-ˈत्सिय्-नि"]
     ],
     phrases: [
@@ -609,7 +609,7 @@ window.SLOWKA_COURSE.push(
     ],
     phrases: [
       ["Jak się pani dzisiaj czuje?", "How do you feel today? (to a woman)", "आज तपाईंलाई कस्तो छ?", "yak sheh PA-nee JEE-shay CHOO-yeh", "याक् शे ˈपा-नि ˈजि-शाय् ˈचु-ये"],
-      ["Co panią boli?", "What hurts? (to a woman)", "तपाईंलाई के दुख्छ?", "tso PA-nyon BO-lee", "त्सो ˈपा-न्योन् ˈबो-लि"],
+      ["Co panią boli?", "What hurts? (to a woman)", "तपाईंलाई के दुख्छ?", "tso PA-nyom BO-lee", "त्सो ˈपा-न्योम् ˈबो-लि"],
       ["Czas na leki.", "Time for your medicine.", "औषधि खाने बेला भयो।", "chas na LEH-kee", "चास् ना ˈले-कि"],
       ["Zmierzę pani ciśnienie.", "I'll measure your blood pressure. (to a woman)", "म तपाईंको प्रेसर नाप्छु।", "ZMYEH-zheh PA-nee cheesh-NYEH-nyeh", "ˈज़्म्ये-झे ˈपा-नि चिश्-ˈन्ये-न्ये"],
       ["Proszę powoli wstać.", "Please stand up slowly.", "बिस्तारै उठ्नुहोस्।", "PRO-sheh po-VO-lee fstach", "ˈप्रो-शे पो-ˈभो-लि फ्स्ताच्"],
@@ -703,7 +703,7 @@ window.SLOWKA_COURSE.push(
       ["Pomidory sortujemy według wielkości.", "We sort tomatoes by size.", "हामी गोलभेडा आकारअनुसार छुट्याउँछौँ।", "po-mee-DO-ri sor-too-YEH-mi VED-wook vyel-KOSH-chee", "पो-मि-ˈदो-रि सोर्-तु-ˈये-मि ˈभेद्-वुक् भ्येल्-ˈकोश्-चि"],
       ["W chłodni jest bardzo zimno.", "It's very cold in the cold store.", "चिसो भण्डारमा धेरै चिसो छ।", "f HWOD-nee yest BAR-dzo ZHEEM-no", "फ् ˈह्वोद्-नि येस्त् ˈबार्-द्ज़ो ˈझिम्-नो"],
       ["Potrzebuję wody, jest bardzo gorąco.", "I need water, it's very hot.", "मलाई पानी चाहियो, धेरै गर्मी छ।", "pot-sheh-BOO-yeh VO-di yest BAR-dzo go-RON-tso", "पोत्-शे-ˈबु-ये ˈभो-दि येस्त् ˈबार्-द्ज़ो गो-ˈरोन्-त्सो"],
-      ["O której kończymy pracę?", "What time do we finish work?", "हामी कति बजे काम सक्छौँ?", "o KTOO-rey kon-CHI-mi PRA-tseh", "ओ ˈक्तु-रेय् कोन्-ˈचि-मि ˈप्रा-त्से"]
+      ["O której kończymy pracę?", "What time do we finish work?", "हामी कति बजे काम सक्छौँ?", "o KTOO-rey kony-CHI-mi PRA-tseh", "ओ ˈक्तु-रेय् कोन्य्-ˈचि-मि ˈप्रा-त्से"]
     ],
     dialogue: [
       ["Pan Marek", "Dzień dobry! Dzisiaj zbieramy truskawki w szklarni numer dwa.", "Good morning! Today we're picking strawberries in greenhouse number two.", "नमस्ते! आज हामी दुई नम्बर ग्रिनहाउसमा स्ट्रबेरी टिप्छौँ।"],

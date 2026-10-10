@@ -10,9 +10,9 @@
     { id: 'Start', name: 'Start here', ne: 'यहाँबाट सुरु गर्नुहोस्', blurb: 'Alphabet, sounds and reading rules', blurbNe: 'वर्णमाला, उच्चारण र पढ्ने नियम' },
     { id: 'A1', name: 'A1 · Beginner', ne: 'शुरुआती', blurb: 'Everyday words and simple sentences', blurbNe: 'दैनिक शब्द र सरल वाक्य' },
     { id: 'A2', name: 'A2 · Elementary', ne: 'प्रारम्भिक', blurb: 'Cases, past and future, daily life and work', blurbNe: 'विभक्ति, भूत र भविष्य काल, दैनिक जीवन र काम' },
-    { id: 'B1', name: 'B1 · Intermediate', ne: 'मध्यम', blurb: 'Aspect, polite Polish, life in Poland', blurbNe: 'क्रियाको पक्ष, विनम्र पोलिस, पोल्यान्डमा जीवन' },
-    { id: 'B2', name: 'B2 · Upper intermediate', ne: 'उच्च-मध्यम', blurb: 'Fluent, formal and idiomatic Polish', blurbNe: 'धाराप्रवाह, औपचारिक र मुहावरेदार पोलिस' },
-    { id: 'Work', name: 'Polish for work', ne: 'कामको लागि पोलिस', blurb: 'Word packs for common jobs in Poland', blurbNe: 'पोल्यान्डका सामान्य कामका शब्दहरू' },
+    { id: 'B1', name: 'B1 · Intermediate', ne: 'मध्यम', blurb: 'Aspect, polite Polish, life in Poland', blurbNe: 'क्रियाको पक्ष, विनम्र पोलिश, पोल्यान्डमा जीवन' },
+    { id: 'B2', name: 'B2 · Upper intermediate', ne: 'उच्च-मध्यम', blurb: 'Fluent, formal and idiomatic Polish', blurbNe: 'धाराप्रवाह, औपचारिक र मुहावरेदार पोलिश' },
+    { id: 'Work', name: 'Polish for work', ne: 'कामको लागि पोलिश', blurb: 'Word packs for common jobs in Poland', blurbNe: 'पोल्यान्डका सामान्य कामका शब्दहरू' },
   ];
   S.levelIndex = (id) => S.LEVELS.findIndex((l) => l.id === id);
 
@@ -56,7 +56,8 @@
   // Lesson markup on escaped text: *polish words* and **bold**.
   S.markup = (s) => S.esc(s)
     .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-    .replace(/\*(.+?)\*/g, (_, t) => `<span class="pl" lang="pl">${S.highlight(t)}</span>`);
+    // Polish in explanations can be tapped to hear it.
+    .replace(/\*(.+?)\*/g, (_, t) => `<span class="pl say-tap" lang="pl" role="button" tabindex="0" data-action="say" data-text="${t}" title="Listen">${S.highlight(t)}</span>`);
 
   S.stripMarks = (s) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/ł/g, 'l').replace(/Ł/g, 'L');
   S.clean = (s) => String(s).toLowerCase().replace(/[?!.,…¿¡:;"„”«»()–—]/g, ' ').replace(/\s+/g, ' ').trim();
@@ -127,6 +128,15 @@
     S.progress.history[S.progress.todayDay] = S.progress.todayCount;
   }
   S.saveProgress = () => writeJSON(PROGRESS_KEY, S.progress);
+  // Another open copy of the app saved progress: use it, so the two copies don't overwrite each other.
+  window.addEventListener('storage', (ev) => {
+    if (ev.key !== PROGRESS_KEY || !ev.newValue) return;
+    try {
+      S.progress = Object.assign(S.freshProgress(), JSON.parse(ev.newValue));
+      if (S.MyWords) S.MyWords.register();
+      if (S.onProgress) S.onProgress();
+    } catch (e) { /* ignore a broken value */ }
+  });
 
   S.settings = Object.assign(
     { meaning: 'both', pron: 'both', explain: 'both', dir: 'pl', slow: false, goal: 20, audio: 'native' },
@@ -140,11 +150,37 @@
     const json = JSON.stringify({ v: 2, progress: S.progress, settings: S.settings });
     return btoa(unescape(encodeURIComponent(json)));
   };
-  S.restoreBackup = (code) => {
-    const data = JSON.parse(decodeURIComponent(escape(atob(code.trim()))));
+  // A backup code can come from anyone, so nothing in it may contain markup: text loses <, >,
+  // quotes and backticks, and settings must be one of the allowed values.
+  const SETTING_VALUES = {
+    meaning: ['both', 'en', 'ne'], pron: ['both', 'en', 'ne'], explain: ['both', 'en', 'ne'], dir: ['pl', 'meaning'],
+    slow: [true, false], goal: [10, 20, 40, 60], audio: ['native', 'device'],
+  };
+  const cleanData = (v, depth = 0) => {
+    if (depth > 8) return null;
+    if (typeof v === 'string') return v.replace(/[<>`]/g, '').replace(/"/g, '”').slice(0, 2000);
+    if (typeof v === 'number') return Number.isFinite(v) ? v : 0;
+    if (typeof v === 'boolean' || v === null) return v;
+    if (Array.isArray(v)) return v.slice(0, 5000).map((x) => cleanData(x, depth + 1));
+    if (typeof v === 'object') {
+      const out = {};
+      for (const [k, x] of Object.entries(v)) if (!/^__proto__$|^constructor$|^prototype$/.test(k)) out[cleanData(k)] = cleanData(x, depth + 1);
+      return out;
+    }
+    return null;
+  };
+  S.readBackup = (code) => {
+    const data = JSON.parse(decodeURIComponent(escape(atob(String(code).trim()))));
     if (!data || !data.progress || !data.progress.items) throw new Error('not a Słówka backup');
-    S.progress = Object.assign(S.freshProgress(), data.progress);
-    Object.assign(S.settings, data.settings || {});
+    return data;
+  };
+  S.restoreBackup = (code) => {
+    const data = S.readBackup(code);
+    S.progress = Object.assign(S.freshProgress(), cleanData(data.progress));
+    for (const [k, allowed] of Object.entries(SETTING_VALUES)) {
+      const v = data.settings && data.settings[k];
+      if (allowed.includes(v)) S.settings[k] = v;
+    }
     if (S.MyWords) S.MyWords.register();
     S.saveProgress();
     S.saveSettings();
@@ -187,7 +223,11 @@
     // many times in one sitting doesn't mark it "learned". Mistakes always count.
     const item = S.itemOf(entry);
     const notDue = item && item.due > S.dayKey();
-    if (!(notDue && change !== 'reset' && change > 0)) {
+    if (change === 0) {
+      // Half right (accents missing, after a hint, unclear speech): keep the box and keep the
+      // word due, so it comes back in today's review instead of disappearing for days.
+      S.progress.items[entry.pl] = { b: S.boxOf(entry), due: notDue ? item.due : S.dayKey() };
+    } else if (!(notDue && change !== 'reset' && change > 0)) {
       const b = change === 'reset' ? 0 : Math.max(0, Math.min(S.MAX_BOX, S.boxOf(entry) + change));
       S.progress.items[entry.pl] = { b, due: S.addDays(S.INTERVALS[b]) };
     }
@@ -319,14 +359,26 @@
       if (polishVoice) u.voice = polishVoice;
       u.rate = isSlow ? 0.55 : 0.85;
       if (pitch) u.pitch = pitch;
-      if (onEnd) u.onend = onEnd;
+      if (onEnd) {
+        // Some browsers drop the "end" event (or end with an error), which would stop a dialogue
+        // after one line: continue on end, on error, or after the time the line should take.
+        let done = false;
+        const finish = () => { if (!done) { done = true; clearTimeout(timer); onEnd(); } };
+        const timer = setTimeout(finish, 2500 + (String(text).length * 110) / u.rate);
+        u.onend = finish;
+        u.onerror = finish;
+      }
+      speaking = u; // keep a reference, or Chrome may forget the utterance and never call onend
       synth.speak(u);
     } catch (e) { if (onEnd) onEnd(); }
   }
+  let speaking = null;
 
   // Speech recognition (Chrome, Edge, Safari). The browser does the listening; the app only compares text.
   const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
   S.canRecognize = !!Recognition;
+  // Speech recognition writes numbers as digits ("2", "20"); the course writes them as words.
+  S.spokenDigits = (text) => (S.Numbers ? String(text).replace(/\d+/g, (n) => (n.length <= 7 ? S.Numbers.words(Number(n)) : n)) : String(text));
   S.recognize = () => new Promise((resolve, reject) => {
     if (!Recognition) { reject(new Error('unsupported')); return; }
     const r = new Recognition();
@@ -337,7 +389,7 @@
     r.onresult = (ev) => {
       done = true;
       const alts = [];
-      for (let i = 0; i < ev.results[0].length; i++) alts.push(ev.results[0][i].transcript);
+      for (let i = 0; i < ev.results[0].length; i++) alts.push(S.spokenDigits(ev.results[0][i].transcript));
       resolve(alts);
     };
     r.onerror = (ev) => { done = true; reject(new Error(ev.error || 'error')); };
@@ -510,8 +562,10 @@
   // Answer checking shared by typing practice, drills and conversations.
   // Returns 'right', 'close' (only accents differ) or 'wrong'.
   S.checkAnswer = (given, answers) => {
-    const got = S.clean(given);
-    const list = answers.map(S.clean);
+    // "robić/zrobić" and "robić / zrobić" are the same answer.
+    const norm = (x) => S.clean(x).replace(/\s*\/\s*/g, ' / ');
+    const got = norm(given);
+    const list = answers.map(norm);
     if (list.includes(got)) return 'right';
     if (list.map(S.stripMarks).includes(S.stripMarks(got))) return 'close';
     return 'wrong';

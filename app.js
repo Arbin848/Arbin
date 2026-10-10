@@ -13,6 +13,7 @@
   S.route = { name: 'home' };
   const PAGES = ['mywords', 'numbers', 'listen', 'revise', 'cert', 'report', 'course', 'practice', 'learn', 'review', 'alphabet', 'dictionary', 'settings', 'talk', 'read', 'exam', 'placement', 'mistakes', 'progress', 'verbs', 'cases', 'sounds', 'check'];
 
+  let currentHash = null;
   S.go = (to, opts = {}) => {
     S.Practice.reset();
     S.Trainers.resetSessions(opts.keep);
@@ -22,7 +23,16 @@
     else S.route = { name: 'home' };
     if (S.route.name === 'unit') { S.progress.lastUnit = to; S.saveProgress(); }
     if (S.route.name === 'placement') S.Extras.resetPlacement();
-    try { history.replaceState(null, '', S.route.name === 'home' ? location.pathname + location.search : `#${to}`); } catch (e) { /* not allowed here */ }
+    // Each new page is a history entry, so the phone's Back button returns to the previous page.
+    const hash = S.route.name === 'home' ? '' : `#${to}`;
+    currentHash = hash;
+    if (!opts.fromHistory) {
+      try {
+        const url = hash || location.pathname + location.search;
+        if ((location.hash || '') !== hash) history.pushState(null, '', url);
+        else history.replaceState(null, '', url);
+      } catch (e) { /* not allowed here */ }
+    }
     S.render();
     window.scrollTo(0, 0);
     // Screen readers: start reading the new page from its heading.
@@ -108,7 +118,7 @@
 
   // What a learner can do after each level (CEFR "can do" statements, simplified).
   const CAN_DO = {
-    Start: [['Read any Polish word aloud', 'कुनै पनि पोलिस शब्द ठूलो स्वरमा पढ्न'], ['Know all 32 letters and the hard sounds', '३२ अक्षर र गाह्रा आवाज चिन्न'], ['Say hello, thank you and sorry', 'नमस्ते, धन्यवाद र माफ गर्नुहोस् भन्न']],
+    Start: [['Read any Polish word aloud', 'कुनै पनि पोलिश शब्द ठूलो स्वरमा पढ्न'], ['Know all 32 letters and the hard sounds', '३२ अक्षर र गाह्रा आवाज चिन्न'], ['Say hello, thank you and sorry', 'नमस्ते, धन्यवाद र माफ गर्नुहोस् भन्न']],
     A1: [['Introduce yourself and your family', 'आफ्नो र परिवारको परिचय दिन'], ['Order food, shop and ask prices', 'खाना अर्डर गर्न, किनमेल गर्न, मूल्य सोध्न'], ['Tell the time, ask the way, say what hurts', 'समय भन्न, बाटो सोध्न, कहाँ दुख्छ भन्न']],
     A2: [['Talk about yesterday and tomorrow', 'हिजो र भोलिको कुरा गर्न'], ['Use all 7 cases in everyday sentences', 'दैनिक वाक्यमा ७ विभक्ति प्रयोग गर्न'], ['Talk about work, shifts, weather and free time', 'काम, सिफ्ट, मौसम र फुर्सदको कुरा गर्न']],
     B1: [['Handle the doctor, offices and the phone', 'डाक्टर, कार्यालय र फोनमा काम चलाउन'], ['Speak politely with Pan/Pani and "would"', 'Pan/Pani र विनम्र रूपमा बोल्न'], ['Give opinions and explain problems', 'राय दिन र समस्या बुझाउन']],
@@ -209,7 +219,7 @@
       </section>
       ${!S.COURSE.some(S.unitStarted) && !S.progress.placement ? `
         <section class="card compact first-time">
-          <p><b>New here?</b> Start with the first lesson. Already know some Polish? Take the placement test to find your level.<br><span lang="ne">नयाँ हुनुहुन्छ? पहिलो पाठबाट सुरु गर्नुहोस्। अलि पोलिस आउँछ भने स्तर परीक्षा दिनुहोस्।</span></p>
+          <p><b>New here?</b> Start with the first lesson. Already know some Polish? Take the placement test to find your level.<br><span lang="ne">नयाँ हुनुहुन्छ? पहिलो पाठबाट सुरु गर्नुहोस्। अलि पोलिश आउँछ भने स्तर परीक्षा दिनुहोस्।</span></p>
           <div class="row start"><button class="btn" data-action="go" data-to="placement">Find my level · स्तर परीक्षा</button></div>
         </section>` : ''}
       <section>
@@ -229,7 +239,7 @@
       <header class="unit-head">
         <span class="eyebrow">Course · पाठ्यक्रम</span>
         <h2>From zero to fluent</h2>
-        <p class="hint">Six parts, from the alphabet to upper-intermediate (B2), plus Polish for work. Do the lessons in order; each one takes 10–20 minutes with your teacher.<br><span lang="ne">वर्णमालादेखि उच्च-मध्यम (B2) सम्म, साथै कामको पोलिस। पाठहरू क्रमैसँग गर्नुहोस्।</span></p>
+        <p class="hint">Six parts, from the alphabet to upper-intermediate (B2), plus Polish for work. Do the lessons in order; each one takes 10–20 minutes with your teacher.<br><span lang="ne">वर्णमालादेखि उच्च-मध्यम (B2) सम्म, साथै कामको पोलिश। पाठहरू क्रमैसँग गर्नुहोस्।</span></p>
         <div class="seg chips" role="group">${S.LEVELS.filter((l) => S.COURSE.some((u) => u.level === l.id)).map((l) => `<button data-action="go" data-to="course.${l.id}" aria-pressed="${only === l.id}">${esc(l.id)}</button>`).join('')}<button data-action="go" data-to="course" aria-pressed="${!only}">All</button></div>
       </header>
       ${S.LEVELS.filter((l) => !only || l.id === only).map((level) => {
@@ -468,9 +478,9 @@
       <header class="unit-head">
         <span class="eyebrow">Reference · सन्दर्भ</span>
         <h2>The Polish alphabet</h2>
-        <p class="unit-head-ne" lang="ne">पोलिस वर्णमाला</p>
+        <p class="unit-head-ne" lang="ne">पोलिश वर्णमाला</p>
         <p class="hint">32 letters. Polish is read exactly as it is written, so once you know these sounds you can read any word. Stress falls on the second-to-last syllable.<br>
-        <span lang="ne">३२ अक्षर। पोलिस जस्तो लेखिन्छ त्यस्तै पढिन्छ। जोड प्राय: अन्तिमभन्दा अघिल्लो अक्षरमा पर्छ।</span></p>
+        <span lang="ne">३२ अक्षर। पोलिश जस्तो लेखिन्छ त्यस्तै पढिन्छ। जोड प्राय: अन्तिमभन्दा अघिल्लो अक्षरमा पर्छ।</span></p>
       </header>
       ${S.ALPHABET.length ? alphabetGrid() : '<p class="empty">The alphabet did not load.</p>'}
       ${first ? `<div class="row start"><button class="btn primary" data-action="go" data-to="${first.id}">Start the first lesson →</button></div>` : ''}`;
@@ -581,11 +591,33 @@
 
   // ---------- events ----------
 
+  // After an answer re-draws the page, keep keyboard and screen-reader focus where the learner was:
+  // on the same button, or on the next question's first option if that one is now answered.
+  function keepFocus(el) {
+    if (!view.contains(el) || el.dataset.action === 'go') return;
+    const attrs = ['action', 'q', 'index', 'key', 'i', 'tab', 'step', 'value'].filter((k) => el.dataset[k] != null);
+    const sel = attrs.map((k) => `[data-${k}="${CSS.escape(el.dataset[k])}"]`).join('');
+    const hash = location.hash;
+    queueMicrotask(() => {
+      const active = document.activeElement;
+      if (location.hash !== hash || (active && active !== document.body && document.contains(active))) return;
+      const same = view.querySelector(sel);
+      if (!same) return;
+      let target = same.disabled ? null : same;
+      if (!target) {
+        const all = [...view.querySelectorAll('button:not([disabled]), input:not([disabled]), [data-autofocus]')];
+        target = all.find((x) => same.compareDocumentPosition(x) & Node.DOCUMENT_POSITION_FOLLOWING) || null;
+      }
+      if (target) target.focus({ preventScroll: true });
+    });
+  }
+
   document.addEventListener('click', (ev) => {
     const el = ev.target.closest('[data-action]');
     if (!el) return;
     const a = el.dataset.action;
     if (el.tagName !== 'INPUT') ev.preventDefault();
+    keepFocus(el);
     if (S.Practice.action(a, el)) return;
     if (S.Guided.action(a, el, view)) return;
     if (S.Assess.action(a, el, view)) return;
@@ -611,6 +643,7 @@
         break;
       }
       case 'abc-stop': S.stopSpeaking(); break;
+      case 'app-reload': location.reload(); break;
       case 'key': S.insertKey(el.dataset.key, el); break;
       case 'set': {
         const v = el.dataset.value;
@@ -647,23 +680,33 @@
         else fallback();
         break;
       }
-      case 'backup-restore':
-        try {
-          S.restoreBackup($('#backup-in').value);
-          renderStats();
-          renderSettings();
-          $('#backup-msg').textContent = 'Progress restored ✓';
-        } catch (e) {
+      case 'backup-restore': {
+        // Restoring replaces everything on this device, so it takes a second tap.
+        const code = $('#backup-in').value;
+        try { S.readBackup(code); } catch (e) {
           $('#backup-msg').textContent = 'That code did not work. Copy the whole code and try again.';
+          el.dataset.armed = 'false';
+          break;
         }
+        if (el.dataset.armed !== 'true' || el.dataset.code !== code) {
+          el.dataset.armed = 'true';
+          el.dataset.code = code;
+          el.textContent = 'Tap again to replace my progress';
+          $('#backup-msg').textContent = 'This replaces the progress saved on this device. · यसले यो उपकरणको प्रगति बदल्छ।';
+          break;
+        }
+        S.restoreBackup(code);
+        renderStats();
+        renderSettings();
+        $('#backup-msg').textContent = 'Progress restored ✓';
         break;
+      }
       case 'reset':
         if (el.dataset.armed === 'true') {
           S.progress = S.freshProgress();
           S.saveProgress();
-          renderStats();
-          el.dataset.armed = 'false';
-          el.textContent = 'Progress cleared';
+          // Start fresh everywhere (open exercises, my words, sessions).
+          location.reload();
         } else {
           el.dataset.armed = 'true';
           el.textContent = 'Tap again to clear everything';
@@ -686,6 +729,8 @@
 
   document.addEventListener('keydown', (ev) => {
     if (ev.metaKey || ev.ctrlKey || ev.altKey) return;
+    // Tappable Polish words in explanations work from the keyboard too.
+    if ((ev.key === 'Enter' || ev.key === ' ') && ev.target.matches && ev.target.matches('span[role="button"][data-action]')) { ev.preventDefault(); ev.target.click(); return; }
     if (/^(INPUT|TEXTAREA)$/.test(ev.target.tagName) && !ev.target.readOnly) return;
     if (S.Practice.key(ev)) return;
     if (S.Trainers.key(ev)) return;
@@ -699,14 +744,28 @@
 
   if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) {
     try { navigator.serviceWorker.register('sw.js').catch(() => {}); } catch (e) { /* not available here */ }
+    // A new version has taken over: offer a reload so the learner is not left on old files.
+    const hadController = !!navigator.serviceWorker.controller;
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+      if (!hadController || document.getElementById('update-bar')) return;
+      document.body.insertAdjacentHTML('beforeend', `<div class="update-bar" id="update-bar" role="status">A new version of the app is ready · नयाँ संस्करण तयार छ <button type="button" class="btn primary" data-action="app-reload">Reload</button></div>`);
+    });
+  }
+  // Ask the browser to keep saved progress (Safari may otherwise delete it after some weeks unused).
+  if (navigator.storage && navigator.storage.persist) {
+    try { navigator.storage.persist().catch(() => {}); } catch (e) { /* not available */ }
   }
 
   // ---------- start ----------
 
-  window.addEventListener('hashchange', () => {
-    const to = (location.hash || '').slice(1);
-    if (to) S.go(to);
-  });
+  // Back/forward buttons and links to #pages.
+  const fromHistory = () => {
+    const hash = location.hash || '';
+    if (hash === currentHash) return;
+    S.go(hash.slice(1) || 'home', { fromHistory: true });
+  };
+  window.addEventListener('popstate', fromHistory);
+  window.addEventListener('hashchange', fromHistory);
   const initial = (location.hash || '').slice(1);
   if (initial) S.go(initial);
   else S.render();

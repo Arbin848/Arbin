@@ -167,7 +167,7 @@ window.SLOWKA_ROLEPLAYS.push(
       { them: ["Super! Przerwa się kończy. Do zobaczenia!", "Great! The break is ending. See you!", "राम्रो! ब्रेक सकिँदैछ। फेरि भेटौँला!"],
         replies: [
           { pl: "Do zobaczenia! Na razie!", en: "See you! Bye for now!", ne: "फेरि भेटौँला! अहिलेलाई बाई!", ok: true },
-          { pl: "Pa, Kasia!", en: "Bye, Kasia!", ne: "बाई, कासिया!", ok: true },
+          { pl: "Pa, Kasiu!", en: "Bye, Kasia!", ne: "बाई, कासिया!", ok: true },
           { pl: "Dzień dobry!", en: "Good morning / Hello!", ne: "नमस्ते (भेट्दा)!", ok: false,
             why: { en: "*Dzień dobry* is only a greeting when you **meet** someone. It is never used for goodbye. With a friend say *Do zobaczenia*, *Na razie* or *Pa*.",
                    ne: "*Dzień dobry* कसैलाई **भेट्दा** मात्र भनिन्छ, बिदा हुँदा कहिल्यै भनिँदैन। साथीसँग *Do zobaczenia*, *Na razie* वा *Pa* भन्नुहोस्।" } }

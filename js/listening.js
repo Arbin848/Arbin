@@ -89,6 +89,7 @@
             </div>
           </div>`).join('')}</div>`
         : '<div class="row start"><button class="link-btn" data-action="ls-show">I need help: show the text · पाठ देखाउनुहोस्</button></div>'}
+      ${done ? '<div class="row start"><button class="btn" data-action="ls-restart">↺ Try again · फेरि प्रयास गर्नुहोस्</button></div>' : ''}
       <p class="report-row">${S.reportHTML(t.title, `Listening ${t.id}`)}</p>`;
     L._pitch = pitch;
   };
@@ -98,6 +99,7 @@
       case 'ls-play': playAll(cur.t, el.dataset.slow === '1'); S.render(); return true;
       case 'ls-stop': S.stopSpeaking(); return true;
       case 'ls-show': cur.show = true; S.render(); return true;
+      case 'ls-restart': S.stopSpeaking(); cur = { t: cur.t, answers: {}, plays: 0, show: false }; S.render(); window.scrollTo(0, 0); return true;
       case 'ls-line': { const l = cur.t.lines[Number(el.dataset.i)]; S.speakLines([{ text: l[1], pitch: L._pitch(l[0]) }]); return true; }
       case 'ls-answer': {
         cur.answers[Number(el.dataset.q)] = Number(el.dataset.index);
