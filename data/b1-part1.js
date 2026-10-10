@@ -142,7 +142,7 @@ window.SLOWKA_COURSE.push(
           ["*dać*", "*daj*", "*dajcie*", "*dajmy*", "give"],
           ["*powiedzieć*", "*powiedz*", "*powiedzcie*", "*powiedzmy*", "say, tell"],
           ["*wziąć*", "*weź*", "*weźcie*", "*weźmy*", "take"],
-          ["*iść*", "*idź*", "*idźcie*", "*chodźmy*", "go"],
+          ["*iść*", "*idź*", "*idźcie*", "*idźmy*", "go"],
           ["*chodzić*", "*chodź*", "*chodźcie*", "*chodźmy*", "come"],
           ["*pomóc*", "*pomóż*", "*pomóżcie*", "*pomóżmy*", "help"],
           ["*zamknąć*", "*zamknij*", "*zamknijcie*", "*zamknijmy*", "close"]
@@ -178,7 +178,7 @@ window.SLOWKA_COURSE.push(
       ["pomóż mi", "help me!", "मलाई मद्दत गर!", "PO-moosh mee", "ˈपो-मुश् मि"],
       ["uważaj", "be careful!", "होस गर!", "oo-VA-zhay", "उ-ˈभा-झाय्"],
       ["zamknij drzwi", "close the door", "ढोका बन्द गर", "ZAM-kneey dzhvee", "ˈज़ाम्-क्निय् द्झ्भि"],
-      ["nie rób tego", "don't do that!", "त्यो नगर!", "nyeh ROOP TEH-go", "न्ये रुप् ˈते-गो"],
+      ["nie rób tego", "don't do that!", "त्यो नगर!", "nyeh roop TEH-go", "न्ये रुप् ˈते-गो"],
       ["nie zapomnij", "don't forget!", "नबिर्स!", "nyeh za-POM-neey", "न्ये ज़ा-ˈपोम्-निय्"],
       ["proszę usiąść", "please sit down (formal)", "कृपया बस्नुहोस्", "PRO-sheh OO-shonshch", "ˈप्रो-शे ˈउ-शोंश्च्"],
       ["niech pan poczeka", "please wait, sir (formal)", "कृपया पर्खनुहोस् (पुरुषलाई)", "nyeh pan po-CHEH-ka", "न्ये पान् पो-ˈचे-का"]
@@ -555,7 +555,7 @@ window.SLOWKA_COURSE.push(
       ["Te miłe kobiety pracują w sklepie.", "These nice women work in a shop.", "यी असल महिलाहरू पसलमा काम गर्छन्।", "teh MEE-weh ko-BYEH-ti pra-TSOO-yon f SKLEH-pyeh", "ते ˈमि-वे को-ˈब्ये-ति प्रा-ˈत्सु-योन् फ़् ˈस्क्ले-प्ये"],
       ["Wczoraj studenci byli na wycieczce.", "Yesterday the students were on a trip.", "हिजो विद्यार्थीहरू घुम्न गएका थिए।", "FCHO-ray stoo-DEN-chee BI-lee na vi-CHECH-tseh", "ˈफ़्चो-राय् स्तु-ˈदेन्-चि ˈबि-लि ना भि-ˈचेच्-त्से"],
       ["Moje koleżanki były bardzo zmęczone.", "My (female) colleagues were very tired.", "मेरा साथीहरू (महिला) धेरै थाकेका थिए।", "MO-yeh ko-leh-ZHAN-kee BI-wi BAR-dzo zmen-CHO-neh", "ˈमो-ये को-ले-ˈझान्-कि ˈबि-वि ˈबार्-द्ज़ो ज़्मेन्-ˈचो-ने"],
-      ["Polacy są bardzo gościnni.", "Poles are very hospitable.", "पोलिश मानिसहरू धेरै अतिथिसत्कारी हुन्छन्।", "po-LA-tsi son BAR-dzo gosh-CHEEN-nee", "पो-ˈला-त्सि सों ˈबार्-द्ज़ो गोश्-ˈचिन्-नि"],
+      ["Polacy są bardzo gościnni.", "Poles are very hospitable.", "पोलिश मानिसहरू धेरै अतिथिसत्कारी हुन्छन्।", "po-LA-tsi som BAR-dzo gosh-CHEEN-nee", "पो-ˈला-त्सि सोम् ˈबार्-द्ज़ो गोश्-ˈचिन्-नि"],
       ["Mam dwoje dzieci.", "I have two children.", "मेरा दुई बच्चा छन्।", "mam DVO-yeh JEH-chee", "माम् ˈद्भो-ये ˈजे-चि"],
       ["Mieszkam w Polsce od pięciu lat.", "I've lived in Poland for five years.", "म पाँच वर्षदेखि पोल्यान्डमा बस्छु।", "MYESH-kam f POL-stseh ot PYEN-choo lat", "ˈम्येश्-काम् फ़् ˈपोल्-स्त्से ओत् ˈप्येन्-चु लात्"],
       ["Pracownicy skończyli pracę wcześniej.", "The workers finished work earlier.", "कामदारहरूले काम चाँडै सिध्याए।", "pra-tsov-NEE-tsi skony-CHI-lee PRA-tseh FCHESH-nyey", "प्रा-त्सोभ्-ˈनि-त्सि स्कोन्य्-ˈचि-लि ˈप्रा-त्से ˈफ़्चेश्-न्येय्"]

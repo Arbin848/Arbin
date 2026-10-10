@@ -44,7 +44,7 @@ window.SLOWKA_NOUNS.push(
     pl: { nom: "mężczyźni", gen: "mężczyzn", dat: "mężczyznom", acc: "mężczyzn", ins: "mężczyznami", loc: "mężczyznach", voc: "mężczyźni" } },
   { word: "chłopak", en: "boy / boyfriend", ne: "केटा / प्रेमी", level: "A1", gender: "m-pers", person: true,
     sg: { nom: "chłopak", gen: "chłopaka", dat: "chłopakowi", acc: "chłopaka", ins: "chłopakiem", loc: "chłopaku", voc: "chłopaku" },
-    pl: { nom: "chłopacy", gen: "chłopaków", dat: "chłopakom", acc: "chłopaków", ins: "chłopakami", loc: "chłopakach", voc: "chłopacy" } },
+    pl: { nom: "chłopcy", gen: "chłopaków", dat: "chłopakom", acc: "chłopaków", ins: "chłopakami", loc: "chłopakach", voc: "chłopcy" } },
   { word: "sąsiad", en: "neighbour (m)", ne: "छिमेकी", level: "A2", gender: "m-pers", person: true,
     sg: { nom: "sąsiad", gen: "sąsiada", dat: "sąsiadowi", acc: "sąsiada", ins: "sąsiadem", loc: "sąsiedzie", voc: "sąsiedzie" },
     pl: { nom: "sąsiedzi", gen: "sąsiadów", dat: "sąsiadom", acc: "sąsiadów", ins: "sąsiadami", loc: "sąsiadach", voc: "sąsiedzi" } },
