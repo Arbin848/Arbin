@@ -60,12 +60,20 @@ def main():
     voices = None
     scores = {}
     retried = improved = 0
+    # Results from earlier runs: a clip that has not changed is not checked again.
+    cache_path = os.path.join(ROOT, 'audio', 'tts', 'scores.json')
+    cache = json.load(open(cache_path, encoding='utf-8')) if os.path.exists(cache_path) else {}
     for n, (key, rel) in enumerate(sorted(manifest.items())):
         path = os.path.join(ROOT, rel)
         if not os.path.exists(path):
             continue
+        if key in cache and cache[key][2] == rel:
+            scores[key] = (cache[key][0], cache[key][1])
+            continue
         heard = recognize(model, path)
-        score = similarity(heard, key)
+        # Compare with what is said (numbers as words), not the spelling.
+        target = gen.clean(texts[key].get('say') or key) if key in texts else key
+        score = similarity(heard, target)
         # Unclear clip: try the other voice and keep whichever is understood better.
         if score < 0.6 and key in texts:
             retried += 1
@@ -73,10 +81,11 @@ def main():
                 from piper import PiperVoice
                 voices = {k: PiperVoice.load(os.path.join(voices_dir, v + '.onnx')) for k, v in gen.VOICES.items()}
             other = 'm' if rel.endswith('-f.mp3') else 'f'
-            alt_rel = f'audio/tts/{gen.slug(key, other)}'
-            gen.synth(voices[other], gen.speech_text(texts[key]['text']), os.path.join(ROOT, alt_rel))
+            say = texts[key].get('say')
+            alt_rel = f'audio/tts/{gen.slug(key, other, say)}'
+            gen.synth(voices[other], gen.speech_text(say or texts[key]['text']), os.path.join(ROOT, alt_rel))
             alt_heard = recognize(model, os.path.join(ROOT, alt_rel))
-            alt_score = similarity(alt_heard, key)
+            alt_score = similarity(alt_heard, target)
             if alt_score > score:
                 os.remove(path)
                 manifest[key], heard, score = alt_rel, alt_heard, alt_score
@@ -87,6 +96,8 @@ def main():
         if n % 500 == 0:
             print(f'  checked {n}/{len(manifest)}', flush=True)
     gen.write_manifest(manifest)
+    with open(cache_path, 'w', encoding='utf-8') as f:
+        json.dump({k: [round(sc, 3), h, manifest[k]] for k, (sc, h) in scores.items() if k in manifest}, f, ensure_ascii=False, indent=0, sort_keys=True)
 
     vals = [s for s, _ in scores.values()]
     good = sum(1 for s in vals if s >= 0.8)

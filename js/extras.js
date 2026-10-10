@@ -505,7 +505,7 @@
         'Every grammar exercise you get wrong is saved here with its explanation. Practise them until they disappear.<br><span lang="ne">गलत भएका व्याकरण अभ्यासहरू यहाँ व्याख्यासहित बस्छन्। सही नभएसम्म अभ्यास गर्नुहोस्।</span>')}
       ${list.length ? `<div class="row start"><button class="btn primary" data-action="go" data-to="mistakes.practice">Practise my ${list.length} ${list.length === 1 ? 'mistake' : 'mistakes'}</button></div>
         ${list.map(({ m, d }) => {
-          const correct = d.type === 'order' ? d.words.join(' ') : d.type === 'choose' ? d.q.replace('___', d.options[d.answer]) : d.q.replace(/\s*\([^)]*\)\s*$/, '').replace('___', d.answer[0]);
+          const correct = S.drillSentence(d);
           const u = S.UNIT.get(m.unit);
           return `<details class="question"><summary><span lang="pl">${polish(correct)}</span> <small class="hint">× ${m.count} · ${esc(u ? u.title : m.unit)}</small></summary>${S.transHTML(d.en, d.ne)}${S.whyHTML(d.why)}</details>`;
         }).join('')}`

@@ -6,6 +6,7 @@ const path = require('path');
 const vm = require('vm');
 
 const ROOT = path.join(__dirname, '..');
+const spoken = require('./spoken');
 const ctx = { window: {} };
 for (const f of fs.readdirSync(path.join(ROOT, 'data')).filter((x) => x.endsWith('.js')).sort()) {
   vm.runInNewContext(fs.readFileSync(path.join(ROOT, 'data', f), 'utf8'), ctx);
@@ -39,11 +40,10 @@ const words = (text) => text.split(/\s+/).forEach((part) => {
   (u.dialogue || []).forEach((d) => add(d[1], v(d[0])));
   (u.lesson || []).forEach((p) => bits(`${p.en} ${p.ne}`).forEach((b) => { const t = b.slice(1, -1); if (t.length < 40) add(t); }));
 });
-Object.values(W.SLOWKA_DRILLS || {}).forEach((list) => list.forEach((d) => {
-  if (d.type === 'order') add(d.words.join(' '));
-  else if (d.type === 'choose') add(d.q.replace('___', d.options[d.answer]));
-  else add(d.q.replace(/\s*\([^)]*\)\s*$/, '').replace('___', d.answer[0]));
-}));
+// Same as S.drillSentence / S.drillSpeech in js/core.js.
+const drillSentence = (d) => (d.type === 'order' ? d.words.join(' ') : d.type === 'choose' ? d.q.replace('___', d.options[d.answer]) : d.q.replace(/\s*\([^)]*\)\s*$/, '').replace('___', d.answer[0]));
+const drillSpeech = (d) => d.say || drillSentence(d).split(' — ')[0].replace(/\([^)]*\)/g, ' ').replace(/\s+([,.!?;:])/g, '$1').replace(/\s+/g, ' ').trim();
+Object.values(W.SLOWKA_DRILLS || {}).forEach((list) => list.forEach((d) => add(drillSpeech(d))));
 (W.SLOWKA_ROLEPLAYS || []).forEach((r) => {
   r.steps.forEach((s) => { add(s.them[0], 'm'); s.replies.forEach((x) => add(x.pl, 'f')); });
   (r.useful || []).forEach((e) => add(e[0]));
@@ -82,4 +82,8 @@ Object.values(W.SLOWKA_DRILLS || {}).forEach((list) => list.forEach((d) => {
 }
 (W.SLOWKA_SOUNDS || []).forEach((x) => x.pairs.forEach((p) => p.forEach((w) => add(w[0]))));
 
-process.stdout.write(JSON.stringify([...out].map(([text, voice]) => ({ text, voice })), null, 0));
+// "say" is how the text is read aloud when that differs from the spelling (numbers, dates, abbreviations).
+process.stdout.write(JSON.stringify([...out].map(([text, voice]) => {
+  const say = spoken(text);
+  return say === text ? { text, voice } : { text, voice, say };
+}), null, 0));
