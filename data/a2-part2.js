@@ -107,8 +107,8 @@ window.SLOWKA_COURSE.push(
     summaryNe: "ऋतुहरूबारे कुरा गर्न, मौसम बताउन र तापक्रम भन्न सिक्नुहोस्।",
     lesson: [
       {
-        en: "Poland has four clear seasons: *wiosna* (spring), *lato* (summer), *jesień* (autumn) and *zima* (winter). There is no monsoon, but winter can be very cold, sometimes below minus ten. To say **when** (\"in spring\"), Polish uses the instrumental with **no preposition**: *wiosną*, *latem*, *jesienią*, *zimą*. **Common mistake:** *w zima* is wrong. Say *zimą*.",
-        ne: "पोल्याण्डमा चार स्पष्ट ऋतु छन्: *wiosna* (वसन्त), *lato* (गर्मी), *jesień* (शरद) र *zima* (जाडो)। यहाँ मनसुन हुँदैन, तर जाडो एकदमै चिसो हुन सक्छ, कहिलेकाहीँ माइनस दसभन्दा तल। **कहिले** (\"वसन्तमा\") भन्न करण कारक (instrumental) प्रयोग हुन्छ, **कुनै उपसर्ग बिना**: *wiosną*, *latem*, *jesienią*, *zimą*। **सामान्य गल्ती:** *w zima* गलत हो। *zimą* भन्नुहोस्।"
+        en: "Poland has four clear seasons: *wiosna* (spring), *lato* (summer), *jesień* (autumn) and *zima* (winter). There is no monsoon, but winter can be very cold, sometimes below minus ten. To say **when** (\"in spring\"), Polish uses the instrumental with **no preposition**: *wiosną*, *latem*, *jesienią*, *zimą*. **Common mistake:** *w zima* is wrong. Say *zimą*, or use the locative: *w zimie*, *w lecie* (also correct).",
+        ne: "पोल्याण्डमा चार स्पष्ट ऋतु छन्: *wiosna* (वसन्त), *lato* (गर्मी), *jesień* (शरद) र *zima* (जाडो)। यहाँ मनसुन हुँदैन, तर जाडो एकदमै चिसो हुन सक्छ, कहिलेकाहीँ माइनस दसभन्दा तल। **कहिले** (\"वसन्तमा\") भन्न करण कारक (instrumental) प्रयोग हुन्छ, **कुनै उपसर्ग बिना**: *wiosną*, *latem*, *jesienią*, *zimą*। **सामान्य गल्ती:** *w zima* गलत हो। *zimą* भन्नुहोस्, वा *w zimie*, *w lecie* (यी पनि सही हुन्)।"
       },
       {
         en: "To ask about the weather, say *Jaka jest dzisiaj pogoda?* (What's the weather like today?). The answer is often *jest* + a word ending in -o: *jest zimno* (it's cold), *jest ciepło* (it's warm), *jest gorąco* (it's hot), *jest pochmurno* (it's cloudy), *jest słonecznie* (it's sunny). Like Nepali \"जाडो छ\", there is no word for \"it\".",
