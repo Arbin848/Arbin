@@ -1,7 +1,7 @@
 // Offline support: keeps the whole course on the device after the first visit.
 // Pages and data come from the cache at once and are refreshed in the background.
 // Native recordings live in their own cache, kept across app updates.
-const CACHE = 'slowka-v9';
+const CACHE = 'slowka-v10';
 const AUDIO_CACHE = 'slowka-audio-v1';
 const SHELL = [
   './', 'index.html', 'styles.css', 'app.js', 'manifest.webmanifest',
@@ -30,18 +30,38 @@ self.addEventListener('activate', (event) => {
 });
 
 // Recordings: answer from the audio cache; otherwise fetch the whole file (no Range) and keep it.
+// Safari asks for byte ranges when playing audio and needs a 206 answer, so ranges are cut here.
 async function audio(req) {
   const cache = await caches.open(AUDIO_CACHE);
   const key = req.url.split('#')[0];
-  const cached = await cache.match(key);
-  if (cached) return cached;
-  try {
-    const res = await fetch(key);
-    if (res.status === 200) await cache.put(key, res.clone());
-    return res;
-  } catch (e) {
-    return new Response('', { status: 504 });
+  let res = await cache.match(key);
+  if (!res) {
+    try {
+      res = await fetch(key);
+      if (res.status === 200) await cache.put(key, res.clone());
+    } catch (e) {
+      return new Response('', { status: 504 });
+    }
   }
+  const range = req.headers.get('range');
+  if (!range || res.status !== 200) return res;
+  const m = /bytes=(\d*)-(\d*)/.exec(range);
+  const body = await res.blob();
+  const size = body.size;
+  let start = m && m[1] !== '' ? Number(m[1]) : NaN;
+  let end = m && m[2] !== '' ? Number(m[2]) : size - 1;
+  if (Number.isNaN(start)) { start = Math.max(0, size - end); end = size - 1; } // "bytes=-500": the last 500 bytes
+  end = Math.min(end, size - 1);
+  if (start >= size || start > end) return new Response('', { status: 416, headers: { 'Content-Range': `bytes */${size}` } });
+  return new Response(body.slice(start, end + 1), {
+    status: 206,
+    headers: {
+      'Content-Type': res.headers.get('Content-Type') || 'audio/mpeg',
+      'Content-Range': `bytes ${start}-${end}/${size}`,
+      'Content-Length': String(end - start + 1),
+      'Accept-Ranges': 'bytes',
+    },
+  });
 }
 
 self.addEventListener('fetch', (event) => {
@@ -57,7 +77,8 @@ self.addEventListener('fetch', (event) => {
   event.respondWith(
     caches.open(CACHE).then(async (cache) => {
       const cached = await cache.match(req, { ignoreSearch: true });
-      const fresh = fetch(req).then((res) => {
+      // Same-site files are re-checked with the server (not the browser's HTTP cache) in the background.
+      const fresh = (url.origin === location.origin ? fetch(url.href, { cache: 'no-cache' }) : fetch(req)).then((res) => {
         if (res && (res.status === 200 || res.type === 'opaque')) cache.put(req, res.clone()).catch(() => {});
         return res;
       }).catch(() => cached);

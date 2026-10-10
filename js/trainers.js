@@ -159,6 +159,8 @@
         const pastM = v.past.m[i < 3 ? 2 : 5].replace(/ się$/, '');
         const pastF = v.past.f[i < 3 ? 2 : 5].replace(/ się$/, '');
         answers.push(`${aux}${sie} ${pastM}`, `${aux}${sie} ${pastF}`, `${aux} ${pastM}${sie}`, `${aux} ${pastF}${sie}`);
+        // "będę się uczyć" and "będę uczyć się" are both fine.
+        if (sie) { const inf = v.inf.replace(/ się$/, ''); answers.push(`${aux} się ${inf}`, `${aux} ${inf} się`); }
       }
       return { v, tense, i, answer: form, answers, who: PERSONS[i] };
     }
@@ -218,17 +220,11 @@
     if (!s || !s.q || s.result || !input || !input.value.trim()) return;
     s.given = input.value;
     const answers = s.q.answers || [s.q.answer];
-    let result = S.checkAnswer(s.given, answers);
-    // "będę się uczyć" and "będę uczyć się" are both fine: compare word sets.
-    if (result === 'wrong') {
-      const sorted = (x) => S.clean(x).split(' ').sort().join(' ');
-      if (answers.some((a) => sorted(a) === sorted(s.given))) result = 'right';
-    }
-    s.result = result;
+    s.result = S.checkAnswer(s.given, answers);
     s.total += 1;
     const st = prog('verbs')[s.q.v.inf] || { r: 0, w: 0 };
     const ts = prog('tenseStats')[s.q.tense] || { r: 0, w: 0 };
-    if (result === 'right') { s.score += 1; st.r += 1; ts.r += 1; } else { st.w += 1; ts.w += 1; }
+    if (s.result === 'right') { s.score += 1; st.r += 1; ts.r += 1; } else { st.w += 1; ts.w += 1; }
     prog('tenseStats')[s.q.tense] = ts;
     prog('verbs')[s.q.v.inf] = st;
     S.logActivity();

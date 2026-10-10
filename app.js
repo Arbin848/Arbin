@@ -13,6 +13,7 @@
   S.route = { name: 'home' };
   const PAGES = ['mywords', 'numbers', 'listen', 'revise', 'cert', 'report', 'course', 'practice', 'learn', 'review', 'alphabet', 'dictionary', 'settings', 'talk', 'read', 'exam', 'placement', 'mistakes', 'progress', 'verbs', 'cases', 'sounds', 'check'];
 
+  let currentHash = null;
   S.go = (to, opts = {}) => {
     S.Practice.reset();
     S.Trainers.resetSessions(opts.keep);
@@ -22,7 +23,16 @@
     else S.route = { name: 'home' };
     if (S.route.name === 'unit') { S.progress.lastUnit = to; S.saveProgress(); }
     if (S.route.name === 'placement') S.Extras.resetPlacement();
-    try { history.replaceState(null, '', S.route.name === 'home' ? location.pathname + location.search : `#${to}`); } catch (e) { /* not allowed here */ }
+    // Each new page is a history entry, so the phone's Back button returns to the previous page.
+    const hash = S.route.name === 'home' ? '' : `#${to}`;
+    currentHash = hash;
+    if (!opts.fromHistory) {
+      try {
+        const url = hash || location.pathname + location.search;
+        if ((location.hash || '') !== hash) history.pushState(null, '', url);
+        else history.replaceState(null, '', url);
+      } catch (e) { /* not allowed here */ }
+    }
     S.render();
     window.scrollTo(0, 0);
     // Screen readers: start reading the new page from its heading.
@@ -581,11 +591,33 @@
 
   // ---------- events ----------
 
+  // After an answer re-draws the page, keep keyboard and screen-reader focus where the learner was:
+  // on the same button, or on the next question's first option if that one is now answered.
+  function keepFocus(el) {
+    if (!view.contains(el) || el.dataset.action === 'go') return;
+    const attrs = ['action', 'q', 'index', 'key', 'i', 'tab', 'step', 'value'].filter((k) => el.dataset[k] != null);
+    const sel = attrs.map((k) => `[data-${k}="${CSS.escape(el.dataset[k])}"]`).join('');
+    const hash = location.hash;
+    queueMicrotask(() => {
+      const active = document.activeElement;
+      if (location.hash !== hash || (active && active !== document.body && document.contains(active))) return;
+      const same = view.querySelector(sel);
+      if (!same) return;
+      let target = same.disabled ? null : same;
+      if (!target) {
+        const all = [...view.querySelectorAll('button:not([disabled]), input:not([disabled]), [data-autofocus]')];
+        target = all.find((x) => same.compareDocumentPosition(x) & Node.DOCUMENT_POSITION_FOLLOWING) || null;
+      }
+      if (target) target.focus({ preventScroll: true });
+    });
+  }
+
   document.addEventListener('click', (ev) => {
     const el = ev.target.closest('[data-action]');
     if (!el) return;
     const a = el.dataset.action;
     if (el.tagName !== 'INPUT') ev.preventDefault();
+    keepFocus(el);
     if (S.Practice.action(a, el)) return;
     if (S.Guided.action(a, el, view)) return;
     if (S.Assess.action(a, el, view)) return;
@@ -611,6 +643,7 @@
         break;
       }
       case 'abc-stop': S.stopSpeaking(); break;
+      case 'app-reload': location.reload(); break;
       case 'key': S.insertKey(el.dataset.key, el); break;
       case 'set': {
         const v = el.dataset.value;
@@ -647,23 +680,33 @@
         else fallback();
         break;
       }
-      case 'backup-restore':
-        try {
-          S.restoreBackup($('#backup-in').value);
-          renderStats();
-          renderSettings();
-          $('#backup-msg').textContent = 'Progress restored ✓';
-        } catch (e) {
+      case 'backup-restore': {
+        // Restoring replaces everything on this device, so it takes a second tap.
+        const code = $('#backup-in').value;
+        try { S.readBackup(code); } catch (e) {
           $('#backup-msg').textContent = 'That code did not work. Copy the whole code and try again.';
+          el.dataset.armed = 'false';
+          break;
         }
+        if (el.dataset.armed !== 'true' || el.dataset.code !== code) {
+          el.dataset.armed = 'true';
+          el.dataset.code = code;
+          el.textContent = 'Tap again to replace my progress';
+          $('#backup-msg').textContent = 'This replaces the progress saved on this device. · यसले यो उपकरणको प्रगति बदल्छ।';
+          break;
+        }
+        S.restoreBackup(code);
+        renderStats();
+        renderSettings();
+        $('#backup-msg').textContent = 'Progress restored ✓';
         break;
+      }
       case 'reset':
         if (el.dataset.armed === 'true') {
           S.progress = S.freshProgress();
           S.saveProgress();
-          renderStats();
-          el.dataset.armed = 'false';
-          el.textContent = 'Progress cleared';
+          // Start fresh everywhere (open exercises, my words, sessions).
+          location.reload();
         } else {
           el.dataset.armed = 'true';
           el.textContent = 'Tap again to clear everything';
@@ -701,14 +744,28 @@
 
   if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) {
     try { navigator.serviceWorker.register('sw.js').catch(() => {}); } catch (e) { /* not available here */ }
+    // A new version has taken over: offer a reload so the learner is not left on old files.
+    const hadController = !!navigator.serviceWorker.controller;
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+      if (!hadController || document.getElementById('update-bar')) return;
+      document.body.insertAdjacentHTML('beforeend', `<div class="update-bar" id="update-bar" role="status">A new version of the app is ready · नयाँ संस्करण तयार छ <button type="button" class="btn primary" data-action="app-reload">Reload</button></div>`);
+    });
+  }
+  // Ask the browser to keep saved progress (Safari may otherwise delete it after some weeks unused).
+  if (navigator.storage && navigator.storage.persist) {
+    try { navigator.storage.persist().catch(() => {}); } catch (e) { /* not available */ }
   }
 
   // ---------- start ----------
 
-  window.addEventListener('hashchange', () => {
-    const to = (location.hash || '').slice(1);
-    if (to) S.go(to);
-  });
+  // Back/forward buttons and links to #pages.
+  const fromHistory = () => {
+    const hash = location.hash || '';
+    if (hash === currentHash) return;
+    S.go(hash.slice(1) || 'home', { fromHistory: true });
+  };
+  window.addEventListener('popstate', fromHistory);
+  window.addEventListener('hashchange', fromHistory);
   const initial = (location.hash || '').slice(1);
   if (initial) S.go(initial);
   else S.render();
