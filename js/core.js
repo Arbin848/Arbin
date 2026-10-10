@@ -257,13 +257,20 @@
 
   let current = null;
   let playToken = 0;
+  // One shared player: phones (especially iPhones) allow it to keep playing, e.g. the next line
+  // of a dialogue, once the learner has tapped Listen; new players started later can be blocked.
+  let player = null;
+  let fileToken = 0;
   function playFile(src, isSlow, onEnd, onFail) {
-    const audio = new Audio(src);
-    current = audio;
-    audio.playbackRate = isSlow ? 0.75 : 1;
-    audio.preservesPitch = true;
-    if (onEnd) audio.onended = onEnd;
-    audio.play().catch((err) => { if (err.name !== 'AbortError' && current === audio && onFail) onFail(); });
+    if (!player) { try { player = new Audio(); } catch (e) { if (onFail) onFail(); return; } }
+    const t = ++fileToken;
+    current = player;
+    player.onended = onEnd ? () => { if (t === fileToken) onEnd(); } : null;
+    player.src = src;
+    player.defaultPlaybackRate = isSlow ? 0.75 : 1;
+    player.playbackRate = isSlow ? 0.75 : 1;
+    player.preservesPitch = true;
+    player.play().catch((err) => { if (err.name !== 'AbortError' && t === fileToken && onFail) onFail(); });
   }
   // slow: true plays this one item slowly, whatever the Settings say.
   S.speak = (text, slow) => {
@@ -292,7 +299,7 @@
   };
   S.stopSpeaking = () => {
     playToken++;
-    try { if (synth) synth.cancel(); if (current) { current.onended = null; current.pause(); } } catch (e) { /* ignore */ }
+    try { if (synth) synth.cancel(); if (current) { fileToken++; current.onended = null; current.pause(); } } catch (e) { /* ignore */ }
   };
   function tts(text, isSlow, pitch, onEnd) {
     if (!synth) { if (onEnd) onEnd(); return; }

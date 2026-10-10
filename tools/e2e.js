@@ -463,21 +463,25 @@ const bad = (name, why) => { results.fail++; results.failures.push(`${name}: ${w
         const S = window.Slowka;
         const file = Object.values(S.AUDIO)[0];
         S.TTS['testowe zdanie'] = file;
+        S.TTS['drugie zdanie'] = file;
         const played = [];
-        const Orig = window.Audio;
-        window.Audio = function (src) { const a = new Orig(src); played.push(src); return a; };
+        const orig = HTMLMediaElement.prototype.play;
+        HTMLMediaElement.prototype.play = function () { played.push(this.src); return orig.call(this); };
         S.settings.audio = 'native';
         S.speak('Testowe zdanie!');
-        S.speakLines([{ text: 'Testowe zdanie.', pitch: 1 }]);
         S.settings.audio = 'device';
         S.speak('Testowe zdanie');
-        S.stopSpeaking();
-        window.Audio = Orig;
         S.settings.audio = 'native';
+        // A dialogue plays its recordings one after another.
+        S.speakLines([{ text: 'Testowe zdanie.', pitch: 1 }, { text: 'Drugie zdanie.', pitch: 1.2 }]);
+        await new Promise((res) => setTimeout(res, 6000));
+        S.stopSpeaking();
+        HTMLMediaElement.prototype.play = orig;
         delete S.TTS['testowe zdanie'];
+        delete S.TTS['drugie zdanie'];
         return { played, file };
       });
-      if (r.played.length !== 2 || r.played.some((x) => x !== r.file)) throw new Error(`unexpected playback ${JSON.stringify(r.played)}`);
+      if (r.played.length !== 3 || r.played.some((x) => !x.endsWith(r.file))) throw new Error(`unexpected playback ${JSON.stringify(r.played)}`);
     });
     console.log('11. My words, pronunciation and audio done');
   }

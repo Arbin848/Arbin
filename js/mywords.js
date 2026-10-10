@@ -107,6 +107,7 @@
     S.LEXICON.set(pl, toEntry(w));
     S.addToReview(S.LEXICON.get(pl));
     S.saveProgress();
+    S.Practice.reset(); // the next practice round includes the new word
     M.render(view, S.route.arg);
     const again = view.querySelector('[data-form="my-add"] input[name="pl"]');
     if (again) again.focus();
