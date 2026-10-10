@@ -62,7 +62,7 @@ function checkEntries(at, key, list, min) {
     if (!DEVANAGARI.test(e[2])) fail(where, 'Nepali meaning must be in Devanagari');
     if (!DEVANAGARI.test(e[4])) fail(where, 'Devanagari pronunciation missing');
     if (DEVANAGARI.test(e[3])) fail(where, 'English pronunciation contains Devanagari');
-    if (!/[A-Z]{2}|^[a-z]+$|^[A-Z]+$/.test(e[3].replace(/[^A-Za-z]/g, '')) && e[3].split(/[\s-]+/).length > 1) fail(where, 'English pronunciation should mark the stressed syllable in CAPS');
+    if (e[3].includes('-') && !/[A-Z]/.test(e[3])) fail(where, 'English pronunciation should mark the stressed syllable in CAPS');
   });
 }
 
