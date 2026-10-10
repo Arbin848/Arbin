@@ -2,6 +2,8 @@
 
 These recordings come from [Lingua Libre](https://lingualibre.org) via Wikimedia Commons, converted to MP3. Each is used under the licence shown.
 
+- **apteki**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-apteki.wav)
 - **autobus**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-autobus.wav)
 - **balkonik**: Speaker: Olaf
@@ -24,6 +26,8 @@ Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(p
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-bhp.wav)
 - **biały**: Speaker: Nostrix
 Recorder: Nostrix, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Nostrix-%C5%BC%C3%B3%C5%82to-bia%C5%82y.wav)
+- **bierze**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-bierze.wav)
 - **blik**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-blik.wav)
 - **bo**: Speaker: Gower
@@ -32,6 +36,8 @@ Recorder: Gower, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-boli.wav)
 - **ból**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-b%C3%B3l.wav)
+- **bracia**: Speaker: Poemat
+Recorder: Poemat, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Poemat-bracia.wav)
 - **brygadzista**: Speaker: Poemat
 Recorder: Poemat, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Poemat-brygadzista.wav)
 - **brzuch**: Speaker: Olaf
@@ -46,6 +52,8 @@ Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(p
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-buty.wav)
 - **być**: Speaker: Jest Spoczko
 Recorder: Jest Spoczko, CC BY-SA 4.0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Jest_Spoczko-by%C4%87.wav)
+- **byli**: Speaker: Poemat
+Recorder: Poemat, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Poemat-byli.wav)
 - **byliśmy**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-byli%C5%9Bmy.wav)
 - **był**: Speaker: Poemat
@@ -60,8 +68,22 @@ Recorder: Poemat, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_
 Recorder: Poemat, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Poemat-by%C5%82o.wav)
 - **byłoby**: Speaker: Poemat
 Recorder: Poemat, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Poemat-by%C5%82oby.wav)
+- **cech**: Speaker: KaMan
+Recorder: KaMan, CC BY-SA 4.0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-KaMan-cech.wav)
 - **ceny**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-ceny.wav)
+- **chcą**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-chc%C4%85.wav)
+- **chce**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-chce.wav)
+- **chcecie**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-chcecie.wav)
+- **chcemy**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-chcemy.wav)
+- **chcesz**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-chcesz.wav)
+- **chcę**: Speaker: Matlin
+Recorder: Matlin, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Matlin-chc%C4%99.wav)
 - **chcieć**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-chcie%C4%87.wav)
 - **chętnie**: Speaker: Gower
@@ -94,6 +116,8 @@ Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(p
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-co%C5%9B.wav)
 - **cv**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-CV.wav)
+- **czar**: Speaker: Poemat
+Recorder: Poemat, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Poemat-czar.wav)
 - **czarny**: Speaker: Matlin
 Recorder: Matlin, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Matlin-czarny.wav)
 - **czas**: Speaker: Matlin
@@ -102,6 +126,10 @@ Recorder: Matlin, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_
 Recorder: KaMan, CC BY-SA 4.0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-KaMan-czasami.wav)
 - **czasem**: Speaker: KaMan
 Recorder: KaMan, CC BY-SA 4.0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-KaMan-czasem.wav)
+- **czeka**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-Czeka.wav)
+- **czekać**: Speaker: Matlin
+Recorder: Matlin, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Matlin-czeka%C4%87.wav)
 - **czekaj**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-Czekaj.wav)
 - **czepek**: Speaker: Olaf
@@ -122,6 +150,8 @@ Recorder: KaMan, CC BY-SA 4.0, [source](https://commons.wikimedia.org/wiki/File:
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-dla.wav)
 - **długopis**: Speaker: Gower
 Recorder: Gower, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Gower-d%C5%82ugopis.wav)
+- **dni**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-dni.wav)
 - **do**: Speaker: InfamousProceedings
 Recorder: Kamil09875, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-InfamousProceedings_(Kamil09875)-do.wav)
 - **do usłyszenia**: Speaker: Olaf
@@ -136,6 +166,8 @@ Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(p
 Recorder: Gower, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Gower-dok%C5%82adnie.wav)
 - **dom**: Speaker: Gower
 Recorder: Gower, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Gower-dom.wav)
+- **domy**: Speaker: KaMan
+Recorder: KaMan, CC BY-SA 4.0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-KaMan-domy.wav)
 - **drzwi**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-drzwi.wav)
 - **dużo**: Speaker: Olaf
@@ -172,6 +204,8 @@ Recorder: Krokus, CC BY-SA 4.0, [source](https://commons.wikimedia.org/wiki/File
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-gluten.wav)
 - **golić się**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-goli%C4%87_si%C4%99.wav)
+- **gorszy**: Speaker: Poemat
+Recorder: Poemat, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Poemat-gorszy.wav)
 - **góra**: Speaker: Poemat
 Recorder: Poemat, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Poemat-G%C3%B3ra.wav)
 - **halo**: Speaker: Olaf
@@ -180,12 +214,20 @@ Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(p
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-higiena.wav)
 - **hobby**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-hobby.wav)
+- **huta**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-huta.wav)
+- **idą**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-id%C4%85.wav)
 - **idę**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-id%C4%99.wav)
+- **idzie**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-idzie.wav)
 - **idź**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-id%C5%BA.wav)
 - **im**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-im.wav)
+- **imiona**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-imiona.wav)
 - **interesować się**: Speaker: Poemat
 Recorder: Poemat, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Poemat-interesowa%C4%87_si%C4%99.wav)
 - **ja**: Speaker: Krokus
@@ -194,18 +236,38 @@ Recorder: Krokus, CC BY-SA 4.0, [source](https://commons.wikimedia.org/wiki/File
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-jab%C5%82ka.wav)
 - **jabłko**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-jab%C5%82ko.wav)
+- **jadą**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-jad%C4%85.wav)
+- **jadę**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-jad%C4%99.wav)
 - **jak najszybciej**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-jak_najszybciej.wav)
+- **je**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-je.wav)
 - **jechać**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-jecha%C4%87.wav)
+- **jedzie**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-jedzie.wav)
 - **jej**: Speaker: Krokus
 Recorder: Krokus, CC BY-SA 4.0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Krokus-jej.wav)
+- **jemy**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-jemy.wav)
+- **jestem**: Speaker: Poemat
+Recorder: Poemat, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Poemat-jestem.wav)
+- **jesteś**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-jeste%C5%9B.wav)
+- **jesteście**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-jeste%C5%9Bcie.wav)
+- **jesteśmy**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-jeste%C5%9Bmy.wav)
 - **jesz**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-jesz.wav)
 - **jeść**: Speaker: Gower
 Recorder: Gower, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Gower-je%C5%9B%C4%87.wav)
 - **jeśli**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-je%C5%9Bli.wav)
+- **jeździ**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-je%C5%BAdzi.wav)
 - **jeżeli**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-je%C5%BCeli.wav)
 - **już**: Speaker: Gower
@@ -214,8 +276,16 @@ Recorder: Gower, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(
 Recorder: Nostrix, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Nostrix-karta.wav)
 - **karty**: Speaker: Poemat
 Recorder: Poemat, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Poemat-karty.wav)
+- **kasza**: Speaker: czupirek
+Recorder: Czupirek, CC BY-SA 4.0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-czupirek_(Czupirek)-Agnieszka_Bednarek-Kasza.wav)
+- **kaszka**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-kaszka.wav)
 - **katar**: Speaker: Nostrix
 Recorder: Nostrix, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Nostrix-katar.wav)
+- **kawy**: Speaker: Matlin
+Recorder: Matlin, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Matlin-kawy.wav)
+- **kąt**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-K%C4%85t.wav)
 - **kelner**: Speaker: Nostrix
 Recorder: Nostrix, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Nostrix-kelner.wav)
 - **kiedy**: Speaker: Krokus
@@ -234,46 +304,80 @@ Recorder: Gower, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-koszula.wav)
 - **kot**: Speaker: Gower
 Recorder: Gower, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Gower-kot.wav)
+- **koty**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-koty.wav)
+- **krety**: Speaker: Jest Spoczko
+Recorder: Jest Spoczko, CC BY-SA 4.0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Jest_Spoczko-krety.wav)
+- **króliki**: Speaker: Jest Spoczko
+Recorder: Jest Spoczko, CC BY-SA 4.0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Jest_Spoczko-kr%C3%B3liki.wav)
 - **krzesło**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-krzes%C5%82o.wav)
+- **książka**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-ksi%C4%85%C5%BCka.wav)
+- **książki**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-ksi%C4%85%C5%BCki.wav)
 - **kucharz**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-kucharz.wav)
 - **kuchnia**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-kuchnia.wav)
+- **kula**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-kula.wav)
 - **kupić**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-kupi%C4%87.wav)
 - **kupować**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-kupowa%C4%87.wav)
+- **kupuje**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-kupuje.wav)
 - **kupuję**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-kupuj%C4%99.wav)
 - **kurier**: Speaker: Poemat
 Recorder: Poemat, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Poemat-kurier.wav)
+- **kuta**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-kuta.wav)
 - **kwiat**: Speaker: Gower
 Recorder: Gower, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Gower-kwiat.wav)
 - **lato**: Speaker: Olaf
 Recorder: Olaf, CC BY-SA 4.0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-lato.wav)
 - **lekarz**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-lekarz.wav)
+- **lekarze**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-lekarze.wav)
 - **leki**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-leki.wav)
+- **lepszy**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-lepszy.wav)
 - **lody**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-lody.wav)
 - **lubić**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-lubi%C4%87.wav)
 - **lubię**: Speaker: Poemat
 Recorder: Poemat, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Poemat-lubi%C4%99.wav)
+- **ludzie**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-ludzie.wav)
 - **luz**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-luz.wav)
+- **łata**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-%C5%82ata.wav)
 - **łóżko**: Speaker: Gower
 Recorder: Gower, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Gower-%C5%82%C3%B3%C5%BCko.wav)
+- **łuk**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-%C5%82uk.wav)
+- **ma**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-ma.wav)
+- **macie**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-macie.wav)
 - **magazynier**: Speaker: Poemat
 Recorder: Poemat, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Poemat-magazynier.wav)
+- **mają**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-maj%C4%85.wav)
 - **mało**: Speaker: Jest Spoczko
 Recorder: Jest Spoczko, CC BY-SA 4.0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Jest_Spoczko-ma%C5%82o.wav)
 - **mały**: Speaker: Gower
 Recorder: Gower, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Gower-ma%C5%82y.wav)
 - **mam**: Speaker: Krokus
 Recorder: Krokus, CC BY-SA 4.0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Krokus-mam.wav)
+- **mamy**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-mamy.wav)
 - **martwić się**: Speaker: Poemat
 Recorder: Poemat, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Poemat-martwi%C4%87_si%C4%99.wav)
 - **masz**: Speaker: Krokus
@@ -284,46 +388,84 @@ Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(p
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-media.wav)
 - **mężczyzna**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-m%C4%99%C5%BCczyzna.wav)
+- **mężczyźni**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-m%C4%99%C5%BCczy%C5%BAni.wav)
 - **mi**: Speaker: Krokus
 Recorder: Krokus, CC BY-SA 4.0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Krokus-mi.wav)
 - **miałem**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-mia%C5%82em.wav)
+- **miasta**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-miasta.wav)
 - **miasto**: Speaker: Jest Spoczko
 Recorder: Jest Spoczko, CC BY-SA 4.0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Jest_Spoczko-Miasto.wav)
 - **mieć**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-mie%C4%87.wav)
+- **miesiące**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-miesi%C4%85ce.wav)
 - **mieszka**: Speaker: KaMan
 Recorder: KaMan, CC BY-SA 4.0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-KaMan-Mieszka.wav)
+- **miła**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-mi%C5%82a.wav)
 - **miło mi**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-mi%C5%82o_mi.wav)
 - **mimo to**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-mimo_to.wav)
 - **mimo że**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-mimo_%C5%BCe.wav)
+- **młodszy**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-m%C5%82odszy.wav)
+- **mniej**: Speaker: Matlin
+Recorder: Matlin, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Matlin-mniej.wav)
+- **mniejszy**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-mniejszy.wav)
+- **mogą**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-mog%C4%85.wav)
+- **mogę**: Speaker: Krokus
+Recorder: Krokus, CC BY-SA 4.0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Krokus-mog%C4%99.wav)
 - **moim zdaniem**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-moim_zdaniem.wav)
 - **mop**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-mop.wav)
+- **morza**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-morza.wav)
 - **morze**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-morze.wav)
+- **może**: Speaker: Krokus
+Recorder: Krokus, CC BY-SA 4.0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Krokus-mo%C5%BCe.wav)
+- **możecie**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-mo%C5%BCecie.wav)
+- **możemy**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-mo%C5%BCemy.wav)
 - **można**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-mo%C5%BCna.wav)
+- **móc**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-m%C3%B3c.wav)
 - **mój**: Speaker: Krokus
 Recorder: Krokus, CC BY-SA 4.0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Krokus-m%C3%B3j.wav)
 - **mówić**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-m%C3%B3wi%C4%87.wav)
+- **mówię**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-m%C3%B3wi%C4%99.wav)
 - **mu**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-mu.wav)
+- **musieć**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-musie%C4%87.wav)
 - **muzyka**: Speaker: InfamousProceedings
 Recorder: Kamil09875, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-InfamousProceedings_(Kamil09875)-muzyka.wav)
 - **my**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-my.wav)
 - **myć się**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-my%C4%87_si%C4%99.wav)
+- **na**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf--na.wav)
 - **nadgodziny**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-nadgodziny.wav)
+- **najbardziej**: Speaker: Poemat
+Recorder: Poemat, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Poemat-najbardziej.wav)
 - **najemca**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-najemca.wav)
+- **najlepszy**: Speaker: KaMan
+Recorder: KaMan, CC BY-SA 4.0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-KaMan-najlepszy.wav)
 - **najpóźniej**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-najp%C3%B3%C5%BAniej.wav)
 - **nam**: Speaker: Olaf
@@ -334,6 +476,12 @@ Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(p
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-napiwek.wav)
 - **napoje**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-napoje.wav)
+- **nas**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-nas.wav)
+- **nasz**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-nasz.wav)
+- **nauczyciel**: Speaker: Gower
+Recorder: Gower, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Gower-nauczyciel.wav)
 - **nauczyć się**: Speaker: Poemat
 Recorder: Poemat, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Poemat-nauczy%C4%87_si%C4%99.wav)
 - **nawigacja**: Speaker: Olaf
@@ -348,16 +496,28 @@ Recorder: Poemat, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-bia%C5%82o-niebieski.wav)
 - **niedziela**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-niedziela.wav)
+- **nieść**: Speaker: Poemat
+Recorder: Poemat, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Poemat-nie%C5%9B%C4%87.wav)
+- **niż**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-ni%C5%BC.wav)
 - **no to**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-no_to.wav)
+- **noce**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-noce.wav)
 - **nocna zmiana**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-nocna_zmiana.wav)
+- **nogi**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-nogi.wav)
+- **nosze**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-nosze.wav)
 - **nóż**: Speaker: Gower
 Recorder: Gower, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Gower-n%C3%B3%C5%BC.wav)
 - **numer telefonu**: Speaker: Wkrętarka
 Recorder: Wkrętarka, CC BY 4.0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Wkr%C4%99tarka-numer_telefonu.wav)
 - **obejść**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-obej%C5%9B%C4%87.wav)
+- **oczy**: Speaker: Poemat
+Recorder: Poemat, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Poemat-oczy.wav)
 - **oddzwonić**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-oddzwoni%C4%87.wav)
 - **odkurzacz**: Speaker: Gower
@@ -368,6 +528,8 @@ Recorder: Poemat, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-ogl%C4%85danie.wav)
 - **ogórki**: Speaker: Jest Spoczko
 Recorder: Jest Spoczko, CC BY-SA 4.0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Jest_Spoczko-og%C3%B3rki.wav)
+- **ojcowie**: Speaker: Poemat
+Recorder: Poemat, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Poemat-ojcowie.wav)
 - **olej napędowy**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-olej_nap%C4%99dowy.wav)
 - **on**: Speaker: Krokus
@@ -386,12 +548,16 @@ Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(p
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-opiekunka.wav)
 - **osłabiony**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-os%C5%82abiony.wav)
+- **otworzyć**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-otworzy%C4%87.wav)
 - **padać**: Speaker: Poemat
 Recorder: Poemat, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Poemat-pada%C4%87.wav)
 - **pakować**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-pakowa%C4%87.wav)
 - **paleta**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-paleta.wav)
+- **pamiętać**: Speaker: Jest Spoczko
+Recorder: Jest Spoczko, CC BY-SA 4.0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Jest_Spoczko-pami%C4%99ta%C4%87.wav)
 - **pan**: Speaker: Krokus
 Recorder: Krokus, CC BY-SA 4.0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Krokus-pan.wav)
 - **pani**: Speaker: Gower
@@ -426,10 +592,18 @@ Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(p
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-pi%C4%99%C4%87dziesi%C4%85t.wav)
 - **pięćset**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-pi%C4%99%C4%87set.wav)
+- **piją**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-pij%C4%85.wav)
+- **pije**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-pije.wav)
 - **piłka nożna**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-pi%C5%82ka_no%C5%BCna.wav)
+- **piwa**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-piwa.wav)
 - **plastik**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-plastik.wav)
+- **płacz**: Speaker: Poemat
+Recorder: Poemat, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Poemat-p%C5%82acz.wav)
 - **płatność**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-p%C5%82atno%C5%9B%C4%87.wav)
 - **po drodze**: Speaker: Poemat
@@ -450,6 +624,10 @@ Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(p
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-pokoj%C3%B3wka.wav)
 - **pokój**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-pok%C3%B3j.wav)
+- **pola**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-pola.wav)
+- **polacy**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-Polacy.wav)
 - **polak**: Speaker: WTM
 Recorder: WTM, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-WTM-arcy-Polak.wav)
 - **polka**: Speaker: Olaf
@@ -472,6 +650,8 @@ Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(p
 Recorder: Gower, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Gower-prawo.wav)
 - **prognoza pogody**: Speaker: Poemat
 Recorder: Poemat, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Poemat-prognoza_pogody.wav)
+- **prosię**: Speaker: Poemat
+Recorder: Poemat, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Poemat-prosi%C4%99.wav)
 - **proszę**: Speaker: Krokus
 Recorder: Krokus, CC BY-SA 4.0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Krokus-prosz%C4%99.wav)
 - **przejechać**: Speaker: Poemat
@@ -484,6 +664,8 @@ Recorder: Poemat, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-prze%C5%82o%C5%BCona.wav)
 - **przychodnia**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-przychodnia.wav)
+- **przyjaciel**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-przyjaciel.wav)
 - **przyjdzie**: Speaker: Matlin
 Recorder: Matlin, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Matlin-przyjdzie.wav)
 - **przyjść**: Speaker: Olaf
@@ -494,6 +676,12 @@ Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(p
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-przynie%C5%9B%C4%87.wav)
 - **psa**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-psa.wav)
+- **psy**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-psy.wav)
+- **pył**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-py%C5%82.wav)
+- **pyta**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-pyta.wav)
 - **rampa**: Speaker: Poemat
 Recorder: Poemat, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Poemat-rampa.wav)
 - **recepcja**: Speaker: Poemat
@@ -502,18 +690,26 @@ Recorder: Poemat, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_
 Recorder: Poemat, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Poemat-recepta.wav)
 - **rezerwacja**: Speaker: Poemat
 Recorder: Poemat, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Poemat-rezerwacja.wav)
+- **ręce**: Speaker: Poemat
+Recorder: Poemat, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Poemat-r%C4%99ce.wav)
 - **rozmiar**: Speaker: Poemat
 Recorder: Poemat, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Poemat-rozmiar.wav)
 - **rusztowanie**: Speaker: Poemat
 Recorder: Poemat, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Poemat-rusztowanie.wav)
+- **ryć**: Speaker: Poemat
+Recorder: Poemat, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Poemat-ry%C4%87.wav)
 - **rząd**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-rz%C4%85d.wav)
 - **rzecz**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-rzecz.wav)
+- **rzeczy**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-rzeczy.wav)
 - **rzeczywistość**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-rzeczywisto%C5%9B%C4%87.wav)
 - **rzeka**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-rzeka.wav)
+- **samochody**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-samochody.wav)
 - **samochód**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-samoch%C3%B3d.wav)
 - **samochód dostawczy**: Speaker: Olaf
@@ -526,6 +722,8 @@ Recorder: Gower, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(
 Recorder: Poemat, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Poemat-segregacja.wav)
 - **sernik**: Speaker: Poemat
 Recorder: Poemat, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Poemat-sernik.wav)
+- **sina**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-sina.wav)
 - **skaner**: Speaker: Poemat
 Recorder: Poemat, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Poemat-skaner.wav)
 - **skąd**: Speaker: Olaf
@@ -552,6 +750,10 @@ Recorder: Gower, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(
 Recorder: Poemat, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Poemat-sortowanie.wav)
 - **spacer**: Speaker: Poemat
 Recorder: Poemat, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Poemat-spacer.wav)
+- **spać**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-spa%C4%87.wav)
+- **spotkać się**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-spotka%C4%87_si%C4%99.wav)
 - **spotykać się**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-spotyka%C4%87_si%C4%99.wav)
 - **sprawdzić**: Speaker: Poemat
@@ -566,6 +768,8 @@ Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(p
 Recorder: Stresinski, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Stresinski-stanowisko.wav)
 - **stare**: Speaker: Poemat
 Recorder: Poemat, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Poemat-stare.wav)
+- **starszy**: Speaker: Poemat
+Recorder: Poemat, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Poemat-starszy.wav)
 - **stary**: Speaker: Gower
 Recorder: Gower, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Gower-stary.wav)
 - **stół**: Speaker: Olaf
@@ -582,6 +786,14 @@ Recorder: Poemat, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_
 Recorder: Matlin, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Matlin-szkoda.wav)
 - **szkoła**: Speaker: InfamousProceedings
 Recorder: Kamil09875, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-InfamousProceedings_(Kamil09875)-szko%C5%82a.wav)
+- **szok**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-szok.wav)
+- **szukać**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-szuka%C4%87.wav)
+- **szybciej**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-szybciej.wav)
+- **szyna**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-szyna.wav)
 - **ścierka**: Speaker: Poemat
 Recorder: Poemat, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Poemat-%C5%9Bcierka.wav)
 - **śmieci**: Speaker: Olaf
@@ -596,6 +808,8 @@ Recorder: Poemat, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_
 Recorder: Nostrix, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Nostrix-%C5%9Bwiat%C5%82a.wav)
 - **tabletka**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-tabletka.wav)
+- **tacka**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-tacka.wav)
 - **taczka**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-taczka.wav)
 - **tak**: Speaker: Krokus
@@ -612,6 +826,8 @@ Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(p
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-temu.wav)
 - **teraz**: Speaker: Krokus
 Recorder: Krokus, CC BY-SA 4.0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Krokus-teraz.wav)
+- **tę**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-t%C4%99.wav)
 - **trasa**: Speaker: Poemat
 Recorder: Poemat, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Poemat-trasa.wav)
 - **trwała**: Speaker: Poemat
@@ -642,6 +858,8 @@ Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(p
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-uczy%C4%87_si%C4%99.wav)
 - **ulica**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-ulica.wav)
+- **ulice**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-ulice.wav)
 - **umowa**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-umowa.wav)
 - **umowa najmu**: Speaker: Olaf
@@ -668,6 +886,8 @@ Recorder: Poemat, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-uwaga.wav)
 - **uważaj**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-uwa%C5%BCaj.wav)
+- **używać**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-u%C5%BCywa%C4%87.wav)
 - **w lewo**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-w_lewo.wav)
 - **w nocy**: Speaker: Olaf
@@ -684,6 +904,10 @@ Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(p
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-wam.wav)
 - **warunki**: Speaker: Poemat
 Recorder: Poemat, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Poemat-warunki.wav)
+- **was**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-was.wav)
+- **wasz**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-wasz.wav)
 - **ważny**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-wa%C5%BCny.wav)
 - **wcześniej**: Speaker: Olaf
@@ -698,20 +922,32 @@ Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(p
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-wiadomo%C5%9Bci.wav)
 - **wiadro**: Speaker: Poemat
 Recorder: Poemat, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Poemat-wiadro.wav)
+- **widzi**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-widzi.wav)
+- **wie**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-wie.wav)
+- **wiem**: Speaker: Krokus
+Recorder: Krokus, CC BY-SA 4.0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Krokus-wiem.wav)
 - **wiertarka**: Speaker: Poemat
 Recorder: Poemat, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Poemat-wiertarka.wav)
+- **wiesz**: Speaker: Krokus
+Recorder: Krokus, CC BY-SA 4.0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Krokus-wiesz.wav)
 - **wietrznie**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-wietrznie.wav)
 - **więc**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-wi%C4%99c.wav)
 - **większy**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-wi%C4%99kszy.wav)
+- **więź**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-wi%C4%99%C5%BA.wav)
 - **wiza**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-wiza.wav)
 - **wjechać**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-wjecha%C4%87.wav)
 - **włączyć**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-w%C5%82%C4%85czy%C4%87.wav)
+- **wola**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-Wola.wav)
 - **wózek widłowy**: Speaker: KaMan
 Recorder: KaMan, CC BY-SA 4.0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-KaMan-w%C3%B3zek_wid%C5%82owy.wav)
 - **wszyscy**: Speaker: Olaf
@@ -734,6 +970,8 @@ Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(p
 Recorder: Poemat, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Poemat-wynagrodzenie.wav)
 - **wynajem**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-wynajem.wav)
+- **wynajmować**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-wynajmowa%C4%87.wav)
 - **wypełnić**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-wype%C5%82ni%C4%87.wav)
 - **wypłata**: Speaker: Olaf
@@ -750,16 +988,22 @@ Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(p
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-zadzwoni%C4%87.wav)
 - **zakupy**: Speaker: Poemat
 Recorder: Poemat, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Poemat-zakupy.wav)
+- **załatwić**: Speaker: Poemat
+Recorder: Poemat, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Poemat-za%C5%82atwi%C4%87.wav)
 - **zamknięty**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-zamkni%C4%99ty.wav)
 - **zamówienie**: Speaker: Poemat
 Recorder: Poemat, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Poemat-zam%C3%B3wienie.wav)
 - **zapisać**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-zapisa%C4%87.wav)
+- **zarabiać**: Speaker: Poemat
+Recorder: Poemat, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Poemat-zarabia%C4%87.wav)
 - **zawroty głowy**: Speaker: Poemat
 Recorder: Poemat, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Poemat-zawroty_g%C5%82owy.wav)
 - **zbiór**: Speaker: Poemat
 Recorder: Poemat, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Poemat-zbi%C3%B3r.wav)
+- **zdecydować**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-zdecydowa%C4%87.wav)
 - **zdenerwowany**: Speaker: Poemat
 Recorder: Poemat, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Poemat-zdenerwowany.wav)
 - **zejść**: Speaker: Olaf
@@ -772,6 +1016,8 @@ Recorder: Poemat, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-zg%C5%82osi%C4%87.wav)
 - **zgniły**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-zgni%C5%82y.wav)
+- **zgodzić się**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-zgodzi%C4%87_si%C4%99.wav)
 - **zgubić się**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-zgubi%C4%87_si%C4%99.wav)
 - **zielony**: Speaker: Olaf
@@ -804,3 +1050,5 @@ Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(p
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-%C5%BCona.wav)
 - **żółty**: Speaker: Olaf
 Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-%C5%BC%C3%B3%C5%82ty.wav)
+- **żyć**: Speaker: Olaf
+Recorder: Olaf, CC0, [source](https://commons.wikimedia.org/wiki/File:LL-Q809_(pol)-Olaf-%C5%BCy%C4%87.wav)
