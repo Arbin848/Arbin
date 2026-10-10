@@ -8,8 +8,8 @@ window.SLOWKA_ROLEPLAYS.push({
   title: "At the GP: fever and a sick note",
   titleNe: "डाक्टरकहाँ: ज्वरो र बिरामी बिदाको पत्र",
   scene: {
-    en: "For three days you have had a fever and a sore throat. You are at your family doctor (*lekarz rodzinny*) in a clinic. You need medicine and a sick note (*L4*) for work. (Replies use the forms a man says; a woman says *miałam*, *brałam*, *wiedziałam*.)",
-    ne: "तीन दिनदेखि तपाईंलाई ज्वरो छ र घाँटी दुखेको छ। तपाईं क्लिनिकमा आफ्नो पारिवारिक डाक्टर (*lekarz rodzinny*) कहाँ हुनुहुन्छ। तपाईंलाई औषधि र कामका लागि बिरामी बिदाको पत्र (*L4*) चाहिएको छ। (जवाफहरू पुरुषले बोल्ने रूपमा छन्; महिलाले *miałam*, *brałam*, *wiedziałam* भन्छन्।)"
+    en: "For three days you have had a fever and a sore throat. You are at your family doctor (*lekarz rodzinny*) in a clinic. You need medicine and a sick note (*L4*) for work. (Replies use the forms a man says; a woman says *miałam*, *brałam*.)",
+    ne: "तीन दिनदेखि तपाईंलाई ज्वरो छ र घाँटी दुखेको छ। तपाईं क्लिनिकमा आफ्नो पारिवारिक डाक्टर (*lekarz rodzinny*) कहाँ हुनुहुन्छ। तपाईंलाई औषधि र कामका लागि बिरामी बिदाको पत्र (*L4*) चाहिएको छ। (जवाफहरू पुरुषले बोल्ने रूपमा छन्; महिलाले *miałam*, *brałam* भन्छन्।)"
   },
   them: "Lekarka",
   themEn: "Doctor (woman)",
@@ -87,7 +87,7 @@ window.SLOWKA_ROLEPLAYS.push({
         { pl: "Czyli nie muszę zanosić żadnego papieru do pracy?", en: "So I don't have to take any paper to work?", ne: "मतलब मैले कुनै कागज कामसम्म लैजानु पर्दैन?", ok: true },
         { pl: "Dziękuję. Zadzwonię do kierownika i powiem mu, że jestem na zwolnieniu.", en: "Thank you. I'll call my manager and tell him I'm on sick leave.", ne: "धन्यवाद। म मेरो म्यानेजरलाई फोन गरेर बिरामी बिदामा छु भनेर भन्छु।", ok: true },
         { pl: "Dziękuję. Zadzwonię do kierownik i powiem jemu.", en: "(wrong forms)", ne: "(गलत रूपहरू)", ok: false,
-          why: { en: "*Do* takes the genitive: *do kierownika*. And after a verb, the short pronoun is used: *powiem mu*. *Jemu* is only for emphasis or after a preposition (*jemu, nie jej*).",
+          why: { en: "*Do* takes the genitive: *do kierownika*. And after a verb, the short pronoun is used: *powiem mu*. *Jemu* is only for emphasis or contrast (*jemu, nie jej* — to him, not to her).",
                  ne: "*Do* पछि षष्ठी आउँछ: *do kierownika*। क्रियापछि छोटो सर्वनाम प्रयोग हुन्छ: *powiem mu*। *Jemu* जोड दिँदा वा तुलना गर्दा मात्र (*jemu, nie jej* — उसलाई, उनलाई होइन)।" } }
       ]
     },
@@ -523,7 +523,7 @@ window.SLOWKA_ROLEPLAYS.push({
     {
       them: ["Dobrze. Proszę podać adres zamieszkania w Polsce i numer telefonu.", "Fine. Please give your home address in Poland and your phone number.", "ठीक छ। पोल्यान्डको बसोबास ठेगाना र फोन नम्बर बताउनुहोस्।"],
       replies: [
-        { pl: "Mieszkam w Poznaniu, na ulicy Długiej czternaście, mieszkanie numer pięć.", en: "I live in Poznań, at 14 Długa Street, flat number 5.", ne: "म पोज्नानमा, दलुगा सडक १४, फ्ल्याट नम्बर ५ मा बस्छु।", ok: true },
+        { pl: "Mieszkam w Poznaniu, na ulicy Długiej czternaście, mieszkanie numer pięć.", en: "I live in Poznań, at 14 Długa Street, flat number 5.", ne: "म पोज्नानमा, द्वुगा सडक १४, फ्ल्याट नम्बर ५ मा बस्छु।", ok: true },
         { pl: "Mieszkam w Poznań, na ulicy Długa.", en: "(wrong case after 'w' and 'na')", ne: "(*w* र *na* पछि गलत विभक्ति)", ok: false,
           why: { en: "*W* and *na* for a place take the locative: *w Poznaniu*, *w Warszawie*, *na ulicy Długiej*.",
                  ne: "ठाउँ जनाउने *w* र *na* पछि अधिकरण (locative) आउँछ: *w Poznaniu*, *w Warszawie*, *na ulicy Długiej*।" } },
@@ -844,5 +844,370 @@ window.SLOWKA_ROLEPLAYS.push({
     ["zwrot pieniędzy", "refund", "पैसा फिर्ता", "zvrot pye-NYEN-dzi", "ज़्भ्रोत् प्ये-ˈन्येन्-द्ज़ि"],
     ["opis usterki", "description of the fault", "खराबीको विवरण", "O-pees oos-TER-kee", "ˈओ-पिस् उस्-ˈतेर्-कि"],
     ["proszę o kopię z pieczątką", "please give me a stamped copy", "छाप लगाएको प्रतिलिपि दिनुहोस्", "PRO-sheh o KO-pyeh s pye-CHONT-kon", "ˈप्रो-शे ओ ˈको-प्ये स् प्ये-ˈचोंत्-कों"]
+  ]
+});
+
+window.SLOWKA_ROLEPLAYS.push({
+  id: "rp-b2-police",
+  level: "B2",
+  title: "A police check on the street",
+  titleNe: "सडकमा प्रहरी जाँच",
+  scene: {
+    en: "It's late evening. You are cycling home from your shift when a police patrol stops you. Your rear light isn't working. Stay calm and polite and answer clearly.",
+    ne: "राति ढिलो भएको छ। तपाईं सिफ्ट सकेर साइकलमा घर फर्कंदै हुनुहुन्छ, प्रहरी गस्तीले तपाईंलाई रोक्छ। तपाईंको पछाडिको बत्ती चलेको छैन। शान्त र नम्र रहनुहोस् र स्पष्ट जवाफ दिनुहोस्।"
+  },
+  them: "Policjant",
+  themEn: "Police officer",
+  themNe: "प्रहरी",
+  steps: [
+    {
+      them: ["Dobry wieczór. Sierżant Nowicki, policja. Zatrzymałem Pana do kontroli.", "Good evening. Sergeant Nowicki, police. I've stopped you for a check.", "शुभ साँझ। सार्जेन्ट नोभित्स्की, प्रहरी। मैले तपाईंलाई जाँचका लागि रोकेँ।"],
+      replies: [
+        { pl: "Dobry wieczór. Rozumiem. Czy coś się stało?", en: "Good evening. I understand. Has something happened?", ne: "शुभ साँझ। बुझें। केही भयो?", ok: true },
+        { pl: "Ja nic nie zrobiłem! Muszę jechać do domu.", en: "I haven't done anything! I have to get home.", ne: "मैले केही गरेको छैन! मलाई घर जानुपर्छ।", ok: false,
+          why: { en: "A check is routine — nobody has accused you. Getting upset only makes it longer. Greet the officer and listen: *Dobry wieczór. W czym problem?*",
+                 ne: "जाँच सामान्य कुरा हो — कसैले तपाईंलाई दोष लगाएको छैन। आत्तिँदा झन् लामो हुन्छ। प्रहरीलाई अभिवादन गरेर सुन्नुहोस्: *Dobry wieczór. W czym problem?*" } },
+        { pl: "Cześć, o co chodzi?", en: "Hi, what's up?", ne: "हाई, के भयो?", ok: false,
+          why: { en: "*Cześć* is for friends. With the police always use *Dobry wieczór / Dzień dobry* and *Pan/Pani*.",
+                 ne: "*Cześć* साथीहरूका लागि हो। प्रहरीसँग सधैं *Dobry wieczór / Dzień dobry* र *Pan/Pani* प्रयोग गर्नुहोस्।" } }
+      ]
+    },
+    {
+      them: ["Nie działa Panu tylne światło. Po zmroku jest obowiązkowe. Poproszę dokument tożsamości.", "Your rear light isn't working. After dark it's compulsory. Your ID document, please.", "तपाईंको पछाडिको बत्ती चलेको छैन। अँध्यारो भएपछि यो अनिवार्य हुन्छ। परिचय पत्र दिनुहोस्।"],
+      replies: [
+        { pl: "Przepraszam, nie zauważyłem. Proszę, oto moja karta pobytu.", en: "Sorry, I didn't notice. Here is my residence card.", ne: "माफ गर्नुहोस्, मैले याद गरिनँ। लिनुहोस्, यो मेरो बसोबास कार्ड।", ok: true },
+        { pl: "Naprawdę? Rano jeszcze działało. Proszę, tu jest mój paszport.", en: "Really? It was still working this morning. Here's my passport.", ne: "साँच्चै? बिहानसम्म त चलेको थियो। लिनुहोस्, यो मेरो राहदानी।", ok: true },
+        { pl: "Przepraszam, nie zauważyłem. Proszę, oto mój karta pobytu.", en: "(wrong gender)", ne: "(गलत लिङ्ग)", ok: false,
+          why: { en: "*Karta* is feminine, so 'my' is *moja*: *moja karta pobytu*. *Mój* goes with masculine nouns: *mój paszport*.",
+                 ne: "*Karta* स्त्रीलिङ्ग हो, त्यसैले 'मेरो' = *moja*: *moja karta pobytu*। *Mój* पुल्लिङ्ग नामसँग: *mój paszport*।" } }
+      ]
+    },
+    {
+      them: ["Dziękuję. Gdzie Pan mieszka i dokąd Pan jedzie?", "Thank you. Where do you live and where are you going?", "धन्यवाद। तपाईं कहाँ बस्नुहुन्छ र कता जाँदै हुनुहुन्छ?"],
+      replies: [
+        { pl: "Mieszkam niedaleko, na ulicy Kościuszki. Wracam z pracy do domu.", en: "I live nearby, on Kościuszki Street. I'm going home from work.", ne: "म नजिकै, कोश्चुश्की सडकमा बस्छु। कामबाट घर फर्कंदैछु।", ok: true },
+        { pl: "Mieszkam na ulicy Kościuszki. Jadę z pracy w domu.", en: "(wrong preposition)", ne: "(गलत नामयोगी)", ok: false,
+          why: { en: "Direction 'to' is *do* + genitive: *jadę do domu*. *W domu* means 'at home' (place, not direction): *jestem w domu*.",
+                 ne: "दिशा ('तर्फ/सम्म') = *do* + षष्ठी: *jadę do domu*। *W domu* को अर्थ 'घरमा' (ठाउँ, दिशा होइन): *jestem w domu*।" } },
+        { pl: "Dlaczego Pan pyta? To moja prywatna sprawa.", en: "Why are you asking? That's my private business.", ne: "किन सोध्नुहुन्छ? यो मेरो निजी कुरा हो।", ok: false,
+          why: { en: "In a calm routine check, short and polite answers end things fastest. A defensive tone makes the officer more careful, not less.",
+                 ne: "शान्त सामान्य जाँचमा छोटो र नम्र जवाफले काम छिटो सकिन्छ। रक्षात्मक स्वरले प्रहरीलाई झन् सतर्क बनाउँछ।" } }
+      ]
+    },
+    {
+      them: ["Gdzie Pan pracuje?", "Where do you work?", "तपाईं कहाँ काम गर्नुहुन्छ?"],
+      replies: [
+        { pl: "W magazynie firmy kurierskiej. Dzisiaj miałem drugą zmianę, do dwudziestej drugiej.", en: "In a courier company's warehouse. Today I had the second shift, until ten p.m.", ne: "एउटा कुरियर कम्पनीको गोदाममा। आज मेरो दोस्रो सिफ्ट थियो, राति दस बजेसम्म।", ok: true },
+        { pl: "Pracuję w magazynie. Mam przy sobie identyfikator z pracy, jeśli trzeba.", en: "I work in a warehouse. I have my work ID badge with me, if needed.", ne: "म गोदाममा काम गर्छु। चाहिए भने मसँग कामको परिचय कार्ड छ।", ok: true },
+        { pl: "W magazynie. Pracuję na druga zmiana.", en: "(wrong case after 'na')", ne: "(*na* पछि गलत विभक्ति)", ok: false,
+          why: { en: "After *na* the shift can't stay in the basic form. Say *pracuję na drugiej zmianie* (locative: I'm on the second shift) or *pracuję na drugą zmianę* (accusative) — both are heard.",
+                 ne: "*na* पछि सिफ्ट मूल रूपमा रहन सक्दैन। *pracuję na drugiej zmianie* (अधिकरण: दोस्रो सिफ्टमा छु) वा *pracuję na drugą zmianę* (द्वितीया) भन्नुहोस् — दुवै सुनिन्छन्।" } }
+      ]
+    },
+    {
+      them: ["Dobrze. Czy pił Pan dzisiaj alkohol?", "All right. Have you drunk any alcohol today?", "ठीक छ। आज तपाईंले रक्सी पिउनुभयो?"],
+      replies: [
+        { pl: "Nie, nie piłem. Jadę prosto z pracy.", en: "No, I haven't. I'm coming straight from work.", ne: "होइन, पिइनँ। म सिधै कामबाट आउँदैछु।", ok: true },
+        { pl: "Nie, nie piję alkohol.", en: "(wrong form after 'nie')", ne: "(*nie* पछि गलत रूप)", ok: false,
+          why: { en: "After a negative verb the object is genitive: *nie piję alkoholu*. Also notice the tense: he asked about today, so *nie piłem* fits best.",
+                 ne: "नकारात्मक क्रियापछि कर्म षष्ठीमा: *nie piję alkoholu*। कालमा पनि ध्यान दिनुहोस्: उहाँले आजको कुरा सोध्नुभयो, त्यसैले *nie piłem* सबैभन्दा मिल्छ।" } },
+        { pl: "Tak, piłem dzisiaj dużo wody.", en: "Yes, I drank a lot of water today.", ne: "हो, आज मैले धेरै पानी पिएँ।", ok: false,
+          why: { en: "Jokes with the police can easily be misunderstood, especially in a second language. Answer the question directly: *Nie, nie piłem alkoholu.*",
+                 ne: "प्रहरीसँग ठट्टा सजिलै गलत बुझिन सक्छ, त्यो पनि दोस्रो भाषामा। प्रश्नको सिधा जवाफ दिनुहोस्: *Nie, nie piłem alkoholu.*" } }
+      ]
+    },
+    {
+      them: ["Proszę dmuchnąć w alkomat. Długo i równo, aż usłyszy Pan sygnał.", "Please blow into the breathalyser. Long and steady, until you hear a beep.", "अल्कोमिटरमा फुक्नुहोस्। लामो र एकनास, बिप सुन्नुहुन्जेल।"],
+      replies: [
+        { pl: "Dobrze. Czy tak wystarczy?", en: "OK. Is that enough?", ne: "हुन्छ। यति भयो?", ok: true },
+        { pl: "Przepraszam, nie zrozumiałem. Mam dmuchać długo czy krótko?", en: "Sorry, I didn't understand. Should I blow long or short?", ne: "माफ गर्नुहोस्, मैले बुझिनँ। लामो फुक्ने कि छोटो?", ok: true },
+        { pl: "Dobrze, ale możesz mi pokazać, jak?", en: "OK, but can you (informal) show me how?", ne: "हुन्छ, तर कसरी हो देखाइदिन सक्छौ?", ok: false,
+          why: { en: "Never use *ty* with a police officer. Say *Czy może Pan pokazać, jak?* — with *Pan* the verb is 3rd person (*może*, not *możesz*).",
+                 ne: "प्रहरीसँग कहिल्यै *ty* प्रयोग नगर्नुहोस्। *Czy może Pan pokazać, jak?* भन्नुहोस् — *Pan* सँग क्रिया तृतीय पुरुषमा हुन्छ (*może*, *możesz* होइन)।" } }
+      ]
+    },
+    {
+      them: ["Zero promili, w porządku. Za brak oświetlenia mógłbym dać mandat, ale tym razem skończy się na pouczeniu.", "Zero per mille, fine. For having no light I could give you a fine, but this time it will end with a warning.", "शून्य प्रोमिल, ठीक छ। बत्ती नभएकोमा म जरिवाना गर्न सक्थें, तर यस पटक चेतावनीमै टुंगिन्छ।"],
+      replies: [
+        { pl: "Dziękuję bardzo. Jutro rano kupię nową lampkę.", en: "Thank you very much. Tomorrow morning I'll buy a new light.", ne: "धेरै धन्यवाद। भोलि बिहान नयाँ बत्ती किन्छु।", ok: true },
+        { pl: "Dziękuję. Czyli muszę zapłacić mandat?", en: "Thank you. So I have to pay a fine?", ne: "धन्यवाद। मतलब मैले जरिवाना तिर्नुपर्छ?", ok: false,
+          why: { en: "*Mógłbym dać mandat* = I **could** give a fine (conditional) — *ale* (but) this time only *pouczenie*, a warning. No fine to pay.",
+                 ne: "*Mógłbym dać mandat* = म जरिवाना गर्न **सक्थें** (सम्भावना) — *ale* (तर) यस पटक *pouczenie* मात्र, अर्थात् चेतावनी। जरिवाना तिर्नु पर्दैन।" } },
+        { pl: "Dziękuję! Może zaproszę Pana na kawę?", en: "Thank you! Maybe I could buy you a coffee?", ne: "धन्यवाद! तपाईंलाई एक कप कफी खुवाऊँ?", ok: false,
+          why: { en: "Offering anything to an officer during a check can look like a bribe (*łapówka*), which is a crime in Poland. A simple *dziękuję* is enough.",
+                 ne: "जाँचको बेला प्रहरीलाई केही दिन खोज्दा घूस (*łapówka*) जस्तो देखिन सक्छ, जुन पोल्यान्डमा अपराध हो। *dziękuję* मात्र भने पुग्छ।" } }
+      ]
+    },
+    {
+      them: ["Dzisiaj proszę już nie jechać, tylko prowadzić rower. Oto Pana dokument.", "Tonight please don't ride any more — walk the bike. Here's your document.", "आज अब साइकल नचलाउनुहोस्, डोर्याएर लैजानुहोस्। यो तपाईंको कागजात।"],
+      replies: [
+        { pl: "Dobrze, poprowadzę rower do domu. Dziękuję, dobranoc.", en: "OK, I'll walk the bike home. Thank you, good night.", ne: "हुन्छ, म साइकल डोर्याएर घर लैजान्छु। धन्यवाद, शुभ रात्रि।", ok: true },
+        { pl: "Dobrze, to szybko pojadę do domu.", en: "OK, then I'll ride home quickly.", ne: "हुन्छ, त्यसो भए म छिटो साइकल चलाएर घर जान्छु।", ok: false,
+          why: { en: "*Prowadzić rower* means to walk beside the bike and push it — not ride it. *Jechać na rowerze* = to ride. He asked you not to ride.",
+                 ne: "*Prowadzić rower* भनेको साइकलसँगै हिँडेर डोर्याउनु हो — चलाउनु होइन। *Jechać na rowerze* = चलाउनु। उहाँले नचलाउन भन्नुभयो।" } },
+        { pl: "Dobrze, dziękuję. Dobry wieczór!", en: "OK, thank you. Good evening!", ne: "हुन्छ, धन्यवाद। शुभ साँझ!", ok: false,
+          why: { en: "*Dobry wieczór* is a greeting when you **meet** someone. When leaving in the evening say *Do widzenia* or, late at night, *Dobranoc*.",
+                 ne: "*Dobry wieczór* कसैलाई **भेट्दा** भन्ने अभिवादन हो। साँझ छुट्टिँदा *Do widzenia*, राति ढिलो भए *Dobranoc* भन्नुहोस्।" } }
+      ]
+    }
+  ],
+  end: {
+    en: "Well done! You stayed calm, showed your document, answered clearly and politely and understood that it ended with only a warning. Polite, short answers are the best strategy in any check.",
+    ne: "स्याबास! तपाईं शान्त रहनुभयो, कागजात देखाउनुभयो, स्पष्ट र नम्र जवाफ दिनुभयो र चेतावनीमै टुंगिएको बुझ्नुभयो। जुनसुकै जाँचमा नम्र र छोटो जवाफ नै उत्तम उपाय हो।"
+  },
+  useful: [
+    ["zatrzymałem Pana do kontroli", "I've stopped you for a check", "मैले तपाईंलाई जाँचका लागि रोकेँ", "za-tshi-MA-wem PA-na do kon-TRO-lee", "ज़ा-त्शि-ˈमा-वेम् ˈपा-ना दो कोन्-ˈत्रो-लि"],
+    ["oto moja karta pobytu", "here is my residence card", "यो मेरो बसोबास कार्ड हो", "O-to MO-ya KAR-ta po-BI-too", "ˈओ-तो ˈमो-या ˈकार्-ता पो-ˈबि-तु"],
+    ["wracam z pracy do domu", "I'm going home from work", "म कामबाट घर फर्कंदैछु", "VRA-tsam s PRA-tsi do DO-moo", "ˈभ्रा-त्साम् स् ˈप्रा-त्सि दो ˈदो-मु"],
+    ["dmuchnąć w alkomat", "to blow into the breathalyser", "अल्कोमिटरमा फुक्नु", "DMOOH-nonch v al-KO-mat", "ˈद्मुह्-नोंच् भ् आल्-ˈको-मात्"],
+    ["mandat", "fine (penalty ticket)", "जरिवाना", "MAN-dat", "ˈमान्-दात्"],
+    ["pouczenie", "(official) warning", "चेतावनी", "po-oo-CHE-nyeh", "पो-उ-ˈचे-न्ये"],
+    ["prowadzić rower", "to walk (push) a bike", "साइकल डोर्याएर हिँड्नु", "pro-VA-jeech RO-ver", "प्रो-ˈभा-जिच् ˈरो-भेर्"]
+  ]
+});
+
+window.SLOWKA_ROLEPLAYS.push({
+  id: "rp-b2-contract",
+  level: "B2",
+  title: "Asking HR about two types of contract",
+  titleNe: "दुई प्रकारका सम्झौताबारे HR सँग सोध्दै",
+  scene: {
+    en: "A company offers you either an *umowa o pracę* (employment contract) or an *umowa zlecenie* (civil-law contract of mandate). You ask Ms Joanna from HR to explain the difference. This practises the language only — for your own case, ask the labour inspectorate (*PIP*) or a lawyer.",
+    ne: "एउटा कम्पनीले तपाईंलाई *umowa o pracę* (रोजगार सम्झौता) वा *umowa zlecenie* (नागरिक कानुनअन्तर्गतको करार) दिन्छु भनेको छ। तपाईं HR की योआना जीलाई फरक बुझाइदिन भन्नुहुन्छ। यो भाषा अभ्यास मात्र हो — आफ्नो मामलाका लागि श्रम निरीक्षण कार्यालय (*PIP*) वा वकिलसँग सोध्नुहोस्।"
+  },
+  them: "Pani Joanna",
+  themEn: "Ms Joanna from HR",
+  themNe: "योआना जी (HR)",
+  steps: [
+    {
+      them: ["Dzień dobry, proszę wejść. Rozumiem, że ma Pan pytania dotyczące umowy?", "Hello, come in. I understand you have questions about the contract?", "नमस्ते, भित्र आउनुहोस्। तपाईंसँग सम्झौताबारे प्रश्न छन् भनेर बुझें?"],
+      replies: [
+        { pl: "Dzień dobry. Tak, dostałem dwie propozycje: umowę o pracę i umowę zlecenie. Nie do końca rozumiem różnicę.", en: "Hello. Yes, I got two offers: an employment contract and a contract of mandate. I don't fully understand the difference.", ne: "नमस्ते। हो, मलाई दुई प्रस्ताव आएका छन्: रोजगार सम्झौता र करार सम्झौता। मलाई फरक पूरै बुझिएको छैन।", ok: true },
+        { pl: "Tak. Nie rozumiem różnica między tymi umowami.", en: "(wrong form after 'nie rozumiem')", ne: "(*nie rozumiem* पछि गलत रूप)", ok: false,
+          why: { en: "After a negative verb the object goes into the genitive: *rozumiem różnicę* → *nie rozumiem różnicy*. (*Między* + instrumental is right: *między tymi umowami*.)",
+                 ne: "नकारात्मक क्रियापछि कर्म षष्ठीमा जान्छ: *rozumiem różnicę* → *nie rozumiem różnicy*। (*Między* + तृतीया ठीक छ: *między tymi umowami*।)" } },
+        { pl: "Tak, Joanna, wytłumacz mi to szybko.", en: "Yes, Joanna, explain it to me quickly.", ne: "हो, योआना, छिटो बुझाइदेऊ।", ok: false,
+          why: { en: "A bare first name with *ty* is too familiar with someone you don't know well. Use *Pani* + the vocative of the name: *Pani Joanno, czy mogłaby Pani mi to wytłumaczyć?*",
+                 ne: "राम्रोसँग नचिनेको मान्छेलाई *ty* र नाम मात्र भन्नु धेरै अनौपचारिक हो। *Pani* + नामको सम्बोधन रूप प्रयोग गर्नुहोस्: *Pani Joanno, czy mogłaby Pani mi to wytłumaczyć?*" } }
+      ]
+    },
+    {
+      them: ["Oczywiście. Umowa o pracę podlega Kodeksowi pracy. Ma Pan wtedy płatny urlop, płatne zwolnienie chorobowe i okres wypowiedzenia.", "Of course. An employment contract falls under the Labour Code. Then you have paid holiday, paid sick leave and a notice period.", "अवश्य। रोजगार सम्झौता श्रम संहिताअन्तर्गत पर्छ। त्यसमा तपाईंलाई तलबी बिदा, तलबी बिरामी बिदा र सूचना अवधि हुन्छ।"],
+      replies: [
+        { pl: "Czyli przy umowie o pracę mam prawo do płatnego urlopu?", en: "So with an employment contract I'm entitled to paid holiday?", ne: "मतलब रोजगार सम्झौतामा मलाई तलबी बिदाको अधिकार हुन्छ?", ok: true },
+        { pl: "Przepraszam, co dokładnie znaczy okres wypowiedzenia?", en: "Sorry, what exactly does 'notice period' mean?", ne: "माफ गर्नुहोस्, सूचना अवधि भनेको ठ्याक्कै के हो?", ok: true },
+        { pl: "Czyli mam prawo do płatny urlop?", en: "(wrong form after 'do')", ne: "(*do* पछि गलत रूप)", ok: false,
+          why: { en: "*Prawo do* (the right to) takes the genitive: *prawo do płatnego urlopu*, *prawo do odpoczynku*. Both the adjective and the noun change.",
+                 ne: "*Prawo do* (… को अधिकार) पछि षष्ठी आउँछ: *prawo do płatnego urlopu*, *prawo do odpoczynku*। विशेषण र नाम दुवै फेरिन्छन्।" } }
+      ]
+    },
+    {
+      them: ["Tak. Przy krótszym stażu to dwadzieścia dni urlopu w roku. A okres wypowiedzenia to czas między wypowiedzeniem umowy a ostatnim dniem pracy — na przykład dwa tygodnie albo miesiąc.", "Yes. With shorter work experience it's twenty days of holiday a year. And the notice period is the time between giving notice and the last day of work — for example two weeks or a month.", "हो। कम कार्यअनुभव भए वर्षमा बीस दिन बिदा हुन्छ। अनि सूचना अवधि भनेको सम्झौता अन्त्यको सूचना दिएदेखि कामको अन्तिम दिनसम्मको समय हो — जस्तै दुई हप्ता वा एक महिना।"],
+      replies: [
+        { pl: "Rozumiem. A jak to wygląda przy umowie zlecenie?", en: "I see. And how does it work with a contract of mandate?", ne: "बुझें। अनि करार सम्झौतामा कस्तो हुन्छ?", ok: true },
+        { pl: "Rozumiem. Czyli mam dwadzieścia dni urlopu w miesiącu?", en: "I see. So I get twenty days of holiday a month?", ne: "बुझें। मतलब महिनामा बीस दिन बिदा हुन्छ?", ok: false,
+          why: { en: "She said *w roku* — per **year**. *W miesiącu* = per month, *w tygodniu* = per week. Listen for these small time words.",
+                 ne: "उहाँले *w roku* भन्नुभयो — **वर्ष**मा। *W miesiącu* = महिनामा, *w tygodniu* = हप्तामा। यस्ता साना समयका शब्दमा ध्यान दिनुहोस्।" } },
+        { pl: "Rozumiem. A jak to wygląda przy umowa zlecenie?", en: "(wrong case after 'przy')", ne: "(*przy* पछि गलत विभक्ति)", ok: false,
+          why: { en: "*Przy* takes the locative: *przy umowie*. In everyday speech *zlecenie* usually stays as it is, like a label: *przy umowie zlecenie*.",
+                 ne: "*Przy* पछि अधिकरण आउँछ: *przy umowie*। दैनिक बोलीमा *zlecenie* प्रायः लेबलजस्तै उस्तै रहन्छ: *przy umowie zlecenie*।" } }
+      ]
+    },
+    {
+      them: ["Umowa zlecenie to umowa cywilnoprawna. Jest bardziej elastyczna, ale z mocy prawa nie daje płatnego urlopu. Obowiązuje za to minimalna stawka godzinowa.", "A contract of mandate is a civil-law contract. It's more flexible, but by law it gives no paid holiday. On the other hand, a minimum hourly rate applies.", "करार सम्झौता नागरिक कानुनअन्तर्गतको सम्झौता हो। यो बढी लचिलो हुन्छ, तर कानुनले यसमा तलबी बिदा दिँदैन। बरु न्यूनतम प्रतिघण्टा दर लागू हुन्छ।"],
+      replies: [
+        { pl: "A czy przy umowie zlecenie mam ubezpieczenie zdrowotne?", en: "And with a contract of mandate, do I have health insurance?", ne: "अनि करार सम्झौतामा मेरो स्वास्थ्य बीमा हुन्छ?", ok: true },
+        { pl: "Czyli jeśli wezmę wolne na zleceniu, nie dostanę za te dni pieniędzy?", en: "So if I take time off on the mandate contract, I won't get paid for those days?", ne: "मतलब करार सम्झौतामा छुट्टी लिएँ भने ती दिनको पैसा पाउँदिनँ?", ok: true },
+        { pl: "Czyli umowa zlecenie jest bardziej elastyczny?", en: "(wrong gender)", ne: "(गलत लिङ्ग)", ok: false,
+          why: { en: "The main noun is *umowa* (feminine), so the adjective is *elastyczna*. In *umowa zlecenie*, *zlecenie* is just a label — agree with *umowa*.",
+                 ne: "मुख्य नाम *umowa* (स्त्रीलिङ्ग) हो, त्यसैले विशेषण *elastyczna* हुन्छ। *umowa zlecenie* मा *zlecenie* लेबल मात्र हो — *umowa* सँग मिलाउनुहोस्।" } }
+      ]
+    },
+    {
+      them: ["Dobre pytanie. Ubezpieczenie zdrowotne zwykle jest w obu przypadkach, ale płatny urlop tylko na umowie o pracę. Na zleceniu za dni wolne po prostu nie ma wynagrodzenia.", "Good question. Health insurance is usually there in both cases, but paid holiday only with an employment contract. On a mandate contract there's simply no pay for days off.", "राम्रो प्रश्न। स्वास्थ्य बीमा सामान्यतया दुवैमा हुन्छ, तर तलबी बिदा रोजगार सम्झौतामा मात्र। करार सम्झौतामा छुट्टीका दिनको पारिश्रमिक हुँदैन।"],
+      replies: [
+        { pl: "Rozumiem. Czy mógłbym zabrać obie umowy do domu i spokojnie je przeczytać?", en: "I see. Could I take both contracts home and read them calmly?", ne: "बुझें। के म दुवै सम्झौता घर लगेर शान्तसँग पढ्न सक्छु?", ok: true },
+        { pl: "Dziękuję, teraz jest jaśniej. Czy mogę się zastanowić do jutra?", en: "Thank you, it's clearer now. May I think about it until tomorrow?", ne: "धन्यवाद, अब बढी स्पष्ट भयो। के म भोलिसम्म सोच्न सक्छु?", ok: true },
+        { pl: "Czy mógłbym zabrać oba umowy do domu?", en: "(wrong form of 'both')", ne: "('दुवै' को गलत रूप)", ok: false,
+          why: { en: "'Both' has gender: *obie* for feminine nouns (*obie umowy*), *oba* for masculine and neuter (*oba dokumenty*), *obaj* for two men (*obaj koledzy*).",
+                 ne: "'दुवै' को पनि लिङ्ग हुन्छ: स्त्रीलिङ्गमा *obie* (*obie umowy*), पुल्लिङ्ग र नपुंसकलिङ्गमा *oba* (*oba dokumenty*), दुई पुरुषका लागि *obaj* (*obaj koledzy*)।" } }
+      ]
+    },
+    {
+      them: ["Oczywiście. Proszę mi dać znać do środy, którą umowę Pan wybiera. Jeśli coś będzie niejasne, proszę pytać.", "Of course. Please let me know by Wednesday which contract you choose. If anything is unclear, please ask.", "अवश्य। कुन सम्झौता रोज्नुहुन्छ, बुधबारसम्म मलाई खबर गर्नुहोस्। केही अस्पष्ट भए सोध्नुहोस्।"],
+      replies: [
+        { pl: "Dobrze, odezwę się najpóźniej w środę.", en: "OK, I'll get back to you on Wednesday at the latest.", ne: "हुन्छ, म बढीमा बुधबारसम्म खबर गर्छु।", ok: true },
+        { pl: "Dobrze, odezwę się najpóźniej w środa.", en: "(wrong case after 'w')", ne: "(*w* पछि गलत विभक्ति)", ok: false,
+          why: { en: "With days of the week, *w* takes the accusative: *w środę*, *w sobotę*, *w poniedziałek*. Feminine *-a* becomes *-ę*.",
+                 ne: "हप्ताका दिनसँग *w* पछि द्वितीया आउँछ: *w środę*, *w sobotę*, *w poniedziałek*। स्त्रीलिङ्ग *-a* *-ę* हुन्छ।" } },
+        { pl: "Nie trzeba, podpiszę od razu. Nie czytałem, ale ufam Pani.", en: "No need, I'll sign straight away. I haven't read it, but I trust you.", ne: "पर्दैन, म अहिल्यै हस्ताक्षर गर्छु। पढेको छैन, तर तपाईंलाई विश्वास गर्छु।", ok: false,
+          why: { en: "Never sign a contract you haven't read and understood, however friendly the person is. Taking time to read is normal and nobody will be offended.",
+                 ne: "मान्छे जति नै मिलनसार भए पनि नपढेको र नबुझेको सम्झौतामा कहिल्यै हस्ताक्षर नगर्नुहोस्। पढ्न समय लिनु सामान्य कुरा हो, कसैलाई नराम्रो लाग्दैन।" } }
+      ]
+    },
+    {
+      them: ["Czy chciałby Pan jeszcze coś wiedzieć?", "Is there anything else you'd like to know?", "अरू केही जान्न चाहनुहुन्छ?"],
+      replies: [
+        { pl: "Tak, jeszcze jedno: czy umowa o pracę jest najpierw na okres próbny?", en: "Yes, one more thing: is the employment contract first for a trial period?", ne: "हो, अर्को एउटा कुरा: रोजगार सम्झौता सुरुमा परीक्षण अवधिका लागि हुन्छ?", ok: true },
+        { pl: "Nie, na razie to wszystko. Bardzo dziękuję za cierpliwość.", en: "No, that's all for now. Thank you very much for your patience.", ne: "छैन, अहिलेलाई यति नै। धैर्यका लागि धेरै धन्यवाद।", ok: true },
+        { pl: "Tak, mam jeszcze jeden pytanie.", en: "(wrong gender)", ne: "(गलत लिङ्ग)", ok: false,
+          why: { en: "*Pytanie* ends in *-e*, so it is neuter: *jedno pytanie*. (*jeden* is masculine: *jeden problem*; *jedna* is feminine: *jedna sprawa*.)",
+                 ne: "*Pytanie* *-e* मा टुंगिन्छ, त्यसैले नपुंसकलिङ्ग हो: *jedno pytanie*। (*jeden* पुल्लिङ्ग: *jeden problem*; *jedna* स्त्रीलिङ्ग: *jedna sprawa*।)" } }
+      ]
+    },
+    {
+      them: ["Dla jasności: u nas umowa o pracę zaczyna się zwykle od trzymiesięcznego okresu próbnego. W razie pytań jestem w pokoju dwieście trzy.", "To be clear: here an employment contract usually starts with a three-month trial period. If you have questions, I'm in room 203.", "स्पष्ट पार्न: हाम्रोमा रोजगार सम्झौता सामान्यतया तीन महिनाको परीक्षण अवधिबाट सुरु हुन्छ। प्रश्न भए म कोठा नम्बर २०३ मा हुन्छु।"],
+      replies: [
+        { pl: "Dziękuję, Pani Joanno. Do widzenia.", en: "Thank you, Ms Joanna. Goodbye.", ne: "धन्यवाद, योआना जी। नमस्ते।", ok: true },
+        { pl: "Dziękuję, Pani Joanna. Do widzenia.", en: "(wrong form when addressing her)", ne: "(सम्बोधनको गलत रूप)", ok: false,
+          why: { en: "Speaking directly to someone, use the vocative: *Joanna* → *Pani Joanno*, *Kasia* → *Kasiu*, *Marek* → *Panie Marku*. Using the basic form sounds clumsy.",
+                 ne: "कसैलाई सिधै बोलाउँदा सम्बोधन रूप प्रयोग गर्नुहोस्: *Joanna* → *Pani Joanno*, *Kasia* → *Kasiu*, *Marek* → *Panie Marku*। मूल रूप भन्दा अप्ठ्यारो सुनिन्छ।" } },
+        { pl: "Czyli po trzech miesiącach muszę odejść z firmy?", en: "So after three months I have to leave the company?", ne: "मतलब तीन महिनापछि मैले कम्पनी छोड्नुपर्छ?", ok: false,
+          why: { en: "*Okres próbny* is a trial period at the **start**, not the end of the job. If you want to know what comes after it, ask: *A co po okresie próbnym?*",
+                 ne: "*Okres próbny* कामको **सुरु**को परीक्षण अवधि हो, कामको अन्त्य होइन। त्यसपछि के हुन्छ जान्न चाहे सोध्नुहोस्: *A co po okresie próbnym?*" } }
+      ]
+    }
+  ],
+  end: {
+    en: "Excellent! You asked HR clear questions about holiday, notice period and insurance, checked what you didn't understand and took time to read before signing.",
+    ne: "उत्कृष्ट! तपाईंले HR लाई बिदा, सूचना अवधि र बीमाबारे स्पष्ट प्रश्न सोध्नुभयो, नबुझेको कुरा जाँच्नुभयो र हस्ताक्षर गर्नुअघि पढ्न समय लिनुभयो।"
+  },
+  useful: [
+    ["umowa o pracę", "employment contract", "रोजगार सम्झौता", "oo-MO-va o PRA-tseh", "उ-ˈमो-भा ओ ˈप्रा-त्से"],
+    ["umowa zlecenie", "contract of mandate (civil-law contract)", "करार सम्झौता (नागरिक कानुनअन्तर्गत)", "oo-MO-va zle-TSE-nyeh", "उ-ˈमो-भा ज़्ले-ˈत्से-न्ये"],
+    ["płatny urlop", "paid holiday", "तलबी बिदा", "PWAT-ni OOR-lop", "ˈप्वात्-नि ˈउर्-लोप्"],
+    ["okres wypowiedzenia", "notice period", "सूचना अवधि", "O-kres vi-po-vye-DZE-nya", "ˈओ-क्रेस् भि-पो-भ्ये-ˈद्ज़े-न्या"],
+    ["okres próbny", "trial period", "परीक्षण अवधि", "O-kres PROOB-ni", "ˈओ-क्रेस् ˈप्रुब्-नि"],
+    ["minimalna stawka godzinowa", "minimum hourly rate", "न्यूनतम प्रतिघण्टा दर", "mee-nee-MAL-na STAF-ka go-jee-NO-va", "मि-नि-ˈमाल्-ना ˈस्ताफ्-का गो-जि-ˈनो-भा"],
+    ["czy mógłbym zabrać obie umowy do domu?", "could I take both contracts home?", "के म दुवै सम्झौता घर लैजान सक्छु?", "chi MOOG-bim ZA-brach O-bye oo-MO-vi do DO-moo", "चि ˈमुग्-बिम् ˈज़ा-ब्राच् ˈओ-ब्ये उ-ˈमो-भि दो ˈदो-मु"]
+  ]
+});
+
+window.SLOWKA_ROLEPLAYS.push({
+  id: "rp-b2-smalltalk",
+  level: "B2",
+  title: "Lunch break small talk",
+  titleNe: "खाजा बिदामा गफगाफ",
+  scene: {
+    en: "Lunch break in the canteen. Your coworker Kasia, whom you have known for months, invites you to sit with her. Between coworkers *ty* is normal — here sounding too formal is the mistake.",
+    ne: "क्यान्टिनमा खाजा बिदा। महिनौंदेखि चिनेकी सहकर्मी कासियाले तपाईंलाई आफूसँग बस्न बोलाउँछिन्। सहकर्मीहरूबीच *ty* सामान्य हो — यहाँ धेरै औपचारिक सुनिनु नै गल्ती हो।"
+  },
+  them: "Kasia",
+  themEn: "Kasia, a coworker",
+  themNe: "कासिया, सहकर्मी",
+  steps: [
+    {
+      them: ["Hej! Siadaj z nami. Jak minął weekend?", "Hey! Sit with us. How was your weekend?", "हे! हामीसँग बस। सप्ताहान्त कस्तो बित्यो?"],
+      replies: [
+        { pl: "Dzięki! Całkiem nieźle. W sobotę byłem z kolegami nad jeziorem, a w niedzielę odpoczywałem.", en: "Thanks! Pretty good. On Saturday I was at a lake with friends, and on Sunday I rested.", ne: "धन्यवाद! निकै राम्रो। शनिबार साथीहरूसँग तालमा गएँ, आइतबार आराम गरें।", ok: true },
+        { pl: "Dziękuję, proszę Pani. Weekend minął mi dobrze.", en: "Thank you, madam. My weekend went well.", ne: "धन्यवाद, हजुर। मेरो सप्ताहान्त राम्रो बित्यो।", ok: false,
+          why: { en: "Kasia uses *ty* and *hej* with you, so *proszę Pani* sounds cold and strange. Mirror the other person: if they use *ty*, answer with *ty*.",
+                 ne: "कासियाले तपाईंसँग *ty* र *hej* प्रयोग गर्छिन्, त्यसैले *proszę Pani* चिसो र अनौठो सुनिन्छ। अर्को व्यक्तिलाई पछ्याउनुहोस्: उहाँ *ty* भन्छ भने तपाईं पनि *ty*।" } },
+        { pl: "Dzięki! W sobotę byłem z kolegami nad jezioro.", en: "(wrong case after 'nad')", ne: "(*nad* पछि गलत विभक्ति)", ok: false,
+          why: { en: "For a place, *nad* (by, on the shore of) takes the instrumental: *nad jeziorem*, *nad morzem*. With movement it takes the accusative: *jadę nad jezioro*.",
+                 ne: "ठाउँ जनाउँदा *nad* (को किनारमा) पछि तृतीया आउँछ: *nad jeziorem*, *nad morzem*। गति जनाउँदा द्वितीया: *jadę nad jezioro*।" } }
+      ]
+    },
+    {
+      them: ["O, super. Ja byłam w górach, ale cały czas padało.", "Oh, great. I was in the mountains, but it rained the whole time.", "ओहो, राम्रो। म पहाडतिर गएकी थिएँ, तर पूरै समय पानी पर्यो।"],
+      replies: [
+        { pl: "Szkoda, że miałaś pecha z pogodą! W jakich górach byłaś?", en: "Too bad you were unlucky with the weather! Which mountains were you in?", ne: "मौसमले साथ नदिएकोमा दुःख लाग्यो! कुन पहाडमा गएकी थियौ?", ok: true },
+        { pl: "Szkoda! A gdzie byłeś w górach?", en: "(wrong gender of the verb)", ne: "(क्रियाको गलत लिङ्ग)", ok: false,
+          why: { en: "Kasia is a woman — she said *byłam*. Talking to her, the past tense is *byłaś* (to a man: *byłeś*). Polish past tense always shows gender.",
+                 ne: "कासिया महिला हुन् — उनले *byłam* भनिन्। उनलाई भन्दा भूतकाल *byłaś* हुन्छ (पुरुषलाई: *byłeś*)। पोलिश भूतकालले सधैं लिङ्ग देखाउँछ।" } },
+        { pl: "Szkoda. U nas na szczęście było słonecznie.", en: "Pity. Where we were it was luckily sunny.", ne: "दुःखको कुरा। हामीतिर भने भाग्यवश घमाइलो थियो।", ok: true }
+      ]
+    },
+    {
+      them: ["W Bieszczadach. Ale ty pewnie śmiejesz się z naszych gór — w Nepalu macie Himalaje!", "In the Bieszczady. But you probably laugh at our mountains — in Nepal you have the Himalayas!", "बिएश्चादीमा। तर तिमी त हाम्रा पहाडलाई हाँस्छौ होला — नेपालमा त हिमालय छ!"],
+      replies: [
+        { pl: "Nie no, wasze góry też mi się podobają. Chociaż przyznaję, że Himalaje to inna liga.", en: "No way, I like your mountains too. Although I admit the Himalayas are in a different league.", ne: "होइन, तिमीहरूका पहाड पनि मलाई मन पर्छन्। तर मान्नैपर्छ, हिमालय त अर्कै स्तरको हो।", ok: true },
+        { pl: "Ha, ha, trochę tak! Ale Bieszczady są piękne, byłem tam w zeszłym roku.", en: "Ha ha, a bit! But the Bieszczady are beautiful, I was there last year.", ne: "हाहा, अलिअलि! तर बिएश्चादी सुन्दर छ, म गत वर्ष त्यहाँ गएको थिएँ।", ok: true },
+        { pl: "Tak, nasze góry są wyższe niż wasz.", en: "(wrong form of 'yours')", ne: "('तिमीहरूको' को गलत रूप)", ok: false,
+          why: { en: "*Góry* is plural (and not about men), so 'yours' must agree: *wasze*. *Nasze góry są wyższe niż wasze.* (And a little joke is fine — but be kind about her country.)",
+                 ne: "*Góry* बहुवचन हो (पुरुषबारे होइन), त्यसैले 'तिमीहरूको' मिल्नुपर्छ: *wasze*। *Nasze góry są wyższe niż wasze.* (सानो ठट्टा ठीक छ — तर उनको देशबारे दयालु हुनुहोस्।)" } }
+      ]
+    },
+    {
+      them: ["A co jecie w Nepalu na co dzień? Bo ty zawsze masz w pudełku coś pachnącego.", "And what do you eat in Nepal every day? Because you always have something that smells great in your lunchbox.", "अनि नेपालमा दैनिक के खान्छौ? किनभने तिम्रो टिफिनमा सधैं केही मीठो बास्ना आउने कुरा हुन्छ।"],
+      replies: [
+        { pl: "Najczęściej dal bhat, czyli ryż z soczewicą i warzywami. Jemy to nawet dwa razy dziennie.", en: "Mostly dal bhat — rice with lentils and vegetables. We eat it even twice a day.", ne: "प्रायः दालभात — चामल, दाल र तरकारी। हामी यो दिनको दुई पटकसम्म खान्छौं।", ok: true },
+        { pl: "Najczęściej ryż z soczewica i warzywa.", en: "(wrong case after 'z')", ne: "(*z* पछि गलत विभक्ति)", ok: false,
+          why: { en: "*Z* meaning 'with' takes the instrumental: *z soczewicą*, *z warzywami*, *z mlekiem*. (*Z* meaning 'from' takes the genitive: *z Nepalu*.)",
+                 ne: "'सँग/सहित' अर्थको *z* पछि तृतीया आउँछ: *z soczewicą*, *z warzywami*, *z mlekiem*। ('बाट' अर्थको *z* पछि षष्ठी: *z Nepalu*।)" } },
+        { pl: "Dziękuję, ja już jadłem.", en: "Thanks, I've already eaten.", ne: "धन्यवाद, मैले खाइसकें।", ok: false,
+          why: { en: "She isn't offering you food — she asked **what you eat** in Nepal (*co jecie*). Listen to the question word: *co* = what.",
+                 ne: "उनले खाना दिन खोजेकी होइनन् — नेपालमा **के खान्छौ** भनेर सोधेकी हुन् (*co jecie*)। प्रश्नवाचक शब्दमा ध्यान दिनुहोस्: *co* = के।" } }
+      ]
+    },
+    {
+      them: ["Dwa razy dziennie to samo? Nie nudzi wam się?", "The same thing twice a day? Don't you get bored?", "दिनको दुई पटक एउटै कुरा? दिक्क लाग्दैन?"],
+      replies: [
+        { pl: "Wcale! Każdy dal smakuje trochę inaczej. Jak chcesz, jutro przyniosę ci trochę do spróbowania.", en: "Not at all! Every dal tastes a bit different. If you like, tomorrow I'll bring you some to try.", ne: "पटक्कै लाग्दैन! हरेक दालको स्वाद अलि फरक हुन्छ। चाहन्छ्यौ भने भोलि चाख्नका लागि अलिकति ल्याइदिन्छु।", ok: true },
+        { pl: "Wcale! Jak chcesz, jutro przyniosę cię trochę.", en: "(wrong pronoun: 'I'll bring you' as an object)", ne: "(गलत सर्वनाम)", ok: false,
+          why: { en: "'To you' is dative: *ci*. *Cię* is accusative ('you' as the object), so *przyniosę cię* means 'I'll carry you in'! Compare: *dam ci*, *powiem ci* vs *widzę cię*, *kocham cię*.",
+                 ne: "'तिमीलाई (दिनका लागि)' सम्प्रदान हो: *ci*। *Cię* द्वितीया हो ('तिमीलाई' कर्मको रूपमा), त्यसैले *przyniosę cię* को अर्थ 'म तिमीलाई बोकेर ल्याउँछु' हुन्छ! तुलना: *dam ci*, *powiem ci* बनाम *widzę cię*, *kocham cię*।" } },
+        { pl: "Wcale! Jak Pani chce, przyniosę Pani jutro trochę.", en: "Not at all! If you (formal) like, I'll bring you some tomorrow.", ne: "पटक्कै होइन! हजुरलाई चाहिन्छ भने भोलि अलिकति ल्याइदिन्छु।", ok: false,
+          why: { en: "You've been using *ty* with Kasia — switching back to *Pani* suddenly sounds distant, as if you were offended. Keep *ty*: *Jak chcesz, przyniosę ci.*",
+                 ne: "तपाईं कासियासँग *ty* बोल्दै हुनुहुन्थ्यो — अचानक *Pani* मा फर्कँदा टाढिएको, रिसाएको जस्तो सुनिन्छ। *ty* नै राख्नुहोस्: *Jak chcesz, przyniosę ci.*" } }
+      ]
+    },
+    {
+      them: ["Chętnie! A jak tam z polskim jedzeniem? Masz już swoje ulubione danie?", "I'd love that! And how about Polish food? Do you have a favourite dish yet?", "पक्कै! अनि पोलिश खाना कस्तो लाग्छ? तिम्रो मनपर्ने परिकार भइसक्यो?"],
+      replies: [
+        { pl: "Uwielbiam pierogi ruskie. Ale bigosu chyba nigdy nie polubię.", en: "I love pierogi ruskie. But I'll probably never get to like bigos.", ne: "मलाई पिएरोगी रुस्किए असाध्यै मन पर्छ। तर बिगोस चाहिँ सायद कहिल्यै मन पराउन सक्दिनँ।", ok: true },
+        { pl: "Bardzo lubię żurek, zwłaszcza zimą. Jest trochę kwaśny, ale pyszny.", en: "I really like żurek, especially in winter. It's a bit sour, but delicious.", ne: "मलाई झुरेक धेरै मन पर्छ, खास गरी जाडोमा। अलि अमिलो हुन्छ, तर मीठो।", ok: true },
+        { pl: "Uwielbiam pierogi, ale nie lubię bigos.", en: "(wrong form after 'nie lubię')", ne: "(*nie lubię* पछि गलत रूप)", ok: false,
+          why: { en: "Negation again: *lubię bigos* → *nie lubię bigosu* (genitive). It's normal to keep making this mistake for a while — keep listening for it.",
+                 ne: "फेरि नकारात्मक नियम: *lubię bigos* → *nie lubię bigosu* (षष्ठी)। यो गल्ती केही समय भइरहनु सामान्य हो — सुन्दै अभ्यास गरिरहनुहोस्।" } }
+      ]
+    },
+    {
+      them: ["A na święta jedziesz do Nepalu czy zostajesz w Polsce?", "And for Christmas, are you going to Nepal or staying in Poland?", "अनि क्रिसमसमा नेपाल जान्छौ कि पोल्यान्डमै बस्छौ?"],
+      replies: [
+        { pl: "W tym roku zostaję. Bilety są strasznie drogie, a nasze najważniejsze święto, Dashain, i tak jest jesienią.", en: "This year I'm staying. Tickets are terribly expensive, and our most important festival, Dashain, is in autumn anyway.", ne: "यस वर्ष यहीँ बस्छु। टिकट असाध्यै महँगो छ, अनि हाम्रो सबैभन्दा ठूलो चाड दशैं त शरद ऋतुमै पर्छ।", ok: true },
+        { pl: "W tym roku zostaję, bo bilety są strasznie drogi.", en: "(wrong adjective ending)", ne: "(विशेषणको गलत अन्त्य)", ok: false,
+          why: { en: "*Bilety* is plural and not about men, so the adjective ends in *-e*: *bilety są drogie*. The *-i/-y* plural is only for groups of men: *koledzy są mili*.",
+                 ne: "*Bilety* बहुवचन हो र पुरुषबारे होइन, त्यसैले विशेषण *-e* मा टुंगिन्छ: *bilety są drogie*। *-i/-y* बहुवचन पुरुषहरूको समूहका लागि मात्र: *koledzy są mili*।" } },
+        { pl: "Pojadę do Nepal na Boże Narodzenie.", en: "(wrong case after 'do')", ne: "(*do* पछि गलत विभक्ति)", ok: false,
+          why: { en: "*Do* takes the genitive: *do Nepalu*, *do Polski*, *do Indii*. Country names change after prepositions just like other nouns.",
+                 ne: "*Do* पछि षष्ठी आउँछ: *do Nepalu*, *do Polski*, *do Indii*। नामयोगीपछि देशका नाम पनि अरू नामजस्तै फेरिन्छन्।" } }
+      ]
+    },
+    {
+      them: ["To przyjdź do nas na Wigilię, jeśli chcesz! Moja mama zawsze robi dwanaście potraw.", "Then come to us for Christmas Eve if you like! My mum always makes twelve dishes.", "त्यसो भए क्रिसमसको अघिल्लो साँझ हाम्रो घर आऊ न! मेरी आमाले सधैं बाह्र परिकार बनाउनुहुन्छ।"],
+      replies: [
+        { pl: "Naprawdę? Bardzo dziękuję, z przyjemnością! Co mam przynieść?", en: "Really? Thank you so much, with pleasure! What should I bring?", ne: "साँच्चै? धेरै धन्यवाद, खुसीसाथ! के ल्याऊँ?", ok: true },
+        { pl: "To bardzo miłe, dzięki! Muszę jeszcze sprawdzić grafik, ale bardzo chętnie.", en: "That's really kind, thanks! I still have to check my work schedule, but I'd love to.", ne: "कति राम्रो, धन्यवाद! कामको तालिका हेर्नुपर्छ, तर मलाई आउन मन छ।", ok: true },
+        { pl: "Dziękuję, ale nie jem żadne mięso.", en: "(wrong form after 'nie jem')", ne: "(*nie jem* पछि गलत रूप)", ok: false,
+          why: { en: "After *nie jem* use the genitive: *nie jem żadnego mięsa*. Good news, by the way: the traditional *Wigilia* dinner has no meat — mostly fish, *pierogi*, *barszcz* and cabbage dishes.",
+                 ne: "*nie jem* पछि षष्ठी: *nie jem żadnego mięsa*। अनि खुसीको कुरा: परम्परागत *Wigilia* भोजमा मासु हुँदैन — प्रायः माछा, *pierogi*, *barszcz* र बन्दाका परिकार हुन्छन्।" } }
+      ]
+    },
+    {
+      them: ["Super! Dobra, kończy się przerwa. Lecimy?", "Great! OK, the break's over. Shall we go?", "राम्रो! ल, बिदा सकियो। जाऔं?"],
+      replies: [
+        { pl: "Lecimy! Dzięki za miłą rozmowę.", en: "Let's go! Thanks for the nice chat.", ne: "जाऔं! रमाइलो गफका लागि धन्यवाद।", ok: true },
+        { pl: "Dokąd lecimy? Nie mam biletu na samolot.", en: "Where are we flying? I don't have a plane ticket.", ne: "कहाँ उड्ने? मसँग हवाईजहाजको टिकट छैन।", ok: false,
+          why: { en: "*Lecimy?* literally means 'are we flying?', but in casual Polish it simply means 'let's go / shall we?'. Similar: *Spadam!* = 'I'm off!'.",
+                 ne: "*Lecimy?* को शाब्दिक अर्थ 'उडौं?' हो, तर बोलचालको पोलिशमा यसको अर्थ 'जाऔं' मात्र हो। यस्तै: *Spadam!* = 'म हिँडें!'।" } },
+        { pl: "Lecimy! Dzięki za miła rozmowa.", en: "(wrong case after 'za')", ne: "(*za* पछि गलत विभक्ति)", ok: false,
+          why: { en: "*Dzięki za* / *dziękuję za* takes the accusative: *za miłą rozmowę*, *za pomoc*, *za kawę*.",
+                 ne: "*Dzięki za* / *dziękuję za* पछि द्वितीया आउँछ: *za miłą rozmowę*, *za pomoc*, *za kawę*।" } }
+      ]
+    }
+  ],
+  end: {
+    en: "Great job! You chatted naturally with a coworker using *ty*, talked about the weekend, Nepal, food and holidays, and even got invited to *Wigilia*. Small talk like this builds real friendships at work.",
+    ne: "धेरै राम्रो! तपाईंले सहकर्मीसँग *ty* प्रयोग गरेर सहज रूपमा गफ गर्नुभयो, सप्ताहान्त, नेपाल, खाना र चाडबारे कुरा गर्नुभयो, र *Wigilia* मा निम्तो पनि पाउनुभयो। यस्तो गफगाफले काममा साँचो मित्रता बनाउँछ।"
+  },
+  useful: [
+    ["jak minął weekend?", "how was your weekend?", "सप्ताहान्त कस्तो बित्यो?", "yak MEE-now WEE-kent", "याक् ˈमि-नोव् ˈवि-केन्त्"],
+    ["nad jeziorem", "at the lake", "तालको किनारमा", "nat ye-ZHO-rem", "नात् ये-ˈझो-रेम्"],
+    ["to inna liga", "that's a different league", "त्यो त अर्कै स्तरको कुरा हो", "to EEN-na LEE-ga", "तो ˈइन्-ना ˈलि-गा"],
+    ["ryż z soczewicą", "rice with lentils", "दालभात (चामल र दाल)", "rish s so-che-VEE-tson", "रिश् स् सो-चे-ˈभि-त्सों"],
+    ["przyniosę ci trochę", "I'll bring you some", "म तिमीलाई अलिकति ल्याइदिन्छु", "pshi-NYO-seh chee TRO-heh", "प्शि-ˈन्यो-से चि ˈत्रो-हे"],
+    ["z przyjemnością!", "with pleasure!", "खुसीसाथ!", "s pshi-yem-NOSH-chon", "स् प्शि-येम्-ˈनोश्-चों"],
+    ["lecimy?", "shall we go? (casual)", "जाऔं? (बोलचाल)", "le-CHEE-mi", "ले-ˈचि-मि"]
   ]
 });

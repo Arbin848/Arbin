@@ -1,6 +1,6 @@
 // Offline support: keeps the whole course on the device after the first visit.
 // Pages and data come from the cache at once and are refreshed in the background.
-const CACHE = 'slowka-v3.2';
+const CACHE = 'slowka-v3.3';
 const SHELL = [
   './', 'index.html', 'styles.css', 'app.js', 'manifest.webmanifest',
   'js/core.js', 'js/practice.js', 'js/extras.js', 'audio/manifest.js',
