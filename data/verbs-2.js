@@ -92,7 +92,7 @@ window.SLOWKA_VERBS.push(
   },
   {
     inf: "nosić", en: "to carry (often); to wear", ne: "बोक्नु (बारम्बार); लगाउनु",
-    level: "B1", aspect: "impf", pair: "", group: "-ić: -ę, -isz",
+    level: "B1", aspect: "impf", pair: "", group: "-ić/-yć: -ę, -isz",
     present: ["noszę", "nosisz", "nosi", "nosimy", "nosicie", "noszą"],
     past: {
       m: ["nosiłem", "nosiłeś", "nosił", "nosiliśmy", "nosiliście", "nosili"],
@@ -107,7 +107,7 @@ window.SLOWKA_VERBS.push(
   },
   {
     inf: "prowadzić", en: "to drive; to lead, to run (a business)", ne: "गाडी चलाउनु; नेतृत्व गर्नु, चलाउनु",
-    level: "B2", aspect: "impf", pair: "", group: "-ić: -ę, -isz",
+    level: "B2", aspect: "impf", pair: "", group: "-ić/-yć: -ę, -isz",
     present: ["prowadzę", "prowadzisz", "prowadzi", "prowadzimy", "prowadzicie", "prowadzą"],
     past: {
       m: ["prowadziłem", "prowadziłeś", "prowadził", "prowadziliśmy", "prowadziliście", "prowadzili"],
@@ -249,7 +249,7 @@ window.SLOWKA_VERBS.push(
   },
   {
     inf: "podpisać", en: "to sign (once)", ne: "हस्ताक्षर गर्नु (एक पटक)",
-    level: "B1", aspect: "pf", pair: "podpisywać", group: "-sać: -szę, -szesz",
+    level: "B1", aspect: "pf", pair: "podpisywać", group: "-ać: -ę, -esz",
     present: null,
     past: {
       m: ["podpisałem", "podpisałeś", "podpisał", "podpisaliśmy", "podpisaliście", "podpisali"],
@@ -264,7 +264,7 @@ window.SLOWKA_VERBS.push(
   },
   {
     inf: "wypełnić", en: "to fill in (a form)", ne: "फारम भर्नु",
-    level: "B1", aspect: "pf", pair: "wypełniać", group: "-ić: -ę, -isz",
+    level: "B1", aspect: "pf", pair: "wypełniać", group: "-ić/-yć: -ę, -isz",
     present: null,
     past: {
       m: ["wypełniłem", "wypełniłeś", "wypełnił", "wypełniliśmy", "wypełniliście", "wypełnili"],
@@ -279,7 +279,7 @@ window.SLOWKA_VERBS.push(
   },
   {
     inf: "załatwić", en: "to sort out, to take care of (a matter)", ne: "काम मिलाउनु, सुल्झाउनु",
-    level: "B2", aspect: "pf", pair: "załatwiać", group: "-ić: -ę, -isz",
+    level: "B2", aspect: "pf", pair: "załatwiać", group: "-ić/-yć: -ę, -isz",
     present: null,
     past: {
       m: ["załatwiłem", "załatwiłeś", "załatwił", "załatwiliśmy", "załatwiliście", "załatwili"],
@@ -339,7 +339,7 @@ window.SLOWKA_VERBS.push(
   },
   {
     inf: "martwić się", en: "to worry", ne: "चिन्ता गर्नु",
-    level: "B1", aspect: "impf", pair: "", group: "-ić: -ę, -isz",
+    level: "B1", aspect: "impf", pair: "", group: "-ić/-yć: -ę, -isz",
     present: ["martwię się", "martwisz się", "martwi się", "martwimy się", "martwicie się", "martwią się"],
     past: {
       m: ["martwiłem się", "martwiłeś się", "martwił się", "martwiliśmy się", "martwiliście się", "martwili się"],
@@ -354,7 +354,7 @@ window.SLOWKA_VERBS.push(
   },
   {
     inf: "cieszyć się", en: "to be glad, to look forward to", ne: "खुसी हुनु",
-    level: "B1", aspect: "impf", pair: "ucieszyć się", group: "-yć: -ę, -ysz",
+    level: "B1", aspect: "impf", pair: "ucieszyć się", group: "-ić/-yć: -ę, -isz",
     present: ["cieszę się", "cieszysz się", "cieszy się", "cieszymy się", "cieszycie się", "cieszą się"],
     past: {
       m: ["cieszyłem się", "cieszyłeś się", "cieszył się", "cieszyliśmy się", "cieszyliście się", "cieszyli się"],
@@ -369,7 +369,7 @@ window.SLOWKA_VERBS.push(
   },
   {
     inf: "zgodzić się", en: "to agree", ne: "सहमत हुनु",
-    level: "B2", aspect: "pf", pair: "zgadzać się", group: "-ić: -ę, -isz",
+    level: "B2", aspect: "pf", pair: "zgadzać się", group: "-ić/-yć: -ę, -isz",
     present: null,
     past: {
       m: ["zgodziłem się", "zgodziłeś się", "zgodził się", "zgodziliśmy się", "zgodziliście się", "zgodzili się"],
@@ -436,7 +436,7 @@ window.SLOWKA_VERBS.push(
   },
   {
     inf: "tłumaczyć", en: "to translate; to explain", ne: "अनुवाद गर्नु; बुझाउनु",
-    level: "B2", aspect: "impf", pair: "przetłumaczyć", group: "-yć: -ę, -ysz",
+    level: "B2", aspect: "impf", pair: "przetłumaczyć", group: "-ić/-yć: -ę, -isz",
     present: ["tłumaczę", "tłumaczysz", "tłumaczy", "tłumaczymy", "tłumaczycie", "tłumaczą"],
     past: {
       m: ["tłumaczyłem", "tłumaczyłeś", "tłumaczył", "tłumaczyliśmy", "tłumaczyliście", "tłumaczyli"],
@@ -447,7 +447,7 @@ window.SLOWKA_VERBS.push(
   },
   {
     inf: "zmienić", en: "to change", ne: "बदल्नु",
-    level: "B1", aspect: "pf", pair: "zmieniać", group: "-ić: -ę, -isz",
+    level: "B1", aspect: "pf", pair: "zmieniać", group: "-ić/-yć: -ę, -isz",
     present: null,
     past: {
       m: ["zmieniłem", "zmieniłeś", "zmienił", "zmieniliśmy", "zmieniliście", "zmienili"],
@@ -488,7 +488,7 @@ window.SLOWKA_VERBS.push(
   },
   {
     inf: "prosić", en: "to ask for, to request", ne: "अनुरोध गर्नु, माग्नु",
-    level: "B1", aspect: "impf", pair: "poprosić", group: "-ić: -ę, -isz",
+    level: "B1", aspect: "impf", pair: "poprosić", group: "-ić/-yć: -ę, -isz",
     present: ["proszę", "prosisz", "prosi", "prosimy", "prosicie", "proszą"],
     past: {
       m: ["prosiłem", "prosiłeś", "prosił", "prosiliśmy", "prosiliście", "prosili"],

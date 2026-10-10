@@ -139,7 +139,7 @@ window.SLOWKA_ROLEPLAYS.push(
           { pl: "Mam dwadzieścia pięć lat.", en: "I'm twenty-five.", ne: "मेरो उमेर पच्चीस वर्ष हो।", ok: true },
           { pl: "Jestem dwadzieścia pięć lat.", en: "(wrong verb)", ne: "(गलत क्रिया)", ok: false,
             why: { en: "In Polish you **have** years: *Mam … lat* (literally 'I have 25 years'). Don't use *jestem* for age.",
-                   ne: "पोलिशमा उमेर 'हुनु' होइन, 'हुनु/राख्नु' (*mam* = मसँग छ) ले भनिन्छ: *Mam … lat* (शाब्दिक अर्थ 'मसँग २५ वर्ष छ')। उमेरका लागि *jestem* प्रयोग नगर्नुहोस्।" } },
+                   ne: "पोलिशमा उमेर 'हुनु' (*jestem*) ले होइन, 'राख्नु' (*mam* = मसँग छ) ले भनिन्छ: *Mam … lat* (शाब्दिक अर्थ 'मसँग २५ वर्ष छ')। उमेरका लागि *jestem* प्रयोग नगर्नुहोस्।" } },
           { pl: "Mam dwadzieścia pięć lata.", en: "(wrong form of 'years')", ne: "('वर्ष' को गलत रूप)", ok: false,
             why: { en: "*Lata* is only used after 2, 3, 4 (and 22, 23, 24…): *mam dwadzieścia trzy lata*. After 5 and more (and 25, 26…) it is *lat*: *mam dwadzieścia pięć lat*.",
                    ne: "*Lata* केवल २, ३, ४ (र २२, २३, २४…) पछि आउँछ: *mam dwadzieścia trzy lata*। ५ वा बढी (र २५, २६…) पछि *lat* हुन्छ: *mam dwadzieścia pięć lat*।" } }
@@ -776,8 +776,8 @@ window.SLOWKA_ROLEPLAYS.push(
           { pl: "Czy będzie umowa na piśmie?", en: "Will there be a written contract?", ne: "के लिखित सम्झौता हुन्छ?", ok: true },
           { pl: "Dobrze. Czy mogę się tu zameldować?", en: "OK. Can I register my address here?", ne: "ठीक छ। के म यहाँ आफ्नो ठेगाना दर्ता (मेल्दुनेक) गर्न सक्छु?", ok: true },
           { pl: "Dobrze. Czy będzie umowę?", en: "(wrong ending)", ne: "(गलत अन्त्य)", ok: false,
-            why: { en: "In *Czy będzie umowa?* (Will there be a contract?) *umowa* is the subject, so it keeps the basic form. *Umowę* is an object form: *podpiszemy umowę* (we'll sign the contract). Tip: always ask for a written contract and the right to *zameldowanie* — you need them for your residence card.",
-                   ne: "*Czy będzie umowa?* (सम्झौता हुन्छ?) मा *umowa* कर्ता हो, त्यसैले मूल रूपमै रहन्छ। *Umowę* कर्मको रूप हो: *podpiszemy umowę* (हामी सम्झौतामा हस्ताक्षर गर्नेछौँ)। सुझाव: सधैं लिखित सम्झौता र *zameldowanie* (ठेगाना दर्ता) को अधिकार माग्नुहोस् — रेसिडेन्स कार्डका लागि यी चाहिन्छन्।" } }
+            why: { en: "In *Czy będzie umowa?* (Will there be a contract?) *umowa* is the subject, so it keeps the basic form. *Umowę* is an object form: *podpiszemy umowę* (we'll sign the contract). Tip: always ask for a written contract and the right to *zameldowanie* — they are often asked for in official matters, such as a residence card application.",
+                   ne: "*Czy będzie umowa?* (सम्झौता हुन्छ?) मा *umowa* कर्ता हो, त्यसैले मूल रूपमै रहन्छ। *Umowę* कर्मको रूप हो: *podpiszemy umowę* (हामी सम्झौतामा हस्ताक्षर गर्नेछौँ)। सुझाव: सधैं लिखित सम्झौता र *zameldowanie* (ठेगाना दर्ता) को अधिकार माग्नुहोस् — रेसिडेन्स कार्डजस्ता सरकारी काममा यी प्रायः माग्ने गरिन्छ।" } }
         ] },
       { them: ["Tak, podpiszemy umowę na rok i można się zameldować.", "Yes, we'll sign a one-year contract and you can register your address.", "हो, हामी एक वर्षको सम्झौतामा हस्ताक्षर गर्छौँ र ठेगाना दर्ता पनि गर्न सकिन्छ।"],
         replies: [
@@ -868,8 +868,8 @@ window.SLOWKA_ROLEPLAYS.push(
           { pl: "Trochę drogo. Może być dwieście?", en: "A bit expensive. Could it be two hundred?", ne: "अलि महँगो भयो। दुई सयमा हुन्छ?", ok: true },
           { pl: "Czy może być taniej?", en: "Could it be cheaper?", ne: "अलि सस्तो हुन्छ?", ok: true },
           { pl: "Dwadzieścia pięć? Tanio!", en: "Twenty-five? Cheap!", ne: "पच्चीस? सस्तो!", ok: false,
-            why: { en: "He said *dwieście pięćdziesiąt* = 250, not *dwadzieścia pięć* = 25. *Dwieście* is 200 (-*ście* = hundreds), *pięćdziesiąt* is 50 (-*dziesiąt* = tens). At a market it is OK to ask politely for a lower price.",
-                   ne: "उहाँले *dwieście pięćdziesiąt* = २५० भन्नुभयो, *dwadzieścia pięć* = २५ होइन। *Dwieście* = २०० (-*ście* = सयहरू), *pięćdziesiąt* = ५० (-*dziesiąt* = दशकहरू)। बजारमा नम्र भएर मोलमोलाइ गर्नु ठीकै हो।" } }
+            why: { en: "He said *dwieście pięćdziesiąt* = 250, not *dwadzieścia pięć* = 25. *Dwieście* is 200 and *pięćdziesiąt* is 50 (-*dziesiąt* = 50, 60, 70, 80, 90). At a market it is OK to ask politely for a lower price.",
+                   ne: "उहाँले *dwieście pięćdziesiąt* = २५० भन्नुभयो, *dwadzieścia pięć* = २५ होइन। *Dwieście* = २०० र *pięćdziesiąt* = ५० (-*dziesiąt* = ५०, ६०, ७०, ८०, ९०)। बजारमा नम्र भएर मोलमोलाइ गर्नु ठीकै हो।" } }
         ] },
       { them: ["Mogę dać za dwieście trzydzieści. Gotówka czy karta?", "I can give it to you for 230. Cash or card?", "दुई सय तीसमा दिन सक्छु। नगद कि कार्ड?"],
         replies: [

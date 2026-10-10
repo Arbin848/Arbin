@@ -25,8 +25,8 @@ window.SLOWKA_COURSE.push(
         ne: "जब तपाईं **अरू कसैले** केही गरोस् भन्ने चाहनुहुन्छ, *żeby* प्रयोग हुन्छ। यसमा पनि उही अन्त्य लाग्छ: *Chcę, żebyś przyszedł* = म चाहन्छु कि तिमी आऊ। *Szef chce, żebym pracował w sobotę* = हाकिम म शनिबार काम गरूँ भन्ने चाहन्छन्। आफैंले गर्ने कुरा हो भने क्रियाको मूल रूप प्रयोग गर्नुहोस्: *Chcę przyjść* = म आउन चाहन्छु। *żeby* + मूल क्रियाको अर्थ 'को लागि' पनि हुन्छ: *Pracuję, żeby pomagać rodzinie* = म परिवारलाई सहयोग गर्न काम गर्छु।"
       },
       {
-        en: "Stress tip: in conditional forms the stress does not jump onto *-by-*. It stays on the syllable just before the past-tense *-ł / -ła / -li*: *zro-BIŁ-bym*, *zro-BI-ła-bym*, *CHCIA-ła-bym*, *BY-li-byś-my*. In everyday speech many Poles move it to the usual second-to-last syllable, so you will hear both, but the first way is the correct, careful one.",
-        ne: "उच्चारण सुझाव: शर्तवाचक रूपमा जोड (stress) *-by-* मा सर्दैन। यो भूतकालको *-ł / -ła / -li* भन्दा ठीक अघिको अक्षरमा रहन्छ: *zro-BIŁ-bym*, *zro-BI-ła-bym*, *CHCIA-ła-bym*, *BY-li-byś-my*। दैनिक बोलीमा धेरै पोल्यान्डवासीले सामान्य नियमअनुसार अन्तिमभन्दा अघिल्लो अक्षरमा पनि जोड दिन्छन्, त्यसैले दुवै सुनिन्छ — तर पहिलो तरिका नै शुद्ध हो।"
+        en: "Stress tip: in conditional forms the stress does not jump onto *-by-*. It stays on the same syllable as in the past-tense form (*zrobił* → ZRO-bił, *zrobiła* → zro-BI-ła): *ZRO-bił-bym*, *zro-BI-ła-bym*, *CHCIA-ła-bym*, *BY-li-byś-my*. In everyday speech many Poles move it to the usual second-to-last syllable, so you will hear both, but the first way is the correct, careful one.",
+        ne: "उच्चारण सुझाव: शर्तवाचक रूपमा जोड (stress) *-by-* मा सर्दैन। भूतकालको रूपमा जुन अक्षरमा जोड पर्छ, यो त्यही अक्षरमा रहन्छ (*zrobił* → ZRO-bił, *zrobiła* → zro-BI-ła): *ZRO-bił-bym*, *zro-BI-ła-bym*, *CHCIA-ła-bym*, *BY-li-byś-my*। दैनिक बोलीमा धेरै पोल्यान्डवासीले सामान्य नियमअनुसार अन्तिमभन्दा अघिल्लो अक्षरमा पनि जोड दिन्छन्, त्यसैले दुवै सुनिन्छ — तर पहिलो तरिका नै शुद्ध हो।"
       }
     ],
     tables: [
@@ -60,12 +60,12 @@ window.SLOWKA_COURSE.push(
     words: [
       ["chciałbym", "I would like (m)", "म चाहन्थें (पुरुष)", "HCHAW-bim", "ˈह्चाव्-बिम्"],
       ["chciałabym", "I would like (f)", "म चाहन्थें (महिला)", "HCHA-wa-bim", "ˈह्चा-वा-बिम्"],
-      ["wolałbym", "I would prefer (m)", "मलाई बढी मन पर्थ्यो (पुरुष)", "vo-LAW-bim", "भो-ˈलाव्-बिम्"],
+      ["wolałbym", "I would prefer (m)", "मलाई बढी मन पर्थ्यो (पुरुष)", "VO-law-bim", "ˈभो-लाव्-बिम्"],
       ["mógłbyś", "could you (informal, to a man)", "तिमी सक्छौ? (पुरुषलाई)", "MOOG-bish", "ˈमुग्-बिश्"],
       ["mogłabyś", "could you (informal, to a woman)", "तिमी सक्छ्यौ? (महिलालाई)", "MO-gwa-bish", "ˈमो-ग्वा-बिश्"],
       ["czy mógłby Pan", "could you… (formal, to a man)", "के तपाईं … सक्नुहुन्छ? (पुरुषलाई)", "chi MOOG-bi pan", "चि ˈमुग्-बि पान्"],
       ["czy mogłaby Pani", "could you… (formal, to a woman)", "के तपाईं … सक्नुहुन्छ? (महिलालाई)", "chi MO-gwa-bi PA-nee", "चि ˈमो-ग्वा-बि ˈपा-नि"],
-      ["zrobiłbym", "I would do (m)", "म गर्थें (पुरुष)", "zro-BEEW-bim", "ज़्रो-ˈबिव्-बिम्"],
+      ["zrobiłbym", "I would do (m)", "म गर्थें (पुरुष)", "ZRO-beew-bim", "ˈज़्रो-बिव्-बिम्"],
       ["byłoby", "it would be", "हुन्थ्यो", "BI-wo-bi", "ˈबि-वो-बि"],
       ["gdyby", "if (imagined situation)", "यदि (काल्पनिक)", "GDI-bi", "ˈग्दि-बि"],
       ["żeby", "that / so that / in order to", "भनेर / ताकि / को लागि", "ZHE-bi", "ˈझे-बि"],
@@ -81,9 +81,9 @@ window.SLOWKA_COURSE.push(
       ["Czy mógłby Pan powtórzyć?", "Could you repeat that? (to a man)", "के तपाईं फेरि भन्न सक्नुहुन्छ?", "chi MOOG-bi pan pof-TOO-zhich", "चि ˈमुग्-बि पान् पोफ़्-ˈतु-झिच्"],
       ["Czy mogłaby Pani mówić wolniej?", "Could you speak more slowly? (to a woman)", "के तपाईं अलि बिस्तारै बोल्न सक्नुहुन्छ?", "chi MO-gwa-bi PA-nee MOO-veech VOL-nyey", "चि ˈमो-ग्वा-बि ˈपा-नि ˈमु-भिच् ˈभोल्-न्येय्"],
       ["Czy mógłbyś mi pomóc?", "Could you help me? (to a male friend)", "के तिमी मलाई सहयोग गर्न सक्छौ?", "chi MOOG-bish mee PO-moots", "चि ˈमुग्-बिश् मि ˈपो-मुत्स्"],
-      ["Gdybym miał czas, pojechałbym do Krakowa.", "If I had time, I would go to Kraków (m).", "मसँग समय भएको भए म क्राकोव जान्थें।", "GDI-bim myaw chas, po-ye-HAW-bim do kra-KO-va", "ˈग्दि-बिम् म्याव् चास्, पो-ये-ˈहाव्-बिम् दो क्रा-ˈको-भा"],
+      ["Gdybym miał czas, pojechałbym do Krakowa.", "If I had time, I would go to Kraków (m).", "मसँग समय भएको भए म क्राकोव जान्थें।", "GDI-bim myaw chas, po-YE-haw-bim do kra-KO-va", "ˈग्दि-बिम् म्याव् चास्, पो-ˈये-हाव्-बिम् दो क्रा-ˈको-भा"],
       ["Chcę, żebyś przyszedł jutro.", "I want you to come tomorrow (to a man).", "म चाहन्छु कि तिमी भोलि आऊ।", "htseh, ZHE-bish PSHI-shet YOO-tro", "ह्त्से, ˈझे-बिश् ˈप्शि-शेत् ˈयु-त्रो"],
-      ["Na twoim miejscu poszedłbym do lekarza.", "If I were you, I'd go to the doctor (m).", "तिम्रो ठाउँमा भएको भए म डाक्टरकहाँ जान्थें।", "na TFO-eem MYEYS-tsoo po-SHED-bim do le-KA-zha", "ना ˈत्फ़ो-इम् ˈम्येय्स्-त्सु पो-ˈशेद्-बिम् दो ले-ˈका-झा"],
+      ["Na twoim miejscu poszedłbym do lekarza.", "If I were you, I'd go to the doctor (m).", "तिम्रो ठाउँमा भएको भए म डाक्टरकहाँ जान्थें।", "na TFO-eem MYEYS-tsoo PO-shed-bim do le-KA-zha", "ना ˈत्फ़ो-इम् ˈम्येय्स्-त्सु ˈपो-शेद्-बिम् दो ले-ˈका-झा"],
       ["Byłoby miło, gdybyś zadzwonił.", "It would be nice if you called (to a man).", "तिमीले फोन गर्यौ भने राम्रो हुन्थ्यो।", "BI-wo-bi MEE-wo, GDI-bish za-DZVO-neew", "ˈबि-वो-बि ˈमि-वो, ˈग्दि-बिश् ज़ा-ˈद्ज़्भो-निव्"]
     ],
     dialogue: [

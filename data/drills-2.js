@@ -365,7 +365,7 @@ window.SLOWKA_DRILLS["a1-11"] = [
            ne: "*do* पछि: *dworzec* → *dworca*। *-rze-* *-r-* बन्छ।" },
     traps: {
       "dworzec": { en: "*do dworzec* is a common mistake. After *do* the ending changes: *do dworca*.", ne: "*do dworzec* सामान्य गल्ती हो। *do* पछि अन्त्य बदलिन्छ: *do dworca*।" },
-      "dworzeca": { en: "The *e* drops out: *dworca*, not *dworzeca*.", ne: "*e* हराउँछ: *dworzeca* होइन, *dworca*।" } } },
+      "dworzeca": { en: "The *-rze-* becomes *-r-*: *dworca*, not *dworzeca*.", ne: "*-rze-* *-r-* बन्छ: *dworzeca* होइन, *dworca*।" } } },
   { type: "fill",
     q: "Muszę iść do ___. (poczta)",
     answer: ["poczty"],

@@ -32,6 +32,7 @@ const seenVerbs = new Set();
 const CASE_KEYS = ['nom', 'gen', 'dat', 'acc', 'ins', 'loc', 'voc'];
 const seenNouns = new Set();
 const MOUTHS = ['retro', 'palatal', 'dental', 'back', 'nasal', 'front-vowel', 'mid-vowel', 'round'];
+const S_clean = (x) => String(x).toLowerCase().replace(/[?!.,…:;]/g, ' ').replace(/\s+/g, ' ').trim();
 const seenIds = new Set();
 function uniqueId(at, id, pattern, example) {
   if (!pattern.test(id || '')) fail(at, `id must look like "${example}"`);
@@ -125,6 +126,8 @@ function checkDrills(at, unitId, items) {
     } else if (d.type === 'order') {
       if (!Array.isArray(d.words) || d.words.length < 3 || d.words.length > 9 || d.words.some((x) => !str(x) || /\s/.test(x.trim()))) fail(where, 'words must be 3–9 single tokens');
       if (d.why) bilingual(where, d.why, 'why');
+      const key = (x) => S_clean(x).split(' ').sort().join(' ');
+      (d.alts || []).forEach((a, k) => { if (!str(a) || key(a) !== key(d.words.join(' '))) fail(where, `alts[${k}] must use exactly the same words`); });
     } else fail(where, 'type must be choose, fill or order');
   });
 }

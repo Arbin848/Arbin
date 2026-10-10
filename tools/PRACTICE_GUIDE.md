@@ -56,6 +56,7 @@ wrong gender, missing diacritics are handled automatically — don't add those).
   why: { en: "*nie* goes directly before the verb.", ne: "*nie* क्रियाको ठीक अगाडि आउँछ।" } }
 ```
 Pick sentences with one clearly natural order (Polish word order is flexible, so avoid ambiguous ones).
+If another order is also natural, list it in `alts: ["…"]` (same words, other order) so it is accepted.
 Punctuation stays attached to the last token. Capitalise the first token.
 
 ---
@@ -191,6 +192,7 @@ window.SLOWKA_NOUNS.push({
   word: "kawa", en: "coffee", ne: "कफी", level: "A1",
   gender: "f",                     // "m-pers" (male person) | "m-anim" (animal) | "m-inan" | "f" | "n"
   person: false,                   // true for people (used to pick sentence frames)
+  abstract: true,                  // OPTIONAL: time words and names (rok, noc, Polska) — practised only in locative "about" frames
   sg: { nom: "kawa", gen: "kawy", dat: "kawie", acc: "kawę", ins: "kawą", loc: "kawie", voc: "kawo" },
   pl: { nom: "kawy", gen: "kaw", dat: "kawom", acc: "kawy", ins: "kawami", loc: "kawach", voc: "kawy" }   // or null if not normally plural
 });

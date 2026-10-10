@@ -90,7 +90,7 @@ window.SLOWKA_COURSE.push(
       ["Zadzwonię do ciebie wieczorem.", "I'll call you in the evening.", "म तिमीलाई बेलुका फोन गर्छु।", "za-DZVO-nyeh do CHEH-byeh vyeh-CHO-rem", "ज़ा-ˈद्ज़्भो-न्ये दो ˈचे-ब्ये भ्ये-ˈचो-रेम्"]
     ],
     dialogue: [
-      ["Ania", "Ram, co robiłeś w weekend?", "Ram, what did you do at the weekend?", "राम, सप्ताहन्तमा के गर्यौ?"],
+      ["Ania", "Ram, co robiłeś w weekend?", "Ram, what did you do at the weekend?", "राम, सप्ताहान्तमा के गर्यौ?"],
       ["Ram", "W sobotę cały dzień pracowałem, a w niedzielę oglądałem mecz.", "On Saturday I worked all day, and on Sunday I watched a match.", "शनिबार दिनभरि काम गरें, आइतबार खेल हेरें।"],
       ["Ania", "Przeczytałeś już umowę od szefa?", "Have you read the contract from the boss yet?", "हाकिमले दिएको सम्झौता पढिसक्यौ?"],
       ["Ram", "Czytałem ją wczoraj, ale jeszcze nie skończyłem.", "I was reading it yesterday, but I haven't finished yet.", "हिजो पढ्दै थिएँ, तर अझै सकेको छैन।"],

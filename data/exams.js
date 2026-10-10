@@ -235,7 +235,7 @@ window.SLOWKA_EXAMS.push(
             checklist: [
               { en: "Did you start with a formal greeting (*Szanowny Panie,*) and continue with a small letter after the comma?", ne: "के तपाईंले औपचारिक अभिवादन (*Szanowny Panie,*) बाट सुरु गर्नुभयो र अल्पविरामपछि सानो अक्षरबाट लेख्नुभयो?" },
               { en: "Did you say what the problem is and since when (*od poniedziałku*, *od trzech dni*)?", ne: "के तपाईंले समस्या के हो र कहिलेदेखि हो (*od poniedziałku*, *od trzech dni*) लेख्नुभयो?" },
-              { en: "Did you ask politely, e.g. *Bardzo proszę o…* + genitive (*o przysłanie fachowca*)?", ne: "के तपाईंले विनम्र अनुरोध गर्नुभयो, जस्तै *Bardzo proszę o…* (*o przysłanie fachowca*)?" },
+              { en: "Did you ask politely, e.g. *Bardzo proszę o…* + accusative (*o przysłanie fachowca*)?", ne: "के तपाईंले विनम्र अनुरोध गर्नुभयो, जस्तै *Bardzo proszę o…* (*o przysłanie fachowca*)?" },
               { en: "Did you say when you are at home (days and times)?", ne: "के तपाईंले कहिले घरमा हुनुहुन्छ (दिन र समय) लेख्नुभयो?" },
               { en: "Did you use the formal *Pan* forms and never *ty*?", ne: "के तपाईंले औपचारिक *Pan* रूप मात्र प्रयोग गर्नुभयो, *ty* प्रयोग गर्नुभएन?" },
               { en: "Did you finish with *Z poważaniem* and your name?", ne: "के तपाईंले *Z poważaniem* र आफ्नो नामले अन्त्य गर्नुभयो?" }
@@ -360,7 +360,7 @@ window.SLOWKA_EXAMS.push(
           {
             q: "Przepraszam, czy mogę zapłacić ___?", en: "Excuse me, can I pay by card?", ne: "माफ गर्नुहोस्, के म कार्डबाट तिर्न सक्छु?",
             options: ["karta", "kartą", "kartę"], answer: 1,
-            why: { en: "The tool you use is in the instrumental case, with no preposition: *płacić kartą*, *gotówką*; *jechać autobusem*. *Karta* → *kartą*.", ne: "कुनै कुराको साधन करण (instrumental) मा आउँछ, कुनै उपसर्ग बिना: *płacić kartą*, *gotówką*; *jechać autobusem*। *karta* → *kartą*।" }
+            why: { en: "The tool you use is in the instrumental case, with no preposition: *płacić kartą*, *gotówką*; *jechać autobusem*. *Karta* → *kartą*.", ne: "कुनै कुराको साधन करण (instrumental) मा आउँछ, कुनै पूर्वसर्ग (preposition) बिना: *płacić kartą*, *gotówką*; *jechać autobusem*। *karta* → *kartą*।" }
           },
           {
             q: "Od dwóch tygodni boli mnie ___.", en: "My back has been hurting for two weeks.", ne: "दुई हप्तादेखि मेरो ढाड दुखिरहेको छ।",

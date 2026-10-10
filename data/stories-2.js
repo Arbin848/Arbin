@@ -268,7 +268,7 @@ window.SLOWKA_STORIES.push(
         ne: "भोलिपल्ट बिहान छ बजे फोन बज्यो। मारेकजी रिसाउनुभएको थियो: „स्कूलका बन खोई? ड्राइभर पर्खिरहेको छ!” दिपकलाई के भन्ने थाहा भएन। तब मात्र उनले बुझे कि „na jutro” को अर्थ अर्डर भोलि बिहानसम्म तयार हुनुपर्ने थियो, भोलि बनाउन सुरु गर्ने भन्ने होइन।"
       },
       {
-        pl: "Dipak nie zaczął się kłócić. Spokojnie powiedział: „Przepraszam, panie Marku, źle zrozumiałem. Zaraz zacznę i postaram się zrobić to jak najszybciej.” Razem z kolegą, Pawłem, pracował bardzo szybko i po półtorej godziny bułki były gotowe. Kierowca zawiózł je do szkoły z małym opóźnieniem.",
+        pl: "Dipak nie zaczął się kłócić. Spokojnie powiedział: „Przepraszam, panie Marku, źle zrozumiałem. Zaraz zacznę i postaram się zrobić to jak najszybciej.” Razem z kolegą, Pawłem, pracował bardzo szybko i po półtorej godzinie bułki były gotowe. Kierowca zawiózł je do szkoły z małym opóźnieniem.",
         en: "Dipak didn't start arguing. He calmly said: 'I'm sorry, Mr Marek, I misunderstood. I'll start right away and try to do it as fast as possible.' Together with his colleague Paweł he worked very fast, and after an hour and a half the rolls were ready. The driver took them to the school with a small delay.",
         ne: "दिपकले झगडा गर्न थालेनन्। उनले शान्त भएर भने: „माफ गर्नुहोस्, मारेकजी, मैले गलत बुझेँ। म अहिल्यै सुरु गर्छु र सकेसम्म छिटो गर्ने कोसिस गर्छु।” सहकर्मी पावेलसँग मिलेर उनले धेरै छिटो काम गरे र डेढ घण्टामा बन तयार भए। ड्राइभरले अलिकति ढिलो गरी ती स्कूल पुर्‍याए।"
       },
@@ -681,9 +681,9 @@ window.SLOWKA_STORIES.push(
         ne: "विषय: Re: उजुरी — बिग्रिएको लुगा धुने मेसिन, अर्डर नं. ४८२१३। आदरणीय महोदय, सन्देशका लागि धन्यवाद र भएको असुविधाका लागि हामी हार्दिक माफी चाहन्छौं। हामी तपाईंको उजुरी स्वीकार भएको पुष्टि गर्छौं। पठाइएका सामग्री जाँचेपछि यो खराबी उत्पादकको गल्तीले भएको हामीले निष्कर्ष निकालेका छौं।"
       },
       {
-        pl: "Ponieważ wada ujawniła się zaraz po dostawie, zdecydowaliśmy się wymienić urządzenie na nowe, bez konieczności naprawy. Kurier odbierze uszkodzoną pralkę i jednocześnie dostarczy nową w czwartek, 17 października, w godzinach 10:00–14:00. Jeżeli ten termin nie jest dla Pana dogodny, prosimy o odpowiedź na tę wiadomość.",
-        en: "Because the defect appeared right after delivery, we have decided to replace the appliance with a new one, without the need for repair. The courier will collect the faulty machine and at the same time deliver a new one on Thursday, 17 October, between 10:00 and 14:00. If this date is not convenient for you, please reply to this message.",
-        ne: "खराबी डेलिभरीलगत्तै देखिएकाले हामीले मर्मत नगरी सिधै नयाँ मेसिन दिने निर्णय गरेका छौं। कुरियरले अक्टोबर १७, बिहीबार, बिहान १० देखि दिउँसो २ बजेभित्र बिग्रिएको मेसिन लैजानेछ र सँगै नयाँ मेसिन ल्याइदिनेछ। यो समय तपाईंलाई मिल्दैन भने यही सन्देशको जवाफ दिनुहोस्।"
+        pl: "Ponieważ wada ujawniła się zaraz po dostawie, zdecydowaliśmy się wymienić urządzenie na nowe, bez konieczności naprawy. Kurier odbierze uszkodzoną pralkę i jednocześnie dostarczy nową w czwartek, 15 października, w godzinach 10:00–14:00. Jeżeli ten termin nie jest dla Pana dogodny, prosimy o odpowiedź na tę wiadomość.",
+        en: "Because the defect appeared right after delivery, we have decided to replace the appliance with a new one, without the need for repair. The courier will collect the faulty machine and at the same time deliver a new one on Thursday, 15 October, between 10:00 and 14:00. If this date is not convenient for you, please reply to this message.",
+        ne: "खराबी डेलिभरीलगत्तै देखिएकाले हामीले मर्मत नगरी सिधै नयाँ मेसिन दिने निर्णय गरेका छौं। कुरियरले अक्टोबर १५, बिहीबार, बिहान १० देखि दिउँसो २ बजेभित्र बिग्रिएको मेसिन लैजानेछ र सँगै नयाँ मेसिन ल्याइदिनेछ। यो समय तपाईंलाई मिल्दैन भने यही सन्देशको जवाफ दिनुहोस्।"
       },
       {
         pl: "W ramach przeprosin przesyłamy kod rabatowy na kolejne zakupy w naszym sklepie. W razie dodatkowych pytań pozostajemy do Pana dyspozycji. Z wyrazami szacunku, Agnieszka Nowak, Dział Obsługi Klienta.",
@@ -729,7 +729,7 @@ window.SLOWKA_STORIES.push(
         why: { en: "*zdecydowaliśmy się wymienić urządzenie na nowe, bez konieczności naprawy* — they will replace it, and they also send a discount code. Nothing is said about paying.", ne: "*zdecydowaliśmy się wymienić urządzenie na nowe, bez konieczności naprawy* — नयाँ मेसिन दिइनेछ, साथै छुट कोड पनि। पैसा तिर्ने कुरा छैन।" }
       },
       {
-        q: "Co Prakash powinien zrobić, jeśli termin 17 października mu nie pasuje?", en: "What should Prakash do if 17 October does not suit him?", ne: "अक्टोबर १७ मिलेन भने प्रकाशले के गर्नुपर्छ?",
+        q: "Co Prakash powinien zrobić, jeśli termin 15 października mu nie pasuje?", en: "What should Prakash do if 15 October does not suit him?", ne: "अक्टोबर १५ मिलेन भने प्रकाशले के गर्नुपर्छ?",
         options: ["Odpowiedzieć na wiadomość.", "Złożyć nową reklamację.", "Nic nie robić."], answer: 0,
         why: { en: "*Jeżeli ten termin nie jest dla Pana dogodny, prosimy o odpowiedź na tę wiadomość.* *Dogodny* = convenient.", ne: "*Jeżeli ten termin nie jest dla Pana dogodny, prosimy o odpowiedź na tę wiadomość.* *Dogodny* = सुविधाजनक।" }
       },

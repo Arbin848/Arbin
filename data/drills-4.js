@@ -79,6 +79,7 @@ window.SLOWKA_DRILLS["b1-06"] = [
       "wzięłam": { en: "*wzięłam* means 'I took' (it happened). For 'I would take' add *-by-*: *wzięłabym*.", ne: "*wzięłam* को अर्थ 'मैले लिएँ' (भइसक्यो)। 'लिन्थें' का लागि *-by-* थप्नुहोस्: *wzięłabym*।" } } },
   { type: "order",
     words: ["Czy", "mógłby", "Pan", "powtórzyć?"],
+    alts: ["Czy Pan mógłby powtórzyć?"],
     en: "Could you repeat that? (to a man)", ne: "के तपाईं फेरि भनिदिन सक्नुहुन्छ? (पुरुषलाई)",
     why: { en: "A polite question starts with *Czy*, then the conditional verb, then *Pan*, then the infinitive.",
            ne: "विनम्र प्रश्न *Czy* बाट सुरु हुन्छ, त्यसपछि शर्तवाचक क्रिया, त्यसपछि *Pan*, अनि infinitive।" } },
@@ -250,6 +251,7 @@ window.SLOWKA_DRILLS["b1-08"] = [
       "aptece": { en: "*aptece* is the locative (*w aptece* = in the pharmacy). Going **to** it: *do apteki*.", ne: "*aptece* locative हो (*w aptece* = फार्मेसीमा भित्र)। त्यहाँ **जाँदा**: *do apteki*।" } } },
   { type: "order",
     words: ["Od", "kiedy", "to", "Pana", "boli?"],
+    alts: ["Od kiedy Pana to boli?"],
     en: "Since when has it been hurting? (to a man)", ne: "तपाईंलाई कहिलेदेखि दुखिरहेको छ? (पुरुषलाई)",
     why: { en: "The question word *Od kiedy* comes first; *Pana* (you, formal) stands before the verb *boli*.",
            ne: "प्रश्नवाचक *Od kiedy* सुरुमा आउँछ; *Pana* (तपाईंलाई, औपचारिक) क्रिया *boli* को अगाडि आउँछ।" } },
@@ -325,15 +327,16 @@ window.SLOWKA_DRILLS["b1-09"] = [
       "pracy": { en: "*pracy* is genitive/locative (*w pracy* = at work). The fixed phrase is *zezwolenie na pracę*.", ne: "*pracy* genitive/locative हो (*w pracy* = काममा)। निश्चित वाक्यांश *zezwolenie na pracę* हो।" } } },
   { type: "fill",
     q: "Czy ___ Pani powtórzyć wolniej? (móc)",
-    answer: ["może"],
+    answer: ["może", "mogłaby"],
     en: "Could you repeat that more slowly? (to a woman)", ne: "के तपाईं अलि बिस्तारै फेरि भनिदिन सक्नुहुन्छ? (महिलालाई)",
-    why: { en: "*Pani* takes the 3rd-person verb: *Pani może*. Officials expect the formal *Pan / Pani*.",
-           ne: "*Pani* सँग तेस्रो पुरुषको क्रिया आउँछ: *Pani może*। कार्यालयमा औपचारिक *Pan / Pani* प्रयोग गर्नुपर्छ।" },
+    why: { en: "*Pani* takes the 3rd-person verb: *Pani może* (or the even softer *Pani mogłaby*). Officials expect the formal *Pan / Pani*.",
+           ne: "*Pani* सँग तेस्रो पुरुषको क्रिया आउँछ: *Pani może* (वा अझ नरम *Pani mogłaby*)। कार्यालयमा औपचारिक *Pan / Pani* प्रयोग गर्नुपर्छ।" },
     traps: {
       "możesz": { en: "*możesz* is the informal *ty* form — too familiar for an official. With *Pani*: *może*.", ne: "*możesz* अनौपचारिक *ty* रूप हो — कर्मचारीसँग बोल्न मिल्दैन। *Pani* सँग: *może*।" },
       "mogę": { en: "*mogę* means 'I can'. You are asking her: *Czy Pani może…?*", ne: "*mogę* को अर्थ 'म सक्छु' हो। तपाईं उहाँलाई सोध्दै हुनुहुन्छ: *Czy Pani może…?*" } } },
   { type: "order",
     words: ["Jakie", "dokumenty", "są", "potrzebne?"],
+    alts: ["Jakie są potrzebne dokumenty?"],
     en: "What documents are needed?", ne: "कुन-कुन कागजात चाहिन्छन्?",
     why: { en: "*Jakie dokumenty* (which documents) stays together at the start, then *są potrzebne*.",
            ne: "*Jakie dokumenty* (कुन कागजात) सुरुमा सँगै रहन्छ, त्यसपछि *są potrzebne*।" } },
@@ -424,9 +427,10 @@ window.SLOWKA_DRILLS["b1-10"] = [
            ne: "हो/होइन प्रश्न: *Czy* + *mogę* + infinitive + कर्म।" } },
   { type: "order",
     words: ["Proszę", "poczekać", "chwilę."],
+    alts: ["Proszę chwilę poczekać."],
     en: "Please wait a moment.", ne: "कृपया एकछिन पर्खनुहोस्।",
-    why: { en: "*Proszę* + infinitive is a polite request; *chwilę* (a moment) comes at the end.",
-           ne: "*Proszę* + infinitive विनम्र अनुरोध हो; *chwilę* (एकछिन) अन्त्यमा आउँछ।" } }
+    why: { en: "*Proszę* + infinitive is a polite request; *chwilę* (a moment) can go at the end or before the verb.",
+           ne: "*Proszę* + infinitive विनम्र अनुरोध हो; *chwilę* (एकछिन) अन्त्यमा वा क्रियाअघि आउन सक्छ।" } }
 ];
 
 // B2-01 — prefixes on verbs of motion
@@ -600,6 +604,7 @@ window.SLOWKA_DRILLS["b2-02"] = [
       "dwóch": { en: "*dwóch* is for men. For a group of children: *dwoje dzieci*.", ne: "*dwóch* पुरुषहरूका लागि हो। बालबालिकाका लागि: *dwoje dzieci*।" } } },
   { type: "order",
     words: ["Mam", "dwóch", "braci", "i", "dwie", "siostry."],
+    alts: ["Mam dwie siostry i dwóch braci."],
     en: "I have two brothers and two sisters.", ne: "मेरा दुई दाजुभाइ र दुई दिदीबहिनी छन्।",
     why: { en: "Each number stands right before its noun: *dwóch braci*, *dwie siostry*.",
            ne: "हरेक संख्या आफ्नो नामको ठीक अगाडि आउँछ: *dwóch braci*, *dwie siostry*।" } },
@@ -728,17 +733,16 @@ window.SLOWKA_DRILLS["b2-04"] = [
            ne: "*Natomiast* ले दुई फरक कुराको तुलना गर्छ ('जबकि')। यहाँ कारण वा उद्देश्य छैन।" } },
   { type: "fill",
     q: "Pada, ___ zostaję w domu. (that's why)",
-    answer: ["dlatego"],
+    answer: ["dlatego", "więc"],
     en: "It's raining, that's why I'm staying at home.", ne: "पानी परिरहेको छ, त्यसैले म घरमै बस्दैछु।",
-    why: { en: "The reason comes first, and *dlatego* (that's why) introduces the result.",
-           ne: "कारण पहिले आउँछ, र *dlatego* (त्यसैले) ले नतिजा जनाउँछ।" },
+    why: { en: "The reason comes first, and *dlatego* (that's why) introduces the result. *Więc* (so) is also correct here.",
+           ne: "कारण पहिले आउँछ, र *dlatego* (त्यसैले) ले नतिजा जनाउँछ। *Więc* (त्यसो भए / त्यसैले) पनि यहाँ सही हो।" },
     traps: {
       "bo": { en: "*bo* introduces a reason. Here the second part is the result: *dlatego* (or *więc*).", ne: "*bo* ले कारण जनाउँछ। यहाँ दोस्रो भाग नतिजा हो: *dlatego* (वा *więc*)।" },
-      "ponieważ": { en: "*ponieważ* means 'because' — a reason. For the result use *dlatego*.", ne: "*ponieważ* को अर्थ 'किनभने' — कारण। नतिजाका लागि *dlatego*।" },
-      "więc": { en: "*więc* (so) also fits the meaning, but the word for 'that's why' is *dlatego*.", ne: "*więc* (त्यसो भए / त्यसैले) ले पनि अर्थ मिल्छ, तर 'त्यही कारणले' भन्ने शब्द *dlatego* हो।" } } },
+      "ponieważ": { en: "*ponieważ* means 'because' — a reason. For the result use *dlatego*.", ne: "*ponieważ* को अर्थ 'किनभने' — कारण। नतिजाका लागि *dlatego*।" } } },
   { type: "fill",
     q: "Uczę się polskiego, ___ znaleźć lepszą pracę. (in order to)",
-    answer: ["żeby"],
+    answer: ["żeby", "aby"],
     en: "I'm learning Polish to find a better job.", ne: "राम्रो काम पाउन म पोलिश सिक्दैछु।",
     why: { en: "Purpose with the same subject: *żeby* + infinitive.",
            ne: "एउटै कर्ता भएको उद्देश्य: *żeby* + infinitive।" },
@@ -873,6 +877,7 @@ window.SLOWKA_DRILLS["b2-05"] = [
            ne: "*Z góry* (अग्रिम) पहिले आउँछ, त्यसपछि *dziękuję za* + accusative।" } },
   { type: "order",
     words: ["Proszę", "opowiedzieć", "coś", "o", "sobie."],
+    alts: ["Proszę coś opowiedzieć o sobie."],
     en: "Please tell us something about yourself.", ne: "कृपया आफ्नो बारेमा केही भन्नुहोस्।",
     why: { en: "*Proszę* + infinitive; *o sobie* (about yourself) goes at the end.",
            ne: "*Proszę* + infinitive; *o sobie* (आफ्नो बारेमा) अन्त्यमा आउँछ।" } }
@@ -1054,9 +1059,10 @@ window.SLOWKA_DRILLS["b2-07"] = [
            ne: "भन्ने क्रिया + अल्पविराम + *że* + काल नफेरिएको भनाइ।" } },
   { type: "order",
     words: ["Rozumiem,", "ale", "nie", "zgadzam", "się."],
+    alts: ["Rozumiem, ale się nie zgadzam."],
     en: "I understand, but I don't agree.", ne: "म बुझ्छु, तर म सहमत छैन।",
-    why: { en: "Soften disagreement with *Rozumiem, ale…*; *nie* goes before *zgadzam*, and *się* comes last.",
-           ne: "असहमतिलाई *Rozumiem, ale…* ले नरम बनाउनुहोस्; *nie* *zgadzam* अगाडि आउँछ, र *się* अन्त्यमा।" } }
+    why: { en: "Soften disagreement with *Rozumiem, ale…*; *nie* goes right before *zgadzam*; *się* can come last or before *nie*.",
+           ne: "असहमतिलाई *Rozumiem, ale…* ले नरम बनाउनुहोस्; *nie* *zgadzam* को ठीक अगाडि आउँछ; *się* अन्त्यमा वा *nie* अगाडि आउन सक्छ।" } }
 ];
 
 // B2-08 — renting, banking and contracts
