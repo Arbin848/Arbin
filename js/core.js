@@ -227,25 +227,28 @@
   S.hasNative = (text) => !!S.AUDIO[S.audioKey(text)];
 
   let current = null;
-  S.speak = (text) => {
+  // slow: true plays this one item slowly, whatever the Settings say.
+  S.speak = (text, slow) => {
     if (!text) return;
+    const isSlow = slow || S.settings.slow;
     try { if (synth) synth.cancel(); if (current) current.pause(); } catch (e) { /* ignore */ }
     const src = S.settings.audio === 'native' && S.AUDIO[S.audioKey(text)];
     if (src) {
       current = new Audio(src);
-      current.playbackRate = S.settings.slow ? 0.75 : 1;
-      current.play().catch(() => tts(text));
+      current.playbackRate = isSlow ? 0.7 : 1;
+      current.preservesPitch = true;
+      current.play().catch(() => tts(text, isSlow));
       return;
     }
-    tts(text);
+    tts(text, isSlow);
   };
-  function tts(text) {
+  function tts(text, isSlow) {
     if (!synth) return;
     try {
       const u = new SpeechSynthesisUtterance(String(text).replace(/…/g, '').replace(/\s\/\s/g, ', ').replace(/___/g, '…'));
       u.lang = 'pl-PL';
       if (polishVoice) u.voice = polishVoice;
-      u.rate = S.settings.slow ? 0.6 : 0.85;
+      u.rate = isSlow ? 0.55 : 0.85;
       synth.speak(u);
     } catch (e) { /* speech unavailable */ }
   }
@@ -310,11 +313,63 @@
     if (S.shows('meaning', 'ne')) parts.push(`<span class="m-ne" lang="ne">${esc(e.ne)}</span>`);
     return `<span class="meaning ${cls}">${parts.join('')}</span>`;
   };
+  // Pronunciation as syllable blocks; the stressed syllable is highlighted.
+  // English letters mark stress with CAPITALS, Devanagari with ˈ before the syllable.
+  const sylChips = (text, isStressed, clean) => String(text).split(/\s+/).filter(Boolean).map((word) => {
+    const syl = word.split('-');
+    return `<span class="sw">${syl.map((x) => `<span class="sy${syl.length > 1 && isStressed(x) ? ' st' : ''}">${esc(clean(x))}</span>`).join('')}</span>`;
+  }).join(' ');
   S.pronHTML = (e) => {
     const parts = [];
-    if (S.shows('pron', 'en')) parts.push(`<span class="pron" title="Capitals mark the stressed syllable">${esc(e.pron)}</span>`);
-    if (S.shows('pron', 'ne')) parts.push(`<span class="pron ne" lang="ne" title="ˈ चिन्हपछिको अक्षरमा जोड दिनुहोस्">${esc(e.proNe)}</span>`);
+    if (S.shows('pron', 'en') && e.pron) parts.push(`<span class="pron" title="The highlighted syllable is stressed">${sylChips(e.pron, (x) => /[A-Z]/.test(x), (x) => x.toLowerCase())}</span>`);
+    if (S.shows('pron', 'ne') && e.proNe) parts.push(`<span class="pron ne" lang="ne" title="रङ लगाइएको अक्षरमा जोड दिनुहोस्">${sylChips(e.proNe, (x) => x.includes('ˈ'), (x) => x.replace(/ˈ/g, ''))}</span>`);
     return `<span class="prons">${parts.join('')}</span>`;
+  };
+
+  // Tips for the letters in a word that are new for Nepali speakers.
+  const HINTS = [
+    ['dzi', 'soft j, as in jeep', 'नरम ज', null, /^dzi[aeouyąęó]/],
+    ['dź', 'soft j, as in jeep', 'नरम ज', null],
+    ['dż', 'hard j, as in jam', 'कडा ज', null],
+    ['dz', 'dz, as in adze', 'द्ज़', null],
+    ['sz', 'sh, tongue up, lips round', 'श (ओठ गोलो)', 'sz-s'],
+    ['cz', 'ch, hard, as in church', 'कडा च', 'cz-c'],
+    ['rz', 'zh, as in pleasure (= ż)', 'झ (= ż)', 'rz-z'],
+    ['ch', 'throaty h (= h)', 'घाँटीबाट ह', 'h-k'],
+    ['si', 'soft sh (= ś), smile', 'नरम श (= ś)', 'sz-s', /^si[aeouyąęó]/],
+    ['ci', 'soft ch (= ć), smile', 'नरम च (= ć)', 'cz-c', /^ci[aeouyąęó]/],
+    ['zi', 'soft zh (= ź)', 'नरम झ (= ź)', 'rz-z', /^zi[aeouyąęó]/],
+    ['ni', 'ny, as in canyon (= ń)', 'न्य (= ń)', null, /^ni[aeouyąęó]/],
+    ['ż', 'zh, as in pleasure', 'झ', 'rz-z'],
+    ['ś', 'soft sh, smile', 'नरम श', 'sz-s'],
+    ['ć', 'soft ch, smile', 'नरम च', 'cz-c'],
+    ['ź', 'soft zh', 'नरम झ', 'rz-z'],
+    ['ń', 'ny, as in canyon', 'न्य', null],
+    ['ł', 'w, as in water', 'व', 'l-l'],
+    ['w', 'v, as in van', 'भ', null],
+    ['y', 'between i and u (bit)', 'इ र उ बीच', 'y-i'],
+    ['ó', 'u, as in put (= u)', 'उ', null],
+    ['ą', 'nasal on', 'नाकबाट ओं', 'o-a'],
+    ['ę', 'nasal en; at the end just e', 'नाकबाट एं', 'e-e'],
+    ['c', 'ts, as in cats', 'त्स', 'cz-c2'],
+    ['h', 'throaty h', 'घाँटीबाट ह', 'h-k'],
+    ['j', 'y, as in yes', 'य', null],
+  ];
+  S.soundHints = (text, max = 4) => {
+    const w = String(text).toLowerCase();
+    const found = [];
+    for (let i = 0; i < w.length;) {
+      const hit = HINTS.find(([k, , , , re]) => w.startsWith(k, i) && (!re || re.test(w.slice(i))));
+      if (hit) {
+        if (!found.some((f) => f[1] === hit[1])) found.push(hit);
+        i += hit[0].length;
+      } else i += 1;
+    }
+    if (!found.length) return '';
+    return `<span class="hints">${found.slice(0, max).map(([k, en, ne, lab]) => {
+      const inner = `<b lang="pl">${esc(k)}</b> ${S.shows('explain', 'en') ? esc(en) : ''}${S.settings.explain === 'both' ? ' · ' : ''}${S.shows('explain', 'ne') ? `<span lang="ne">${esc(ne)}</span>` : ''}`;
+      return lab ? `<button class="hint-chip" data-action="go" data-to="sounds.${lab}" title="Open the sounds lab">${inner}</button>` : `<span class="hint-chip">${inner}</span>`;
+    }).join('')}</span>`;
   };
   // Explanations written as {en, ne}, shown per the "explain" setting.
   S.whyHTML = (why) => {
@@ -330,10 +385,11 @@
     if (S.shows('meaning', 'ne') && ne) parts.push(`<span class="m-ne" lang="ne">${esc(ne)}</span>`);
     return `<span class="meaning">${parts.join('')}</span>`;
   };
+  S.slowBtn = (text) => (S.canSpeak ? `<button class="btn listen slow" data-action="say" data-slow="1" data-text="${esc(text)}" title="Play slowly">${S.SPEAKER} Slow <span lang="ne">बिस्तारै</span></button>` : '');
   S.listenBtn = (text, big) => {
     if (!S.canSpeak) return '';
     return big
-      ? `<button class="btn listen" data-action="say" data-text="${esc(text)}">${S.SPEAKER} Listen <span lang="ne">सुन्नुहोस्</span></button>`
+      ? `<button class="btn listen" data-action="say" data-text="${esc(text)}">${S.SPEAKER} Listen <span lang="ne">सुन्नुहोस्</span></button>${S.slowBtn(text)}`
       : `<button class="icon-btn" data-action="say" data-text="${esc(text)}" aria-label="Listen to ${esc(text)}">${S.SPEAKER}</button>`;
   };
   S.boxMeter = (e) => {
