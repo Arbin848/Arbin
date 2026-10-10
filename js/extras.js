@@ -43,13 +43,15 @@
     talk = { rp, step: 0, chat: [], mode: mode || (talk && talk.mode) || 'choose', wrong: null, done: false, mistakes: 0, order: null, hint: false, busy: false, typed: '' };
     pushThem();
   }
-  function pushThem() {
-    const st = talk.rp.steps[talk.step];
+  // delay: time to let the learner's own reply play before the other person answers.
+  function pushThem(delay = 200) {
+    const t = talk;
+    const st = t.rp.steps[t.step];
     const [pl, en, ne] = st.them;
-    talk.chat.push({ who: 'them', pl, en, ne });
-    talk.order = S.shuffle(st.replies.map((r, i) => i));
-    talk.hint = false;
-    setTimeout(() => S.speak(pl), 200);
+    t.chat.push({ who: 'them', pl, en, ne });
+    t.order = S.shuffle(st.replies.map((r, i) => i));
+    t.hint = false;
+    setTimeout(() => { if (talk === t) S.speak(pl); }, delay);
   }
   function accept(reply) {
     talk.chat.push({ who: 'me', pl: reply.pl, en: reply.en, ne: reply.ne });
@@ -60,7 +62,7 @@
       talk.done = true;
       const prev = S.progress.roleplays[talk.rp.id];
       S.progress.roleplays[talk.rp.id] = { done: true, best: prev ? Math.min(prev.best, talk.mistakes) : talk.mistakes, last: S.dayKey() };
-    } else pushThem();
+    } else pushThem(900 + reply.pl.length * 70);
     S.logActivity();
     S.saveProgress();
     if (S.onProgress) S.onProgress();
@@ -177,9 +179,11 @@
     const t = talk;
     t.busy = true; t.micError = '';
     X.talk(view, t.rp.id);
+    const step = t.step;
     try {
       const alts = await S.recognize();
-      if (talk !== t) return;
+      // Ignore the result if the learner moved on while the microphone was listening.
+      if (talk !== t || t.done || t.step !== step) { t.busy = false; return; }
       const st = t.rp.steps[t.step];
       let best = alts[0] || '';
       let bestSc = -1;
@@ -228,6 +232,11 @@
     return usedInCache.get(key);
   }
 
+  function lookupWord(st, word) {
+    const key = S.tokenKey(word);
+    return st.glossaryMap.get(key) || S.WORD_INDEX.get(key) || [...st.glossaryMap.values()].find((g) => S.fold(g.pl) === S.fold(word));
+  }
+
   X.read = (view, id) => {
     const st = S.STORIES.find((s) => s.id === id);
     if (!st) { S.go('read'); return; }
@@ -266,7 +275,7 @@
     let pop = '';
     if (r.word) {
       const key = S.tokenKey(r.word);
-      const e = st.glossaryMap.get(key) || S.WORD_INDEX.get(key) || [...st.glossaryMap.values()].find((g) => S.fold(g.pl) === S.fold(r.word));
+      const e = lookupWord(st, r.word);
       pop = `
         <div class="sheet" role="dialog" aria-label="Word">
           <button class="sheet-close" data-action="tok-close" aria-label="Close">×</button>
@@ -549,23 +558,26 @@
   X.action = (a, el, view) => {
     switch (a) {
       case 'talk-pick': {
+        if (talk.busy || talk.done) return true;
         const st = talk.rp.steps[talk.step];
         const r = st.replies[Number(el.dataset.index)];
-        if (r.ok) accept(r); else reject(r);
-        if (r.ok && S.settings.audio) S.speak(r.pl);
+        if (r.ok) { S.speak(r.pl); accept(r); } else reject(r);
         S.render();
         return true;
       }
-      case 'talk-mode': talk.mode = el.dataset.mode; talk.wrong = null; talk.hint = false; S.render(); return true;
+      case 'talk-mode': if (talk.busy) return true; talk.mode = el.dataset.mode; talk.wrong = null; talk.hint = false; S.render(); return true;
       case 'talk-hint': talk.hint = !talk.hint; S.render(); return true;
       case 'talk-say': talkSay(view); return true;
       case 'talk-restart': startTalk(talk.rp, talk.mode); S.render(); return true;
       case 'talk-add': (talk.rp.useful || []).forEach((x) => S.addToReview(S.LEXICON.get(x[0]))); el.textContent = 'Added ✓'; return true;
-      case 'tok': reading.word = el.dataset.word; S.render(); S.speak(el.dataset.word); return true;
-      case 'tok-close': reading.word = null; S.render(); return true;
+      case 'tok':
+        S.speak(el.dataset.word);
+        // Tappable words also appear in exam texts, which have no word popup: there they only speak.
+        if (S.route.name === 'read' && reading) { reading.word = el.dataset.word; S.render(); }
+        return true;
+      case 'tok-close': if (reading) { reading.word = null; S.render(); } return true;
       case 'tok-add': {
-        const key = S.tokenKey(reading.word);
-        const e = reading.st.glossaryMap.get(key) || S.WORD_INDEX.get(key);
+        const e = reading && lookupWord(reading.st, reading.word);
         if (e) S.addToReview(e);
         S.render();
         return true;
@@ -636,7 +648,7 @@
       const r = st.replies[talk.order[Number(ev.key) - 1]];
       if (r) { if (r.ok) accept(r); else reject(r); S.render(); return true; }
     }
-    if (placement && S.route.name === 'placement' && /^[1-4]$/.test(ev.key) && placement.i < S.PLACEMENT.length) {
+    if (placement && S.route.name === 'placement' && /^[1-4]$/.test(ev.key) && placement.i < S.PLACEMENT.length && Number(ev.key) <= S.PLACEMENT[placement.i].options.length) {
       placement.answers[placement.i] = Number(ev.key) - 1; placement.i += 1; S.render(); return true;
     }
     return false;

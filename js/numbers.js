@@ -230,7 +230,7 @@
       ${body}
       ${fb}
       ${guide()}`;
-    if (!a && q.say && !q.options && !st.spoken) { st.spoken = true; setTimeout(() => S.speak(q.say), 200); }
+    if (!a && q.say && !q.options && !st.spoken) { st.spoken = true; setTimeout(() => { if (S.route.name === 'numbers' && st.q === q) S.speak(q.say); }, 200); }
     const f = view.querySelector('[data-autofocus]');
     if (f) f.focus({ preventScroll: true });
   };
@@ -264,12 +264,17 @@
     const input = view.querySelector('#nm-input');
     if (!input || !input.value.trim()) return true;
     const given = input.value.trim();
-    const norm = (x) => String(x).replace(/\s+/g, '').replace('.', ',').replace(/zł$/i, '').replace(/^0+(?=\d)/, '');
+    const norm = (x) => String(x).replace(/z[łl]\s*$/i, '').replace(/\s+/g, '').replace('.', ',').replace(/^0+(?=\d)/, '');
     const g = norm(given);
     const q = st.q;
     let ok = g === norm(q.answer) || (q.alt && g === norm(q.alt));
-    if (q.input === 'price' && !ok) ok = g.replace(/,00$/, '') === norm(q.answer).replace(/,00$/, '');
-    if (q.input === 'time') ok = g.replace(/^0/, '').replace('.', ':').replace(',', ':') === q.answer;
+    // Prices compare by value: 12,5 = 12.50 = 12,50 zł.
+    if (q.input === 'price') { const cents = (x) => Math.round(parseFloat(String(x).replace(',', '.')) * 100); ok = cents(g) === cents(norm(q.answer)); }
+    if (q.input === 'time') {
+      // 7:30, 07.30, 7 30, and a plain hour (7) for full hours.
+      const t = given.replace(/\s+/g, ':').replace(/[.,]/g, ':').replace(/^0(\d)/, '$1');
+      ok = t === q.answer || (q.answer.endsWith(':00') && /^\d{1,2}$/.test(t) && `${t}:00` === q.answer);
+    }
     finish(!!ok, { given });
     return true;
   };

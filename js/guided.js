@@ -269,8 +269,10 @@
     const steps = buildSteps(u);
     const g = (state()[u.id] = state()[u.id] || { step: 0 });
     g.step = Math.max(0, Math.min(n, steps.length - 1));
-    if (steps[g.step].kind === 'summary' && !g.done) {
+    // A lesson marked known by the placement test counts as really finished once it is done here.
+    if (steps[g.step].kind === 'summary' && (!g.done || g.skipped)) {
       g.done = S.dayKey();
+      delete g.skipped;
       // Everything taught in the lesson goes into the daily review.
       u.entries.forEach((e) => { if (!S.itemOf(e)) S.progress.items[e.pl] = { b: 0, due: S.addDays(1) }; });
     }
