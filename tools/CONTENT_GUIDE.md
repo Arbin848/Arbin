@@ -63,7 +63,7 @@ work-and-life-in-Poland language is especially valuable.
 | `pron` | English-letter pronunciation, syllables split with `-`, **stressed syllable in CAPITALS**, words separated by spaces. One-syllable words are lowercase. | `jen DOB-ri` |
 | `proNe` | Devanagari pronunciation, syllables split with `-`, stressed syllable preceded by `ˈ` (when a word has 2+ syllables) | `जेन् ˈदोब्-रि` |
 
-Stress: Polish stresses the **second-to-last syllable** almost always. Exceptions worth knowing: past-tense forms like *byliśmy* (BI-lish-mi), conditional *zrobiłbym*, and some loanwords (*matematyka* is ma-te-MA-ty-ka in careful speech; use the common modern pronunciation ma-te-ma-TI-ka). Write what the learner should actually say.
+Stress: Polish stresses the **second-to-last syllable** almost always. Exceptions worth knowing: past-tense forms like *byliśmy* (BI-lish-mi), conditional *zrobiłbym*, and words in *-yka/-ika* such as *muzyka* (MOO-zi-ka), *fabryka* (FA-bri-ka) and *matematyka* (ma-teh-MA-ti-ka), which stress the third-to-last syllable in standard Polish. Write what the learner should actually say.
 
 Pronunciation must reflect the **real sound**, not the spelling: final consonants devoice (*chleb* → hlep, *mąż* → monsh), *w* after voiceless consonants becomes f (*twój* → tfooy), *ó* = u, nasal *ę* at the end of a word is just "eh".
 

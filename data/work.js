@@ -219,7 +219,7 @@ window.SLOWKA_COURSE.push(
       }
     ],
     words: [
-      ["fabryka", "factory", "कारखाना", "fa-BRI-ka", "फा-ˈब्रि-का"],
+      ["fabryka", "factory", "कारखाना", "FA-bri-ka", "ˈफा-ब्रि-का"],
       ["zakład", "plant / workplace", "कारखाना / कार्यस्थल", "ZAK-wat", "ˈज़ाक्-वात्"],
       ["linia produkcyjna", "production line", "उत्पादन लाइन", "LEE-nya pro-dook-TSIY-na", "ˈलि-न्या प्रो-दुक्-ˈत्सिय्-ना"],
       ["taśma", "conveyor belt", "कन्भेयर बेल्ट", "TASH-ma", "ˈताश्-मा"],

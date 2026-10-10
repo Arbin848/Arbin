@@ -143,7 +143,7 @@ window.SLOWKA_COURSE.push(
         rows: [
           ["*Nepal*", "*z Nepalu*", "*Nepalczyk*", "*Nepalka*"],
           ["*Polska*", "*z Polski*", "*Polak*", "*Polka*"],
-          ["*Indie*", "*z Indii*", "*Indus*", "*Induska*"],
+          ["*Indie*", "*z Indii*", "*Hindus*", "*Hinduska*"],
           ["*Ukraina*", "*z Ukrainy*", "*Ukrainiec*", "*Ukrainka*"]
         ]
       }
@@ -381,7 +381,7 @@ window.SLOWKA_COURSE.push(
       ["Bikash", "Dzień dobry! Ile kosztuje ten chleb?", "Hello! How much is this bread?", "नमस्ते! यो पाउरोटी कति हो?"],
       ["Pani Ewa", "Pięć złotych.", "Five zloty.", "पाँच ज्लोती।"],
       ["Bikash", "A woda?", "And the water?", "अनि पानी?"],
-      ["Pani Ewa", "Dwa złote pięćdziesiąt.", "Two zloty fifty.", "दुई ज्लोती पचास ग्रोस।"],
+      ["Pani Ewa", "Dwa złote pięćdziesiąt.", "Two zloty fifty.", "दुई ज्लोती पचास ग्रोश।"],
       ["Bikash", "Poproszę chleb i wodę.", "Bread and water, please.", "पाउरोटी र पानी दिनुहोस्।"],
       ["Pani Ewa", "Razem siedem złotych pięćdziesiąt. Gotówką czy kartą?", "Seven fifty altogether. Cash or card?", "जम्मा सात ज्लोती पचास। नगद कि कार्ड?"],
       ["Bikash", "Kartą, proszę.", "Card, please.", "कार्डले, कृपया।"],

@@ -399,7 +399,7 @@ window.SLOWKA_COURSE.push(
     ],
     phrases: [
       ["Mieszkam w Warszawie.", "I live in Warsaw.", "म वार्सामा बस्छु।", "MYESH-kam v var-SHA-vyeh", "ˈम्येश्-काम् भ् भार्-ˈशा-भ्ये"],
-      ["Pracuję w fabryce.", "I work in a factory.", "म कारखानामा काम गर्छु।", "pra-TSOO-yeh f fa-BRI-tseh", "प्रा-ˈत्सु-ये फ़् फ़ा-ˈब्रि-त्से"],
+      ["Pracuję w fabryce.", "I work in a factory.", "म कारखानामा काम गर्छु।", "pra-TSOO-yeh f FA-bri-tseh", "प्रा-ˈत्सु-ये फ़् ˈफ़ा-ब्रि-त्से"],
       ["Mówię trochę po polsku.", "I speak a little Polish.", "म अलिअलि पोलिश बोल्छु।", "MOO-vyeh TRO-heh po POL-skoo", "ˈमु-भ्ये ˈत्रो-हे पो ˈपोल्-स्कु"],
       ["Nie rozumiem.", "I don't understand.", "मैले बुझिनँ।", "nyeh ro-ZOO-myem", "न्ये रो-ˈज़ु-म्येम्"],
       ["Co robisz?", "What are you doing?", "तिमी के गर्दैछौ?", "tso RO-beesh", "त्सो ˈरो-बिश्"],

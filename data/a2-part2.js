@@ -157,7 +157,7 @@ window.SLOWKA_COURSE.push(
       ["pogoda", "weather", "मौसम", "po-GO-da", "पो-ˈगो-दा"],
       ["wiosna", "spring", "वसन्त ऋतु", "VYOS-na", "ˈभ्योस्-ना"],
       ["lato", "summer", "गर्मी याम", "LA-to", "ˈला-तो"],
-      ["jesień", "autumn", "शरद ऋतु", "YE-shen", "ˈये-शेन्य्"],
+      ["jesień", "autumn", "शरद ऋतु", "YE-sheny", "ˈये-शेन्य्"],
       ["zima", "winter", "जाडो याम", "ZHEE-ma", "ˈझि-मा"],
       ["zimno", "cold", "चिसो / जाडो", "ZHEEM-no", "ˈझिम्-नो"],
       ["ciepło", "warm", "न्यानो", "CHEP-wo", "ˈचेप्-वो"],
@@ -171,7 +171,7 @@ window.SLOWKA_COURSE.push(
       ["słonecznie", "sunny", "घमाइलो", "swo-NECH-nye", "स्वो-ˈनेच्-न्ये"],
       ["pada", "it's falling (rain / snow)", "परिरहेको छ (पानी / हिउँ)", "PA-da", "ˈपा-दा"],
       ["wieje", "it's blowing (wind)", "चलिरहेको छ (हावा)", "VYE-ye", "ˈभ्ये-ये"],
-      ["stopień", "degree", "डिग्री", "STO-pyen", "ˈस्तो-प्येन्य्"]
+      ["stopień", "degree", "डिग्री", "STO-pyeny", "ˈस्तो-प्येन्य्"]
     ],
     phrases: [
       ["Jaka jest dzisiaj pogoda?", "What's the weather like today?", "आज मौसम कस्तो छ?", "YA-ka yest JEE-shay po-GO-da", "ˈया-का येस्त् ˈजि-शाइ पो-ˈगो-दा"],
@@ -263,7 +263,7 @@ window.SLOWKA_COURSE.push(
       ["umowa", "contract", "सम्झौता / कन्ट्र्याक्ट", "oo-MO-va", "उ-ˈमो-भा"],
       ["urlop", "leave / holiday", "बिदा", "OOR-lop", "ˈउर्-लोप्"],
       ["magazyn", "warehouse", "गोदाम", "ma-GA-zin", "मा-ˈगा-ज़िन्"],
-      ["fabryka", "factory", "कारखाना", "fa-BRI-ka", "फ़ा-ˈब्रि-का"],
+      ["fabryka", "factory", "कारखाना", "FA-bri-ka", "ˈफ़ा-ब्रि-का"],
       ["budowa", "construction site", "निर्माण स्थल", "boo-DO-va", "बु-ˈदो-भा"],
       ["kierowca", "driver", "चालक / ड्राइभर", "kye-ROF-tsa", "क्ये-ˈरोफ़्-त्सा"],
       ["kucharz", "cook (m)", "भान्से / कुक", "KOO-hash", "ˈकु-हाश्"],
@@ -370,7 +370,7 @@ window.SLOWKA_COURSE.push(
       ["gitara", "guitar", "गितार", "gee-TA-ra", "गि-ˈता-रा"],
       ["oglądać", "to watch", "हेर्नु", "o-GLON-dach", "ओ-ˈग्लोन्-दाच्"],
       ["słuchać", "to listen (+ genitive)", "सुन्नु", "SWOO-hach", "ˈस्वु-हाच्"],
-      ["muzyka", "music", "सङ्गीत", "moo-ZI-ka", "मु-ˈज़ि-का"],
+      ["muzyka", "music", "सङ्गीत", "MOO-zi-ka", "ˈमु-ज़ि-का"],
       ["film", "film / movie", "फिल्म", "feelm", "फ़िल्म्"],
       ["kino", "cinema", "सिनेमा हल", "KEE-no", "ˈकि-नो"],
       ["czytać", "to read", "पढ्नु", "CHI-tach", "ˈचि-ताच्"],
@@ -385,7 +385,7 @@ window.SLOWKA_COURSE.push(
       ["Lubię grać w piłkę.", "I like playing football.", "मलाई फुटबल खेल्न मन पर्छ।", "LOO-bye grach f PEEW-ke", "ˈलु-ब्ये ग्राच् फ़् ˈपिव्-के"],
       ["W weekend gram w karty z kolegami.", "At the weekend I play cards with friends.", "सप्ताहान्तमा म साथीहरूसँग तास खेल्छु।", "v WEE-kent gram f KAR-ti s ko-le-GA-mee", "भ् ˈवि-केन्त् ग्राम् फ़् ˈकार्-ति स् को-ले-ˈगा-मि"],
       ["Mój brat gra na gitarze.", "My brother plays the guitar.", "मेरो दाजुभाइ गितार बजाउँछ।", "mooy brat gra na gee-TA-zhe", "मुय् ब्रात् ग्रा ना गि-ˈता-झे"],
-      ["Często słucham muzyki.", "I often listen to music.", "म प्रायः सङ्गीत सुन्छु।", "CHENS-to SWOO-ham moo-ZI-kee", "ˈचेन्स्-तो ˈस्वु-हाम् मु-ˈज़ि-कि"],
+      ["Często słucham muzyki.", "I often listen to music.", "म प्रायः सङ्गीत सुन्छु।", "CHENS-to SWOO-ham MOO-zi-kee", "ˈचेन्स्-तो ˈस्वु-हाम् ˈमु-ज़ि-कि"],
       ["Czasem chodzę do kina.", "Sometimes I go to the cinema.", "म कहिलेकाहीँ सिनेमा हेर्न जान्छु।", "CHA-sem HO-dze do KEE-na", "ˈचा-सेम् ˈहो-द्ज़े दो ˈकि-ना"],
       ["Nigdy nie oglądam telewizji.", "I never watch TV.", "म कहिल्यै टिभी हेर्दिनँ।", "NEEG-di nye o-GLON-dam te-le-VEEZ-yee", "ˈनिग्-दि न्ये ओ-ˈग्लोन्-दाम् ते-ले-ˈभिज़्-यि"],
       ["Nie lubię gotować.", "I don't like cooking.", "मलाई खाना पकाउन मन पर्दैन।", "nye LOO-bye go-TO-vach", "न्ये ˈलु-ब्ये गो-ˈतो-भाच्"]
@@ -512,7 +512,7 @@ window.SLOWKA_COURSE.push(
       ["Marek", "Codziennie jeździsz autobusem?", "Do you go by bus every day?", "तिमी हरेक दिन बसमा जान्छौ?"],
       ["Sita", "Tak, fabryka jest daleko. A ty?", "Yes, the factory is far. And you?", "हो, कारखाना टाढा छ। अनि तिमी?"],
       ["Marek", "Ja chodzę do pracy pieszo. To tylko dziesięć minut.", "I walk to work. It's only ten minutes.", "म हिँडेरै काममा जान्छु। दस मिनेट मात्र लाग्छ।"],
-      ["Sita", "Masz szczęście! O, mój autobus już jedzie. Pa!", "Lucky you! Oh, my bus is coming. Bye!", "तिमी भाग्यमानी रहेछौ! ओहो, मेरो बस आइसक्यो। बाइ!"]
+      ["Sita", "Masz szczęście! O, mój autobus już jedzie. Pa!", "Lucky you! Oh, my bus is coming. Bye!", "तिमी भाग्यमानी रहेछौ! ओहो, मेरो बस आउँदै छ। बाइ!"]
     ]
   },
 
