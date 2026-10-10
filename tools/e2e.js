@@ -187,10 +187,10 @@ const bad = (name, why) => { results.fail++; results.failures.push(`${name}: ${w
           if (/Quick check/.test(label)) {
             for (let k = 0; k < 6; k++) {
               if (!(await p.$('[data-action="g-quiz"]'))) break;
-              const right = await p.evaluate(() => {
+              const right = await p.evaluate((unit) => {
                 const S = window.Slowka; const word = document.querySelector('.g-body .word').textContent;
-                const e = S.LEXICON.get(word); return [...document.querySelectorAll('[data-action="g-quiz"]')].findIndex((b) => b.querySelector('.m-en').textContent === e.en);
-              });
+                const e = S.UNIT.get(unit).entries.find((x) => x.pl === word); return [...document.querySelectorAll('[data-action="g-quiz"]')].findIndex((b) => b.querySelector('.m-en').textContent === e.en);
+              }, u);
               await p.click(`[data-action="g-quiz"][data-index="${right}"]`);
               await p.click('[data-action="g-quiz-next"]');
             }
@@ -219,11 +219,12 @@ const bad = (name, why) => { results.fail++; results.failures.push(`${name}: ${w
             return { play: play && play.dataset.text, word: word && word.textContent };
           });
           if (await p.$('[data-action="as-pick"]')) {
-            const k = await p.evaluate(({ play, word }) => {
+            const k = await p.evaluate(({ play, word, id }) => {
               const S = window.Slowka; const btns = [...document.querySelectorAll('[data-action="as-pick"]')];
-              if (word) { const e = S.LEXICON.get(word); return btns.findIndex((b) => b.querySelector('.m-en') && b.querySelector('.m-en').textContent === e.en); }
+              const def = S.Assess.byId(id);
+              if (word) { const e = def.units.flatMap((u) => u.entries).find((x) => x.pl === word && btns.some((b) => b.querySelector('.m-en') && b.querySelector('.m-en').textContent === x.en)); return btns.findIndex((b) => b.querySelector('.m-en') && b.querySelector('.m-en').textContent === e.en); }
               return btns.findIndex((b) => b.querySelector('.opt-pl').textContent === play);
-            }, q);
+            }, { ...q, id });
             await p.click(`[data-action="as-pick"][data-index="${k}"]`);
           } else if (await p.$('[data-action="as-choose"]')) {
             const k = await p.evaluate(() => {
@@ -269,7 +270,8 @@ const bad = (name, why) => { results.fail++; results.failures.push(`${name}: ${w
     // ---------- 8. trainers ----------
     await check(p, 'verb trainer accepts correct forms', async () => {
       await go(p, 'verbs'); await go(p, 'verbs.practice');
-      for (const t of ['imperative']) await p.click(`[data-action="t-tense"][data-tense="${t}"]`);
+      await p.evaluate(() => { document.querySelector('details.trans').open = true; });
+      await p.click('[data-action="t-tense"][data-tense="imperative"]');
       for (let i = 0; i < 60; i++) {
         const ans = await p.evaluate(() => {
           const S = window.Slowka; const inf = document.querySelector('.word').textContent; const v = S.Trainers.VERBS.find((x) => x.inf === inf);
@@ -289,6 +291,7 @@ const bad = (name, why) => { results.fail++; results.failures.push(`${name}: ${w
     });
     await check(p, 'case trainer accepts correct forms', async () => {
       await go(p, 'cases'); await go(p, 'cases.practice');
+      await p.evaluate(() => { document.querySelector('details.trans').open = true; });
       await p.click('[data-action="t-case"][data-case="voc"]');
       for (let i = 0; i < 60; i++) {
         const ans = await p.evaluate(() => {
