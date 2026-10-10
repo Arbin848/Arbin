@@ -1,0 +1,431 @@
+// End-to-end test of the whole app in a real browser (Chromium via Playwright).
+//
+//   npm install --no-save playwright   (or use a global install)
+//   python3 -m http.server 8790 &      (serve the repo root)
+//   node tools/e2e.js [http://localhost:8790/]
+//
+// It visits every page, walks every lesson, conversation, text, listening task, test and trainer,
+// answers with the CORRECT answers from the data and checks the app accepts them, and fails on
+// any console error, uncaught exception, broken file or horizontal overflow.
+'use strict';
+const path = require('path');
+let chromium;
+try { ({ chromium } = require('playwright')); } catch (e) {
+  ({ chromium } = require(path.join(require('child_process').execSync('npm root -g').toString().trim(), 'playwright')));
+}
+
+const BASE = process.argv[2] || 'http://localhost:8790/';
+const results = { pass: 0, fail: 0, failures: [] };
+const ok = (name) => { results.pass++; };
+const bad = (name, why) => { results.fail++; results.failures.push(`${name}: ${why}`); console.log(`✗ ${name}: ${why}`); };
+
+(async () => {
+  const browser = await chromium.launch({ args: ['--autoplay-policy=no-user-gesture-required'] });
+
+  async function newPage(viewport = { width: 400, height: 860 }, scheme = 'light') {
+    const ctx = await browser.newContext({ viewport, colorScheme: scheme });
+    const p = await ctx.newPage();
+    p.setDefaultTimeout(6000);
+    p.errors = [];
+    p.on('pageerror', (e) => p.errors.push(`pageerror: ${e.message}`));
+    p.on('console', (m) => { if (m.type() === 'error' && !/fonts\.(googleapis|gstatic)/.test(m.text()) && !/Failed to load resource.*fonts/.test(m.text())) p.errors.push(`console: ${m.text()}`); });
+    p.on('response', (r) => { if (r.status() >= 400 && r.url().startsWith(BASE)) p.errors.push(`HTTP ${r.status()} ${r.url()}`); });
+    await p.goto(BASE);
+    await p.waitForSelector('#view > *');
+    return { p, ctx };
+  }
+  const go = async (p, h) => { await p.evaluate((x) => { location.hash = x; }, h); await p.waitForTimeout(60); };
+  const check = async (p, name, fn) => {
+    const before = p.errors.length;
+    try {
+      await fn();
+      const overflow = await p.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
+      if (overflow > 1) bad(name, `page is ${overflow}px wider than the screen`);
+      else if (p.errors.length > before) bad(name, p.errors.slice(before).join(' | '));
+      else ok(name);
+    } catch (e) { bad(name, e.message.split('\n')[0]); }
+  };
+  const data = (p) => p.evaluate(() => {
+    const S = window.Slowka;
+    return {
+      units: S.COURSE.map((u) => u.id), roleplays: S.ROLEPLAYS.map((r) => r.id), stories: S.STORIES.map((s) => s.id),
+      listening: S.Listening.TASKS.map((t) => t.id), exams: S.EXAMS.map((x) => x.id), sounds: S.Trainers.SOUNDS.map((x) => x.id),
+      verbs: S.Trainers.VERBS.length, nouns: S.Trainers.NOUNS.length, assess: [...S.Assess.REVISIONS, ...S.Assess.TESTS].map((x) => x.id),
+      levels: S.LEVELS.map((l) => l.id),
+    };
+  });
+
+  // ---------- 1. every page, phone and desktop, light and dark ----------
+  {
+    const { p } = await newPage();
+    const D = await data(p);
+    console.log(`Course: ${D.units.length} units, ${D.roleplays.length} conversations, ${D.stories.length} texts, ${D.listening.length} listening, ${D.verbs} verbs, ${D.nouns} nouns`);
+    const routes = ['home', 'course', 'practice', 'progress', 'settings', 'review', 'alphabet', 'dictionary', 'mistakes', 'mistakes.practice', 'talk', 'read', 'listen', 'exam', 'placement', 'verbs', 'verbs.practice', 'cases', 'cases.practice', 'sounds', 'numbers', 'check', 'report',
+      ...D.levels.map((l) => `course.${l}`), ...D.units, ...D.units.map((u) => `learn.${u}`), ...D.units.map((u) => `check.${u}`),
+      ...D.roleplays.map((x) => `talk.${x}`), ...D.stories.map((x) => `read.${x}`), ...D.listening.map((x) => `listen.${x}`), ...D.exams.map((x) => `exam.${x}`),
+      ...D.sounds.map((x) => `sounds.${x}`), ...D.assess.map((x) => `revise.${x}`), ...Array.from({ length: D.verbs }, (_, i) => `verbs.${i}`), ...Array.from({ length: D.nouns }, (_, i) => `cases.${i}`)];
+    for (const [vp, scheme] of [[{ width: 400, height: 860 }, 'light'], [{ width: 1280, height: 900 }, 'dark']]) {
+      const { p: q } = await newPage(vp, scheme);
+      for (const r of routes) await check(q, `page ${r} (${vp.width}px ${scheme})`, async () => { await go(q, r); await q.waitForSelector('#view > *'); });
+    }
+    console.log(`1. Pages: ${routes.length * 2} visits done`);
+
+    // ---------- 2. every unit: every practice tab ----------
+    for (const u of D.units) {
+      await check(p, `unit ${u} tabs`, async () => {
+        await go(p, u);
+        const tabs = await p.$$eval('.tab', (x) => x.map((t) => t.dataset.tab));
+        for (const t of tabs) { await p.click(`.tab[data-tab="${t}"]`); await p.waitForSelector('#stage > *'); }
+      });
+    }
+    console.log('2. Unit tabs done');
+
+    // ---------- 3. every grammar exercise accepts its correct answer ----------
+    const drillUnits = await p.evaluate(() => Object.keys(window.Slowka.DRILLS));
+    let drillCount = 0;
+    for (const unit of drillUnits) {
+      await go(p, unit);
+      const n = await p.evaluate((u) => window.Slowka.DRILLS[u].length, unit);
+      for (let i = 0; i < n; i++) {
+        drillCount++;
+        await check(p, `drill ${unit}#${i} correct answer`, async () => {
+          await p.evaluate(([u, k]) => {
+            const S = window.Slowka;
+            const stage = document.querySelector('#stage') || document.querySelector('#view');
+            S.Practice.render(stage, { key: `t-${u}-${k}-${Math.random()}`, mode: 'drill', drills: [{ d: S.DRILLS[u][k], unit: u, idx: k }], unitId: null, pool: [] });
+          }, [unit, i]);
+          const d = await p.evaluate(([u, k]) => window.Slowka.DRILLS[u][k], [unit, i]);
+          if (d.type === 'choose') await p.click(`[data-action="drill-choose"][data-index="${d.answer}"]`);
+          else if (d.type === 'fill') { await p.fill('#drill-answer', d.answer[0]); await p.press('#drill-answer', 'Enter'); }
+          else {
+            for (const w of d.words) {
+              const k = await p.evaluate((word) => [...document.querySelectorAll('[data-action="order-add"]')].find((b) => !b.disabled && b.textContent.trim() === word.trim())?.dataset.k, w);
+              await p.click(`[data-action="order-add"][data-k="${k}"]`);
+            }
+            await p.click('[data-action="order-check"]');
+          }
+          const cls = await p.getAttribute('.feedback', 'class');
+          if (!/right/.test(cls)) throw new Error(`correct answer not accepted (${cls})`);
+        });
+      }
+    }
+    console.log(`3. Grammar exercises: ${drillCount} checked`);
+
+    // ---------- 4. every conversation can be completed with correct replies ----------
+    for (const id of D.roleplays) {
+      await check(p, `conversation ${id}`, async () => {
+        await go(p, `talk.${id}`);
+        await p.click('[data-action="talk-restart"]').catch(() => {});
+        const steps = await p.evaluate((x) => window.Slowka.ROLEPLAYS.find((r) => r.id === x).steps.length, id);
+        for (let s = 0; s < steps; s++) {
+          const idx = await p.evaluate(([x, k]) => window.Slowka.ROLEPLAYS.find((r) => r.id === x).steps[k].replies.findIndex((r) => r.ok), [id, s]);
+          await p.click(`[data-action="talk-pick"][data-index="${idx}"]`);
+        }
+        await p.waitForSelector('.summary');
+        // typed mode: a correct reply typed out is accepted
+        await p.click('[data-action="talk-restart"]');
+        await p.click('[data-action="talk-mode"][data-mode="type"]');
+        const first = await p.evaluate((x) => window.Slowka.ROLEPLAYS.find((r) => r.id === x).steps[0].replies.find((r) => r.ok).pl, id);
+        await p.fill('#talk-answer', first); await p.press('#talk-answer', 'Enter');
+        const step = await p.textContent('.unit-meter small');
+        if (!/Step 2/.test(step)) throw new Error(`typed correct reply not accepted (${step})`);
+        await p.click('[data-action="talk-mode"][data-mode="choose"]');
+      });
+    }
+    console.log('4. Conversations done');
+
+    // ---------- 5. reading, listening, exams: correct answers give 100% ----------
+    for (const id of D.stories) {
+      await check(p, `reading ${id}`, async () => {
+        await go(p, `read.${id}`);
+        const answers = await p.evaluate((x) => window.Slowka.STORIES.find((s) => s.id === x).questions.map((q) => q.answer), id);
+        for (let i = 0; i < answers.length; i++) await p.click(`[data-action="read-answer"][data-q="${i}"][data-index="${answers[i]}"]`);
+        const score = await p.evaluate((x) => window.Slowka.progress.stories[x], id);
+        if (score !== 100) throw new Error(`score ${score}`);
+        await p.click('.tok >> nth=1'); await p.waitForSelector('.sheet'); await p.click('[data-action="tok-close"]');
+      });
+    }
+    for (const id of D.listening) {
+      await check(p, `listening ${id}`, async () => {
+        await go(p, `listen.${id}`);
+        const answers = await p.evaluate((x) => window.Slowka.Listening.TASKS.find((s) => s.id === x).questions.map((q) => q.answer), id);
+        for (let i = 0; i < answers.length; i++) await p.click(`[data-action="ls-answer"][data-q="${i}"][data-index="${answers[i]}"]`);
+        const score = await p.evaluate((x) => window.Slowka.progress.listening[x], id);
+        if (score !== 100) throw new Error(`score ${score}`);
+      });
+    }
+    for (const id of D.exams) {
+      await check(p, `exam ${id}`, async () => {
+        await go(p, `exam.${id}`);
+        await p.click('[data-action="exam-start"]').catch(() => p.click('[data-action="exam-restart"]'));
+        const secs = await p.evaluate((x) => window.Slowka.EXAMS.find((e) => e.id === x).sections.map((s) => (s.items || []).map((q) => q.answer)), id);
+        for (let si = 0; si < secs.length; si++) {
+          for (let i = 0; i < secs[si].length; i++) await p.click(`[data-action="exam-answer"][data-key="${si}-${i}"][data-index="${secs[si][i]}"]`);
+          await p.click('[data-action="exam-check"]'); await p.click('[data-action="exam-next"]');
+        }
+        const pct = await p.textContent('.summary h2');
+        if (pct.trim() !== '100%') throw new Error(`score ${pct}`);
+      });
+    }
+    await check(p, 'placement all correct', async () => {
+      await go(p, 'home'); await go(p, 'placement');
+      const ans = await p.evaluate(() => window.Slowka.PLACEMENT.map((q) => q.answer));
+      for (const a of ans) await p.click(`[data-action="place-answer"][data-index="${a}"]`);
+      const lvl = await p.textContent('.summary h2');
+      if (!/B2/.test(lvl)) throw new Error(`level ${lvl}`);
+    });
+    console.log('5. Reading, listening, exams, placement done');
+
+    // ---------- 6. guided lessons: walk every lesson to the end ----------
+    for (const u of D.units) {
+      await check(p, `guided lesson ${u}`, async () => {
+        await p.evaluate((x) => { const g = window.Slowka.progress.guided; delete g[x]; }, u);
+        await go(p, `learn.${u}`);
+        for (let i = 0; i < 40; i++) {
+          if (await p.$('.g-body .summary')) break;
+          const label = await p.textContent('.g-meta .eyebrow');
+          if (/Quick check/.test(label)) {
+            for (let k = 0; k < 6; k++) {
+              if (!(await p.$('[data-action="g-quiz"]'))) break;
+              const right = await p.evaluate((unit) => {
+                const S = window.Slowka; const word = document.querySelector('.g-body .word').textContent;
+                const e = S.UNIT.get(unit).entries.find((x) => x.pl === word); return [...document.querySelectorAll('[data-action="g-quiz"]')].findIndex((b) => b.querySelector('.m-en').textContent === e.en);
+              }, u);
+              await p.click(`[data-action="g-quiz"][data-index="${right}"]`);
+              await p.click('[data-action="g-quiz-next"]');
+            }
+            const res = await p.textContent('.g-body');
+            if (!/5 of 5|५ मध्ये ५|Very good/.test(res)) throw new Error('quick check with correct answers did not score 5/5');
+          }
+          if (/Dialogue/.test(label)) while (await p.$('[data-action="g-line"]')) await p.click('[data-action="g-line"]');
+          await p.click('[data-action="g-next"]');
+        }
+        await p.waitForSelector('.g-body .summary');
+        const done = await p.evaluate((x) => !!window.Slowka.progress.guided[x].done, u);
+        if (!done) throw new Error('not marked done');
+      });
+    }
+    console.log('6. Guided lessons done');
+
+    // ---------- 7. revisions and level tests with correct answers ----------
+    for (const id of D.assess) {
+      await check(p, `assessment ${id}`, async () => {
+        await go(p, `revise.${id}`);
+        await p.click('[data-action="as-start"]');
+        for (let i = 0; i < 60; i++) {
+          if (await p.$('.summary')) break;
+          const q = await p.evaluate(() => {
+            const play = document.querySelector('.play'); const word = document.querySelector('.card .word');
+            return { play: play && play.dataset.text, word: word && word.textContent };
+          });
+          if (await p.$('[data-action="as-pick"]')) {
+            const k = await p.evaluate(({ play, word, id }) => {
+              const S = window.Slowka; const btns = [...document.querySelectorAll('[data-action="as-pick"]')];
+              const def = S.Assess.byId(id);
+              if (word) { const e = def.units.flatMap((u) => u.entries).find((x) => x.pl === word && btns.some((b) => b.querySelector('.m-en') && b.querySelector('.m-en').textContent === x.en)); return btns.findIndex((b) => b.querySelector('.m-en') && b.querySelector('.m-en').textContent === e.en); }
+              return btns.findIndex((b) => b.querySelector('.opt-pl').textContent === play);
+            }, { ...q, id });
+            await p.click(`[data-action="as-pick"][data-index="${k}"]`);
+          } else if (await p.$('[data-action="as-choose"]')) {
+            const k = await p.evaluate(() => {
+              const S = window.Slowka; const qtext = document.querySelector('.drill-q').textContent;
+              for (const list of Object.values(S.DRILLS)) for (const d of list) if (d.type === 'choose' && d.q.replace('___', '').replace(/\s+/g, '') === qtext.replace(/\s+/g, '').replace(/ /g, '')) return d.answer;
+              return -1;
+            });
+            if (k < 0) throw new Error('could not find choose item');
+            await p.click(`[data-action="as-choose"][data-index="${k}"]`);
+          } else if (await p.$('#as-input:not([readonly])')) {
+            const v = await p.evaluate(({ play }) => {
+              if (play) return play;
+              const S = window.Slowka; const qtext = document.querySelector('.drill-q').textContent.replace(/\s+/g, '').replace(/ /g, '');
+              for (const list of Object.values(S.DRILLS)) for (const d of list) if (d.type === 'fill' && d.q.replace('___', '').replace(/\s+/g, '') === qtext) return d.answer[0];
+              return null;
+            }, q);
+            if (v == null) throw new Error('could not find fill item');
+            await p.fill('#as-input', v); await p.press('#as-input', 'Enter');
+          } else if (await p.$('[data-action="as-add"]')) {
+            const words = await p.evaluate(() => {
+              const S = window.Slowka; const tiles = [...document.querySelectorAll('[data-action="as-add"]')].map((b) => b.textContent.trim()).sort().join('|');
+              for (const list of Object.values(S.DRILLS)) for (const d of list) if (d.type === 'order' && [...d.words].sort().join('|') === tiles) return d.words;
+              return null;
+            });
+            if (!words) throw new Error('could not find order item');
+            for (const w of words) {
+              const k = await p.evaluate((word) => [...document.querySelectorAll('[data-action="as-add"]')].find((b) => !b.disabled && b.textContent.trim() === word.trim())?.dataset.k, w);
+              await p.click(`[data-action="as-add"][data-k="${k}"]`);
+            }
+            await p.click('[data-action="as-order"]');
+          } else if (await p.$('[data-action="as-skip"]')) await p.click('[data-action="as-skip"]');
+          const cls = await p.getAttribute('.feedback', 'class');
+          if (!/right|close/.test(cls)) throw new Error(`correct answer marked wrong at question ${i + 1}`);
+          await p.click('[data-action="as-next"]');
+        }
+        const pct = await p.textContent('.summary h2');
+        if (pct.trim() !== '100%') throw new Error(`score ${pct}`);
+      });
+    }
+    await check(p, 'certificate', async () => { await go(p, 'cert.A1'); await p.fill('#cert-name', '<b>Arbin</b>'); const html = await p.innerHTML('.cert-name'); if (/<b>/.test(html)) throw new Error('name not escaped'); });
+    console.log('7. Revisions, tests, certificate done');
+
+    // ---------- 8. trainers ----------
+    await check(p, 'verb trainer accepts correct forms', async () => {
+      await go(p, 'verbs'); await go(p, 'verbs.practice');
+      await p.evaluate(() => { document.querySelector('details.trans').open = true; });
+      await p.click('[data-action="t-tense"][data-tense="imperative"]');
+      for (let i = 0; i < 60; i++) {
+        const ans = await p.evaluate(() => {
+          const S = window.Slowka; const inf = document.querySelector('.word').textContent; const v = S.Trainers.VERBS.find((x) => x.inf === inf);
+          const tense = document.querySelector('form .label').textContent.split(' · ')[0]; const who = document.querySelector('.who-chip').textContent;
+          const P = ['ja', 'ty', 'on / ona', 'my', 'wy', 'oni / one'];
+          if (tense === 'Commands') return v.imperative[who];
+          if (tense === 'Present') return v.present[P.indexOf(who)];
+          if (tense === 'Future') return v.future[P.indexOf(who)];
+          const m = { 'ja (man)': ['m', 0], 'ty (man)': ['m', 1], on: ['m', 2], 'my (men)': ['m', 3], 'wy (men)': ['m', 4], oni: ['m', 5], 'ja (woman)': ['f', 0], 'ty (woman)': ['f', 1], ona: ['f', 2], 'my (women)': ['f', 3], 'wy (women)': ['f', 4], one: ['f', 5] }[who];
+          return v.past[m[0]][m[1]];
+        });
+        await p.fill('#verb-answer', ans); await p.press('#verb-answer', 'Enter');
+        const cls = await p.getAttribute('.feedback', 'class');
+        if (!/right/.test(cls)) throw new Error(`"${ans}" not accepted`);
+        await p.click('[data-action="verb-next"]');
+      }
+    });
+    await check(p, 'case trainer accepts correct forms', async () => {
+      await go(p, 'cases'); await go(p, 'cases.practice');
+      await p.evaluate(() => { document.querySelector('details.trans').open = true; });
+      await p.click('[data-action="t-case"][data-case="voc"]');
+      for (let i = 0; i < 60; i++) {
+        const ans = await p.evaluate(() => {
+          const S = window.Slowka; const hint = document.querySelector('.drill-q .hint').textContent.replace(/[()]/g, '');
+          const [word, plural] = hint.split(', '); const n = S.Trainers.NOUNS.find((x) => x.word === word);
+          const caseName = document.querySelector('.meta span:last-child').textContent.split(' · ')[0];
+          const key = Object.keys(S.Trainers.CASES).find((k) => S.Trainers.CASES[k].name === caseName);
+          return n[plural ? 'pl' : 'sg'][key];
+        });
+        await p.fill('#case-answer', ans); await p.press('#case-answer', 'Enter');
+        const cls = await p.getAttribute('.feedback', 'class');
+        if (!/right/.test(cls)) throw new Error(`"${ans}" not accepted`);
+        await p.click('[data-action="case-next"]');
+      }
+    });
+    for (const id of D.sounds) {
+      await check(p, `sounds game ${id}`, async () => {
+        await go(p, 'sounds'); await go(p, `sounds.${id}`);
+        for (let i = 0; i < 10; i++) {
+          const side = await p.evaluate(() => {
+            const t = document.querySelector('.play').dataset.text; const btns = [...document.querySelectorAll('[data-action="snd-pick"]')];
+            return btns.findIndex((b) => b.querySelector('.opt-pl').textContent === t);
+          });
+          await p.click(`[data-action="snd-pick"][data-side="${side}"]`); await p.click('[data-action="snd-next"]');
+        }
+        const score = await p.textContent('.summary h2');
+        if (score.trim() !== '10 / 10') throw new Error(score);
+      });
+    }
+    await check(p, 'numbers trainer accepts correct answers', async () => {
+      await go(p, 'numbers');
+      const modes = ['read-number', 'listen-number', 'price', 'listen-price', 'time', 'listen-time', 'date', 'phone'];
+      for (const m of modes) {
+        await p.click(`[data-action="nm-mode"][data-mode="${m}"]`);
+        for (const range of [20, 100, 1000, 10000]) {
+          if (await p.$(`[data-action="nm-range"][data-range="${range}"]`)) await p.click(`[data-action="nm-range"][data-range="${range}"]`);
+          for (let i = 0; i < 3; i++) {
+            const typed = await p.evaluate(() => {
+              const N = window.Slowka.Numbers; const play = document.querySelector('.play');
+              if (!play) return null;
+              const text = play.dataset.text;
+              for (let n = 0; n < 10000; n++) if (N.words(n) === text) return String(n);
+              for (let z = 0; z < 1000; z++) for (const g of [0, 50, 99, 20]) if (N.price(z, g) === text) return g ? `${z},${String(g).padStart(2, '0')}` : String(z);
+              for (let h = 0; h < 24; h++) for (let mm = 0; mm < 60; mm++) if (`Jest ${N.time(h, mm)}.` === text) return `${h}:${String(mm).padStart(2, '0')}`;
+              const groups = text.split(', ').map((g) => { for (let n = 0; n < 1000; n++) { const s = String(n).padStart(3, '0'); const z = s.match(/^0*/)[0].length; const w = [...Array(Math.min(z, 3)).fill('zero'), ...(s.slice(z) ? [N.words(Number(s.slice(z)))] : [])].join(' '); if (w === g) return s; } return '???'; });
+              return groups.join('');
+            });
+            if (typed !== null) { await p.fill('#nm-input', typed); await p.press('#nm-input', 'Enter'); }
+            else {
+              const k = await p.evaluate(() => {
+                const N = window.Slowka.Numbers; const disp = document.querySelector('.num-display').textContent; const opts = [...document.querySelectorAll('[data-action="nm-pick"]')].map((b) => b.textContent.replace(/^\d/, '').trim());
+                let want;
+                if (/zł/.test(disp)) { const [z, g] = disp.replace(' zł', '').split(','); want = N.price(Number(z), Number(g)); }
+                else if (/:/.test(disp)) { const at = disp.startsWith('at '); const [h, mm] = disp.replace('at ', '').split(':').map(Number); want = N.time(h, mm, at); }
+                else if (/\(/.test(disp)) { const [d, mo] = disp.match(/\((\d+)\.(\d+)\)/).slice(1).map(Number); want = N.date(d, mo - 1); }
+                else want = N.words(Number(disp));
+                return opts.indexOf(want);
+              });
+              if (k < 0) throw new Error(`mode ${m}: correct option missing`);
+              await p.click(`[data-action="nm-pick"][data-index="${k}"]`);
+            }
+            const cls = await p.getAttribute('.feedback', 'class');
+            if (!/right/.test(cls)) throw new Error(`mode ${m} range ${range}: correct answer not accepted`);
+            await p.click('[data-action="nm-next"]');
+          }
+        }
+      }
+    });
+    console.log('8. Trainers done');
+
+    // ---------- 9. practice modes, review, mistakes, dictionary, review mode, settings ----------
+    await check(p, 'practice modes in a unit', async () => {
+      await go(p, 'a1-04');
+      await p.click('.tab[data-tab="cards"]'); await p.click('.card'); await p.click('[data-rate="good"]');
+      await p.click('.tab[data-tab="quiz"]'); await p.keyboard.press('1'); await p.waitForSelector('.feedback');
+      await p.click('.tab[data-tab="type"]'); await p.fill('#type-answer', 'x'); await p.press('#type-answer', 'Enter'); await p.waitForSelector('.feedback');
+      await p.click('.tab[data-tab="dictate"]'); await p.fill('#dictate-answer', 'x'); await p.press('#dictate-answer', 'Enter'); await p.waitForSelector('.dict-words');
+      await p.click('.tab[data-tab="listen"]'); await p.click('.option >> nth=0'); await p.waitForSelector('.feedback');
+      await p.click('.tab[data-tab="speak"]'); await p.waitForSelector('.card');
+    });
+    await check(p, 'daily review and mistakes', async () => {
+      await go(p, 'review'); if (await p.$('[data-action="flip"]')) { await p.click('[data-action="flip"] >> nth=0'); await p.click('[data-rate="again"]'); }
+      await go(p, 'mistakes'); await go(p, 'mistakes.practice'); await go(p, 'report');
+    });
+    await check(p, 'dictionary search', async () => {
+      await go(p, 'dictionary');
+      for (const q of ['dziekuje', 'house', 'घर', 'ż', '<script>']) { await p.fill('#dict-q', q); await p.waitForTimeout(30); }
+    });
+    await check(p, 'review mode report link escapes notes', async () => {
+      await go(p, 'check.a1-01'); await p.click('[data-action="chk-mark"][data-ok="0"] >> nth=0'); await p.fill('[data-check-note]', '<img src=x onerror=alert(1)>'); await go(p, 'check'); await go(p, 'check.a1-01');
+      if (await p.$('.check-item img')) throw new Error('note rendered as HTML');
+    });
+    await check(p, 'settings toggles and backup', async () => {
+      await go(p, 'settings');
+      const buttons = await p.$$eval('[data-action="set"]', (x) => x.map((b) => [b.dataset.key, b.dataset.value]));
+      for (const [k, v] of buttons) await p.click(`[data-action="set"][data-key="${k}"][data-value="${v}"]`);
+      await p.click('[data-action="set"][data-key="meaning"][data-value="both"]'); await p.click('[data-action="set"][data-key="explain"][data-value="both"]'); await p.click('[data-action="set"][data-key="pron"][data-value="both"]');
+      const code = await p.inputValue('#backup-out'); await p.fill('#backup-in', code); await p.click('[data-action="backup-restore"]');
+      if (!/restored/.test(await p.textContent('#backup-msg'))) throw new Error('backup restore failed');
+      await p.fill('#backup-in', 'not a code'); await p.click('[data-action="backup-restore"]');
+      if (!/did not work/.test(await p.textContent('#backup-msg'))) throw new Error('bad code not rejected');
+    });
+    await check(p, 'English-only and Nepali-only modes render', async () => {
+      for (const lang of ['en', 'ne', 'both']) {
+        await p.evaluate((l) => { const S = window.Slowka; S.settings.meaning = l; S.settings.explain = l; S.settings.pron = l; }, lang);
+        for (const r of ['learn.a2-03', 'a1-01', 'talk.rp-a1-cafe', 'read.st-a1-01', 'sounds.sz-s']) { await go(p, 'home'); await go(p, r); }
+      }
+    });
+    await check(p, 'storage blocked: app still works', async () => {
+      const ctx = await browser.newContext({ viewport: { width: 400, height: 860 } });
+      await ctx.addInitScript(() => { Object.defineProperty(window, 'localStorage', { get() { throw new Error('blocked'); } }); });
+      const q = await ctx.newPage(); const errs = []; q.on('pageerror', (e) => errs.push(e.message));
+      await q.goto(BASE); await q.waitForSelector('.today'); await q.evaluate(() => { location.hash = 'a1-01'; }); await q.waitForSelector('.lesson');
+      if (errs.length) throw new Error(errs.join(' | '));
+      await ctx.close();
+    });
+    console.log('9. Practice, review, dictionary, settings done');
+
+    // ---------- 10. offline ----------
+    {
+      const { p: q, ctx } = await newPage();
+      await check(q, 'offline after first visit', async () => {
+        await q.waitForFunction(() => navigator.serviceWorker.controller, null, { timeout: 15000 }).catch(() => {});
+        await q.reload(); await q.waitForFunction(() => navigator.serviceWorker.controller, null, { timeout: 15000 });
+        await ctx.setOffline(true);
+        await q.reload({ waitUntil: 'domcontentloaded' }); await q.waitForSelector('.today');
+        for (const r of ['learn.b1-06', 'verbs.5', 'listen.ls-a2-01', 'numbers']) { await go(q, r); await q.waitForSelector('#view > *'); }
+        await ctx.setOffline(false);
+      });
+    }
+    console.log('10. Offline done');
+  }
+
+  await browser.close();
+  console.log(`\n${results.pass} passed, ${results.fail} failed`);
+  if (results.fail) { console.log(results.failures.slice(0, 80).join('\n')); process.exit(1); }
+})();

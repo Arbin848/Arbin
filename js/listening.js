@@ -121,9 +121,9 @@
 
   const count = (o) => Object.keys(o || {}).length;
   const BADGES = [
-    ['first-lesson', '🌱', 'First lesson', 'पहिलो पाठ', 'Finish a lesson with your teacher', (P) => count(Object.values(P.guided || {}).filter((g) => g.done)) >= 1],
-    ['ten-lessons', '📗', '10 lessons', '१० पाठ', 'Finish 10 lessons', (P) => Object.values(P.guided || {}).filter((g) => g.done).length >= 10],
-    ['all-lessons', '🏆', 'Whole course', 'पूरा पाठ्यक्रम', 'Finish every lesson', (P) => S.COURSE.every((u) => S.Guided.status(u).done)],
+    ['first-lesson', '🌱', 'First lesson', 'पहिलो पाठ', 'Finish a lesson with your teacher', (P) => Object.values(P.guided || {}).filter((g) => g.done && !g.skipped).length >= 1],
+    ['ten-lessons', '📗', '10 lessons', '१० पाठ', 'Finish 10 lessons', (P) => Object.values(P.guided || {}).filter((g) => g.done && !g.skipped).length >= 10],
+    ['all-lessons', '🏆', 'Whole course', 'पूरा पाठ्यक्रम', 'Finish every lesson', () => S.COURSE.every((u) => { const st = S.Guided.status(u); return st.done && !st.skipped; })],
     ['streak-3', '🔥', '3-day streak', '३ दिन लगातार', 'Practise 3 days in a row', () => S.currentStreak() >= 3],
     ['streak-7', '🔥', '7-day streak', '७ दिन लगातार', 'Practise 7 days in a row', () => S.currentStreak() >= 7],
     ['streak-30', '💎', '30-day streak', '३० दिन लगातार', 'Practise 30 days in a row', () => S.currentStreak() >= 30],

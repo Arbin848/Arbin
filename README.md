@@ -81,6 +81,16 @@ node tools/fetch-audio.js          # needs Node 18+, ffmpeg and internet access 
 
 The files are saved in `audio/` and used automatically, offline. Words without a recording keep using the device voice.
 
+## Test everything
+
+`tools/e2e.js` tests the whole app in a real browser: every page on phone and desktop, every lesson tab, every grammar exercise, conversation, text, listening task, exam, revision, level test and trainer (answered with the correct answers), settings, backup and offline use.
+
+```sh
+npm install --no-save playwright
+python3 -m http.server 8790 &
+node tools/e2e.js http://localhost:8790/
+```
+
 ## Add or edit content
 
 All content is plain data in `data/*.js`:

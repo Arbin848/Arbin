@@ -50,13 +50,7 @@
     const list = T.VERBS.filter((v) => (vstate.level === 'all' || v.level === vstate.level)
       && (!q || S.fold(v.inf).includes(q) || v.en.toLowerCase().includes(vstate.q.toLowerCase()) || v.ne.includes(vstate.q)));
     const stats = prog('verbs');
-    view.innerHTML = `
-      ${head('Verbs · क्रिया', 'Verb trainer', 'क्रियापद अभ्यास',
-        `${T.VERBS.length} verbs with every form: present, past (man and woman), future and commands. Open a verb to see its table, or practise many verbs at once.<br><span lang="ne">हरेक क्रियाका सबै रूप: वर्तमान, भूत (पुरुष र महिला), भविष्य र आज्ञा।</span>`)}
-      <div class="row start"><button class="btn primary" data-action="go" data-to="verbs.practice">Practise verbs · अभ्यास गर्नुहोस्</button></div>
-      ${filterChips('vlevel', vstate.level, [['all', 'All'], ...LEVELS.map((l) => [l, l])])}
-      <input class="search" id="verb-q" type="search" placeholder="Search: mówić, to speak, बोल्नु…" aria-label="Search verbs" value="${esc(vstate.q)}">
-      <ul class="entries verb-list">${list.map((v) => {
+    const listHTML = (items) => items.map((v) => {
         const st = stats[v.inf];
         const i = T.VERBS.indexOf(v);
         return `<li class="entry">
@@ -65,9 +59,24 @@
             ${S.transHTML(v.en, v.ne)}
             <span class="entry-side"><span class="badge">${v.aspect === 'pf' ? 'finished' : 'ongoing'}</span><small class="hint">${esc(v.level)}${st ? ` · ${st.r}/${st.r + st.w}` : ''}</small></span>
           </button></li>`;
-      }).join('') || '<li class="empty">No verbs match.</li>'}</ul>`;
+      }).join('') || '<li class="empty">No verbs match.</li>';
+    view.innerHTML = `
+      ${head('Verbs · क्रिया', 'Verb trainer', 'क्रियापद अभ्यास',
+        `${T.VERBS.length} verbs with every form: present, past (man and woman), future and commands. Open a verb to see its table, or practise many verbs at once.<br><span lang="ne">हरेक क्रियाका सबै रूप: वर्तमान, भूत (पुरुष र महिला), भविष्य र आज्ञा।</span>`)}
+      <div class="row start"><button class="btn primary" data-action="go" data-to="verbs.practice">Practise verbs · अभ्यास गर्नुहोस्</button></div>
+      ${filterChips('vlevel', vstate.level, [['all', 'All'], ...LEVELS.map((l) => [l, l])])}
+      <input class="search" id="verb-q" type="search" placeholder="Search: mówić, to speak, बोल्नु…" aria-label="Search verbs" value="${esc(vstate.q)}">
+      <ul class="entries verb-list">${listHTML(list)}</ul>`;
+    // Typing only refreshes the list, so the search box keeps focus (and mobile keyboards keep working).
     const input = view.querySelector('#verb-q');
-    input.addEventListener('input', () => { vstate.q = input.value; T.verbList(view); const again = view.querySelector('#verb-q'); again.focus(); again.setSelectionRange(again.value.length, again.value.length); });
+    input.addEventListener('input', (ev) => {
+      if (ev.isComposing) return;
+      vstate.q = input.value;
+      const qq = S.fold(vstate.q);
+      const items = T.VERBS.filter((v) => (vstate.level === 'all' || v.level === vstate.level)
+        && (!qq || S.fold(v.inf).includes(qq) || v.en.toLowerCase().includes(vstate.q.toLowerCase()) || v.ne.includes(vstate.q)));
+      view.querySelector('.verb-list').innerHTML = listHTML(items);
+    });
   };
 
   const formCell = (f) => (f && f !== '—' ? `<span lang="pl">${polish(f)}</span> ${sayBtn(f)}` : '<span class="hint">—</span>');
@@ -541,15 +550,19 @@
     const who = { pl: 'Polish', ne: 'Nepali', both: 'Polish and Nepali' }[check.who];
     const lines = checkItems(u).filter((it) => marks[it.key] && marks[it.key].ok === false).map((it) => {
       const what = it.pl || it.en.slice(0, 80);
-      return `- [ ] **${it.kind}** \`${it.key}\`: ${what}${it.ne ? ` / ${it.ne.slice(0, 80)}` : ''}\n  - Reviewer note: ${(marks[it.key].note || '(no note)').replace(/\n/g, ' ')}`;
+      const note = (marks[it.key].note || '(no note)').replace(/\n/g, ' ');
+      return `- [ ] **${it.kind}** \`${it.key}\`: ${what}${it.ne ? ` / ${it.ne.slice(0, 80)}` : ''}\n  - Reviewer note: ${note.length > 300 ? `${note.slice(0, 300)}…` : note}`;
     });
+    // GitHub refuses very long links, so split by the length of the encoded URL (Devanagari grows ~9×).
+    const LIMIT = 6000;
     const chunks = [];
     let cur = [];
     let len = 0;
     for (const l of lines) {
-      if (len + l.length > 5000 && cur.length) { chunks.push(cur); cur = []; len = 0; }
+      const n = encodeURIComponent(`${l}\n`).length;
+      if (len + n > LIMIT && cur.length) { chunks.push(cur); cur = []; len = 0; }
       cur.push(l);
-      len += l.length;
+      len += n;
     }
     if (cur.length) chunks.push(cur);
     return chunks.map((c, i) => ({
@@ -563,7 +576,6 @@
     if (!u) { S.go('check'); return; }
     const marks = (check.marks[u.id] = check.marks[u.id] || {});
     const items = checkItems(u);
-    const chunks = reportChunks(u);
     view.innerHTML = `
       ${head(`Reviewing · ${esc(u.level)}`, esc(u.title), u.titleNe, 'Mark each line. For anything wrong, write what it should be. · हरेक लाइन चिन्ह लगाउनुहोस्; गलत भएमा सही रूप लेख्नुहोस्।', 'check', 'All units · सबै पाठ')}
       <ol class="check-list">${items.map((it) => {
@@ -581,7 +593,12 @@
           ${m && m.ok === false ? `<textarea class="code" data-check-note="${it.key}" rows="2" placeholder="What is wrong, and what should it be?">${esc(m.note || '')}</textarea>` : ''}
         </li>`;
       }).join('')}</ol>
-      <section class="card compact report-box">
+      <section class="card compact report-box">${reportBoxHTML(u)}</section>`;
+  };
+
+  function reportBoxHTML(u) {
+    const chunks = reportChunks(u);
+    return `
         <h3 class="section-h">Send your corrections · सुधार पठाउनुहोस्</h3>
         ${chunks.length ? `
           <p class="hint">${chunks.reduce((n, c) => n + c.body.split('\n- [ ]').length - 1, 0)} problems marked. Each button opens a pre-filled issue on GitHub (you need a free GitHub account).</p>
@@ -589,9 +606,8 @@
           <p class="hint">No GitHub account? Copy the text and send it by message or email instead.</p>
           <textarea class="code" readonly rows="5" id="chk-text">${esc(chunks.map((c) => `${c.title}\n\n${c.body}`).join('\n\n'))}</textarea>
           <div class="row start"><button class="btn" data-action="chk-copy">Copy report</button></div>`
-          : '<p class="hint">Nothing marked wrong yet. When you mark lines with ✗, the report appears here.</p>'}
-      </section>`;
-  };
+          : '<p class="hint">Nothing marked wrong yet. When you mark lines with ✗, the report appears here.</p>'}`;
+  }
 
   // =====================================================================
   // Actions
@@ -600,8 +616,8 @@
   T.action = (a, el, view) => {
     switch (a) {
       case 't-filter':
-        if (el.dataset.key === 'vlevel') { vstate.level = el.dataset.value; if (vsession) vsession.q = null; vsession && (vsession.result = null); }
-        if (el.dataset.key === 'cgender') { cstate.gender = el.dataset.value; if (csession) { csession.q = null; csession.result = null; } }
+        if (el.dataset.key === 'vlevel') { vstate.level = el.dataset.value; if (vsession) { vsession.q = null; vsession.result = null; vsession.given = ''; vsession.hint = false; } }
+        if (el.dataset.key === 'cgender') { cstate.gender = el.dataset.value; if (csession) { csession.q = null; csession.result = null; csession.given = ''; csession.trap = null; } }
         S.render();
         return true;
       case 't-tense': vstate.tenses[el.dataset.tense] = !vstate.tenses[el.dataset.tense]; if (vsession) { vsession.q = null; vsession.result = null; vsession.given = ''; } S.render(); return true;
@@ -661,7 +677,13 @@
     if (el.dataset.checkNote) {
       const id = S.route.arg;
       const m = check.marks[id] && check.marks[id][el.dataset.checkNote];
-      if (m) { m.note = el.value; saveCheck(); }
+      if (m) {
+        m.note = el.value;
+        saveCheck();
+        const box = document.querySelector('.report-box');
+        const u = S.UNIT.get(id);
+        if (box && u) box.innerHTML = reportBoxHTML(u);
+      }
       return true;
     }
     return false;

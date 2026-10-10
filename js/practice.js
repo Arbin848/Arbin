@@ -11,7 +11,11 @@
   let stage = null;
 
   const P = (S.Practice = {});
-  P.reset = () => { session = null; };
+  P.reset = () => {
+    session = null;
+    if (S.stopRecognition) S.stopRecognition();
+    if (S.stopRecording) S.stopRecording();
+  };
   P.render = (el, context) => {
     stage = el;
     if (!ctx || ctx.key !== context.key) session = null;
@@ -543,7 +547,7 @@
     switch (a) {
       case 'flip': flip(); return true;
       case 'rate': rate(el.dataset.rate); return true;
-      case 'new-cards': session = null; draw(); return true;
+      case 'new-cards': session = null; if (ctx.review) S.render(); else draw(); return true;
       case 'answer': answer(Number(el.dataset.index)); return true;
       case 'next-choice': newChoice(session.mode); draw(); return true;
       case 'next-type': newType(); draw(); return true;
@@ -560,7 +564,7 @@
         S.settings.dir = S.settings.dir === 'pl' ? 'meaning' : 'pl';
         S.saveSettings();
         session = null;
-        draw();
+        if (ctx.review) S.render(); else draw();
         return true;
       case 'speak-check': speakCheck(); return true;
       case 'record': record(); return true;
@@ -573,7 +577,7 @@
       case 'next-speak': newSpeak(); draw(); return true;
       case 'drill-choose': drillChoose(Number(el.dataset.index)); return true;
       case 'drill-next': drillNext(); return true;
-      case 'drill-restart': startDrill(); draw(); return true;
+      case 'drill-restart': if (ctx.key === 'mistakes') { session = null; S.render(); } else { startDrill(); draw(); } return true;
       case 'order-add': if (!session.answered) { session.picked.push(Number(el.dataset.k)); draw(); } return true;
       case 'order-remove': if (!session.answered) { session.picked.splice(Number(el.dataset.pos), 1); draw(); } return true;
       case 'order-clear': session.picked = []; draw(); return true;

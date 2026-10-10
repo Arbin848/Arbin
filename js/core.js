@@ -171,8 +171,14 @@
       S.progress.lapses = S.progress.lapses || {};
       S.progress.lapses[entry.pl] = (S.progress.lapses[entry.pl] || 0) + 1;
     }
-    const b = change === 'reset' ? 0 : Math.max(0, Math.min(S.MAX_BOX, S.boxOf(entry) + change));
-    S.progress.items[entry.pl] = { b, due: S.addDays(S.INTERVALS[b]) };
+    // Correct answers only move a word up when it is due (or new), so repeating a word
+    // many times in one sitting doesn't mark it "learned". Mistakes always count.
+    const item = S.itemOf(entry);
+    const notDue = item && item.due > S.dayKey();
+    if (!(notDue && change !== 'reset' && change > 0)) {
+      const b = change === 'reset' ? 0 : Math.max(0, Math.min(S.MAX_BOX, S.boxOf(entry) + change));
+      S.progress.items[entry.pl] = { b, due: S.addDays(S.INTERVALS[b]) };
+    }
     S.logActivity();
     S.saveProgress();
     if (S.onProgress) S.onProgress();
@@ -211,8 +217,9 @@
   };
   // Wrong options of the same kind: the given pool first, then the whole course.
   S.distractors = (target, list, key) => {
-    const same = (pool) => S.shuffle(pool.filter((e) => e.kind === target.kind && e[key] !== target[key]));
-    const any = S.shuffle(S.ENTRIES.filter((e) => e[key] !== target[key]));
+    const differs = (e) => e.pl !== target.pl && e.en !== target.en && e.ne !== target.ne;
+    const same = (pool) => S.shuffle(pool.filter((e) => e.kind === target.kind && e[key] !== target[key] && differs(e)));
+    const any = S.shuffle(S.ENTRIES.filter((e) => e[key] !== target[key] && differs(e)));
     const picked = [];
     const seen = new Set([target[key]]);
     for (const e of [...same(list), ...same(S.ENTRIES), ...any]) {
@@ -245,10 +252,11 @@
     try { if (synth) synth.cancel(); if (current) current.pause(); } catch (e) { /* ignore */ }
     const src = S.settings.audio === 'native' && S.AUDIO[S.audioKey(text)];
     if (src) {
-      current = new Audio(src);
-      current.playbackRate = isSlow ? 0.7 : 1;
-      current.preservesPitch = true;
-      current.play().catch(() => tts(text, isSlow));
+      const audio = new Audio(src);
+      current = audio;
+      audio.playbackRate = isSlow ? 0.7 : 1;
+      audio.preservesPitch = true;
+      audio.play().catch((err) => { if (err.name !== 'AbortError' && current === audio) tts(text, isSlow); });
       return;
     }
     tts(text, isSlow);
@@ -306,17 +314,26 @@
   // Record the learner's voice to compare with the model. Stays on the device.
   S.canRecord = !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia && window.MediaRecorder);
   S.recordVoice = async (maxMs = 6000) => {
+    let cancelled = false;
+    S.stopRecording = () => { cancelled = true; };
     const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-    const rec = new MediaRecorder(stream);
-    const chunks = [];
-    rec.ondataavailable = (ev) => { if (ev.data.size) chunks.push(ev.data); };
-    const stopped = new Promise((resolve) => { rec.onstop = resolve; });
-    rec.start();
-    const timer = setTimeout(() => { if (rec.state !== 'inactive') rec.stop(); }, maxMs);
-    S.stopRecording = () => { clearTimeout(timer); if (rec.state !== 'inactive') rec.stop(); };
-    await stopped;
-    stream.getTracks().forEach((t) => t.stop());
-    return URL.createObjectURL(new Blob(chunks, { type: rec.mimeType || 'audio/webm' }));
+    try {
+      if (cancelled) throw new Error('cancelled');
+      const rec = new MediaRecorder(stream);
+      const chunks = [];
+      rec.ondataavailable = (ev) => { if (ev.data.size) chunks.push(ev.data); };
+      const stopped = new Promise((resolve) => { rec.onstop = resolve; });
+      rec.start();
+      const timer = setTimeout(() => { if (rec.state !== 'inactive') rec.stop(); }, maxMs);
+      S.stopRecording = () => { clearTimeout(timer); if (rec.state !== 'inactive') rec.stop(); };
+      await stopped;
+      if (S.lastRecording) URL.revokeObjectURL(S.lastRecording);
+      S.lastRecording = URL.createObjectURL(new Blob(chunks, { type: rec.mimeType || 'audio/webm' }));
+      return S.lastRecording;
+    } finally {
+      // The microphone is always switched off, even if recording failed.
+      stream.getTracks().forEach((t) => t.stop());
+    }
   };
   S.micErrorText = (err) => {
     const m = String(err && err.message || err);
@@ -432,10 +449,10 @@
   };
   S.POLISH_KEYS = ['ą', 'ć', 'ę', 'ł', 'ń', 'ó', 'ś', 'ź', 'ż'];
   S.keysHTML = () => `<div class="keys" aria-label="Polish letters">${S.POLISH_KEYS.map((k) => `<button type="button" class="key" data-action="key" data-key="${k}">${k}</button>`).join('')}</div>`;
-  S.insertKey = (ch) => {
-    const input = document.activeElement && /^(INPUT|TEXTAREA)$/.test(document.activeElement.tagName)
-      ? document.activeElement
-      : document.querySelector('[data-keys-target]');
+  S.insertKey = (ch, keyEl) => {
+    const near = keyEl && keyEl.closest('.question, form, .card');
+    const input = (near && near.querySelector('[data-keys-target]'))
+      || (document.activeElement && /^(INPUT|TEXTAREA)$/.test(document.activeElement.tagName) ? document.activeElement : document.querySelector('[data-keys-target]'));
     if (!input || input.readOnly) return null;
     const start = input.selectionStart ?? input.value.length;
     const end = input.selectionEnd ?? input.value.length;

@@ -81,7 +81,7 @@
       if (tiles.length > 1 && tiles.every((t, k) => t.k === k)) tiles = tiles.slice(1).concat(tiles[0]);
       run.tiles = tiles;
     }
-    if (q && (q.t === 'listen' || q.t === 'dictate')) setTimeout(() => { if (run && run.qs[run.i] === q) S.speak(q.e.pl); }, 250);
+    if (q && (q.t === 'listen' || q.t === 'dictate')) setTimeout(() => { if (run && run.qs[run.i] === q && S.route.name === 'revise') S.speak(q.e.pl); }, 250);
   }
 
   const head = (def) => `
@@ -155,7 +155,7 @@
     }
     if (q.t === 'speak') {
       return `<div class="card compact"><span class="label">Say it out loud · ठूलो स्वरमा भन्नुहोस्</span><span class="word" lang="pl">${polish(q.e.pl)}</span>${S.meaningHTML(q.e)}
-          ${a ? '' : `<div class="row"><button class="btn primary mic ${run.busy ? 'live' : ''}" data-action="as-speak" ${run.busy ? 'disabled' : ''}>${S.MIC} ${run.busy ? 'Listening… · सुन्दै…' : 'Say it · बोल्नुहोस्'}</button><button class="btn" data-action="as-skip">Skip</button></div>`}
+          ${a ? '' : `<div class="row"><button class="btn primary mic ${run.busy ? 'live' : ''}" data-action="as-speak" ${run.busy ? 'disabled' : ''}>${S.MIC} ${run.busy ? 'Listening… · सुन्दै…' : 'Say it · बोल्नुहोस्'}</button><button class="btn" data-action="as-skip" ${run.busy ? 'disabled' : ''}>Skip</button></div>`}
           ${run.micError ? `<p class="hint err">${esc(run.micError)}</p>` : ''}</div>`;
     }
     // Grammar: the same three exercise types as the unit drills.
@@ -185,7 +185,7 @@
 
   function feedbackHTML(q, a) {
     const kind = a.skipped ? 'close' : a.score >= 1 ? 'right' : a.score > 0 ? 'close' : 'wrong';
-    const title = { right: 'Dobrze! Correct · सही', close: 'Almost · लगभग', wrong: 'Not quite · मिलेन' }[kind];
+    const title = a.skipped ? 'Skipped: not counted · छोडियो' : { right: 'Dobrze! Correct · सही', close: 'Almost · लगभग', wrong: 'Not quite · मिलेन' }[kind];
     let body = '';
     if (q.t === 'drill') {
       const d = q.d;
@@ -375,7 +375,7 @@
       }
       case 'as-speak': speak(); return true;
       case 'as-skip': answer(0, { heard: null, match: 0, skipped: true }); return true;
-      case 'as-next': run.i += 1; run.answer = null; run.micError = ''; prepOrder(); S.render(); window.scrollTo(0, 0); return true;
+      case 'as-next': if (S.stopRecognition) S.stopRecognition(); run.busy = false; run.i += 1; run.answer = null; run.micError = ''; prepOrder(); S.render(); window.scrollTo(0, 0); return true;
       case 'as-weak-words': {
         const lapses = S.progress.lapses || {};
         Object.keys(lapses).forEach((pl) => { const e = S.LEXICON.get(pl); if (e && !S.isLearned(e)) S.progress.items[pl] = { b: Math.min(S.boxOf(e), 1), due: S.dayKey() }; });
@@ -388,19 +388,24 @@
   };
 
   async function speak() {
-    const q = run.qs[run.i];
-    run.busy = true; run.micError = '';
+    const r = run;
+    const q = r.qs[r.i];
+    r.busy = true; r.micError = '';
     S.render();
+    // A result that arrives after the learner skipped, moved on or left is ignored.
+    const stale = () => run !== r || r.qs[r.i] !== q || r.answer;
     try {
       const alts = await S.recognize();
+      if (stale()) { r.busy = false; return; }
       let best = { heard: alts[0] || '', match: 0 };
       for (const x of alts) { const m = S.similarity(x, q.e.pl.replace(/…/g, '')); if (m > best.match) best = { heard: x, match: m }; }
       run.busy = false;
       S.recordSpeech(q.e.pl, best.match);
       answer(best.match >= 0.85 ? 1 : best.match >= 0.6 ? 0.5 : 0, best);
     } catch (err) {
-      run.busy = false;
-      run.micError = S.micErrorText(err);
+      r.busy = false;
+      if (stale()) return;
+      r.micError = S.micErrorText(err);
       S.render();
     }
   }
