@@ -60,13 +60,17 @@ async function api(params) {
 
 // Find a Lingua Libre file named "LL-Q809 (pol)-<speaker>-<word>.wav".
 async function findRecording(word) {
-  const data = await api({
-    action: 'query', list: 'search', srnamespace: '6', srlimit: '20',
-    srsearch: `intitle:"LL-Q809 (pol)" intitle:"${word.replace(/"/g, '')}"`,
-  });
-  const hits = ((data && data.query && data.query.search) || []).map((h) => h.title);
   const want = `-${word}.wav`;
-  return hits.find((t) => t.toLowerCase().endsWith(want)) || null;
+  const q = word.replace(/"/g, '');
+  // Try a strict title search first, then a looser one.
+  for (const srsearch of [`intitle:"LL-Q809 (pol)" intitle:"${q}"`, `"LL-Q809 (pol)" "${q}"`]) {
+    const data = await api({ action: 'query', list: 'search', srnamespace: '6', srlimit: '30', srsearch });
+    const hits = ((data && data.query && data.query.search) || []).map((h) => h.title);
+    const hit = hits.find((t) => t.toLowerCase().endsWith(want) && t.includes('LL-Q809 (pol)'));
+    if (hit) return hit;
+    await sleep(100);
+  }
+  return null;
 }
 
 async function fileInfo(title) {
