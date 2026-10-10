@@ -98,10 +98,8 @@ const bad = (name, why) => { results.fail++; results.failures.push(`${name}: ${w
           if (d.type === 'choose') await p.click(`[data-action="drill-choose"][data-index="${d.answer}"]`);
           else if (d.type === 'fill') { await p.fill('#drill-answer', d.answer[0]); await p.press('#drill-answer', 'Enter'); }
           else {
-            for (const w of d.words) {
-              const k = await p.evaluate((word) => [...document.querySelectorAll('[data-action="order-add"]')].find((b) => !b.disabled && b.textContent.trim() === word.trim())?.dataset.k, w);
-              await p.click(`[data-action="order-add"][data-k="${k}"]`);
-            }
+            // Tiles carry the word's position in the sentence (data-k).
+            for (let k = 0; k < d.words.length; k++) await p.click(`[data-action="order-add"][data-k="${k}"]`);
             await p.click('[data-action="order-check"]');
           }
           const cls = await p.getAttribute('.feedback', 'class');
@@ -246,14 +244,11 @@ const bad = (name, why) => { results.fail++; results.failures.push(`${name}: ${w
           } else if (await p.$('[data-action="as-add"]')) {
             const words = await p.evaluate(() => {
               const S = window.Slowka; const tiles = [...document.querySelectorAll('[data-action="as-add"]')].map((b) => b.textContent.trim()).sort().join('|');
-              for (const list of Object.values(S.DRILLS)) for (const d of list) if (d.type === 'order' && [...d.words].sort().join('|') === tiles) return d.words;
+              for (const list of Object.values(S.DRILLS)) for (const d of list) if (d.type === 'order' && d.words.map((w, k) => S.tileText(w, k === 0)).sort().join('|') === tiles) return d.words;
               return null;
             });
             if (!words) throw new Error('could not find order item');
-            for (const w of words) {
-              const k = await p.evaluate((word) => [...document.querySelectorAll('[data-action="as-add"]')].find((b) => !b.disabled && b.textContent.trim() === word.trim())?.dataset.k, w);
-              await p.click(`[data-action="as-add"][data-k="${k}"]`);
-            }
+            for (let k = 0; k < words.length; k++) await p.click(`[data-action="as-add"][data-k="${k}"]`);
             await p.click('[data-action="as-order"]');
           } else if (await p.$('[data-action="as-skip"]')) await p.click('[data-action="as-skip"]');
           const cls = await p.getAttribute('.feedback', 'class');
@@ -545,6 +540,22 @@ const bad = (name, why) => { results.fail++; results.failures.push(`${name}: ${w
       await p.focus('[data-action="ls-answer"][data-q="0"][data-index="1"]'); await p.keyboard.press('Enter'); await p.waitForTimeout(50);
       const focused = await p.evaluate(() => document.activeElement && document.activeElement.tagName);
       if (focused === 'BODY') throw new Error('focus lost after answering');
+    });
+    await check(p, 'old links do not trap the Back button; audio stops when leaving a page', async () => {
+      await go(p, 'home'); await go(p, 'practice');
+      await p.evaluate(() => window.Slowka.go('talk.no-such-conversation')); await p.waitForTimeout(80);
+      await p.goBack(); await p.waitForTimeout(200);
+      if (await p.evaluate(() => window.Slowka.route.name) !== 'practice') throw new Error('Back is trapped');
+      const stopped = await p.evaluate(() => { const S = window.Slowka; let n = 0; const o = S.stopSpeaking; S.stopSpeaking = () => { n++; o(); }; S.go('alphabet'); S.stopSpeaking = o; return n; });
+      if (!stopped) throw new Error('audio not stopped on navigation');
+    });
+    await check(p, 'sentence tiles give no punctuation clues; Nepali is never read by the Polish voice', async () => {
+      const r = await p.evaluate(() => {
+        const S = window.Slowka;
+        return { tiles: ['Mówię', 'polsku.', 'Ram', 'rozumiem,'].map((w, k) => S.tileText(w, k === 0)), ne: S.markup('like *घर* and *dom*') };
+      });
+      if (r.tiles.join(' ') !== 'mówię polsku Ram rozumiem') throw new Error(`tiles: ${r.tiles}`);
+      if ((r.ne.match(/data-action="say"/g) || []).length !== 1) throw new Error('Nepali span made tappable');
     });
     console.log('11. My words, pronunciation and audio done');
   }

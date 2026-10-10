@@ -126,8 +126,11 @@
                ${t.wrong.heard ? `<span class="heard">You said · तपाईंले भन्नुभयो: <b lang="pl">${esc(t.wrong.heard)}</b></span>` : ''}
                <span class="hint">Look at the suggested replies below and try again. · तलका जवाफ हेरेर फेरि प्रयास गर्नुहोस्।</span></div></div>`;
       }
+      // Replies are shown in Polish only, so the learner has to read them; meanings are a hint on request.
+      const hint = t.hintStep === t.step;
       const choices = `<div class="options single">${replies.map((r, k) => `
-        <button class="option" data-action="talk-pick" data-index="${st.replies.indexOf(r)}"><kbd>${k + 1}</kbd><span class="opt-col"><span class="opt-pl" lang="pl">${polish(r.pl)}</span>${S.transHTML(r.en, r.ne)}</span></button>`).join('')}</div>`;
+        <button class="option" data-action="talk-pick" data-index="${st.replies.indexOf(r)}"><kbd>${k + 1}</kbd><span class="opt-col"><span class="opt-pl" lang="pl">${polish(r.pl)}</span>${hint && !/^\(/.test(r.en) ? S.transHTML(r.en, r.ne) : ''}</span></button>`).join('')}</div>
+        ${hint ? '' : '<div class="row start"><button type="button" class="link-btn" data-action="talk-hint">Hint: show what the replies mean · अर्थ देखाउनुहोस्</button></div>'}`;
       let input = '';
       if (t.mode === 'choose') input = choices;
       else if (t.mode === 'type') {
@@ -557,6 +560,7 @@
 
   X.action = (a, el, view) => {
     switch (a) {
+      case 'talk-hint': talk.hintStep = talk.step; S.render(); return true;
       case 'talk-pick': {
         if (talk.busy || talk.done) return true;
         const st = talk.rp.steps[talk.step];

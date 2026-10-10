@@ -178,8 +178,8 @@
     }
     const used = new Set(run.picked);
     return `<div class="card compact drill"><span class="label">Build the sentence · वाक्य बनाउनुहोस्</span>
-        <div class="order-line ${a ? (a.score === 1 ? 'ok' : 'bad') : ''}">${run.picked.length ? run.picked.map((k, pos) => `<button class="tile placed" data-action="as-remove" data-pos="${pos}" ${a ? 'disabled' : ''} lang="pl">${polish(d.words[k])}</button>`).join('') : '<span class="hint">Tap the words in order · क्रममा थिच्नुहोस्</span>'}</div>
-        ${a ? '' : `<div class="tiles">${run.tiles.map((t) => `<button class="tile" data-action="as-add" data-k="${t.k}" ${used.has(t.k) ? 'disabled' : ''} lang="pl">${polish(t.w)}</button>`).join('')}</div>
+        <div class="order-line ${a ? (a.score === 1 ? 'ok' : 'bad') : ''}">${run.picked.length ? run.picked.map((k, pos) => `<button class="tile placed" data-action="as-remove" data-pos="${pos}" ${a ? 'disabled' : ''} lang="pl">${polish(S.tileText(d.words[k], k === 0))}</button>`).join('') : '<span class="hint">Tap the words in order · क्रममा थिच्नुहोस्</span>'}</div>
+        ${a ? '' : `<div class="tiles">${run.tiles.map((t) => `<button class="tile" data-action="as-add" data-k="${t.k}" ${used.has(t.k) ? 'disabled' : ''} lang="pl">${polish(S.tileText(t.w, t.k === 0))}</button>`).join('')}</div>
         <div class="row"><button class="btn" data-action="as-clear">Clear</button><button class="btn primary" data-action="as-order" ${run.picked.length === d.words.length ? '' : 'disabled'}>Check</button></div>`}</div>`;
   }
 

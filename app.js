@@ -15,6 +15,7 @@
 
   let currentHash = null;
   S.go = (to, opts = {}) => {
+    S.stopSpeaking();
     S.Practice.reset();
     S.Trainers.resetSessions(opts.keep);
     const [name, arg] = String(to || 'home').split(/\.(.+)/);
@@ -25,11 +26,12 @@
     if (S.route.name === 'placement') S.Extras.resetPlacement();
     // Each new page is a history entry, so the phone's Back button returns to the previous page.
     const hash = S.route.name === 'home' ? '' : `#${to}`;
-    currentHash = hash;
+    currentHash = opts.fromHistory ? (location.hash || '') : hash;
     if (!opts.fromHistory) {
       try {
         const url = hash || location.pathname + location.search;
-        if ((location.hash || '') !== hash) history.pushState(null, '', url);
+        // A page that redirects while drawing (e.g. an old link) replaces its entry, so Back still works.
+        if ((location.hash || '') !== hash && !rendering) history.pushState(null, '', url);
         else history.replaceState(null, '', url);
       } catch (e) { /* not allowed here */ }
     }
@@ -40,7 +42,12 @@
     if (h && !view.querySelector('[data-autofocus]')) { h.setAttribute('tabindex', '-1'); h.focus({ preventScroll: true }); }
   };
 
+  let rendering = 0;
   S.render = () => {
+    rendering++;
+    try { renderPage(); } finally { rendering--; }
+  };
+  function renderPage() {
     renderStats();
     renderNav();
     const r = S.route;
@@ -84,7 +91,7 @@
     else if (r.name === 'learn') S.Guided.render(view, r.arg);
     else if (r.name === 'check') r.arg ? S.Trainers.checkUnit(view, r.arg) : S.Trainers.checkList(view);
     else renderHome();
-  };
+  }
   S.onProgress = () => renderStats();
   const NAV = { mywords: 'practice', numbers: 'practice', listen: 'practice', revise: 'course', cert: 'progress', report: 'progress', home: 'home', course: 'course', unit: 'course', learn: 'course', practice: 'practice', review: 'practice', verbs: 'practice', cases: 'practice', sounds: 'practice', alphabet: 'practice', dictionary: 'practice', mistakes: 'practice', talk: 'practice', read: 'practice', exam: 'practice', placement: 'practice', progress: 'progress', settings: 'progress', check: 'progress' };
   function renderNav() {
@@ -94,9 +101,12 @@
 
   function renderStats() {
     const learned = S.ENTRIES.filter(S.isLearned).length;
+    // "Met" counts every word in practice, so progress shows from the first lesson; "learned" needs a week of reviews.
+    const met = Object.keys(S.progress.items).filter((k) => S.LEXICON.has(k)).length;
     $('#stats').innerHTML = `
       <div class="stat"><b>${S.currentStreak()}</b><span>day streak</span></div>
-      <div class="stat"><b>${learned}<small>/${S.ENTRIES.length}</small></b><span>learned</span></div>
+      <div class="stat"><b>${met}</b><span>words met</span></div>
+      <div class="stat" title="Words remembered over several days (memory box 3 of 5 or more)"><b>${learned}<small>/${S.ENTRIES.length}</small></b><span>learned</span></div>
       <div class="stat"><b>${S.dueList().length}</b><span>to review</span></div>`;
   }
 
@@ -585,7 +595,7 @@
           <p class="hint">Do you speak Polish or Nepali as your first language? Help check this course. · यो कोर्स जाँच्न सहयोग गर्नुहोस्।</p>
           <button class="btn" data-action="go" data-to="check">Open review mode</button>
         </fieldset>
-        <p class="hint">How pronunciation is written: in English letters the stressed syllable is in CAPITALS (<span class="pron">jen DOB-ri</span>). In Devanagari the stressed syllable comes after <span class="pron ne">ˈ</span> (<span class="pron ne" lang="ne">जेन् ˈदोब्-रि</span>). Both are approximations: always listen too.</p>
+        <p class="hint">How pronunciation is written: words are split into syllable blocks and the <b>stressed syllable is coloured</b>, in English letters and in Devanagari: ${S.pronHTML({ pron: 'jeny DOB-ri', proNe: 'जेन्य् ˈदोब्-रि' })}. In Polish the stress is almost always on the second-to-last syllable. Both spellings are approximations: always listen too.</p>
       </div>`;
   }
 
@@ -595,12 +605,14 @@
   // on the same button, or on the next question's first option if that one is now answered.
   function keepFocus(el) {
     if (!view.contains(el) || el.dataset.action === 'go') return;
-    const attrs = ['action', 'q', 'index', 'key', 'i', 'tab', 'step', 'value'].filter((k) => el.dataset[k] != null);
-    const sel = attrs.map((k) => `[data-${k}="${CSS.escape(el.dataset[k])}"]`).join('');
+    const sel = [...el.attributes].filter((x) => x.name.startsWith('data-') && x.name !== 'data-autofocus')
+      .map((x) => `[${x.name}="${CSS.escape(x.value)}"]`).join('');
     const hash = location.hash;
     queueMicrotask(() => {
+      // Only when the page was re-drawn and the tapped button is gone.
+      if (el.isConnected || location.hash !== hash) return;
       const active = document.activeElement;
-      if (location.hash !== hash || (active && active !== document.body && document.contains(active))) return;
+      if (active && active !== document.body && document.contains(active)) return;
       const same = view.querySelector(sel);
       if (!same) return;
       let target = same.disabled ? null : same;
@@ -686,6 +698,7 @@
         try { S.readBackup(code); } catch (e) {
           $('#backup-msg').textContent = 'That code did not work. Copy the whole code and try again.';
           el.dataset.armed = 'false';
+          el.textContent = 'Restore from code';
           break;
         }
         if (el.dataset.armed !== 'true' || el.dataset.code !== code) {
@@ -696,6 +709,11 @@
           break;
         }
         S.restoreBackup(code);
+        // Forget words and open exercises from before the restore.
+        for (const [k, e] of S.LEXICON) if (e.mine) S.LEXICON.delete(k);
+        S.MyWords.register();
+        S.Practice.reset();
+        S.Trainers.resetSessions();
         renderStats();
         renderSettings();
         $('#backup-msg').textContent = 'Progress restored ✓';

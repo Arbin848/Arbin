@@ -68,7 +68,13 @@
     if (!session || session.mode !== 'cards') startCards();
     const s = session;
     if (!s.cards.length) {
-      stage.innerHTML = emptyHTML('All caught up', 'Words you practise come back here when they are due. Study a unit, then come back tomorrow.<br><span lang="ne">अभ्यास गरेका शब्दहरू समय भएपछि यहाँ आउँछन्। एउटा पाठ पढेर भोलि फर्कनुहोस्।</span>');
+      // A brand-new learner has nothing to review yet: send them to a lesson instead of "all caught up".
+      const started = Object.keys(S.progress.items).length > 0;
+      const next = S.COURSE.find((u) => !(S.Guided && S.Guided.status(u).done)) || S.COURSE[0];
+      stage.innerHTML = emptyHTML(started ? 'All caught up ✓' : 'Nothing to review yet',
+        (started ? 'Words you practise come back here when they are due. Study a unit, then come back tomorrow.<br><span lang="ne">अभ्यास गरेका शब्दहरू समय भएपछि यहाँ आउँछन्। एउटा पाठ पढेर भोलि फर्कनुहोस्।</span>'
+          : 'Words come here after you meet them in a lesson. Start with a lesson today.<br><span lang="ne">पाठमा भेटेका शब्दहरू यहाँ आउँछन्। आज एउटा पाठबाट सुरु गर्नुहोस्।</span>')
+        + (next ? `<br><button class="btn primary" data-action="go" data-to="learn.${next.id}">Start: ${esc(next.title)} →</button>` : ''));
       return;
     }
     if (s.i >= s.cards.length) {
@@ -453,9 +459,9 @@
       const used = new Set(s.picked);
       body = `
         <div class="order-line ${a ? (a.result === 'right' ? 'ok' : 'bad') : ''}" aria-label="Your sentence">
-          ${s.picked.length ? s.picked.map((k, pos) => `<button class="tile placed" data-action="order-remove" data-pos="${pos}" ${a ? 'disabled' : ''} lang="pl">${polish(d.words[k])}</button>`).join('') : '<span class="hint">Tap the words in the right order · सही क्रममा शब्द थिच्नुहोस्</span>'}
+          ${s.picked.length ? s.picked.map((k, pos) => `<button class="tile placed" data-action="order-remove" data-pos="${pos}" ${a ? 'disabled' : ''} lang="pl">${polish(S.tileText(d.words[k], k === 0))}</button>`).join('') : '<span class="hint">Tap the words in the right order · सही क्रममा शब्द थिच्नुहोस्</span>'}
         </div>
-        ${a ? '' : `<div class="tiles">${s.tiles.map((t) => `<button class="tile" data-action="order-add" data-k="${t.k}" ${used.has(t.k) ? 'disabled' : ''} lang="pl">${polish(t.w)}</button>`).join('')}</div>
+        ${a ? '' : `<div class="tiles">${s.tiles.map((t) => `<button class="tile" data-action="order-add" data-k="${t.k}" ${used.has(t.k) ? 'disabled' : ''} lang="pl">${polish(S.tileText(t.w, t.k === 0))}</button>`).join('')}</div>
         <div class="row"><button class="btn" data-action="order-clear">Clear</button><button class="btn primary" data-action="order-check" ${s.picked.length === d.words.length ? '' : 'disabled'}>Check</button></div>`}`;
     }
 
@@ -480,7 +486,7 @@
       <div class="card drill">
         <span class="label">${{ choose: 'Choose the right form · सही रूप छान्नुहोस्', fill: 'Write the missing word · छुटेको शब्द लेख्नुहोस्', order: 'Build the sentence · वाक्य बनाउनुहोस्' }[d.type]}</span>
         ${body}
-        ${a ? '' : `<details class="trans"><summary>Show translation · अनुवाद</summary>${S.transHTML(d.en, d.ne)}</details>`}
+        ${a ? '' : d.type === 'order' ? `<div class="trans prompt">${S.transHTML(d.en, d.ne)}</div>` : `<details class="trans"><summary>Show translation · अनुवाद</summary>${S.transHTML(d.en, d.ne)}</details>`}
       </div>
       ${fb}
       ${a ? `<p class="report-row">${S.reportHTML(d.q || d.words.join(' '), `Grammar exercise, unit ${it.unit}`)}</p>` : ''}`;

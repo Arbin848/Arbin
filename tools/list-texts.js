@@ -24,7 +24,14 @@ const voicer = (lines) => {
   const names = [...new Set(lines.map((l) => l[0]))];
   return (name) => (names.indexOf(name) % 2 ? 'm' : 'f');
 };
-const bits = (s) => String(s).replace(/\*\*/g, '').match(/\*([^*]+)\*/g) || [];
+// Polish marked *like this* anywhere in the data (same rule as S.polishBits in js/core.js):
+// lesson text, tables, explanations, notes. Every bit can be tapped in the app.
+const polishBits = (text) => {
+  const out = [];
+  String(text).replace(/(\S)\*\*\*/g, '$1*\u0001').replace(/\*\*\*(?=\S)/g, '\u0001*').replace(/\*\*/g, '\u0001')
+    .replace(/\*([^*\u0001]+)\*/g, (_, t) => { if (/[a-ząćęłńóśźż]/i.test(t)) out.push(t); return ''; });
+  return out;
+};
 // Each word of a reading text can be tapped and heard (same split as tokenize() in js/extras.js).
 const words = (text) => text.split(/\s+/).forEach((part) => {
   const m = part.match(/^([„"«(]*)(.*?)([.,!?;:…"”»)]*)$/);
@@ -38,7 +45,6 @@ const words = (text) => text.split(/\s+/).forEach((part) => {
   [...(u.words || []), ...(u.phrases || [])].forEach((e) => { add(e[0]); if (e[0].includes(' / ')) e[0].split(' / ').forEach((x) => add(x)); });
   const v = voicer(u.dialogue || []);
   (u.dialogue || []).forEach((d) => add(d[1], v(d[0])));
-  (u.lesson || []).forEach((p) => bits(`${p.en} ${p.ne}`).forEach((b) => { const t = b.slice(1, -1); if (t.length < 40) add(t); }));
 });
 // Same as S.drillSentence / S.drillSpeech in js/core.js.
 const drillSentence = (d) => (d.type === 'order' ? d.words.join(' ') : d.type === 'choose' ? d.q.replace('___', d.options[d.answer]) : d.q.replace(/\s*\([^)]*\)\s*$/, '').replace('___', d.answer[0]));
@@ -76,11 +82,19 @@ Object.values(W.SLOWKA_DRILLS || {}).forEach((list) => list.forEach((d) => add(d
   vm.runInNewContext(fs.readFileSync(path.join(ROOT, 'js', 'numbers.js'), 'utf8'), nctx);
   const N = nctx.window.Slowka.Numbers;
   if (N && N.words) {
-    const ns = [...Array(101).keys(), 200, 300, 400, 500, 600, 700, 800, 900, 1000, 2000, 5000, 10000, 1000000];
+    const ns = [...Array(101).keys(), 200, 300, 400, 500, 600, 700, 800, 900, 1000, 2000, 5000, 10000];
     ns.forEach((x) => add(N.words(x), 'm'));
   } else process.stderr.write('numbers.js: words() not found, skipped\n');
 }
 (W.SLOWKA_SOUNDS || []).forEach((x) => x.pairs.forEach((p) => p.forEach((w) => add(w[0]))));
+
+// Every *marked* Polish bit in every data file.
+const walk = (v) => {
+  if (typeof v === 'string') polishBits(v).forEach((t) => { if (t.length <= 160) add(t); });
+  else if (Array.isArray(v)) v.forEach(walk);
+  else if (v && typeof v === 'object') Object.values(v).forEach(walk);
+};
+Object.values(W).forEach(walk);
 
 // "say" is how the text is read aloud when that differs from the spelling (numbers, dates, abbreviations).
 process.stdout.write(JSON.stringify([...out].map(([text, voice]) => {

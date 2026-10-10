@@ -30,16 +30,24 @@
   M.register();
 
   const tidy = (s) => String(s || '').replace(/\s+/g, ' ').trim();
+  // The course entry for a word, ignoring capitals and punctuation ("Dom" finds "dom").
+  const courseEntry = (pl) => {
+    const k = S.clean(pl);
+    const exact = S.LEXICON.get(tidy(pl));
+    if (exact && !exact.mine) return exact;
+    for (const e of S.LEXICON.values()) if (!e.mine && S.clean(e.pl) === k) return e;
+    return null;
+  };
 
   function previewHTML(pl) {
     if (!tidy(pl)) return '<p class="hint">Type a Polish word to see how it is said. · उच्चारण हेर्न पोलिश शब्द लेख्नुहोस्।</p>';
     const p = S.Pron.of(pl);
-    const course = S.LEXICON.get(tidy(pl));
-    const e = course && !course.mine ? course : { pl: tidy(pl), ...p };
+    const course = courseEntry(pl);
+    const e = course || { pl: tidy(pl), ...p };
     const hints = S.soundHints ? S.soundHints(e.pl) : '';
     return `
       <div class="my-preview-word"><span lang="pl">${polish(e.pl)}</span>${S.pronHTML(e)}${S.listenBtn(e.pl)}</div>
-      ${course && !course.mine ? `<p class="hint ok">This is already in the course: “${esc(course.en)}”. · यो पाठ्यक्रममा पहिले नै छ।</p>` : ''}
+      ${course ? `<p class="hint ok">This is already in the course: “${esc(course.en)}”. · यो पाठ्यक्रममा पहिले नै छ।</p>` : ''}
       ${hints || ''}`;
   }
 
@@ -91,15 +99,15 @@
     const say = (t) => { if (msg) msg.textContent = t; };
     if (!pl || !/[a-ząćęłńóśźż]/i.test(pl)) { say('Type the Polish word first. · पहिले पोलिश शब्द लेख्नुहोस्।'); return true; }
     if (!en) { say('Add what it means. · अर्थ पनि लेख्नुहोस्।'); form.elements.en.focus(); return true; }
-    const course = S.LEXICON.get(pl);
-    if (course && !course.mine) {
+    const course = courseEntry(pl);
+    if (course) {
       // Already taught in the course: just put it into the review.
       S.addToReview(course);
       say(`“${pl}” is already in the course; it is now in your review. · यो दोहोर्याइमा थपियो।`);
       return true;
     }
     if (!Array.isArray(S.progress.mywords)) S.progress.mywords = [];
-    if (S.progress.mywords.some((w) => w.pl === pl)) { say('You already have this word. · यो शब्द पहिले नै छ।'); return true; }
+    if (S.progress.mywords.some((w) => S.clean(w.pl) === S.clean(pl))) { say('You already have this word. · यो शब्द पहिले नै छ।'); return true; }
     if (S.progress.mywords.length >= MAX) { say(`You can keep up to ${MAX} words. Remove some first.`); return true; }
     const p = S.Pron.of(pl);
     const w = { pl, en, ne, pron: p.pron, proNe: p.proNe, added: S.dayKey() };

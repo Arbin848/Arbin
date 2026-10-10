@@ -31,11 +31,7 @@
     </div>`;
 
   // Polish bits marked *like this* in a lesson paragraph, as listen chips.
-  const polishBits = (text) => {
-    const out = [];
-    String(text).replace(/\*([^*]+)\*/g, (_, t) => { if (/[a-ząćęłńóśźż]/i.test(t) && !out.includes(t) && t.length < 40) out.push(t); return ''; });
-    return out;
-  };
+  const polishBits = (text) => S.polishBits(text).filter((t) => t.length < 60);
 
   // ---------- step list ----------
 

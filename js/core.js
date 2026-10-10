@@ -55,9 +55,22 @@
   S.polish = (s) => S.highlight(S.esc(s));
   // Lesson markup on escaped text: *polish words* and **bold**.
   S.markup = (s) => S.esc(s)
-    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-    // Polish in explanations can be tapped to hear it.
-    .replace(/\*(.+?)\*/g, (_, t) => `<span class="pl say-tap" lang="pl" role="button" tabindex="0" data-action="say" data-text="${t}" title="Listen">${S.highlight(t)}</span>`);
+    // Bold markers are set aside first, so "**always a comma before *że***" nests correctly.
+    .replace(/(\S)\*\*\*/g, '$1*\u0001').replace(/\*\*\*(?=\S)/g, '\u0001*')
+    .replace(/\*\*/g, '\u0001')
+    // Polish in explanations can be tapped to hear it (only spans with Latin letters are Polish).
+    .replace(/\*([^*\u0001]+)\*/g, (_, t) => (/[a-ząćęłńóśźż]/i.test(t)
+      ? `<span class="pl say-tap" lang="pl" role="button" tabindex="0" data-action="say" data-text="${t}" title="Listen">${S.highlight(t)}</span>`
+      : `<span class="pl">${t}</span>`))
+    .replace(/\u0001(.+?)\u0001/g, '<strong>$1</strong>')
+    .replace(/\u0001/g, '');
+  // The Polish bits of a marked-up text, found the same way S.markup finds them.
+  S.polishBits = (text) => {
+    const out = [];
+    String(text).replace(/(\S)\*\*\*/g, '$1*\u0001').replace(/\*\*\*(?=\S)/g, '\u0001*').replace(/\*\*/g, '\u0001')
+      .replace(/\*([^*\u0001]+)\*/g, (_, t) => { if (/[a-ząćęłńóśźż]/i.test(t) && !out.includes(t)) out.push(t); return ''; });
+    return out;
+  };
 
   S.stripMarks = (s) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/ł/g, 'l').replace(/Ł/g, 'L');
   S.clean = (s) => String(s).toLowerCase().replace(/[?!.,…¿¡:;"„”«»()–—]/g, ' ').replace(/\s+/g, ' ').trim();
@@ -73,6 +86,15 @@
   for (const e of S.LEXICON.values()) {
     if (!/\s/.test(e.pl.trim())) { const k = S.tokenKey(e.pl); if (!S.WORD_INDEX.has(k)) S.WORD_INDEX.set(k, e); }
   }
+
+  // A word tile in "build the sentence": no full stop or comma and no capital on the first word,
+  // so the order can't be read from punctuation. Names keep their capital.
+  const NAME_RE = /^(Ram|Sita|Bikash|Bishal|Prakash|Ramesh|Kasi|Kasia|Ani|Ania|Ann|Ewa|Mare|Tom|Piotr|Polsk|Polak|Nepal|Warszaw|Krak|Wrocław|Pozna|Gdańsk|Łód|Pan\b|Pani\b|Państw|Panie)/;
+  S.tileText = (w, first) => {
+    let t = String(w).replace(/[.,!?;:…]+$/u, '');
+    if (first && !NAME_RE.test(t)) t = t.charAt(0).toLowerCase() + t.slice(1);
+    return t;
+  };
 
   // The Polish a grammar exercise's Listen button says: the finished sentence without English hints.
   // ("(Walking into a shop at 8 pm) ___!" -> "Dobry wieczór!"; "co? — it sounds like 'tso'" -> "co?")
@@ -129,6 +151,19 @@
   }
   S.saveProgress = () => writeJSON(PROGRESS_KEY, S.progress);
   // Another open copy of the app saved progress: use it, so the two copies don't overwrite each other.
+  // A phone may freeze a background tab, so it misses changes made elsewhere: re-read on return.
+  const reread = () => {
+    try {
+      const saved = localStorage.getItem(PROGRESS_KEY);
+      if (saved && saved !== JSON.stringify(S.progress)) {
+        S.progress = Object.assign(S.freshProgress(), JSON.parse(saved));
+        if (S.MyWords) S.MyWords.register();
+        if (S.onProgress) S.onProgress();
+      }
+    } catch (e) { /* storage unavailable */ }
+  };
+  document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') reread(); });
+  window.addEventListener('pageshow', (ev) => { if (ev.persisted) reread(); });
   window.addEventListener('storage', (ev) => {
     if (ev.key !== PROGRESS_KEY || !ev.newValue) return;
     try {
@@ -176,7 +211,12 @@
   };
   S.restoreBackup = (code) => {
     const data = S.readBackup(code);
-    S.progress = Object.assign(S.freshProgress(), cleanData(data.progress));
+    // Every field must have the type a fresh save has (object, array, number…), or it is dropped.
+    const fresh = S.freshProgress();
+    const kind = (v) => (Array.isArray(v) ? 'array' : v === null ? 'null' : typeof v);
+    const got = cleanData(data.progress);
+    for (const [k, v] of Object.entries(got)) if (!(k in fresh) || fresh[k] === null || kind(v) === kind(fresh[k])) fresh[k] = v;
+    S.progress = fresh;
     for (const [k, allowed] of Object.entries(SETTING_VALUES)) {
       const v = data.settings && data.settings[k];
       if (allowed.includes(v)) S.settings[k] = v;
@@ -342,7 +382,7 @@
       const { text, pitch } = lines[i++];
       const src = S.audioFile(text);
       const device = () => tts(text, slow, pitch, () => setTimeout(next, 250));
-      if (src) playFile(src, slow, () => setTimeout(next, 350), device);
+      if (src) { try { if (synth) synth.cancel(); } catch (e) { /* ignore */ } playFile(src, slow, () => setTimeout(next, 350), device); }
       else device();
     };
     next();
@@ -378,7 +418,7 @@
   const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
   S.canRecognize = !!Recognition;
   // Speech recognition writes numbers as digits ("2", "20"); the course writes them as words.
-  S.spokenDigits = (text) => (S.Numbers ? String(text).replace(/\d+/g, (n) => (n.length <= 7 ? S.Numbers.words(Number(n)) : n)) : String(text));
+  S.spokenDigits = (text) => (S.Numbers ? String(text).replace(/\d+/g, (n) => (n.length <= 6 ? S.Numbers.words(Number(n)) : n)) : String(text));
   S.recognize = () => new Promise((resolve, reject) => {
     if (!Recognition) { reject(new Error('unsupported')); return; }
     const r = new Recognition();
