@@ -1012,3 +1012,17 @@ button.hint-chip:hover { border-color: var(--accent); border-style: solid; }
 .badge-card small { font-size: 0.72rem; }
 /* Word popup sits above the bottom navigation. */
 .sheet { z-index: 30; max-height: 80vh; overflow-y: auto; }
+
+/* My words */
+.my-form { display: flex; flex-direction: column; gap: 12px; }
+.my-form .field { display: flex; flex-direction: column; gap: 6px; font-weight: 600; }
+.my-form .field input { width: 100%; }
+.my-preview { padding: 10px 12px; border-radius: 10px; background: var(--sunk); display: flex; flex-direction: column; gap: 8px; }
+.my-preview-word { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; }
+.my-preview-word > span[lang="pl"] { font-family: var(--font-display); font-weight: 700; font-size: 1.4rem; }
+.entry.mine { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr) auto auto; }
+.my-del { font-size: 1.1rem; line-height: 1; }
+@media (max-width: 620px) {
+  .entry.mine { grid-template-columns: minmax(0, 1fr) auto; }
+  .entry.mine .my-del { grid-column: 2; grid-row: 3; justify-self: center; }
+}

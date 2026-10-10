@@ -298,7 +298,7 @@ window.SLOWKA_COURSE.push(
       ["Spotykamy się w sobotę o szóstej.", "We're meeting on Saturday at six.", "हामी शनिबार छ बजे भेट्छौं।", "spo-ti-KA-mi sheh f so-BO-teh o SHOOS-tey", "स्पो-ति-ˈका-मि शे फ़् सो-ˈबो-ते ओ ˈशुस्-तेय्"],
       ["Wydaje mi się, że autobus się spóźnia.", "I think the bus is late.", "मलाई लाग्छ, बस ढिलो भइरहेको छ।", "vi-DA-yeh mee sheh, zheh aw-TO-boos sheh SPOOZH-nya", "भि-ˈदा-ये मि शे झे आउ-ˈतो-बुस् शे ˈस्पुझ्-न्या"],
       ["Czuję się dziś dużo lepiej.", "I feel much better today.", "आज मलाई धेरै सन्चो छ।", "CHOO-yeh sheh jeesh DOO-zho LEH-pyey", "ˈचु-ये शे जिश् ˈदु-झो ˈले-प्येय्"],
-      ["Cieszę się, że cię widzę!", "I'm glad to see you!", "तिमीलाई देखेर खुसी लाग्यो!", "CHEH-sheh sheh, zheh cheh VEE-jeh", "ˈचे-शे शे झे चे ˈभि-जे"]
+      ["Cieszę się, że cię widzę!", "I'm glad to see you!", "तिमीलाई देखेर खुसी लाग्यो!", "CHEH-sheh sheh, zheh cheh VEE-dzeh", "ˈचे-शे शे झे चे ˈभि-द्ज़े"]
     ],
     dialogue: [
       ["Kasia", "Cześć! Jak się nazywasz?", "Hi! What's your name?", "नमस्ते! तिम्रो नाम के हो?"],

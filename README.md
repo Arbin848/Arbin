@@ -19,6 +19,8 @@ It works fully offline, with no AI, no account and no server. Everything is in t
 - **Badges** for lessons, streaks, words learned, conversations, listening, sounds and certificates.
 - **Weak-spot report** (Progress → report): the words you keep forgetting, the grammar topics, cases and tenses you get wrong most, the sounds you find hardest, and your skill scores, each with a button to practise it.
 - **Pronunciation help everywhere**: words split into syllable blocks with the stressed one highlighted (English letters and Devanagari), tips for the hard letters in each word, slow playback, and native recordings from Wiktionary and Lingua Libre.
+- **Built-in audio for everything**: every word, sentence, dialogue line, story, verb form, case sentence and number the app can read aloud has its own recording in the app (native speakers where available, otherwise a natural Polish voice generated once with Piper), so it sounds the same on every phone, also offline, even without a Polish voice installed.
+- **My words**: add Polish words from your own life (work, signs, letters). The app writes the pronunciation in English letters and Devanagari by itself, reads them aloud and brings them back in your daily review and every practice mode.
 
 ## What's inside
 
@@ -80,6 +82,15 @@ node tools/fetch-audio.js          # needs Node 18+, ffmpeg and internet access 
 ```
 
 The files are saved in `audio/` and used automatically, offline. Words without a recording keep using the device voice.
+
+## Built-in speech for everything else
+
+The **Generate speech** workflow (Actions tab → Generate speech → Run workflow) lists every Polish text the
+app can read aloud (`tools/list-texts.js`), records each one that has no native recording with the free
+offline voices of [Piper](https://github.com/OHF-Voice/piper1-gpl) (`tools/gen-speech.py`), plays every
+clip to an offline Polish speech recognizer to check it is understandable (`tools/check-speech.py`,
+results in `audio/tts/QUALITY.md`), commits the MP3s and republishes the site. Run it again after
+adding content; existing clips are kept. Nothing runs at app time: the app just plays files.
 
 ## Test everything
 
