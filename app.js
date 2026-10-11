@@ -23,7 +23,6 @@
     if (S.UNIT.has(to)) S.route = { name: 'unit', id: to, tab: 'learn' };
     else if (PAGES.includes(name)) S.route = { name, arg: arg || null, q: opts.q || '' };
     else S.route = { name: 'home' };
-    if (S.route.name === 'unit') { S.progress.lastUnit = to; S.saveProgress(); }
     if (S.route.name === 'placement') S.Extras.resetPlacement();
     // Each new page is a history entry, so the phone's Back button returns to the previous page.
     const hash = S.route.name === 'home' ? '' : `#${to}`;
@@ -64,7 +63,7 @@
     else if (r.name === 'mistakes') r.arg === 'practice' ? renderMistakePractice() : S.Extras.mistakes(view);
     else if (r.name === 'progress') {
       S.Extras.progressPage(view);
-      const done = S.COURSE.filter((u) => S.Guided.status(u).done).length;
+      const done = S.COURSE.filter((u) => { const st = S.Guided.status(u); return st.done && !st.skipped; }).length;
       view.insertAdjacentHTML('beforeend', `
         <p class="hint">Lessons finished with your teacher: <b>${done} of ${S.COURSE.length}</b>.</p>
         ${S.Listening.badgesHTML()}
@@ -140,9 +139,11 @@
 
   function nextUnit() {
     const main = S.COURSE.filter((u) => u.level !== 'Work');
+    // The lesson you last studied with the teacher (not a page you only looked at); work units are extra.
     const last = S.UNIT.get(S.progress.lastUnit);
-    if (last && !S.Guided.status(last).done) return last;
-    return main.find((u) => !S.Guided.status(u).done && S.unitLearned(u) < u.entries.length * 0.8) || main[0];
+    if (last && last.level !== 'Work' && !S.Guided.status(last).done) return last;
+    // After the whole course, stay on the last lesson instead of jumping back to the alphabet.
+    return main.find((u) => !S.Guided.status(u).done && S.unitLearned(u) < u.entries.length * 0.8) || main[main.length - 1];
   }
 
   const ring = (done, total) => {
@@ -246,7 +247,7 @@
   }
 
   function renderCourse() {
-    const only = S.route.arg;
+    const only = S.route.arg && S.levelIndex(S.route.arg) >= 0 ? S.route.arg : null; // ignore an unknown level
     view.innerHTML = `
       <header class="unit-head">
         <span class="eyebrow">Course · पाठ्यक्रम</span>
@@ -523,11 +524,18 @@
     const raw = $('#dict-q').value.trim();
     const q = S.fold(raw);
     const all = [...S.LEXICON.values()];
+    // Search forms are worked out once per word and kept (typing must stay fast on a phone).
+    const fold = (e) => e._fold || (e._fold = S.fold(e.pl));
+    const low = (e) => e._low || (e._low = String(e.en).toLowerCase());
+    const rawLow = raw.toLowerCase();
     const hits = raw
-      ? all.filter((e) => S.fold(e.pl).includes(q) || e.en.toLowerCase().includes(raw.toLowerCase()) || e.ne.includes(raw))
+      ? all.filter((e) => fold(e).includes(q) || low(e).includes(rawLow) || String(e.ne).includes(raw))
       : S.ENTRIES.filter((e) => e.kind === 'word');
     // Exact and prefix matches first.
-    if (raw) hits.sort((a, b) => (S.fold(b.pl).startsWith(q) - S.fold(a.pl).startsWith(q)) || a.pl.length - b.pl.length);
+    if (raw) {
+      const pre = new Map(hits.map((e) => [e, fold(e).startsWith(q) ? 1 : 0]));
+      hits.sort((a, b) => (pre.get(b) - pre.get(a)) || a.pl.length - b.pl.length);
+    }
     const shown = hits.slice(0, 80);
     $('#dict-count').textContent = raw
       ? `${hits.length} ${hits.length === 1 ? 'result' : 'results'}${hits.length > shown.length ? `, showing the first ${shown.length}` : ''}`

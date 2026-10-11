@@ -334,7 +334,7 @@
       }
       if (session !== s) return;
       s.result = best;
-      S.recordSpeech(s.word.pl, best.score);
+      if (s.word.pl.split(/\s+/).length <= 2) S.recordSpeech(s.word.pl, best.score); // single words feed the sound report
       s.total += 1;
       if (best.score >= 0.85) { s.score += 1; S.review(s.word, 1); } else S.review(s.word, 0);
     } catch (err) {

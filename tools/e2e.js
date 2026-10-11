@@ -639,6 +639,26 @@ const bad = (name, why) => { results.fail++; results.failures.push(`${name}: ${w
       }
       if (!(await p.$('.summary .tally'))) throw new Error('summary has no score report');
     });
+    await check(p, 'round 4 fixes: counting, level, bad links, lesson after reload', async () => {
+      // Looking at a work unit does not change "your level".
+      const before = await p.evaluate(() => { const S = window.Slowka; S.progress.lastUnit = null; return S.progress.lastUnit; });
+      await go(p, 'work-01'); await go(p, 'home');
+      if (await p.evaluate(() => window.Slowka.progress.lastUnit) !== before) throw new Error('page visit changed lastUnit');
+      // Bad certificate / course links go somewhere sensible.
+      await go(p, 'cert'); if (await p.evaluate(() => window.Slowka.route.name) !== 'progress') throw new Error('#cert did not redirect');
+      await go(p, 'course.bad'); if (!(await p.$('.level-block, .course-level, section'))) throw new Error('course.bad shows no levels');
+      // A guided lesson keeps working after progress is re-read from storage.
+      await p.evaluate(() => { const S = window.Slowka; delete (S.progress.guided || {})['a1-05']; S.saveProgress(); });
+      await go(p, 'learn.a1-05');
+      await p.evaluate(() => { const S = window.Slowka; S.progress = JSON.parse(localStorage.getItem('slowka-progress-v2')); delete S.progress.guided['a1-05']; });
+      await p.click('[data-action="g-next"]');
+      // Exam "Check answers" with nothing answered does not count.
+      const n0 = await p.evaluate(() => window.Slowka.todayCount());
+      await go(p, `exam.${await p.evaluate(() => window.Slowka.EXAMS[0].id)}`);
+      await p.click('[data-action="exam-start"]').catch(() => {});
+      await p.click('[data-action="exam-check"]').catch(() => {});
+      if (await p.evaluate(() => window.Slowka.todayCount()) !== n0) throw new Error('empty exam check counted');
+    });
     console.log('11. My words, pronunciation and audio done');
   }
 

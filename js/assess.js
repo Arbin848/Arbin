@@ -42,8 +42,10 @@
   A.revisionAfter = (unitId) => A.REVISIONS.find((r) => r.after === unitId);
   A.testFor = (levelId) => A.TESTS.find((t) => t.level === levelId);
   // Next revision whose lessons are all finished but which hasn't been passed yet.
-  A.dueRevision = () => A.REVISIONS.find((r) => !A.result(r.id) && r.units.every((u) => S.Guided.status(u).done));
-  A.dueTest = () => A.TESTS.find((t) => !(A.result(t.id) && A.result(t.id).passed) && t.units.every((u) => S.Guided.status(u).done));
+  // Lessons marked known by the placement test don't make revisions or tests due (they stay available).
+  const studied = (u) => { const st = S.Guided.status(u); return st.done && !st.skipped; };
+  A.dueRevision = () => A.REVISIONS.find((r) => !A.result(r.id) && r.units.every(studied));
+  A.dueTest = () => A.TESTS.find((t) => !(A.result(t.id) && A.result(t.id).passed) && t.units.every(studied));
 
   function buildQuestions(def) {
     const sizes = def.kind === 'test'
@@ -205,14 +207,16 @@
     run.answer = { score, ...extra };
     // A skipped speaking question (no microphone, noisy place) doesn't count.
     if (!extra.skipped) run.scores.push({ skill: q.skill, score, q });
-    if (q.e && (q.t === 'meaning' || q.t === 'listen')) S.review(q.e, score >= 1 ? 1 : -1);
+    // S.review already counts the answer toward today's goal.
+    let counted = false;
+    if (q.e && (q.t === 'meaning' || q.t === 'listen')) { S.review(q.e, score >= 1 ? 1 : -1); counted = true; }
     if (q.t === 'drill') {
       const key = `${q.unit}#${q.idx}`;
       if (score >= 1) delete S.progress.mistakes[key];
       else if (score === 0) { const m = S.progress.mistakes[key]; S.progress.mistakes[key] = { unit: q.unit, idx: q.idx, count: (m ? m.count : 0) + 1, last: S.dayKey() }; }
     }
-    if (q.t === 'dictate') S.review(q.e, score >= 1 ? 1 : score > 0 ? 0 : -1);
-    S.logActivity();
+    if (q.t === 'dictate') { S.review(q.e, score >= 1 ? 1 : score > 0 ? 0 : -1); counted = true; }
+    if (!counted && !extra.skipped) S.logActivity();
     S.saveProgress();
     if (S.onProgress) S.onProgress();
     S.render();
@@ -275,7 +279,9 @@
   A.certificate = (view, levelId) => {
     const cert = store('certs')[levelId];
     const level = S.LEVELS[S.levelIndex(levelId)];
-    if (!cert || !level) {
+    // No such level, or a level without a test (Work): back to Progress.
+    if (!levelId || !level || !A.testFor(levelId)) { S.go('progress'); return; }
+    if (!cert) {
       view.innerHTML = `${S.backLink('progress', 'Progress · प्रगति')}<p class="empty">Pass the ${esc(levelId)} level test to get this certificate.</p>`;
       return;
     }
@@ -303,10 +309,11 @@
   const CASE_NAMES = { gen: 'Genitive', dat: 'Dative', acc: 'Accusative', ins: 'Instrumental', loc: 'Locative', voc: 'Vocative' };
   const TENSE_NAMES = { present: 'Present', past: 'Past', future: 'Future', imperative: 'Commands' };
 
+  // The words forgotten most often (shown in the report and practised by its button).
+  const mostForgotten = () => Object.entries(S.progress.lapses || {}).map(([pl, n]) => ({ e: S.LEXICON.get(pl), n })).filter((x) => x.e && !S.isLearned(x.e))
+    .sort((a, b) => b.n - a.n).slice(0, 12);
   A.report = (view) => {
-    const lapses = S.progress.lapses || {};
-    const forgotten = Object.entries(lapses).map(([pl, n]) => ({ e: S.LEXICON.get(pl), n })).filter((x) => x.e && !S.isLearned(x.e))
-      .sort((a, b) => b.n - a.n).slice(0, 12);
+    const forgotten = mostForgotten();
 
     const byUnit = {};
     Object.values(S.progress.mistakes || {}).forEach((m) => { byUnit[m.unit] = (byUnit[m.unit] || 0) + m.count; });
@@ -377,8 +384,8 @@
       case 'as-skip': answer(0, { heard: null, match: 0, skipped: true }); return true;
       case 'as-next': if (S.stopRecognition) S.stopRecognition(); run.busy = false; run.i += 1; run.answer = null; run.micError = ''; prepOrder(); S.render(); window.scrollTo(0, 0); return true;
       case 'as-weak-words': {
-        const lapses = S.progress.lapses || {};
-        Object.keys(lapses).forEach((pl) => { const e = S.LEXICON.get(pl); if (e && !S.isLearned(e)) S.progress.items[pl] = { b: Math.min(S.boxOf(e), 1), due: S.dayKey() }; });
+        // Only the words shown in the report, not every word ever forgotten.
+        mostForgotten().forEach(({ e }) => { S.progress.items[e.pl] = { b: Math.min(S.boxOf(e), 1), due: S.dayKey() }; });
         S.saveProgress();
         S.go('review');
         return true;

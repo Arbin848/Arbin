@@ -51,7 +51,8 @@
     t.chat.push({ who: 'them', pl, en, ne });
     t.order = S.shuffle(st.replies.map((r, i) => i));
     t.hint = false;
-    setTimeout(() => { if (talk === t) S.speak(pl); }, delay);
+    // Not while the microphone is listening, or it would hear the app.
+    setTimeout(() => { if (talk === t && !t.busy && S.route.name === 'talk') S.speak(pl); }, delay);
   }
   function accept(reply) {
     talk.chat.push({ who: 'me', pl: reply.pl, en: reply.en, ne: reply.ne });
@@ -130,7 +131,7 @@
       const hint = t.hintStep === t.step;
       const choices = `<div class="options single">${replies.map((r, k) => `
         <button class="option" data-action="talk-pick" data-index="${st.replies.indexOf(r)}"><kbd>${k + 1}</kbd><span class="opt-col"><span class="opt-pl" lang="pl">${polish(r.pl)}</span>${hint && !/^\(/.test(r.en) ? S.transHTML(r.en, r.ne) : ''}</span></button>`).join('')}</div>
-        ${hint ? '' : '<div class="row start"><button type="button" class="link-btn" data-action="talk-hint">Hint: show what the replies mean · अर्थ देखाउनुहोस्</button></div>'}`;
+        ${hint ? '' : '<div class="row start"><button type="button" class="link-btn" data-action="talk-meanings">Hint: show what the replies mean · अर्थ देखाउनुहोस्</button></div>'}`;
       let input = '';
       if (t.mode === 'choose') input = choices;
       else if (t.mode === 'type') {
@@ -180,6 +181,7 @@
 
   async function talkSay(view) {
     const t = talk;
+    S.stopSpeaking(); // the microphone must not hear the app's own voice
     t.busy = true; t.micError = '';
     X.talk(view, t.rp.id);
     const step = t.step;
@@ -561,7 +563,7 @@
 
   X.action = (a, el, view) => {
     switch (a) {
-      case 'talk-hint': talk.hintStep = talk.step; S.render(); return true;
+      case 'talk-meanings': talk.hintStep = talk.step; S.render(); return true;
       case 'talk-pick': {
         if (talk.busy || talk.done) return true;
         const st = talk.rp.steps[talk.step];
@@ -610,7 +612,14 @@
       case 'exam-start': exam.si = 0; S.render(); window.scrollTo(0, 0); return true;
       case 'exam-play': exam.plays[el.dataset.key] = (exam.plays[el.dataset.key] || 0) + 1; S.speak(el.dataset.text); S.render(); return true;
       case 'exam-answer': exam.answers[el.dataset.key] = Number(el.dataset.index); S.render(); return true;
-      case 'exam-check': exam.checked[exam.si] = true; S.logActivity(); S.saveProgress(); S.render(); return true;
+      case 'exam-check': {
+        exam.checked[exam.si] = true;
+        // Counts toward today's goal only if something was answered or written in this part.
+        const mine = (k) => k.startsWith(`${exam.si}-`);
+        const did = Object.keys(exam.answers).some(mine) || Object.entries(exam.writing).some(([k, v]) => mine(k) && String(v).trim());
+        if (did) S.logActivity();
+        S.saveProgress(); S.render(); return true;
+      }
       case 'exam-next': exam.si += 1; S.render(); window.scrollTo(0, 0); return true;
       case 'exam-restart': startExam(exam.x); exam.si = 0; S.render(); window.scrollTo(0, 0); return true;
       case 'exam-tick': exam.ticks[el.dataset.key] = el.checked; return true;
@@ -648,10 +657,10 @@
     return false;
   };
   X.key = (ev) => {
-    if (talk && S.route.name === 'talk' && S.route.arg && !talk.done && /^[1-3]$/.test(ev.key) && (talk.mode === 'choose' || talk.hint)) {
+    if (talk && S.route.name === 'talk' && S.route.arg && !talk.done && !talk.busy && /^[1-3]$/.test(ev.key) && (talk.mode === 'choose' || talk.hint)) {
       const st = talk.rp.steps[talk.step];
       const r = st.replies[talk.order[Number(ev.key) - 1]];
-      if (r) { if (r.ok) accept(r); else reject(r); S.render(); return true; }
+      if (r) { if (r.ok) { S.speak(r.pl); accept(r); } else reject(r); S.render(); return true; }
     }
     if (placement && S.route.name === 'placement' && /^[1-4]$/.test(ev.key) && placement.i < S.PLACEMENT.length && Number(ev.key) <= S.PLACEMENT[placement.i].options.length) {
       placement.answers[placement.i] = Number(ev.key) - 1; placement.i += 1; S.render(); return true;
