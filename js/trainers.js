@@ -153,7 +153,8 @@
       const form = (tense === 'present' ? v.present : v.future)[i];
       const answers = [form];
       // Imperfective future: "będę + infinitive" or "będę + past form" are both correct.
-      if (tense === 'future' && v.aspect === 'impf' && /^będ/.test(form)) {
+      // (Not for być itself, whose future is just "będę": "będę był" is wrong.)
+      if (tense === 'future' && v.aspect === 'impf' && /^będ\S* \S/.test(form)) {
         const aux = form.split(' ')[0];
         const sie = /\bsię\b/.test(v.inf) ? ' się' : '';
         const pastM = v.past.m[i < 3 ? 2 : 5].replace(/ się$/, '');
@@ -178,7 +179,7 @@
         <div class="seg chips" role="group">${Object.entries(TENSES).map(([k, t]) => `<button data-action="t-tense" data-tense="${k}" aria-pressed="${!!vstate.tenses[k]}">${t.en} · <span lang="ne">${t.ne}</span></button>`).join('')}</div>
       </details>`;
     if (!q) {
-      view.innerHTML = `${head('Verbs · क्रिया', 'Practise verbs', 'क्रिया अभ्यास', '', 'verbs', 'All verbs · सबै क्रिया')}${settings}<p class="empty">Choose at least one tense.</p>`;
+      view.innerHTML = `${head('Verbs · क्रिया', 'Practise verbs', 'क्रिया अभ्यास', '', 'verbs', 'All verbs · सबै क्रिया')}${settings}<p class="empty">${Object.values(vstate.tenses).some(Boolean) ? 'This verb has no form for the chosen tense (for example, finished verbs have no present tense). Choose another tense. · यो कालमा यस क्रियाको रूप छैन।' : 'Choose at least one tense.'}</p>`;
       return;
     }
     const tense = TENSES[q.tense];
@@ -219,8 +220,16 @@
     const input = view.querySelector('#verb-answer');
     if (!s || !s.q || s.result || !input || !input.value.trim()) return;
     s.given = input.value;
-    const answers = s.q.answers || [s.q.answer];
-    s.result = S.checkAnswer(s.given, answers);
+    const answers = [...(s.q.answers || [s.q.answer])];
+    // "ja robię" is fine when the prompt is "ja ___": drop a leading pronoun; with it,
+    // "ja się uczę" is fine too.
+    const PRON = /^(ja|ty|on|ona|ono|my|wy|oni|one)\s+/i;
+    let given = s.given.trim();
+    if (PRON.test(given)) {
+      given = given.replace(PRON, '');
+      answers.slice().forEach((a) => { const m = a.match(/^(\S+) się$/); if (m) answers.push(`się ${m[1]}`); });
+    }
+    s.result = S.checkAnswer(given, answers);
     s.total += 1;
     const st = prog('verbs')[s.q.v.inf] || { r: 0, w: 0 };
     const ts = prog('tenseStats')[s.q.tense] || { r: 0, w: 0 };
@@ -369,12 +378,13 @@
     s.given = input.value;
     s.result = S.checkAnswer(s.given, [s.q.answer]);
     s.trap = null;
-    if (s.result === 'wrong') {
+    // "mama" for "mamą" is not an accent slip but the wrong case: say which case it was.
+    if (s.result !== 'right') {
       // Name the case the learner actually used, when it is another form of the same noun.
       for (const num of ['sg', 'pl']) {
         if (!s.q.n[num]) continue;
         for (const k of CASE_KEYS) {
-          if (S.clean(s.q.n[num][k]) === S.clean(s.given)) { s.trap = `${(T.CASES[k] || { name: k }).name}${num === 'pl' ? ' plural' : ''}`; break; }
+          if (S.clean(s.q.n[num][k]) === S.clean(s.given)) { s.trap = `${(T.CASES[k] || { name: k }).name}${num === 'pl' ? ' plural' : ''}`; s.result = 'wrong'; break; }
         }
         if (s.trap) break;
       }
@@ -576,7 +586,7 @@
       ${head(`Reviewing · ${esc(u.level)}`, esc(u.title), u.titleNe, 'Mark each line. For anything wrong, write what it should be. · हरेक लाइन चिन्ह लगाउनुहोस्; गलत भएमा सही रूप लेख्नुहोस्।', 'check', 'All units · सबै पाठ')}
       <ol class="check-list">${items.map((it) => {
         const m = marks[it.key];
-        return `<li class="check-item ${m ? (m.ok ? 'is-ok' : 'is-bad') : ''}">
+        return `<li class="check-item ${m && m.ok === true ? 'is-ok' : m && m.ok === false ? 'is-bad' : ''}">
           <span class="badge">${it.kind}</span>
           ${it.pl ? `<p class="q-pl" lang="pl"><b>${polish(it.pl)}</b> ${sayBtn(it.pl)}</p>` : ''}
           ${it.pron ? `<p class="prons"><span class="pron">${esc(it.pron)}</span><span class="pron ne" lang="ne">${esc(it.proNe)}</span></p>` : ''}
@@ -597,7 +607,7 @@
     return `
         <h3 class="section-h">Send your corrections · सुधार पठाउनुहोस्</h3>
         ${chunks.length ? `
-          <p class="hint">${chunks.reduce((n, c) => n + c.body.split('\n- [ ]').length - 1, 0)} problems marked. Each button opens a pre-filled issue on GitHub (you need a free GitHub account).</p>
+          <p class="hint">${((n) => `${n} ${n === 1 ? 'problem' : 'problems'}`)(chunks.reduce((n, c) => n + c.body.split('\n- [ ]').length - 1, 0))} marked. Each button opens a pre-filled issue on GitHub (you need a free GitHub account).</p>
           <div class="row start">${chunks.map((c, i) => `<a class="btn primary" target="_blank" rel="noopener" href="https://github.com/${S.REPO}/issues/new?title=${encodeURIComponent(c.title)}&body=${encodeURIComponent(c.body)}">Open report${chunks.length > 1 ? ` ${i + 1}/${chunks.length}` : ''} on GitHub</a>`).join('')}</div>
           <p class="hint">No GitHub account? Copy the text and send it by message or email instead.</p>
           <textarea class="code" readonly rows="5" id="chk-text">${esc(chunks.map((c) => `${c.title}\n\n${c.body}`).join('\n\n'))}</textarea>
@@ -644,8 +654,9 @@
         const marks = (check.marks[id] = check.marks[id] || {});
         const ok = el.dataset.ok === '1';
         const prev = marks[el.dataset.key];
-        marks[el.dataset.key] = prev && prev.ok === ok ? undefined : { ok, note: prev ? prev.note : '' };
-        if (!marks[el.dataset.key]) delete marks[el.dataset.key];
+        // Tapping the same mark again removes it, but a typed note is kept (as an unmarked note).
+        if (prev && prev.ok === ok) { if (prev.note) marks[el.dataset.key] = { ok: null, note: prev.note }; else delete marks[el.dataset.key]; }
+        else marks[el.dataset.key] = { ok, note: prev ? prev.note : '' };
         saveCheck();
         const y = window.scrollY;
         S.render();

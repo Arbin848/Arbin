@@ -68,7 +68,9 @@
       ? `<span class="pl say-tap" lang="pl" role="button" tabindex="0" data-action="say" data-text="${t}" title="Listen">${S.highlight(t)}</span>`
       : `<span class="pl">${t}</span>`))
     .replace(/\u0001(.+?)\u0001/g, '<strong>$1</strong>')
-    .replace(/\u0001/g, '');
+    .replace(/\u0001/g, '')
+    // Nepali inside English text (tables, tips) is marked as Nepali for screen readers and fonts.
+    .split(/(<[^>]+>)/).map((part) => (part.startsWith('<') ? part : part.replace(/[\u0900-\u097F][\u0900-\u097F\s।,()\-–/]*[\u0900-\u097F।]|[\u0900-\u097F]/g, (m) => `<span lang="ne">${m}</span>`))).join('');
   // The Polish bits of a marked-up text, found the same way S.markup finds them.
   S.polishBits = (text) => {
     const out = [];
@@ -359,6 +361,15 @@
   let player = null;
   let fileToken = 0;
   function playFile(src, isSlow, onEnd, onFail) {
+    // Offline and never saved: use the device voice straight away, without a failed request.
+    if (navigator.onLine === false && window.caches && !playFile.checked) {
+      const t = fileToken + 1;
+      caches.match(new URL(src, location.href).href).then((hit) => {
+        if (t !== fileToken + 1) return; // something else started meanwhile
+        if (hit) { playFile.checked = true; try { playFile(src, isSlow, onEnd, onFail); } finally { playFile.checked = false; } } else if (onFail) onFail();
+      }).catch(() => { if (onFail) onFail(); });
+      return;
+    }
     if (!player) { try { player = new Audio(); } catch (e) { if (onFail) onFail(); return; } }
     const t = ++fileToken;
     current = player;
@@ -576,11 +587,11 @@
     const b = S.boxOf(e);
     let cells = '';
     for (let i = 1; i <= S.MAX_BOX; i++) cells += `<i class="${i <= b ? 'on' : ''}"></i>`;
-    return `<span class="boxes" title="Memory strength ${b} of ${S.MAX_BOX}" aria-label="Memory strength ${b} of ${S.MAX_BOX}">${cells}</span>`;
+    return `<span class="boxes" role="img" title="Memory strength ${b} of ${S.MAX_BOX}" aria-label="Memory strength ${b} of ${S.MAX_BOX}">${cells}</span>`;
   };
   S.bar = (done, total) => {
     const pct = total ? Math.round((done / total) * 100) : 0;
-    return `<span class="bar" role="progressbar" aria-valuenow="${pct}" aria-valuemin="0" aria-valuemax="100"><i style="width:${pct}%"></i></span>`;
+    return `<span class="bar" role="progressbar" aria-label="Progress" aria-valuenow="${pct}" aria-valuemin="0" aria-valuemax="100"><i style="width:${pct}%"></i></span>`;
   };
   S.POLISH_KEYS = ['ą', 'ć', 'ę', 'ł', 'ń', 'ó', 'ś', 'ź', 'ż'];
   S.keysHTML = () => `<div class="keys" aria-label="Polish letters">${S.POLISH_KEYS.map((k) => `<button type="button" class="key" data-action="key" data-key="${k}">${k}</button>`).join('')}</div>`;

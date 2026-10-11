@@ -652,7 +652,8 @@ tbody tr:last-child td { border-bottom: 0; }
 .opt-col .m-en { font-weight: 400; }
 
 .mic svg { width: 18px; height: 18px; }
-.btn.live { animation: pulse 1s ease-in-out infinite alternate; }
+@media (prefers-reduced-motion: no-preference) { .btn.live { animation: pulse 1s ease-in-out infinite alternate; } }
+.btn.live { border-color: var(--accent); }
 @keyframes pulse { from { box-shadow: 0 0 0 0 var(--accent-soft); } to { box-shadow: 0 0 0 8px var(--accent-soft); } }
 .compare { display: flex; flex-direction: column; align-items: center; gap: 8px; width: 100%; }
 .compare audio { width: 100%; max-width: 360px; }
@@ -822,7 +823,7 @@ a.btn { text-decoration: none; }
 
 /* ---------- v5: layout, guided lessons, pronunciation ---------- */
 :root {
-  --lv-Start: #6b4fd8; --lv-A1: #1f8a5b; --lv-A2: #1f6fb8; --lv-B1: #b8650a; --lv-B2: #c8102e; --lv-Work: #55606c;
+  --lv-Start: #6b4fd8; --lv-A1: #1a7a50; --lv-A2: #1f6fb8; --lv-B1: #a3590a; --lv-B2: #c8102e; --lv-Work: #55606c;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) { --lv-Start: #a993ff; --lv-A1: #5fc68f; --lv-A2: #6fb2f2; --lv-B1: #f0a54a; --lv-B2: #ff5c70; --lv-Work: #a6b0bb; }
@@ -1007,7 +1008,9 @@ button.hint-chip:hover { border-color: var(--accent); border-style: solid; }
 .num-display { font-variant-numeric: tabular-nums; }
 .listen-player { gap: 12px; }
 .badges { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 140px), 1fr)); gap: 8px; }
-.badge-card { border: 1px dashed var(--line); border-radius: 12px; padding: 10px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 2px; opacity: 0.55; filter: grayscale(1); }
+.badge-card { border: 1px dashed var(--line); border-radius: 12px; padding: 10px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 2px; }
+/* Locked badges: grey icon and dashed border, but readable text. */
+.badge-card:not(.on) > :first-child { filter: grayscale(1); opacity: 0.5; }
 .badge-card.on { opacity: 1; filter: none; border-style: solid; border-color: var(--good); background: var(--good-soft); }
 .badge-icon { font-size: 1.8rem; line-height: 1.2; }
 .badge-card b { font-size: 0.9rem; }
@@ -1074,3 +1077,13 @@ h2[tabindex="-1"]:focus { outline: none; }
 .dialogue.faded { opacity: 0.7; }
 .turn-score { margin-top: 4px; font-weight: 700; font-size: 0.85rem; }
 .turn-score.ok { color: var(--good); } .turn-score.close { color: var(--warn); } .turn-score.bad { color: var(--accent); }
+
+/* Larger touch targets for small links and words. */
+@media (pointer: coarse) {
+  .report, .link-btn { display: inline-flex; align-items: center; min-height: 40px; }
+  .entry .from { display: inline-flex; align-items: center; min-height: 36px; }
+  .tok { min-width: 24px; text-align: center; }
+  .seg button, .chips button { min-height: 40px; }
+}
+
+.brand-h { margin: 0; font-size: inherit; font-weight: inherit; line-height: inherit; }
