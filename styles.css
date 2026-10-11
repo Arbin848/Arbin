@@ -1064,3 +1064,13 @@ h2[tabindex="-1"]:focus { outline: none; }
   .stats { gap: 12px; }
   .stat span { font-size: 0.62rem; letter-spacing: 0.02em; }
 }
+
+/* Your turn (speaking) */
+.turn-cta svg, .mic svg { width: 18px; height: 18px; flex: none; }
+.turn-card { display: flex; flex-direction: column; gap: 10px; min-height: 0; }
+.turn-meaning { font-family: var(--font-display); font-size: 1.25rem; font-weight: 700; margin: 0; }
+.turn-meaning[lang="ne"] { font-size: 1.1rem; color: var(--muted); font-weight: 600; }
+.turn-answer { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; padding: 10px 12px; border-radius: 10px; background: var(--sunk); }
+.dialogue.faded { opacity: 0.7; }
+.turn-score { margin-top: 4px; font-weight: 700; font-size: 0.85rem; }
+.turn-score.ok { color: var(--good); } .turn-score.close { color: var(--warn); } .turn-score.bad { color: var(--accent); }

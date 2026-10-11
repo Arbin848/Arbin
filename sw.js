@@ -1,11 +1,11 @@
 // Offline support: keeps the whole course on the device after the first visit.
 // Pages and data come from the cache at once and are refreshed in the background.
 // Native recordings live in their own cache, kept across app updates.
-const CACHE = 'slowka-v10';
+const CACHE = 'slowka-v11';
 const AUDIO_CACHE = 'slowka-audio-v1';
 const SHELL = [
   './', 'index.html', 'styles.css', 'app.js', 'manifest.webmanifest',
-  'js/core.js', 'js/practice.js', 'js/extras.js', 'js/trainers.js', 'js/guided.js', 'js/assess.js', 'js/numbers.js', 'js/listening.js', 'js/pron.js', 'js/mywords.js', 'audio/manifest.js', 'audio/tts.js',
+  'js/core.js', 'js/practice.js', 'js/extras.js', 'js/trainers.js', 'js/guided.js', 'js/assess.js', 'js/numbers.js', 'js/listening.js', 'js/pron.js', 'js/mywords.js', 'js/speaking.js', 'audio/manifest.js', 'audio/tts.js',
   'icons/icon-192.png', 'icons/icon-512.png',
   'data/start.js', 'data/a1-part1.js', 'data/a1-part2.js', 'data/a2-part1.js', 'data/a2-part2.js',
   'data/b1-part1.js', 'data/b1-part2.js', 'data/b2.js', 'data/work.js',

@@ -59,9 +59,19 @@
 
   // ---------- flashcards ----------
 
+  // Daily review asks words you already know a little from the other side: from the meaning
+  // (say it, or type it) or from sound. Remembering a word yourself makes memory much stronger
+  // than recognising it. New and weak words (box 0–1) are shown in Polish first.
+  function reviewKind(e, n) {
+    if (S.boxOf(e) < 2) return 'see';
+    const short = e.pl.split(/\s+/).length <= 3 && !/[…_]/.test(e.pl);
+    const kinds = ['recall', ...(short ? ['type'] : []), ...(S.canSpeak ? ['hear'] : [])];
+    return kinds[n % kinds.length];
+  }
   function startCards() {
     const cards = ctx.review ? ctx.pool.slice(0, 20) : S.pickSession(ctx.pool, SESSION_SIZE);
-    session = { mode: 'cards', cards, i: 0, flipped: false, tally: { again: 0, good: 0, easy: 0 } };
+    const kinds = cards.map((e, n) => (ctx.review ? reviewKind(e, n) : null));
+    session = { mode: 'cards', cards, kinds, i: 0, flipped: false, typed: null, tally: { again: 0, good: 0, easy: 0 } };
   }
 
   function drawCards() {
@@ -93,7 +103,10 @@
       return;
     }
     const e = s.cards[s.i];
-    const plFirst = S.settings.dir === 'pl';
+    const kind = s.kinds[s.i] || (S.settings.dir === 'pl' ? 'see' : 'recall');
+    if (kind === 'type') { drawTypeCard(e); return; }
+    if (kind === 'hear') { drawHearCard(e); return; }
+    const plFirst = kind === 'see';
     const front = plFirst
       ? `<span class="label">Polish · पोलिश</span><span class="word" lang="pl">${polish(e.pl)}</span>`
       : `<span class="label">Say it in Polish · पोलिशमा भन्नुहोस्</span>${S.meaningHTML(e, 'big')}`;
@@ -101,7 +114,7 @@
       ? `<span class="rule"></span>${S.meaningHTML(e, 'big')}${S.pronHTML(e)}`
       : `<span class="rule"></span><span class="word sm" lang="pl">${polish(e.pl)}</span>${S.pronHTML(e)}`;
     stage.innerHTML = `
-      <div class="meta"><span>Card ${s.i + 1} of ${s.cards.length}</span>${dirToggle()}${S.boxMeter(e)}</div>
+      <div class="meta"><span>Card ${s.i + 1} of ${s.cards.length}</span>${ctx.review ? '' : dirToggle()}${S.boxMeter(e)}</div>
       <button class="card flip-in" data-action="flip" ${s.flipped ? '' : 'data-autofocus'}>
         ${front}
         ${s.flipped ? back : '<span class="hint">Tap or press Space to see the answer · उत्तर हेर्न थिच्नुहोस्</span>'}
@@ -115,12 +128,73 @@
           : '<button class="btn primary" data-action="flip"><kbd>Space</kbd> Show answer</button>'}
       </div>`;
   }
+  // Review card: hear the word, then show what it was.
+  function drawHearCard(e) {
+    const s = session;
+    stage.innerHTML = `
+      <div class="meta"><span>Card ${s.i + 1} of ${s.cards.length} · Listen · सुन्नुहोस्</span>${S.boxMeter(e)}</div>
+      <button class="card flip-in" data-action="flip" ${s.flipped ? '' : 'data-autofocus'}>
+        <span class="label">What did you hear? Say what it means · के सुन्नुभयो? अर्थ भन्नुहोस्</span>
+        ${s.flipped ? `<span class="word sm" lang="pl">${polish(e.pl)}</span><span class="rule"></span>${S.meaningHTML(e, 'big')}${S.pronHTML(e)}` : '<span class="hint">Tap to see the answer · उत्तर हेर्न थिच्नुहोस्</span>'}
+      </button>
+      <div class="row">
+        <button class="btn listen" data-action="say" data-text="${esc(e.pl)}">${S.SPEAKER} Play again</button>${S.slowBtn(e.pl)}
+        ${s.flipped ? rateButtons() : '<button class="btn primary" data-action="flip"><kbd>Space</kbd> Show answer</button>'}
+      </div>`;
+    if (!s.flipped && !s.heard) { s.heard = s.i; setTimeout(() => { if (session === s && s.i === s.heard) S.speak(e.pl); }, 200); }
+  }
+  // Review card: write the Polish from the meaning. Checked like the Type mode.
+  function drawTypeCard(e) {
+    const s = session;
+    const r = s.typed;
+    stage.innerHTML = `
+      <div class="meta"><span>Card ${s.i + 1} of ${s.cards.length} · Write it · लेख्नुहोस्</span>${S.boxMeter(e)}</div>
+      <form class="card" data-form="rv-type" autocomplete="off">
+        <span class="label">Write it in Polish · पोलिशमा लेख्नुहोस्</span>
+        ${S.meaningHTML(e, 'big')}
+        <input class="type-input" id="rv-answer" data-keys-target lang="pl" spellcheck="false" autocapitalize="off" autocorrect="off"
+          aria-label="Your answer" value="${esc(r ? r.given : '')}" ${r ? 'readonly' : 'data-autofocus'}>
+        ${r ? '' : `${S.keysHTML()}<div class="row"><button type="button" class="btn" data-action="rv-giveup">I don't know · थाहा छैन</button><button type="submit" class="btn primary"><kbd>Enter</kbd> Check</button></div>`}
+      </form>
+      ${r ? `<div class="feedback ${r.result}" role="status"><div class="fb-text">
+          <strong>${{ right: 'Dobrze! Correct · सही', close: 'Almost: check the accents · लगभग सही', wrong: 'Not quite · मिलेन' }[r.result]}</strong>
+          <span class="answer" lang="pl">${polish(e.pl)}</span>${S.pronHTML(e)}</div>
+        <div class="row">${S.listenBtn(e.pl, true)}<button class="btn primary" data-action="rv-next" data-autofocus><kbd>Enter</kbd> Next</button></div></div>` : ''}`;
+  }
+  function checkReviewType(giveUp) {
+    const s = session;
+    if (!s || s.mode !== 'cards' || s.typed) return;
+    const e = s.cards[s.i];
+    const input = stage.querySelector('#rv-answer');
+    const given = giveUp ? '' : (input ? input.value : '');
+    if (!giveUp && !given.trim()) return;
+    const result = giveUp ? 'wrong' : S.checkAnswer(given, [e.pl, ...e.pl.split(' / ')]);
+    s.typed = { given, result };
+    S.review(e, result === 'right' ? 1 : result === 'close' ? 0 : 'reset');
+    s.tally[result === 'right' ? 'good' : 'again'] += 1;
+    draw();
+    S.speak(e.pl);
+  }
+  function nextReviewCard() {
+    const s = session;
+    if (!s || s.mode !== 'cards' || !s.typed) return;
+    s.typed = null;
+    s.flipped = false;
+    s.i += 1;
+    draw();
+  }
+  const rateButtons = () => `<button class="btn again" data-action="rate" data-rate="again"><kbd>1</kbd> Again <span lang="ne">फेरि</span></button>
+             <button class="btn good" data-action="rate" data-rate="good" data-autofocus><kbd>2</kbd> Good <span lang="ne">ठीक</span></button>
+             <button class="btn" data-action="rate" data-rate="easy"><kbd>3</kbd> Easy <span lang="ne">सजिलो</span></button>`;
+
   function flip() {
     const s = session;
     if (!s || s.mode !== 'cards' || s.flipped || s.i >= s.cards.length) return;
+    const kind = s.kinds[s.i] || (S.settings.dir === 'pl' ? 'see' : 'recall');
+    if (kind === 'type') return;
     s.flipped = true;
     draw();
-    if (S.settings.dir !== 'pl') S.speak(s.cards[s.i].pl);
+    if (kind === 'recall') S.speak(s.cards[s.i].pl);
   }
   function rate(kind) {
     const s = session;
@@ -552,6 +626,8 @@
   P.action = (a, el) => {
     switch (a) {
       case 'flip': flip(); return true;
+      case 'rv-giveup': checkReviewType(true); return true;
+      case 'rv-next': nextReviewCard(); return true;
       case 'rate': rate(el.dataset.rate); return true;
       case 'new-cards': session = null; if (ctx.review) S.render(); else draw(); return true;
       case 'answer': answer(Number(el.dataset.index)); return true;
@@ -593,6 +669,7 @@
   };
 
   P.submit = (form) => {
+    if (form.dataset.form === 'rv-type') { checkReviewType(false); return true; }
     if (form.dataset.form === 'type') { checkType(); return true; }
     if (form.dataset.form === 'dictate') { checkDictate(false); return true; }
     if (form.dataset.form === 'drill-fill') { drillFill(); return true; }
@@ -604,6 +681,7 @@
     if (!s || !stage || !stage.isConnected) return false;
     const onButton = ev.target.tagName === 'BUTTON';
     if (s.mode === 'cards') {
+      if (s.typed && ev.key === 'Enter' && !onButton) { ev.preventDefault(); nextReviewCard(); return true; }
       if (ev.key === ' ' && !s.flipped && !onButton) { ev.preventDefault(); flip(); return true; }
       if (s.flipped && ['1', '2', '3'].includes(ev.key)) { rate(['again', 'good', 'easy'][Number(ev.key) - 1]); return true; }
     } else if ((s.mode === 'quiz' || s.mode === 'listen') && s.picked === null && /^[1-4]$/.test(ev.key)) {

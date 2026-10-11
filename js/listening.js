@@ -89,7 +89,7 @@
             </div>
           </div>`).join('')}</div>`
         : '<div class="row start"><button class="link-btn" data-action="ls-show">I need help: show the text · पाठ देखाउनुहोस्</button></div>'}
-      ${done ? '<div class="row start"><button class="btn" data-action="ls-restart">↺ Try again · फेरि प्रयास गर्नुहोस्</button></div>' : ''}
+      ${done ? `<div class="row start"><button class="btn" data-action="ls-restart">↺ Try again · फेरि प्रयास गर्नुहोस्</button>${t.lines.length >= 2 ? `<button class="btn turn-cta" data-action="go" data-to="turn.${t.id}">${S.MIC} Speak these lines yourself · आफैं बोल्नुहोस्</button>` : ''}</div>` : ''}
       <p class="report-row">${S.reportHTML(t.title, `Listening ${t.id}`)}</p>`;
     L._pitch = pitch;
   };

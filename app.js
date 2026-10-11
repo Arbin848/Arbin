@@ -11,7 +11,7 @@
 
   // Routes are bare tokens so they survive in a link's #anchor: "a1-03", "talk.rp-a1-cafe", "review".
   S.route = { name: 'home' };
-  const PAGES = ['mywords', 'numbers', 'listen', 'revise', 'cert', 'report', 'course', 'practice', 'learn', 'review', 'alphabet', 'dictionary', 'settings', 'talk', 'read', 'exam', 'placement', 'mistakes', 'progress', 'verbs', 'cases', 'sounds', 'check'];
+  const PAGES = ['turn', 'mywords', 'numbers', 'listen', 'revise', 'cert', 'report', 'course', 'practice', 'learn', 'review', 'alphabet', 'dictionary', 'settings', 'talk', 'read', 'exam', 'placement', 'mistakes', 'progress', 'verbs', 'cases', 'sounds', 'check'];
 
   let currentHash = null;
   S.go = (to, opts = {}) => {
@@ -82,6 +82,7 @@
     else if (r.name === 'sounds') r.arg ? S.Trainers.sound(view, r.arg) : S.Trainers.soundList(view);
     else if (r.name === 'numbers') S.Numbers.render(view);
     else if (r.name === 'mywords') S.MyWords.render(view, r.arg);
+    else if (r.name === 'turn') S.Speaking.render(view, r.arg);
     else if (r.name === 'listen') r.arg ? S.Listening.task(view, r.arg) : S.Listening.list(view);
     else if (r.name === 'revise') S.Assess.render(view, r.arg);
     else if (r.name === 'cert') S.Assess.certificate(view, r.arg);
@@ -93,7 +94,7 @@
     else renderHome();
   }
   S.onProgress = () => renderStats();
-  const NAV = { mywords: 'practice', numbers: 'practice', listen: 'practice', revise: 'course', cert: 'progress', report: 'progress', home: 'home', course: 'course', unit: 'course', learn: 'course', practice: 'practice', review: 'practice', verbs: 'practice', cases: 'practice', sounds: 'practice', alphabet: 'practice', dictionary: 'practice', mistakes: 'practice', talk: 'practice', read: 'practice', exam: 'practice', placement: 'practice', progress: 'progress', settings: 'progress', check: 'progress' };
+  const NAV = { turn: 'practice', mywords: 'practice', numbers: 'practice', listen: 'practice', revise: 'course', cert: 'progress', report: 'progress', home: 'home', course: 'course', unit: 'course', learn: 'course', practice: 'practice', review: 'practice', verbs: 'practice', cases: 'practice', sounds: 'practice', alphabet: 'practice', dictionary: 'practice', mistakes: 'practice', talk: 'practice', read: 'practice', exam: 'practice', placement: 'practice', progress: 'progress', settings: 'progress', check: 'progress' };
   function renderNav() {
     const cur = NAV[S.route.name] || 'home';
     document.querySelectorAll('.bottom-nav button').forEach((b) => b.setAttribute('aria-current', b.dataset.to === cur ? 'page' : 'false'));
@@ -306,7 +307,7 @@
       ${group('Vocabulary', 'शब्द', [['review', due, 'Daily review', 'दैनिक दोहोर्याइ', due > 0], ['mywords', (S.progress.mywords || []).length || '+', 'My words', 'मेरा शब्द'], ['numbers', '123', 'Numbers & prices', 'अङ्क र मूल्य'], ['dictionary', S.ENTRIES.length, 'Dictionary', 'शब्दकोश']])}
       ${group('Grammar', 'व्याकरण', [['verbs', S.Trainers.VERBS.length, 'Verbs', 'क्रियापद'], ['cases', 7, 'Cases', 'विभक्ति'], ['mistakes', mistakes, 'My mistakes', 'मेरा गल्ती', mistakes > 0]])}
       ${group('Pronunciation', 'उच्चारण', [['alphabet', '<span lang="pl">Ąą</span>', 'Alphabet', 'वर्णमाला'], ['sounds', S.Trainers.SOUNDS.length, 'Sounds lab', 'ध्वनि अभ्यास']])}
-      ${group('Real life', 'वास्तविक जीवन', [['listen', S.Listening.TASKS.length, 'Listening', 'सुनाइ'], ['talk', S.ROLEPLAYS.length, 'Conversations', 'संवाद'], ['read', S.STORIES.length, 'Reading', 'पढाइ']])}
+      ${group('Real life', 'वास्तविक जीवन', [['turn', S.Speaking.list().length, 'Speaking: your turn', 'बोल्ने अभ्यास', true], ['listen', S.Listening.TASKS.length, 'Listening', 'सुनाइ'], ['talk', S.ROLEPLAYS.length, 'Conversations', 'संवाद'], ['read', S.STORIES.length, 'Reading', 'पढाइ']])}
       ${group('Tests', 'परीक्षा', [['placement', '30', 'Find my level', 'स्तर परीक्षा'], ['exam', 'B1', 'B1 exam practice', 'B1 परीक्षा']])}`;
   }
 
@@ -398,7 +399,8 @@
               ${S.shows('meaning', 'ne') ? `<div class="m-ne" lang="ne">${esc(ne)}</div>` : ''}
             </div>
           </div>`).join('')}
-      </div>` : '';
+      </div>
+      <div class="row start"><button class="btn turn-cta" data-action="go" data-to="turn.${u.id}">${S.MIC} Your turn: speak this dialogue · तपाईंको पालो</button></div>` : '';
     const hasDrills = (S.DRILLS[u.id] || []).length > 0;
     return `
       <article class="lesson">
@@ -426,8 +428,8 @@
       <header class="unit-head">
         <span class="eyebrow">Daily review · दैनिक दोहोर्याइ</span>
         <h2>${due.length ? `${due.length} ${due.length === 1 ? 'word is' : 'words are'} due today` : 'Daily review'}</h2>
-        <p class="hint">Words you have practised come back on a schedule: tomorrow, then in 2, 4, 7 and 14 days. A few minutes every day is the fastest way to remember.<br>
-        <span lang="ne">अभ्यास गरेका शब्दहरू तालिका अनुसार फर्कन्छन्: भोलि, अनि २, ४, ७ र १४ दिनपछि। हरेक दिन केही मिनेट दोहोर्‍याउनु नै छिटो सम्झने उपाय हो।</span></p>
+        <p class="hint">Words you have practised come back on a schedule: tomorrow, then in 2, 4, 7 and 14 days. Words you already know a little are asked the other way round: from the meaning (say or write the Polish) or from sound. A few minutes every day is the fastest way to remember.<br>
+        <span lang="ne">अभ्यास गरेका शब्दहरू तालिका अनुसार फर्कन्छन्: भोलि, अनि २, ४, ७ र १४ दिनपछि। अलि-अलि जानेका शब्दहरू उल्टो तरिकाले सोधिन्छन्: अर्थबाट पोलिश भन्नुहोस् वा लेख्नुहोस्, वा सुनेर चिन्नुहोस्। हरेक दिन केही मिनेट दोहोर्‍याउनु नै छिटो सम्झने उपाय हो।</span></p>
       </header>
       <section class="stage" id="stage"></section>
       ${S.Extras.mistakeItems().length ? `<section class="card compact extra-review"><span class="label">Also due · यो पनि दोहोर्‍याउनुहोस्</span>
@@ -635,6 +637,7 @@
     if (S.Assess.action(a, el, view)) return;
     if (S.Numbers.action(a, el, view)) return;
     if (S.MyWords.action(a, el, view)) return;
+    if (S.Speaking.action(a, el, view)) return;
     if (S.Listening.action(a, el, view)) return;
     if (S.Extras.action(a, el, view)) return;
     if (S.Trainers.action(a, el, view)) return;
@@ -755,6 +758,7 @@
     if (S.Guided.key(ev)) return;
     if (S.Assess.key(ev)) return;
     if (S.Numbers.key(ev)) return;
+    if (S.Speaking.key(ev)) return;
     S.Extras.key(ev);
   });
 

@@ -178,7 +178,7 @@
                 ${S.shows('meaning', 'ne') ? `<div class="m-ne" lang="ne">${esc(ne)}</div>` : ''}
               </div>
             </div>`).join('')}</div>
-          ${shown < lines.length ? `<div class="row"><button class="btn primary" data-action="g-line" data-autofocus>Next line · अर्को लाइन (${shown}/${lines.length})</button></div>` : '<p class="hint">That is the whole dialogue. · पूरा संवाद सकियो।</p>'}`;
+          ${shown < lines.length ? `<div class="row"><button class="btn primary" data-action="g-line" data-autofocus>Next line · अर्को लाइन (${shown}/${lines.length})</button></div>` : `<p class="hint">That is the whole dialogue. · पूरा संवाद सकियो।</p><div class="row start"><button class="btn turn-cta" data-action="go" data-to="turn.${u.id}">${S.MIC} Your turn: speak this dialogue · तपाईंको पालो</button></div>`}`;
       }
       case 'grammar':
         return `${say('Now practise the grammar from this lesson. Read the explanation after each answer: that is where you learn the most.', 'अब यो पाठको व्याकरण अभ्यास गर्नुहोस्। हरेक उत्तरपछिको व्याख्या पढ्नुहोस्: त्यहीँबाट धेरै सिकिन्छ।')}<section class="stage" id="g-stage" aria-live="polite"></section>`;
