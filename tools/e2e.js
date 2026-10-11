@@ -613,8 +613,8 @@ const bad = (name, why) => { results.fail++; results.failures.push(`${name}: ${w
       if (!/złoty/.test(await p.textContent('.sheet .meaning').catch(() => '')) && !(await p.evaluate(() => document.querySelector('.sheet').textContent.includes('Promo')))) throw new Error('sheet content missing');
     });
     await check(p, 'lesson end: missed words are practised again; summary shows the scores', async () => {
-      await go(p, 'learn.a1-02');
-      const steps = await p.evaluate(() => window.Slowka.Guided ? null : null);
+      await p.evaluate(() => { const g = window.Slowka.progress.guided || {}; if (g['a1-02']) g['a1-02'].step = 0; });
+      await go(p, 'home'); await go(p, 'learn.a1-02');
       for (let k = 0; k < 40; k++) {
         if (await p.$('[data-action="g-quiz"]:not([disabled])')) {
           // answer wrong on purpose

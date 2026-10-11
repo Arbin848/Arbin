@@ -16,6 +16,7 @@
   let currentHash = null;
   S.go = (to, opts = {}) => {
     S.stopSpeaking();
+    if (S.Speaking) S.Speaking.reset(); // a dialogue starts fresh each time it is opened
     S.Practice.reset();
     S.Trainers.resetSessions(opts.keep);
     const [name, arg] = String(to || 'home').split(/\.(.+)/);
@@ -644,6 +645,7 @@
     switch (a) {
       case 'go': S.go(el.dataset.to, { q: el.dataset.q }); break;
       case 'tab':
+        S.stopSpeaking();
         S.route.tab = el.dataset.tab;
         S.Practice.reset();
         renderUnit();

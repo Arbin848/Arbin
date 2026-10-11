@@ -70,6 +70,8 @@
   // than recognising it. New and weak words (box 0–1) are shown in Polish first.
   function reviewKind(e, n) {
     if (S.boxOf(e) < 2) return 'see';
+    // When the English meaning gives the word away (Nepal, bank, hobby…), asking from it is no test.
+    if (S.fold(e.en).includes(S.fold(e.pl)) || S.fold(e.pl).includes(S.fold(e.en))) return S.canSpeak ? 'hear' : 'see';
     const short = e.pl.split(/\s+/).length <= 3 && !/[…_]/.test(e.pl);
     const kinds = ['recall', ...(short ? ['type'] : []), ...(S.canSpeak ? ['hear'] : [])];
     return kinds[n % kinds.length];
@@ -147,7 +149,7 @@
         <button class="btn listen" data-action="say" data-text="${esc(e.pl)}">${S.SPEAKER} Play again</button>${S.slowBtn(e.pl)}
         ${s.flipped ? rateButtons() : '<button class="btn primary" data-action="flip"><kbd>Space</kbd> Show answer</button>'}
       </div>`;
-    if (!s.flipped && !s.heard) { s.heard = s.i; setTimeout(() => { if (session === s && s.i === s.heard) S.speak(e.pl); }, 200); }
+    if (!s.flipped && s.heard !== s.i) { s.heard = s.i; setTimeout(() => { if (session === s && s.i === s.heard) S.speak(e.pl); }, 200); }
   }
   // Review card: write the Polish from the meaning. Checked like the Type mode.
   function drawTypeCard(e) {
@@ -173,10 +175,13 @@
     const e = s.cards[s.i];
     const input = stage.querySelector('#rv-answer');
     const given = giveUp ? '' : (input ? input.value : '');
-    if (!giveUp && !given.trim()) return;
-    const result = giveUp ? 'wrong' : S.checkAnswer(given, [e.pl, ...e.pl.split(' / ')]);
+    if (!giveUp && !given.trim()) { if (input) { input.placeholder = 'Type the Polish, or tap "I don\'t know"'; input.focus(); } return; }
+    // Other words with the same meaning are right too ("allergy": alergia or uczulenie).
+    const same = S.ENTRIES.filter((x) => x !== e && S.clean(x.en) === S.clean(e.en)).flatMap((x) => [x.pl, ...x.pl.split(' / ')]);
+    const result = giveUp ? 'wrong' : S.checkAnswer(given, [e.pl, ...e.pl.split(' / '), ...same]);
     s.typed = { given, result };
-    S.review(e, result === 'right' ? 1 : result === 'close' ? 0 : 'reset');
+    // A wrong answer moves the word one box down (not to zero), like the Type practice.
+    S.review(e, result === 'right' ? 1 : result === 'close' ? 0 : -1);
     s.tally[result === 'right' ? 'good' : 'again'] += 1;
     draw();
     S.speak(e.pl);
