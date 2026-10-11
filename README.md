@@ -20,6 +20,8 @@ It works fully offline, with no AI, no account and no server. Everything is in t
 - **Weak-spot report** (Progress → report): the words you keep forgetting, the grammar topics, cases and tenses you get wrong most, the sounds you find hardest, and your skill scores, each with a button to practise it.
 - **Pronunciation help everywhere**: words split into syllable blocks with the stressed one highlighted (English letters and Devanagari), tips for the hard letters in each word, slow playback, and native recordings from Wiktionary and Lingua Libre.
 - **Built-in audio for everything**: every word, sentence, dialogue line, story, verb form, case sentence and number the app can read aloud has its own recording in the app (native speakers where available, otherwise a natural Polish voice generated once with Piper), so it sounds the same on every phone, also offline, even without a Polish voice installed.
+- **Your turn (speaking)**: play one person in any of the 56 lesson dialogues or 20 listening dialogues. You see what to say in English and Nepali, say it in Polish, check it with speech recognition and hear the right way; or repeat every line after the speaker (shadowing).
+- **Recall in daily review**: words you already know a little are asked the other way round, from the meaning (say it or write it) or from sound, which builds much stronger memory than recognising them.
 - **My words**: add Polish words from your own life (work, signs, letters). The app writes the pronunciation in English letters and Devanagari by itself, reads them aloud and brings them back in your daily review and every practice mode.
 
 ## What's inside

@@ -60,7 +60,7 @@ const bad = (name, why) => { results.fail++; results.failures.push(`${name}: ${w
     const { p } = await newPage();
     const D = await data(p);
     console.log(`Course: ${D.units.length} units, ${D.roleplays.length} conversations, ${D.stories.length} texts, ${D.listening.length} listening, ${D.verbs} verbs, ${D.nouns} nouns`);
-    const routes = ['home', 'course', 'practice', 'progress', 'settings', 'review', 'alphabet', 'dictionary', 'mistakes', 'mistakes.practice', 'talk', 'read', 'listen', 'exam', 'placement', 'verbs', 'verbs.practice', 'cases', 'cases.practice', 'sounds', 'numbers', 'check', 'report', 'mywords',
+    const routes = ['home', 'course', 'practice', 'progress', 'settings', 'review', 'alphabet', 'dictionary', 'mistakes', 'mistakes.practice', 'talk', 'read', 'listen', 'exam', 'placement', 'verbs', 'verbs.practice', 'cases', 'cases.practice', 'sounds', 'numbers', 'check', 'report', 'mywords', 'turn', 'turn.a1-01',
       ...D.levels.map((l) => `course.${l}`), ...D.units, ...D.units.map((u) => `learn.${u}`), ...D.units.map((u) => `check.${u}`),
       ...D.roleplays.map((x) => `talk.${x}`), ...D.stories.map((x) => `read.${x}`), ...D.listening.map((x) => `listen.${x}`), ...D.exams.map((x) => `exam.${x}`),
       ...D.sounds.map((x) => `sounds.${x}`), ...D.assess.map((x) => `revise.${x}`), ...Array.from({ length: D.verbs }, (_, i) => `verbs.${i}`), ...Array.from({ length: D.nouns }, (_, i) => `cases.${i}`)];
@@ -556,6 +556,52 @@ const bad = (name, why) => { results.fail++; results.failures.push(`${name}: ${w
       });
       if (r.tiles.join(' ') !== 'mówię polsku Ram rozumiem') throw new Error(`tiles: ${r.tiles}`);
       if ((r.ne.match(/data-action="say"/g) || []).length !== 1) throw new Error('Nepali span made tappable');
+    });
+    await check(p, 'your turn: play a role through a whole dialogue', async () => {
+      await go(p, 'turn');
+      const n = await p.$$eval('[data-to^="turn."]', (x) => x.length);
+      if (n < 50) throw new Error(`only ${n} dialogues listed`);
+      await go(p, 'turn.a1-01');
+      await p.click('[data-action="turn-role"]');
+      for (let k = 0; k < 40 && !(await p.$('[data-action="turn-again"]')); k++) {
+        if (await p.$('[data-action="turn-show"]')) await p.click('[data-action="turn-show"]');
+        await p.click('[data-action="turn-next"]');
+      }
+      if (!(await p.$('[data-action="turn-again"]'))) throw new Error('summary not reached');
+      if (await p.evaluate(() => (window.Slowka.progress.speaking || {})['a1-01'] == null)) throw new Error('result not saved');
+      await p.click('[data-action="turn-swap"]');
+      if (!(await p.$('[data-action="turn-next"]'))) throw new Error('swap roles failed');
+      await go(p, 'turn.a1-01'); await p.click('[data-action="turn-roles"]').catch(() => {});
+      await go(p, `turn.${await p.evaluate(() => window.Slowka.Listening.TASKS[0].id)}`);
+      await p.click('[data-action="turn-role"][data-who="*"]');
+      if (!(await p.$('.turn-answer'))) throw new Error('repeat-after-me does not show the line');
+    });
+    await check(p, 'daily review asks known words from the meaning (type, say, hear)', async () => {
+      const words = await p.evaluate(() => {
+        const S = window.Slowka;
+        const ws = S.COURSE[3].entries.filter((e) => e.pl.split(' ').length <= 2).slice(0, 6);
+        for (const k of Object.keys(S.progress.items)) delete S.progress.items[k];
+        ws.forEach((e) => { S.progress.items[e.pl] = { b: 3, due: S.dayKey() }; });
+        S.saveProgress();
+        return ws.map((e) => e.pl);
+      });
+      await go(p, 'home'); await go(p, 'review');
+      const seen = new Set();
+      for (let k = 0; k < 6; k++) {
+        if (await p.$('#rv-answer')) {
+          seen.add('type');
+          const want = await p.evaluate(() => { const S = window.Slowka; const m = document.querySelector('#stage .meaning').textContent; return S.dueList().concat(S.ENTRIES).find((e) => m.includes(e.en)).pl; });
+          await p.fill('#rv-answer', want); await p.press('#rv-answer', 'Enter');
+          if (!/right|close/.test(await p.getAttribute('.feedback', 'class'))) throw new Error('typed review answer not accepted');
+          await p.click('[data-action="rv-next"]');
+        } else if (await p.$('[data-action="flip"]')) {
+          seen.add(await p.evaluate(() => (/What did you hear/.test(document.querySelector('#stage').textContent) ? 'hear' : /Say it in Polish/.test(document.querySelector('#stage').textContent) ? 'recall' : 'see')));
+          await p.click('.card[data-action="flip"]'); await p.click('[data-action="rate"][data-rate="good"]');
+        } else break;
+      }
+      if (!seen.has('type') || !seen.has('recall')) throw new Error(`review kinds seen: ${[...seen]}`);
+      if (seen.has('see')) throw new Error('known words still shown Polish-first');
+      if (!words.length) throw new Error('no words');
     });
     console.log('11. My words, pronunciation and audio done');
   }
