@@ -171,7 +171,7 @@ window.SLOWKA_COURSE.push(
       }
     ],
     words: [
-      ["nie ma", "there is no / isn't here", "छैन", "NYE ma", "ˈन्ये मा"],
+      ["nie ma", "there is no / isn't here", "छैन", "nyeh ma", "न्ये मा"],
       ["dużo", "a lot of, much", "धेरै", "DOO-zho", "ˈदु-झो"],
       ["mało", "little, few", "थोरै", "MA-wo", "ˈमा-वो"],
       ["trochę", "a little, a bit of", "अलिकति", "TRO-heh", "ˈत्रो-हे"],
@@ -191,7 +191,7 @@ window.SLOWKA_COURSE.push(
     ],
     phrases: [
       ["Nie mam czasu.", "I have no time.", "मसँग समय छैन।", "nye mam CHA-soo", "न्ये माम् ˈचा-सु"],
-      ["Nie ma chleba.", "There's no bread.", "पाउरोटी छैन।", "NYE ma HLE-ba", "ˈन्ये मा ˈह्ले-बा"],
+      ["Nie ma chleba.", "There's no bread.", "पाउरोटी छैन।", "nyeh ma HLEH-ba", "न्ये मा ˈह्ले-बा"],
       ["Poproszę butelkę wody.", "A bottle of water, please.", "एक बोतल पानी दिनुहोस्।", "po-PRO-sheh boo-TEL-keh VO-di", "पो-ˈप्रो-शे बु-ˈतेल्-के ˈभो-दि"],
       ["Piję kawę bez cukru.", "I drink coffee without sugar.", "म चिनी बिनाको कफी पिउँछु।", "PEE-yeh KA-veh bes TSOO-kroo", "ˈपि-ये ˈका-भे बेस् ˈत्सु-क्रु"],
       ["To prezent dla mamy.", "This is a present for mum.", "यो आमाको लागि उपहार हो।", "to PRE-zent dla MA-mi", "तो ˈप्रे-ज़ेन्त् द्ला ˈमा-मि"],
@@ -389,7 +389,7 @@ window.SLOWKA_COURSE.push(
       }
     ],
     words: [
-      ["ze mną", "with me", "मसँग", "ZE mnon", "ˈज़े म्नों"],
+      ["ze mną", "with me", "मसँग", "zeh mnon", "ज़े म्नों"],
       ["razem", "together", "सँगै", "RA-zem", "ˈरा-ज़ेम्"],
       ["autobus", "bus", "बस", "aw-TO-boos", "आव्-ˈतो-बुस्"],
       ["pociąg", "train", "रेल", "PO-chonk", "ˈपो-चोंक्"],

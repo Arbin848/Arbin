@@ -293,7 +293,7 @@ window.SLOWKA_COURSE.push(
       ["Klucz jest na stole.", "The key is on the table.", "साँचो टेबलमा छ।", "klooch yest na STO-leh", "क्लुच् येस्त् ना ˈस्तो-ले"],
       ["Nie mam klucza.", "I don't have a key.", "मसँग साँचो छैन।", "nyeh mam KLOO-cha", "न्ये माम् ˈक्लु-चा"],
       ["Nie mam czasu.", "I don't have time.", "मसँग समय छैन।", "nyeh mam CHA-soo", "न्ये माम् ˈचा-सु"],
-      ["Nie ma wody.", "There's no water.", "पानी छैन।", "NYEH-ma VO-di", "ˈन्ये-मा ˈभो-दि"]
+      ["Nie ma wody.", "There's no water.", "पानी छैन।", "nyeh ma VO-di", "न्ये मा ˈभो-दि"]
     ],
     dialogue: [
       ["Pan Nowak", "Proszę, to jest mieszkanie. Tu jest pokój.", "Come in, this is the flat. Here is the room.", "आउनुहोस्, यो फ्ल्याट हो। यहाँ कोठा छ।"],

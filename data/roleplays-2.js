@@ -115,7 +115,7 @@ window.SLOWKA_ROLEPLAYS.push({
     ["suchy kaszel", "dry cough", "सुक्खा खोकी", "SOO-hi KA-shel", "ˈसु-हि ˈका-शेल्"],
     ["jak często mam brać ten lek?", "how often should I take this medicine?", "यो औषधि कति पटक खानुपर्छ?", "yak CHEN-sto mam brach ten lek", "याक् ˈचेन्-स्तो माम् ब्राच् तेन् लेक्"],
     ["potrzebuję zwolnienia lekarskiego", "I need a sick note", "मलाई बिरामी बिदाको पत्र चाहिन्छ", "po-tshe-BOO-yeh zvol-NYE-nya le-kar-SKYE-go", "पो-त्शे-ˈबु-ये ज़्भोल्-ˈन्ये-न्या ले-कार्-ˈस्क्ये-गो"],
-    ["proszę nie przerywać kuracji", "please don't stop the treatment", "उपचार बीचमा नरोक्नुहोस्", "PRO-sheh nyeh pshe-ri-VACH koo-RATS-yee", "ˈप्रो-शे न्ये प्शे-रि-ˈभाच् कु-ˈरात्स्-यि"]
+    ["proszę nie przerywać kuracji", "please don't stop the treatment", "उपचार बीचमा नरोक्नुहोस्", "PRO-sheh nyeh pshe-RI-vach koo-RATS-yee", "ˈप्रो-शे न्ये प्शे-ˈरि-भाच् कु-ˈरात्स्-यि"]
   ]
 });
 

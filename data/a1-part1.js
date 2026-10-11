@@ -74,7 +74,7 @@ window.SLOWKA_COURSE.push(
       ["Jak się masz?", "How are you? (informal)", "तिमीलाई कस्तो छ?", "yak sheh mash", "याक् शे माश्"],
       ["Jak się pan ma?", "How are you? (formal, to a man)", "तपाईंलाई कस्तो छ?", "yak sheh pan ma", "याक् शे पान् मा"],
       ["Dziękuję, dobrze.", "Fine, thank you.", "ठीक छ, धन्यवाद।", "jen-KOO-yeh DOB-zheh", "जेन्-ˈकु-ये ˈदोब्-झे"],
-      ["Nie ma za co.", "You're welcome. / No problem.", "केही छैन।", "nyeh ma za tso", "न्ये मा ज़ा त्सो"],
+      ["Nie ma za co.", "You're welcome. / No problem.", "केही छैन।", "nyeh ma ZA tso", "न्ये मा ˈज़ा त्सो"],
       ["Przepraszam, nie rozumiem.", "Sorry, I don't understand.", "माफ गर्नुहोस्, मैले बुझिनँ।", "psheh-PRA-sham nyeh ro-ZOO-myem", "प्शे-ˈप्रा-शाम् न्ये रो-ˈज़ु-म्येम्"],
       ["Miło mi.", "Nice to meet you.", "भेटेर खुसी लाग्यो।", "MEE-wo mee", "ˈमि-वो मि"],
       ["Proszę bardzo.", "Here you are. / You're welcome.", "लिनुहोस्। / केही छैन।", "PRO-sheh BAR-dzo", "ˈप्रो-शे ˈबार्-द्ज़ो"],
@@ -556,7 +556,7 @@ window.SLOWKA_COURSE.push(
       ["mięso", "meat", "मासु", "MYEN-so", "ˈम्येन्-सो"],
       ["ciastko", "cake / biscuit", "केक / बिस्कुट", "CHAST-ko", "ˈचास्त्-को"],
       ["cukier", "sugar", "चिनी", "TSOO-kyer", "ˈत्सु-क्येर्"],
-      ["karta", "menu", "मेनु", "KAR-ta", "ˈकार्-ता"],
+      ["karta", "menu (karta dań); card", "मेनु; कार्ड", "KAR-ta", "ˈकार्-ता"],
       ["rachunek", "the bill", "बिल", "ra-HOO-nek", "रा-ˈहु-नेक्"],
       ["poproszę", "I'd like… / … please", "दिनुहोस्", "po-PRO-sheh", "पो-ˈप्रो-शे"],
       ["smacznego", "enjoy your meal", "मिठो गरी खानुहोस्", "smach-NEH-go", "स्माच्-ˈने-गो"]
