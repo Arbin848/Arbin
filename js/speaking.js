@@ -201,7 +201,8 @@
 
   function next() {
     if (!cur || cur.busy) return;
-    if (mine(cur.i)) { S.logActivity(); S.saveProgress(); }
+    // A line counts once: when it was checked (counted then) or when its answer was revealed.
+    if (mine(cur.i) && !cur.results[cur.i] && cur.shown[cur.i]) { S.logActivity(); S.saveProgress(); }
     cur.i += 1;
     cur.error = '';
     if (cur.i >= cur.d.lines.length) {

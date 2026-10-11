@@ -30,6 +30,8 @@ jobs:
           ref: main
       - name: Check course content
         run: node tools/validate.js
+      - name: Stamp the offline cache with the app's content
+        run: node tools/stamp-sw.js
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

@@ -456,7 +456,7 @@ window.SLOWKA_COURSE.push(
     phrases: [
       ["Czy Pan mówi po angielsku?", "Do you speak English? (to a man)", "के तपाईं अंग्रेजी बोल्नुहुन्छ?", "chi pan MOO-vee po an-GYEL-skoo", "चि पान् ˈमु-भि पो आन्-ˈग्येल्-स्कु"],
       ["Skąd Pani jest?", "Where are you from? (to a woman)", "तपाईं कहाँबाट हुनुहुन्छ?", "skont PA-nee yest", "स्कोंत् ˈपा-नि येस्त्"],
-      ["Dzień dobry, mówi Ram Thapa.", "Hello, this is Ram Thapa speaking.", "नमस्ते, म राम थापा बोल्दैछु।", "jen DOB-ri, MOO-vee ram TA-pa", "जेन्य् ˈदोब्-रि, ˈमु-भि राम् ˈता-पा"],
+      ["Dzień dobry, mówi Ram Thapa.", "Hello, this is Ram Thapa speaking.", "नमस्ते, म राम थापा बोल्दैछु।", "jeny DOB-ri, MOO-vee ram TA-pa", "जेन्य् ˈदोब्-रि, ˈमु-भि राम् ˈता-पा"],
       ["Czy mogę rozmawiać z panią Nowak?", "May I speak to Mrs Nowak?", "के म श्रीमती नोभाकसँग कुरा गर्न सक्छु?", "chi MO-geh roz-MA-vyach s PA-nyon NO-vak", "चि ˈमो-गे रोज़्-ˈमा-भ्याच् स् ˈपा-न्यों ˈनो-भाक्"],
       ["Proszę poczekać chwilę.", "Please wait a moment.", "कृपया एकछिन पर्खनुहोस्।", "PRO-sheh po-CHE-kach HFEE-leh", "ˈप्रो-शे पो-ˈचे-काच् ˈह्फ़ि-ले"],
       ["Czy mogę zostawić wiadomość?", "Can I leave a message?", "के म सन्देश छोड्न सक्छु?", "chi MO-geh zo-STA-veech vya-DO-moshch", "चि ˈमो-गे ज़ो-ˈस्ता-भिच् भ्या-ˈदो-मोश्च्"],

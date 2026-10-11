@@ -226,6 +226,8 @@
       const v = data.settings && data.settings[k];
       if (allowed.includes(v)) S.settings[k] = v;
     }
+    // The name printed on certificates: plain text only.
+    if (data.settings && typeof data.settings.name === 'string') S.settings.name = cleanData(data.settings.name).slice(0, 60);
     if (S.MyWords) S.MyWords.register();
     S.saveProgress();
     S.saveSettings();

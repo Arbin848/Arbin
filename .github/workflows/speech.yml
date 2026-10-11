@@ -74,6 +74,8 @@ jobs:
         run: node tools/validate.js
       - name: Remove tools before publishing
         run: rm -rf voices vosk vosk-model vosk.zip texts.json
+      - name: Stamp the offline cache with the app's content
+        run: node tools/stamp-sw.js
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

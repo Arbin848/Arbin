@@ -10,6 +10,9 @@
   const QUIZ_SIZE = 5;
 
   const state = () => (S.progress.guided = S.progress.guided || {});
+  // The saved place in a lesson. Progress can be re-read from storage at any time (another tab,
+  // coming back to the app), so never assume the entry is still there.
+  const gstate = (u) => (state()[u.id] = state()[u.id] || { step: 0 });
   G.status = (u) => {
     const g = state()[u.id];
     const total = buildSteps(u).length;
@@ -71,7 +74,9 @@
     const u = S.UNIT.get(unitId);
     if (!u) { S.go('course'); return; }
     const steps = buildSteps(u);
-    const g = (state()[u.id] = state()[u.id] || { step: 0 });
+    const fresh = !state()[u.id];
+    const g = gstate(u);
+    if (fresh) S.saveProgress();
     const idx = Math.min(g.step || 0, steps.length - 1);
     const step = steps[idx];
     if (!local || local.unit !== u.id || local.idx !== idx) local = { unit: u.id, idx, quiz: null, line: 0, said: {} };
@@ -305,7 +310,7 @@
 
   async function sayCheck(view, u, k) {
     const steps = buildSteps(u);
-    const step = steps[state()[u.id].step];
+    const step = steps[gstate(u).step];
     const e = step.words[k];
     local.said[e.pl] = { busy: true };
     S.render();
@@ -331,20 +336,20 @@
         if (!target) return true;
         const g = state()[target.id];
         // A finished lesson starts again from the beginning.
-        if (g && g.done && g.step >= buildSteps(target).length - 1) g.step = 0;
+        if (g && g.done && g.step >= buildSteps(target).length - 1) { g.step = 0; run = null; }
         S.go(`learn.${target.id}`);
         return true;
       }
       case 'g-next': {
         if (!u) return true;
-        const step = buildSteps(u)[state()[u.id].step];
+        const step = buildSteps(u)[gstate(u).step];
         const snap = S.Practice.snapshot();
         if (step && snap && snap.total && (step.kind === 'grammar' || step.kind === 'dictation')) runFor(u)[step.kind] = { score: snap.score, total: snap.total };
-        setStep(u, state()[u.id].step + 1);
+        setStep(u, gstate(u).step + 1);
         return true;
       }
-      case 'g-prev': if (u) setStep(u, state()[u.id].step - 1); return true;
-      case 'g-restart': if (u) { state()[u.id].step = 0; setStep(u, 0); } return true;
+      case 'g-prev': if (u) setStep(u, gstate(u).step - 1); return true;
+      case 'g-restart': if (u) { gstate(u).step = 0; run = null; setStep(u, 0); } return true;
       case 'g-line': local.line = Math.max(1, local.line) + 1; S.render(); { const d = u && u.dialogue[local.line - 1]; if (d) S.speak(d[1]); } return true;
       case 'g-say': if (u) sayCheck(view, u, Number(el.dataset.k)); return true;
       case 'g-quiz': {
