@@ -5,11 +5,11 @@ compared with the text. Short words and names are often misheard by the recogniz
 the audio is fine, so a low score means "listen and check", not "wrong".
 
 - Clips checked: **10260**
-- Understood well (80%+): **7843** (76%)
+- Understood well (80%+): **7853** (76%)
 - Mostly understood (60–79%): **1519**
-- Unclear (below 60%): **898**
-- Unclear clips regenerated with the other voice: 283, improved: 138
-- Average match: **87.5%**
+- Unclear (below 60%): **888**
+- Unclear clips regenerated with the other voice: 1, improved: 0
+- Average match: **87.6%**
 
 ## Lowest scores (please listen to these)
 
@@ -61,13 +61,11 @@ the audio is fine, so a low score means "listen and check", not "wrong".
 | 0% | ia | (nothing) |
 | 0% | ich | (nothing) |
 | 0% | jedź | nie |
-| 0% | kg | przedstawia |
 | 0% | kilku | co |
 | 0% | kto | tak |
 | 0% | ku | (nothing) |
 | 0% | kurz | (nothing) |
 | 0% | l ł | ale |
-| 0% | m | jeden |
 | 0% | ni | (nothing) |
 | 0% | o | jeden |
 | 0% | od- | (nothing) |
@@ -89,7 +87,6 @@ the audio is fine, so a low score means "listen and check", not "wrong".
 | 0% | s | dlatego |
 | 0% | się | (nothing) |
 | 0% | ska | tak |
-| 0% | sp | (nothing) |
 | 0% | st | (nothing) |
 | 0% | sunil | jest |
 | 0% | sz | (nothing) |
@@ -101,7 +98,6 @@ the audio is fine, so a low score means "listen and check", not "wrong".
 | 0% | słów | tu |
 | 0% | to | (nothing) |
 | 0% | u | jeden |
-| 0% | ul | (nothing) |
 | 0% | v | rafał |
 | 0% | w | (nothing) |
 | 0% | w czynsz | (nothing) |
@@ -119,10 +115,9 @@ the audio is fine, so a low score means "listen and check", not "wrong".
 | 0% | św | podjęte |
 | 0% | ź | najpierw |
 | 0% | ż | dlatego |
-| 7% | m² | przemek wad rad |
 | 8% | -i/-y | i zle szpilek |
-| 11% | swoje | posłuchaj |
 | 11% | -uj- | posłuchaj |
+| 11% | swoje | posłuchaj |
 | 12% | -jd- | oddech d |
 | 12% | -ć | dlaczego |
 | 12% | chlebach | prawda |
@@ -133,29 +128,29 @@ the audio is fine, so a low score means "listen and check", not "wrong".
 | 12% | ręką | jeden co |
 | 12% | wszedł | pierwszy |
 | 12% | zimą | podjęłam |
-| 14% | -wa | dlatego |
-| 14% | cię | dlatego |
-| 14% | ko | dlatego |
-| 14% | ta | dlatego |
 | 14% | -e | dlatego |
 | 14% | -ej | dlatego |
 | 14% | -o / -e | e |
 | 14% | -ty | dlatego |
+| 14% | -wa | dlatego |
 | 14% | ce | dlatego |
+| 14% | cię | dlatego |
 | 14% | el | dlatego |
 | 14% | es | dlatego |
 | 14% | kaw | czasach |
 | 14% | kichasz | tak |
+| 14% | ko | dlatego |
 | 14% | ks | interes |
 | 14% | l | dlatego |
 | 14% | lwu | dlatego |
 | 14% | t | dlatego |
+| 14% | ta | dlatego |
 | 17% | -rze- | jestem |
 | 17% | ch/h | dotychczas lecz ha |
 | 17% | córkę | tu oka |
+| 17% | dź | oddaję |
 | 17% | grochu | zero |
 | 17% | hindus | i bez |
-| 17% | dź | oddaję |
 | 17% | k g | ja wie |
 | 17% | kimś | pewien |
 | 17% | koś | jesteś |
@@ -165,3 +160,8 @@ the audio is fine, so a low score means "listen and check", not "wrong".
 | 17% | pe | jestem |
 | 17% | pisz | jesteś |
 | 17% | rok | jednak |
+| 17% | rz | spędzę |
+| 17% | rąk | wygląd |
+| 17% | zimach | nie ma |
+| 17% | ząb | muzeum |
+| 17% | żurek | cztery |

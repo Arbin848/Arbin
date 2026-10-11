@@ -13365,9 +13365,9 @@
 "audio/tts/igrek-9f775ed6-f.mp3"
 ],
 "ii": [
-0.5,
-"imię",
-"audio/tts/ii-d78c060f-m.mp3"
+1.0,
+"druga",
+"audio/tts/ii-d8216f10-f.mp3"
 ],
 "ile": [
 1.0,
@@ -15875,9 +15875,9 @@
 "audio/tts/kelnerka-e4f3b080-m.mp3"
 ],
 "kg": [
-0.0,
-"przedstawia",
-"audio/tts/kg-c2a95341-f.mp3"
+1.0,
+"kilogramów",
+"audio/tts/kg-58354644-f.mp3"
 ],
 "kichasz": [
 0.143,
@@ -18110,9 +18110,9 @@
 "audio/tts/lwow-bbe0f2c3-m.mp3"
 ],
 "m": [
-0.0,
-"jeden",
-"audio/tts/m-ea81aa7d-f.mp3"
+0.333,
+"jestem",
+"audio/tts/m-b0d0add8-f.mp3"
 ],
 "m czy mogę przymierzyć tę czarną": [
 0.938,
@@ -21600,9 +21600,9 @@
 "audio/tts/mysle-ze-to-dobry-pomys-a94563c6-f.mp3"
 ],
 "m²": [
-0.067,
-"przemek wad rad",
-"audio/tts/m-9104dd8d-f.mp3"
+1.0,
+"metrów kwadratowych",
+"audio/tts/m-8edf71ae-f.mp3"
 ],
 "mógł": [
 0.8,
@@ -25600,9 +25600,9 @@
 "audio/tts/nozna-6b7ed044-f.mp3"
 ],
 "nr": [
-0.25,
-"dane",
-"audio/tts/nr-f23636b2-m.mp3"
+1.0,
+"numer",
+"audio/tts/nr-d0a36aa8-f.mp3"
 ],
 "numer": [
 1.0,
@@ -25775,9 +25775,9 @@
 "audio/tts/o-ktorej-zaczynasz-prace-3de358a2-f.mp3"
 ],
 "o o": [
-0.333,
-"no",
-"audio/tts/o-o-c121b92f-m.mp3"
+1.0,
+"z ograniczoną odpowiedzialnością",
+"audio/tts/o-o-d36a2730-f.mp3"
 ],
 "o pierwszej": [
 1.0,
@@ -26795,9 +26795,9 @@
 "audio/tts/ojej-a-co-dokadnie-cc667a2b-m.mp3"
 ],
 "ok": [
-0.5,
+1.0,
 "okej",
-"audio/tts/ok-06ff1456-f.mp3"
+"audio/tts/ok-05f08dfb-f.mp3"
 ],
 "oka": [
 1.0,
@@ -29561,8 +29561,8 @@
 ],
 "pln": [
 1.0,
-"pln",
-"audio/tts/pln-540f559c-m.mp3"
+"złotych",
+"audio/tts/pln-fb02a7af-f.mp3"
 ],
 "plus": [
 0.25,
@@ -37435,9 +37435,9 @@
 "audio/tts/sosna-890e354c-m.mp3"
 ],
 "sp": [
-0.0,
-"",
-"audio/tts/sp-23270376-f.mp3"
+1.0,
+"spółka",
+"audio/tts/sp-3989734e-f.mp3"
 ],
 "spadam": [
 0.667,
@@ -40435,9 +40435,9 @@
 "audio/tts/tekst-256df504-f.mp3"
 ],
 "tel": [
-0.25,
-"minister",
-"audio/tts/tel-e48c097e-f.mp3"
+1.0,
+"telefon",
+"audio/tts/tel-db86340a-f.mp3"
 ],
 "telefon": [
 1.0,
@@ -42245,9 +42245,9 @@
 "audio/tts/ukadac-3fb20906-f.mp3"
 ],
 "ul": [
-0.0,
-"",
-"audio/tts/ul-9ed734ff-f.mp3"
+1.0,
+"ulica",
+"audio/tts/ul-a0ce22ed-f.mp3"
 ],
 "ulgowy": [
 0.375,
@@ -50635,9 +50635,9 @@
 "audio/tts/zab-f6ec54f9-m.mp3"
 ],
 "zł": [
-0.4,
-"złote",
-"audio/tts/z-165a71ca-f.mp3"
+1.0,
+"złotych",
+"audio/tts/z-11119e99-f.mp3"
 ],
 "złe": [
 0.667,
