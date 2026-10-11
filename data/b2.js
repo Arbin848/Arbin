@@ -461,7 +461,7 @@ window.SLOWKA_COURSE.push(
       ["Odkąd mieszkam w Polsce, mówię coraz lepiej po polsku.", "Since I've been living in Poland, my Polish keeps getting better.", "पोल्यान्डमा बस्न थालेदेखि म झन्झन् राम्रो पोलिश बोल्छु।", "OT-kont MYESH-kam f POL-stse MOO-vyeh TSO-ras LE-pyey po POL-skoo", "ˈओत्-कोन्त् ˈम्येश्-काम् फ़् ˈपोल्-स्त्से ˈमु-भ्ये ˈत्सो-रास् ˈले-प्येय् पो ˈपोल्-स्कु"],
       ["Jeśli będzie padać, zostaniemy w domu.", "If it rains, we'll stay at home.", "पानी पर्‍यो भने हामी घरमै बस्नेछौं।", "YESH-lee BEN-je PA-dach zo-sta-NYE-mi v DO-moo", "ˈयेश्-लि ˈबेन्-जे ˈपा-दाच् ज़ो-स्ता-ˈन्ये-मि भ् ˈदो-मु"],
       ["Zanim wyjdziesz, zamknij okno.", "Before you leave, close the window.", "निस्कनुअघि झ्याल बन्द गर।", "ZA-neem VIY-jesh ZAM-kneey OK-no", "ˈज़ा-निम् ˈभिय्-जेश् ˈज़ाम्-क्निय् ˈओक्-नो"],
-      ["Mój brat pracuje na budowie, natomiast ja pracuję w hotelu.", "My brother works on a building site, whereas I work in a hotel.", "मेरो भाइ निर्माणस्थलमा काम गर्छ, जबकि म होटलमा काम गर्छु।", "mooy brat pra-TSOO-ye na boo-DO-vye na-TO-myast ya pra-TSOO-yeh v ho-TE-loo", "मुय् ब्रात् प्रा-ˈत्सु-ये ना बु-ˈदो-भ्ये ना-ˈतो-म्यास्त् या प्रा-ˈत्सु-ये भ् हो-ˈते-लु"],
+      ["Mój brat pracuje na budowie, natomiast ja pracuję w hotelu.", "My brother works on a building site, whereas I work in a hotel.", "मेरो भाइ निर्माणस्थलमा काम गर्छ, जबकि म होटलमा काम गर्छु।", "mooy brat pra-TSOO-ye na boo-DO-vye na-TO-myast ya pra-TSOO-yeh f ho-TE-loo", "मुय् ब्रात् प्रा-ˈत्सु-ये ना बु-ˈदो-भ्ये ना-ˈतो-म्यास्त् या प्रा-ˈत्सु-ये फ़् हो-ˈते-लु"],
       ["Zarówno szef, jak i koledzy są bardzo mili.", "Both the boss and my colleagues are very nice.", "हाकिम र सहकर्मी दुवै धेरै असल छन्।", "za-ROOV-no shef yak ee ko-LE-dzi som BAR-dzo MEE-lee", "ज़ा-ˈरुभ्-नो शेफ़् याक् इ को-ˈले-द्ज़ि सोम् ˈबार्-द्ज़ो ˈमि-लि"]
     ],
     dialogue: [
@@ -660,7 +660,7 @@ window.SLOWKA_COURSE.push(
       ["wpaść jak śliwka w kompot", "to get into big trouble", "ठूलो फसादमा पर्नु", "fpashch yak SHLEEF-ka f KOM-pot", "फ़्पाश्च् याक् ˈश्लिफ़्-का फ़् ˈकोम्-पोत्"],
       ["co dwie głowy, to nie jedna", "two heads are better than one", "एकभन्दा दुई टाउको राम्रो", "tso dvye GWO-vi to nye YED-na", "त्सो द्भ्ये ˈग्वो-भि तो न्ये ˈयेद्-ना"],
       ["rzucać grochem o ścianę", "to talk to a brick wall", "भैंसीको अगाडि बीन बजाउनु", "ZHOO-tsach GRO-hem o SHCHA-neh", "ˈझु-त्साच् ˈग्रो-हेम् ओ ˈश्चा-ने"],
-      ["słoń mi na ucho nadepnął", "I can't sing / I have no ear for music", "मलाई सुर-ताल आउँदैन", "swony mee na OO-ho na-DEP-nonw", "स्वोन्य् मि ना ˈउ-हो ना-ˈदेप्-नोंव्"],
+      ["słoń mi na ucho nadepnął", "I can't sing / I have no ear for music", "मलाई सुर-ताल आउँदैन", "swony mee na OO-ho na-DEP-now", "स्वोन्य् मि ना ˈउ-हो ना-ˈदेप्-नोव्"],
       ["spoko", "cool, no problem (informal)", "ठीक छ / कुनै समस्या छैन", "SPO-ko", "ˈस्पो-को"],
       ["luz", "relax, no stress (informal)", "ढुक्क / आराम", "loos", "लुस्"],
       ["ogarnąć", "to sort out, handle (informal)", "मिलाउनु / सम्हाल्नु", "o-GAR-nonch", "ओ-ˈगार्-नोंच्"],
@@ -676,7 +676,7 @@ window.SLOWKA_COURSE.push(
       ["Szef ma dziś muchy w nosie.", "The boss is in a bad mood today.", "आज हाकिमको मुड खराब छ।", "shef ma jeesh MOO-hi v NO-she", "शेफ़् मा जिश् ˈमु-हि भ् ˈनो-शे"],
       ["Nie martw się, ogarnę to.", "Don't worry, I'll sort it out.", "चिन्ता नगर, म मिलाउँछु।", "nye martf sheh o-GAR-neh to", "न्ये मार्त्फ़् शे ओ-ˈगार्-ने तो"],
       ["Spoko, nie ma problemu.", "Cool, no problem.", "ठीक छ, कुनै समस्या छैन।", "SPO-ko nye ma pro-BLE-moo", "ˈस्पो-को न्ये मा प्रो-ˈब्ले-मु"],
-      ["Nie śpiewam, bo słoń mi na ucho nadepnął.", "I don't sing because I have no ear for music.", "म गाउँदिनँ, किनकि मलाई सुर-ताल आउँदैन।", "nye SHPYE-vam bo swony mee na OO-ho na-DEP-nonw", "न्ये ˈश्प्ये-भाम् बो स्वोन्य् मि ना ˈउ-हो ना-ˈदेप्-नोंव्"],
+      ["Nie śpiewam, bo słoń mi na ucho nadepnął.", "I don't sing because I have no ear for music.", "म गाउँदिनँ, किनकि मलाई सुर-ताल आउँदैन।", "nye SHPYE-vam bo swony mee na OO-ho na-DEP-now", "न्ये ˈश्प्ये-भाम् बो स्वोन्य् मि ना ˈउ-हो ना-ˈदेप्-नोव्"],
       ["W sumie masz rację.", "Actually, you're right.", "वास्तवमा तिमी सही छौ।", "f SOO-mye mash RA-tsyeh", "फ़् ˈसु-म्ये माश् ˈरा-त्स्ये"]
     ],
     dialogue: [
