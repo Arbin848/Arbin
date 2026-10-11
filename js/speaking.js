@@ -28,19 +28,25 @@
   // Partner lines (and every line in "repeat after me") are played as they come.
   function playPartner() {
     const l = cur.d.lines[cur.i];
-    if (l && (!mine(cur.i) || cur.me === '*')) setTimeout(() => { if (cur && cur.d.lines[cur.i] === l && S.route.name === 'turn') S.speak(l[1]); }, 250);
+    if (l && (!mine(cur.i) || cur.me === '*')) setTimeout(() => { if (cur && cur.d.lines[cur.i] === l && S.route.name === 'turn' && S.route.arg === cur.d.id) S.speak(l[1]); }, 250);
   }
 
   // ---------- list ----------
 
   K.render = (view, id) => {
+    draw(view, id);
+    // Keep keyboard and screen-reader users in place: focus the main button of the page.
+    const f = view.querySelector('[data-autofocus]');
+    if (f && (document.activeElement === document.body || !document.contains(document.activeElement) || !view.contains(document.activeElement))) f.focus({ preventScroll: true });
+  };
+  function draw(view, id) {
     if (!id) return listPage(view);
     const d = K.get(id);
     if (!d) { S.go('turn'); return; }
     if (!cur || cur.d.id !== d.id || cur.me == null) { if (cur && cur.d.id !== d.id) cur = null; return rolePage(view, d); }
     if (cur.i >= d.lines.length) return summaryPage(view);
     return linePage(view);
-  };
+  }
 
   function listPage(view) {
     const done = store();
@@ -59,7 +65,7 @@
         <ul class="unit-list">${byLevel[l.id].map((d) => `
           <li><button class="unit-row ${done[d.id] != null ? 'done' : ''}" data-action="go" data-to="turn.${d.id}">
             <span class="u-title">${esc(d.title)}<small lang="ne">${esc(d.titleNe || '')} · ${d.kind === 'lesson' ? 'lesson dialogue · पाठ' : 'listening · सुनाइ'} · ${d.lines.length} lines</small></span>
-            ${done[d.id] != null ? `<small class="ok">${done[d.id]}%</small>` : ''}
+            ${done[d.id] != null ? `<small class="ok">${typeof done[d.id] === 'number' ? `${done[d.id]}%` : '✓'}</small>` : ''}
           </button></li>`).join('')}</ul>`).join('')}`;
   }
 
@@ -113,7 +119,9 @@
         <div class="row"><button class="btn primary" data-action="turn-next" data-autofocus><kbd>Enter</kbd> Next · अर्को</button></div>`;
     } else {
       const mic = S.canRecognize
-        ? `<button class="btn ${shown ? '' : 'primary'} mic ${cur.busy ? 'live' : ''}" data-action="turn-say" ${cur.busy ? 'disabled' : ''}>${S.MIC} ${cur.busy ? 'Listening… · सुन्दै…' : r ? 'Say it again · फेरि भन्नुहोस्' : 'Say it · बोल्नुहोस्'}</button>`
+        ? (cur.busy
+          ? `<button class="btn mic live" data-action="turn-stop" data-autofocus>■ Stop listening · रोक्नुहोस्</button>`
+          : `<button class="btn ${shown ? '' : 'primary'} mic" data-action="turn-say" ${!shown && !r ? 'data-autofocus' : ''}>${S.MIC} ${r ? 'Say it again · फेरि भन्नुहोस्' : 'Say it · बोल्नुहोस्'}</button>`)
         : '';
       task = `
         <div class="card turn-card">
@@ -126,7 +134,7 @@
           ${cur.error ? `<p class="hint err">${esc(cur.error)}</p>` : ''}
           <div class="row">
             ${mic}
-            ${shown ? '' : `<button class="btn" data-action="turn-show">Show &amp; hear the answer · उत्तर हेर्नुहोस्</button>`}
+            ${shown ? '' : `<button class="btn" data-action="turn-show" ${S.canRecognize ? '' : 'data-autofocus'}>Show &amp; hear the answer · उत्तर हेर्नुहोस्</button>`}
             ${shown || r ? `<button class="btn primary" data-action="turn-next" ${S.canRecognize && !r && !shadow ? '' : 'data-autofocus'}><kbd>Enter</kbd> Next · अर्को</button>` : ''}
           </div>
           ${!S.canRecognize ? '<p class="hint small">Say it out loud, then tap "Show & hear the answer" and compare. · ठूलो स्वरमा भनेर उत्तरसँग तुलना गर्नुहोस्।</p>' : ''}
@@ -164,6 +172,8 @@
   async function sayLine() {
     const c = cur;
     const pl = c.d.lines[c.i][1].replace(/…/g, '');
+    const i = c.i;
+    S.stopSpeaking(); // never let the microphone hear the app's own voice
     c.busy = 'listening';
     c.error = '';
     S.render();
@@ -171,19 +181,22 @@
       const alts = await S.recognize();
       let best = { heard: alts[0] || '', score: 0 };
       for (const a of alts) { const sc = S.similarity(a, pl); if (sc > best.score) best = { heard: a, score: sc }; }
-      if (cur !== c) return;
+      // Left the page, or moved on, while listening: forget this result.
+      if (cur !== c || c.i !== i || S.route.name !== 'turn' || S.route.arg !== c.d.id) return;
       c.results[c.i] = best;
       c.shown[c.i] = true;
-      S.recordSpeech(pl, best.score);
+      // Single words feed the weak-sound report; whole sentences would skew it.
+      if (pl.split(/\s+/).length <= 2) S.recordSpeech(pl, best.score);
       S.logActivity();
       S.saveProgress();
       if (best.score < 0.85) S.speak(pl);
     } catch (err) {
-      if (cur !== c) return;
-      c.error = S.micErrorText(err);
+      if (cur !== c || S.route.name !== 'turn') return;
+      if (!c.stopped) c.error = S.micErrorText(err);
     }
     c.busy = '';
-    if (S.route.name === 'turn') S.render();
+    c.stopped = false;
+    if (S.route.name === 'turn' && S.route.arg === c.d.id) S.render();
   }
 
   function next() {
@@ -194,9 +207,12 @@
     if (cur.i >= cur.d.lines.length) {
       const mineIdx = cur.d.lines.map((_, i) => i).filter(mine);
       const scored = mineIdx.filter((i) => cur.results[i]);
-      const pct = scored.length ? Math.round((scored.reduce((a, i) => a + cur.results[i].score, 0) / scored.length) * 100) : 100;
       const st = store();
-      st[cur.d.id] = Math.max(st[cur.d.id] || 0, pct);
+      // A score only when lines were checked by speech recognition; otherwise just "done".
+      if (scored.length) {
+        const pct = Math.round((scored.reduce((a, i) => a + cur.results[i].score, 0) / scored.length) * 100);
+        st[cur.d.id] = Math.max(typeof st[cur.d.id] === 'number' ? st[cur.d.id] : 0, pct);
+      } else if (st[cur.d.id] == null) st[cur.d.id] = true;
       S.saveProgress();
       if (S.onProgress) S.onProgress();
     }
@@ -213,7 +229,8 @@
         S.render();
         return true;
       }
-      case 'turn-roles': if (cur) cur.me = null; S.stopSpeaking(); S.render(); return true;
+      case 'turn-roles': if (S.stopRecognition) S.stopRecognition(); if (cur) { cur.me = null; cur.busy = ''; } S.stopSpeaking(); S.render(); return true;
+      case 'turn-stop': if (cur) cur.stopped = true; if (S.stopRecognition) S.stopRecognition(); return true;
       case 'turn-show': if (cur) { cur.shown[cur.i] = true; S.render(); S.speak(cur.d.lines[cur.i][1]); } return true;
       case 'turn-say': if (cur && !cur.busy) sayLine(); return true;
       case 'turn-next': next(); return true;
@@ -225,11 +242,11 @@
 
   K.key = (ev) => {
     if (!cur || S.route.name !== 'turn' || !S.route.arg || ev.key !== 'Enter') return false;
-    const btn = document.querySelector('[data-action="turn-next"]');
-    if (!btn) return false;
-    ev.preventDefault();
-    next();
-    return true;
+    // Enter on another button (Say it again, Listen…) does that button's job.
+    if (ev.target.tagName === 'BUTTON' && ev.target.dataset.action !== 'turn-next') return false;
+    if (document.querySelector('[data-action="turn-next"]')) { ev.preventDefault(); next(); return true; }
+    if (document.querySelector('[data-action="turn-show"]')) { ev.preventDefault(); cur.shown[cur.i] = true; S.render(); S.speak(cur.d.lines[cur.i][1]); return true; }
+    return false;
   };
 
   // Leaving the page or opening another dialogue forgets the current one.

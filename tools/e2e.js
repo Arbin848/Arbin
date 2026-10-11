@@ -603,6 +603,42 @@ const bad = (name, why) => { results.fail++; results.failures.push(`${name}: ${w
       if (seen.has('see')) throw new Error('known words still shown Polish-first');
       if (!words.length) throw new Error('no words');
     });
+    await check(p, 'reading: every tapped word has a meaning (sample)', async () => {
+      await go(p, 'read.st-a1-03'); await p.waitForSelector('.tok');
+      for (const w of ['zł', 'Zapraszamy', 'codziennie', 'Promocja']) {
+        await p.evaluate((x) => [...document.querySelectorAll('.read-para .tok')].find((t) => t.dataset.word === x).click(), w);
+        const t = await p.textContent('.sheet');
+        if (/not in the glossary/.test(t)) throw new Error(`no meaning for ${w}`);
+      }
+      if (!/złoty/.test(await p.textContent('.sheet .meaning').catch(() => '')) && !(await p.evaluate(() => document.querySelector('.sheet').textContent.includes('Promo')))) throw new Error('sheet content missing');
+    });
+    await check(p, 'lesson end: missed words are practised again; summary shows the scores', async () => {
+      await p.evaluate(() => { const g = window.Slowka.progress.guided || {}; if (g['a1-02']) g['a1-02'].step = 0; });
+      await go(p, 'home'); await go(p, 'learn.a1-02');
+      for (let k = 0; k < 40; k++) {
+        if (await p.$('[data-action="g-quiz"]:not([disabled])')) {
+          // answer wrong on purpose
+          const wrong = await p.evaluate(() => { const b = [...document.querySelectorAll('[data-action="g-quiz"]')]; const S = window.Slowka; const word = document.querySelector('.card .word').textContent.trim(); const e = [...S.LEXICON.values()].find((x) => x.pl === word); return b.findIndex((x) => !x.textContent.includes(e.en)); });
+          await p.click(`[data-action="g-quiz"][data-index="${Math.max(0, wrong)}"]`);
+          await p.click('[data-action="g-quiz-next"]');
+          continue;
+        }
+        if (await p.$('[data-action="g-quiz-missed"]')) {
+          await p.click('[data-action="g-quiz-missed"]');
+          if (!(await p.$('[data-action="g-quiz"]'))) throw new Error('missed words not repeated');
+          break;
+        }
+        const next = await p.$('[data-action="g-next"]:not([disabled])');
+        if (!next) break;
+        await next.click(); await p.waitForTimeout(30);
+      }
+      for (let k = 0; k < 40 && !(await p.$('.summary .tally')); k++) {
+        const g = await p.$('[data-action="g-quiz-next"]'); if (g) { await g.click(); continue; }
+        const q = await p.$('[data-action="g-quiz"]:not([disabled])'); if (q) { await q.click(); continue; }
+        const n = await p.$('[data-action="g-next"]:not([disabled])'); if (!n) break; await n.click(); await p.waitForTimeout(30);
+      }
+      if (!(await p.$('.summary .tally'))) throw new Error('summary has no score report');
+    });
     console.log('11. My words, pronunciation and audio done');
   }
 
