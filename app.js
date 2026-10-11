@@ -16,6 +16,7 @@
   let currentHash = null;
   S.go = (to, opts = {}) => {
     S.stopSpeaking();
+    if (S.Assess && !String(to).startsWith('revise.')) S.Assess.reset(); // a test opened again starts fresh
     if (S.Speaking) S.Speaking.reset(); // a dialogue starts fresh each time it is opened
     S.Practice.reset();
     S.Trainers.resetSessions(opts.keep);
@@ -115,7 +116,8 @@
   const PARENT = { course: ['course', 'Course · पाठ्यक्रम'], practice: ['practice', 'Practice · अभ्यास'], progress: ['progress', 'Progress · प्रगति'], home: ['home', 'Home · गृह'] };
   S.backLink = (to, label) => {
     if (!to) [to, label] = PARENT[NAV[S.route.name] === S.route.name ? 'home' : NAV[S.route.name] || 'home'];
-    return `<button class="back" data-action="go" data-to="${to}">← ${label}</button>`;
+    const [en, ne] = String(label).split(' · ');
+    return `<button class="back" data-action="go" data-to="${to}">← ${en}${ne ? ` · <span lang="ne">${ne}</span>` : ''}</button>`;
   };
 
   S.entryRow = (e) => (e ? `
@@ -515,7 +517,9 @@
       <p class="hint" id="dict-count"></p>
       <ul class="entries" id="dict-results"></ul>`;
     const input = $('#dict-q');
-    input.addEventListener('input', updateDictionary);
+    // Wait until typing pauses, so a phone is not slowed down by drawing the list on every letter.
+    let timer = 0;
+    input.addEventListener('input', () => { clearTimeout(timer); timer = setTimeout(() => { if (input.isConnected) updateDictionary(); }, 150); });
     updateDictionary();
     input.focus({ preventScroll: true });
   }
@@ -581,9 +585,9 @@
         <fieldset class="setting">
           <legend>Use on another phone or computer <span lang="ne">अर्को फोन वा कम्प्युटरमा</span></legend>
           <p class="hint">Your progress is saved in this browser. Copy this backup code and paste it on your other device to move your progress. · यो कोड अर्को उपकरणमा टाँस्नुहोस्।</p>
-          <textarea class="code" id="backup-out" readonly rows="3">${esc(S.backupCode())}</textarea>
+          <textarea class="code" id="backup-out" readonly rows="3" aria-label="Your backup code">${esc(S.backupCode())}</textarea>
           <div class="row start"><button class="btn" data-action="backup-copy">Copy backup code</button></div>
-          <textarea class="code" id="backup-in" rows="3" placeholder="Paste a backup code here…"></textarea>
+          <textarea class="code" id="backup-in" rows="3" aria-label="Paste a backup code" placeholder="Paste a backup code here…"></textarea>
           <div class="row start"><button class="btn" data-action="backup-restore">Restore from code</button><span class="hint" id="backup-msg"></span></div>
         </fieldset>
 
@@ -591,7 +595,7 @@
           <legend>Install and use offline <span lang="ne">इन्स्टल र अफलाइन प्रयोग</span></legend>
           <p class="hint">Open the app's website in Chrome (Android) or Safari (iPhone). Then choose <b>Add to Home screen</b> from the browser menu. It then opens like an app and works without internet. The microphone and speaking practice also work there.<br>
           <span lang="ne">एपको वेबसाइट Chrome वा Safari मा खोल्नुहोस्, अनि मेनुबाट <b>Add to Home screen</b> छान्नुहोस्। त्यसपछि यो एपजस्तै खुल्छ र इन्टरनेटबिना पनि चल्छ।</span></p>
-          ${audioCount || ttsCount ? `<div class="row start"><button class="btn" data-action="audio-offline">Download all ${audioCount + ttsCount} recordings for offline${ttsCount ? "" : " (about 7 MB)"}</button><span class="hint" id="audio-msg"></span></div>` : ''}
+          ${audioCount || ttsCount ? `<div class="row start"><button class="btn" data-action="audio-offline" ${dl.running ? 'disabled' : ''}>Download all ${audioCount + ttsCount} recordings for offline (about ${Math.round((audioCount + ttsCount) * 6.9 / 1000)} MB, use Wi-Fi)</button><span class="hint" id="audio-msg" role="status">${esc(dl.msg)}</span></div>` : ''}
           ${S.canSpeak ? '' : '<p class="hint">This browser has no text-to-speech, so Listen buttons are hidden.</p>'}
           <p class="hint">No Polish voice? Android: Settings → Text-to-speech → install Polish. iPhone: Settings → Accessibility → Spoken Content → Voices → Polish.</p>
         </fieldset>
@@ -608,6 +612,54 @@
         </fieldset>
         <p class="hint">How pronunciation is written: words are split into syllable blocks and the <b>stressed syllable is coloured</b>, in English letters and in Devanagari: ${S.pronHTML({ pron: 'jeny DOB-ri', proNe: 'जेन्य् ˈदोब्-रि' })}. In Polish the stress is almost always on the second-to-last syllable. Both spellings are approximations: always listen too.</p>
       </div>`;
+  }
+
+  // ---------- saving all recordings for offline ----------
+  // The service worker keeps each recording it serves, so fetching them all fills its cache.
+  // The state lives here, so redrawing Settings neither hides the progress nor starts a second run.
+  const dl = { running: false, msg: '' };
+  const showDl = (text) => { dl.msg = text; const m = $('#audio-msg'); if (m) m.textContent = text; };
+  async function startAudioDownload() {
+    if (dl.running) return;
+    const files = [...new Set([...Object.values(S.AUDIO), ...Object.values(S.TTS)])];
+    try {
+      const est = navigator.storage && navigator.storage.estimate ? await navigator.storage.estimate() : null;
+      if (est && est.quota && est.quota - est.usage < files.length * 7000 * 1.2) {
+        showDl('Not enough free storage on this device for all recordings. Free some space and try again. · यो उपकरणमा ठाउँ पुगेन।');
+        return;
+      }
+    } catch (e) { /* estimate unavailable */ }
+    dl.running = true;
+    const btn = $('[data-action="audio-offline"]');
+    if (btn) btn.disabled = true;
+    const total = files.length;
+    const cache = 'caches' in window ? await caches.open('slowka-audio-v1').catch(() => null) : null;
+    let done = 0;
+    let failed = 0;
+    let failsInRow = 0;
+    let stopped = '';
+    const next = async () => {
+      while (files.length && !stopped) {
+        const f = files.shift();
+        try {
+          if (cache && (await cache.match(new URL(f, location.href).href))) { done++; continue; } // already saved
+          const r = await fetch(f);
+          if (r.ok) failsInRow = 0; else { failed++; failsInRow++; }
+        } catch (e) { failed++; failsInRow++; }
+        done++;
+        if (!navigator.onLine) stopped = 'offline';
+        else if (failsInRow >= 20) stopped = 'failing';
+        if (done % 25 === 0 || !files.length) showDl(`${done} / ${total}`);
+      }
+    };
+    await Promise.all(Array.from({ length: 8 }, next));
+    dl.running = false;
+    const b2 = $('[data-action="audio-offline"]');
+    if (b2) b2.disabled = false;
+    showDl(stopped === 'offline' ? `Stopped: no internet. ${done} / ${total} done; tap again later to continue. · इन्टरनेट छैन।`
+      : stopped === 'failing' ? `Stopped: downloads keep failing (no internet or storage full). ${done} / ${total} done; try again later.`
+      : failed ? `Done, ${failed} could not be downloaded (no internet or storage full). Tap again to retry. · फेरि प्रयास गर्नुहोस्।`
+      : 'All recordings saved for offline ✓ · सबै रेकर्डिङ अफलाइनका लागि सुरक्षित ✓');
   }
 
   // ---------- events ----------
@@ -677,27 +729,7 @@
         renderSettings();
         break;
       }
-      case 'audio-offline': {
-        // The service worker keeps each recording it serves; fetching them all fills the cache.
-        const files = [...new Set([...Object.values(S.AUDIO), ...Object.values(S.TTS)])];
-        const msg = $('#audio-msg');
-        el.disabled = true;
-        let done = 0;
-        let failed = 0;
-        const next = async () => {
-          while (files.length) {
-            const f = files.shift();
-            try { const r = await fetch(f); if (!r.ok) failed++; } catch (e) { failed++; }
-            done++;
-            if (msg) msg.textContent = `${done} / ${done + files.length}`;
-          }
-        };
-        Promise.all([next(), next(), next(), next()]).then(() => {
-          if (msg) msg.textContent = failed ? `Done, ${failed} could not be downloaded. Try again later.` : 'All voices saved for offline ✓';
-          el.disabled = false;
-        });
-        break;
-      }
+      case 'audio-offline': startAudioDownload(); break;
       case 'backup-copy': {
         const out = $('#backup-out');
         const fallback = () => { out.focus(); out.select(); el.textContent = 'Selected: copy it now'; };
@@ -775,7 +807,12 @@
   // ---------- offline support ----------
 
   if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) {
-    try { navigator.serviceWorker.register('sw.js').catch(() => {}); } catch (e) { /* not available here */ }
+    try {
+      navigator.serviceWorker.register('sw.js').then((reg) => {
+        // An app left open for days still finds new versions: check when it comes back to the front.
+        document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') reg.update().catch(() => {}); });
+      }).catch(() => {});
+    } catch (e) { /* not available here */ }
     // A new version has taken over: offer a reload so the learner is not left on old files.
     const hadController = !!navigator.serviceWorker.controller;
     navigator.serviceWorker.addEventListener('controllerchange', () => {

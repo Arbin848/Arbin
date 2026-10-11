@@ -78,10 +78,15 @@
   function judge(text) {
     const st = talk.rp.steps[talk.step];
     let best = null;
+    // Accents count: "karta" and "kartą" are different answers. An exact match wins; on a tie in
+    // the accent-free score, the reply that also matches the accents wins.
+    const exact = (a, b) => (S.clean(a) === S.clean(b) ? 1 : 0);
+    const raw = (a, b) => { const x = S.clean(a), y = S.clean(b); let same = 0; for (let i = 0; i < Math.min(x.length, y.length); i++) if (x[i] === y[i]) same++; return same / Math.max(x.length, y.length, 1); };
     for (const r of st.replies) {
-      const sc = S.similarity(text, r.pl);
+      const sc = S.similarity(text, r.pl) + exact(text, r.pl) + raw(text, r.pl) / 100;
       if (!best || sc > best.sc) best = { r, sc };
     }
+    best.sc = Math.min(1, best.sc);
     if (best.sc >= 0.75 && best.r.ok) accept(best.r);
     else if (best.sc >= 0.75) reject(best.r, text);
     else { talk.mistakes += 1; talk.wrong = { reply: null, heard: text }; talk.hint = true; }
@@ -397,7 +402,7 @@
             ${S.transHTML(t.prompt.en, t.prompt.ne)}
             <textarea class="writing" id="w-${key}" data-keys-target data-writing="${key}" lang="pl" spellcheck="false" rows="7" placeholder="Write in Polish…">${esc(text)}</textarea>
             ${S.keysHTML()}
-            <p class="hint">${words} words${t.minWords ? ` · aim for at least ${t.minWords}` : ''}</p>
+            <p class="hint" data-min="${t.minWords || ''}">${words} words${t.minWords ? ` · aim for at least ${t.minWords}` : ''}</p>
             ${checked ? `
               <details class="model" open><summary>Model answer · नमुना उत्तर</summary>
                 <p lang="pl">${polish(t.model.pl)}</p>${S.listenBtn(t.model.pl)}
@@ -580,9 +585,15 @@
       case 'tok':
         S.speak(el.dataset.word);
         // Tappable words also appear in exam texts, which have no word popup: there they only speak.
-        if (S.route.name === 'read' && reading) { reading.word = el.dataset.word; S.render(); }
+        if (S.route.name === 'read' && reading) {
+          reading.word = el.dataset.word;
+          S.render();
+          // The word sheet is a dialog: focus moves into it, and back to the word when it closes.
+          const c = document.querySelector('.sheet-close');
+          if (c) c.focus({ preventScroll: true });
+        }
         return true;
-      case 'tok-close': if (reading) { reading.word = null; S.render(); } return true;
+      case 'tok-close': closeSheet(); return true;
       case 'tok-add': {
         const e = reading && lookupWord(reading.st, reading.word);
         if (e) S.addToReview(e);
@@ -652,11 +663,20 @@
     return false;
   };
   X.input = (el) => {
-    if (el.dataset.writing && exam) { exam.writing[el.dataset.writing] = el.value; const hint = el.parentElement.querySelector('.hint'); if (hint) hint.textContent = `${el.value.trim() ? el.value.trim().split(/\s+/).length : 0} words`; return true; }
+    if (el.dataset.writing && exam) { exam.writing[el.dataset.writing] = el.value; const hint = el.parentElement.querySelector('.hint'); if (hint) hint.textContent = `${el.value.trim() ? el.value.trim().split(/\s+/).length : 0} words${hint.dataset.min ? ` · aim for at least ${hint.dataset.min}` : ''}`; return true; }
     if (el.id === 'talk-answer' && talk) { talk.typed = el.value; return true; }
     return false;
   };
+  function closeSheet() {
+    if (!reading || !reading.word) return;
+    const w = reading.word;
+    reading.word = null;
+    S.render();
+    const t = [...document.querySelectorAll('.tok')].find((x) => x.dataset.word === w);
+    if (t) t.focus({ preventScroll: true });
+  }
   X.key = (ev) => {
+    if (ev.key === 'Escape' && reading && reading.word && S.route.name === 'read') { closeSheet(); return true; }
     if (talk && S.route.name === 'talk' && S.route.arg && !talk.done && !talk.busy && /^[1-3]$/.test(ev.key) && (talk.mode === 'choose' || talk.hint)) {
       const st = talk.rp.steps[talk.step];
       const r = st.replies[talk.order[Number(ev.key) - 1]];
@@ -667,5 +687,5 @@
     }
     return false;
   };
-  X.resetPlacement = () => { placement = null; };
+  X.resetPlacement = () => { if (!(placement && placement.saved)) placement = null; };
 })();

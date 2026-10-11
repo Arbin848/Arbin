@@ -329,7 +329,7 @@ const bad = (name, why) => { results.fail++; results.failures.push(`${name}: ${w
               if (!play) return null;
               const text = play.dataset.text;
               for (let n = 0; n < 10000; n++) if (N.words(n) === text) return String(n);
-              for (let z = 0; z < 1000; z++) for (const g of [0, 50, 99, 20]) if (N.price(z, g) === text) return g ? `${z},${String(g).padStart(2, '0')}` : String(z);
+              for (let z = 0; z < 10000; z++) for (const g of [0, 50, 99, 20]) if (N.price(z, g) === text) return g ? `${z},${String(g).padStart(2, '0')}` : String(z);
               for (let h = 0; h < 24; h++) for (let mm = 0; mm < 60; mm++) if (`Jest ${N.time(h, mm)}.` === text) return `${h}:${String(mm).padStart(2, '0')}`;
               const groups = text.split(', ').map((g) => { for (let n = 0; n < 1000; n++) { const s = String(n).padStart(3, '0'); const z = s.match(/^0*/)[0].length; const w = [...Array(Math.min(z, 3)).fill('zero'), ...(s.slice(z) ? [N.words(Number(s.slice(z)))] : [])].join(' '); if (w === g) return s; } return '???'; });
               return groups.join('');
@@ -658,6 +658,42 @@ const bad = (name, why) => { results.fail++; results.failures.push(`${name}: ${w
       await p.click('[data-action="exam-start"]').catch(() => {});
       await p.click('[data-action="exam-check"]').catch(() => {});
       if (await p.evaluate(() => window.Slowka.todayCount()) !== n0) throw new Error('empty exam check counted');
+    });
+    await check(p, 'numbers accept natural formats (12 zł 50 gr, 600-123-456, 1845, words)', async () => {
+      await go(p, 'numbers');
+      const tryMode = async (mode, make) => {
+        await p.click(`[data-action="nm-mode"][data-mode="${mode}"]`);
+        if (await p.$('[data-action="nm-range"][data-range="100"]')) await p.click('[data-action="nm-range"][data-range="100"]');
+        const typed = await p.evaluate(make);
+        await p.fill('#nm-input', typed); await p.press('#nm-input', 'Enter');
+        if (!/right/.test(await p.getAttribute('.feedback', 'class'))) throw new Error(`${mode}: "${typed}" not accepted`);
+        await p.click('[data-action="nm-next"]');
+      };
+      await tryMode('listen-price', () => { const N = window.Slowka.Numbers; const t = document.querySelector('.play').dataset.text; for (let z = 0; z < 1000; z++) for (let g = 0; g < 100; g++) if (N.price(z, g) === t) return `${z} zł ${g} gr`; return '?'; });
+      await tryMode('phone', () => { const N = window.Slowka.Numbers; const t = document.querySelector('.play').dataset.text; const gs = t.split(', ').map((g) => { for (let n = 0; n < 1000; n++) { const s = String(n).padStart(3, '0'); if (N.phone(s + s + s).split(', ')[0] === g) return s; } return '???'; }); return gs.join('-'); });
+      await tryMode('listen-time', () => { const N = window.Slowka.Numbers; const t = document.querySelector('.play').dataset.text; for (let h = 0; h < 24; h++) for (let m = 0; m < 60; m++) if (`Jest ${N.time(h, m)}.` === t) return `${h}${String(m).padStart(2, '0')}`; return '?'; });
+      await tryMode('listen-number', () => document.querySelector('.play').dataset.text);
+    });
+    await check(p, 'verb and conversation answers are judged strictly', async () => {
+      const r = await p.evaluate(() => {
+        const S = window.Slowka;
+        const byc = S.Trainers.VERBS.find((v) => v.inf === 'być');
+        return { byc: !!byc };
+      });
+      if (!r.byc) throw new Error('być missing');
+      await go(p, 'talk.rp-a1-cafe');
+      await p.click('[data-action="talk-mode"][data-mode="type"]');
+      const steps = await p.evaluate(() => window.Slowka.ROLEPLAYS.find((x) => x.id === 'rp-a1-cafe').steps);
+      for (const st of steps) {
+        const right = st.replies.find((x) => x.ok);
+        const bad = st.replies.find((x) => !x.ok && x.pl.normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/ł/g, 'l') === right.pl.normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/ł/g, 'l'));
+        if (bad) {
+          await p.fill('#talk-answer', bad.pl); await p.press('#talk-answer', 'Enter'); await p.waitForTimeout(50);
+          if (!(await p.$('.feedback.wrong'))) throw new Error(`accent-only wrong reply accepted: ${bad.pl}`);
+        }
+        await p.fill('#talk-answer', right.pl); await p.press('#talk-answer', 'Enter'); await p.waitForTimeout(1200);
+        if (!(await p.$('#talk-answer'))) break;
+      }
     });
     console.log('11. My words, pronunciation and audio done');
   }

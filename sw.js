@@ -3,6 +3,7 @@
 // Native recordings live in their own cache, kept across app updates.
 const CACHE = 'slowka-v12';
 const AUDIO_CACHE = 'slowka-audio-v1';
+const FONT_CACHE = 'slowka-fonts-v1'; // kept across updates, like recordings
 const SHELL = [
   './', 'index.html', 'styles.css', 'app.js', 'manifest.webmanifest',
   'js/core.js', 'js/practice.js', 'js/extras.js', 'js/trainers.js', 'js/guided.js', 'js/assess.js', 'js/numbers.js', 'js/listening.js', 'js/pron.js', 'js/mywords.js', 'js/speaking.js', 'audio/manifest.js', 'audio/tts.js',
@@ -15,16 +16,18 @@ const SHELL = [
 ];
 
 self.addEventListener('install', (event) => {
-  // cache: 'reload' skips the browser's HTTP cache so a new version never stores old files.
-  event.waitUntil(caches.open(CACHE)
-    .then((cache) => cache.addAll(SHELL.map((u) => new Request(u, { cache: 'reload' }))))
+  // An update skips the browser's HTTP cache (cache: 'reload') so it never stores old files; the
+  // very first install may reuse what the page has just downloaded.
+  event.waitUntil(caches.keys()
+    .then((keys) => keys.some((k) => k.startsWith('slowka-') && k !== AUDIO_CACHE && k !== FONT_CACHE))
+    .then((updating) => caches.open(CACHE).then((cache) => cache.addAll(SHELL.map((u) => new Request(u, { cache: updating ? 'reload' : 'default' })))))
     .then(() => self.skipWaiting()));
 });
 
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys()
-      .then((keys) => Promise.all(keys.filter((k) => k !== CACHE && k !== AUDIO_CACHE).map((k) => caches.delete(k))))
+      .then((keys) => Promise.all(keys.filter((k) => k !== CACHE && k !== AUDIO_CACHE && k !== FONT_CACHE).map((k) => caches.delete(k))))
       .then(() => self.clients.claim())
   );
 });
@@ -38,10 +41,11 @@ async function audio(req) {
   if (!res) {
     try {
       res = await fetch(key);
-      if (res.status === 200) await cache.put(key, res.clone());
     } catch (e) {
       return new Response('', { status: 504 });
     }
+    // Storage full: still play the recording, just don't keep it.
+    if (res.status === 200) { try { await cache.put(key, res.clone()); } catch (e) { /* quota */ } }
   }
   const range = req.headers.get('range');
   if (!range || res.status !== 200) return res;
@@ -72,17 +76,19 @@ self.addEventListener('fetch', (event) => {
     event.respondWith(audio(req));
     return;
   }
-  const cacheable = url.origin === location.origin || /fonts\.(googleapis|gstatic)\.com$/.test(url.hostname);
-  if (!cacheable) return;
-  event.respondWith(
-    caches.open(CACHE).then(async (cache) => {
-      const cached = await cache.match(req, { ignoreSearch: true });
-      // Same-site files are re-checked with the server (not the browser's HTTP cache) in the background.
-      const fresh = (url.origin === location.origin ? fetch(url.href, { cache: 'no-cache' }) : fetch(req)).then((res) => {
-        if (res && (res.status === 200 || res.type === 'opaque')) cache.put(req, res.clone()).catch(() => {});
-        return res;
-      }).catch(() => cached);
+  // Fonts: from their own cache, refreshed in the background.
+  if (/fonts\.(googleapis|gstatic)\.com$/.test(url.hostname)) {
+    event.respondWith(caches.open(FONT_CACHE).then(async (cache) => {
+      const cached = await cache.match(req);
+      const fresh = fetch(req).then((res) => { if (res && (res.ok || (res.type === 'opaque' && !cached))) cache.put(req, res.clone()).catch(() => {}); return res; }).catch(() => cached);
       return cached || fresh;
-    })
+    }));
+    return;
+  }
+  if (url.origin !== location.origin) return;
+  // App files: from this version's cache only. A new version arrives as a whole through a new
+  // service worker (the deploy renames CACHE), so old and new files are never mixed.
+  event.respondWith(
+    caches.open(CACHE).then(async (cache) => (await cache.match(req, { ignoreSearch: true })) || fetch(req))
   );
 });

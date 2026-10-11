@@ -448,7 +448,7 @@ window.SLOWKA_ROLEPLAYS.push(
       ne: "स्याबास! तपाईंले *Boli mnie głowa* ले समस्या बताउनुभयो, *od* (-देखि) र *nie mam gorączki* प्रयोग गर्नुभयो, औषधिको मात्रा बुझ्नुभयो र पैसा तिर्नुभयो।"
     },
     useful: [
-      ["Boli mnie głowa.", "I have a headache.", "मेरो टाउको दुख्यो।", "BO-lee mneh GWO-va", "ˈबो-लि म्ने ˈग्वो-भा"],
+      ["Boli mnie głowa.", "I have a headache.", "मेरो टाउको दुख्यो।", "BO-lee mnyeh GWO-va", "ˈबो-लि म्न्ये ˈग्वो-भा"],
       ["Poproszę coś na ból głowy.", "Something for a headache, please.", "टाउको दुखेकोमा केही औषधि दिनुहोस्।", "po-PRO-sheh tsosh na bool GWO-vi", "पो-ˈप्रो-शे त्सोश् ना बुल् ˈग्वो-भि"],
       ["od rana", "since the morning", "बिहानदेखि", "ot RA-na", "ओत् ˈरा-ना"],
       ["Nie mam gorączki.", "I don't have a fever.", "मलाई ज्वरो छैन।", "nyeh mam go-RONCH-kee", "न्ये माम् गो-ˈरोंच्-कि"],
@@ -722,7 +722,7 @@ window.SLOWKA_ROLEPLAYS.push(
       ["Dzisiaj nie mogę przyjść do pracy.", "I can't come to work today.", "आज म काममा आउन सक्दिनँ।", "JEE-shay nyeh MO-geh pshiyshch do PRA-tsi", "ˈजि-शाय् न्ये ˈमो-गे प्शिय्श्च् दो ˈप्रा-त्सि"],
       ["Źle się czuję.", "I feel unwell.", "मलाई सन्चो छैन।", "zhleh sheh CHOO-yeh", "झ्ले शे ˈचु-ये"],
       ["Mam wysoką gorączkę.", "I have a high fever.", "मलाई उच्च ज्वरो छ।", "mam vi-SO-kon go-RONCH-keh", "माम् भि-ˈसो-कों गो-ˈरोंच्-के"],
-      ["Boli mnie gardło.", "I have a sore throat.", "मेरो घाँटी दुख्यो।", "BO-lee mneh GARD-wo", "ˈबो-लि म्ने ˈगार्द्-वो"],
+      ["Boli mnie gardło.", "I have a sore throat.", "मेरो घाँटी दुख्यो।", "BO-lee mnyeh GARD-wo", "ˈबो-लि म्न्ये ˈगार्द्-वो"],
       ["zwolnienie lekarskie", "sick note (L4)", "बिरामी बिदाको कागज (L4)", "zvol-NYEH-nyeh leh-KAR-skyeh", "ज़्भोल्-ˈन्ये-न्ये ले-ˈकार्-स्क्ये"],
       ["Zadzwonię do pani wieczorem.", "I'll call you this evening. (to a woman)", "म तपाईंलाई साँझ फोन गर्छु। (महिलालाई)", "za-DZVO-nyeh do PA-nee vyeh-CHO-rem", "ज़ा-ˈद्ज़्भो-न्ये दो ˈपा-नि भ्ये-ˈचो-रेम्"],
       ["Do usłyszenia.", "Talk to you soon. (phone goodbye)", "फेरि फोनमा कुरा गरौँला।", "do oo-swi-SHEH-nya", "दो उ-स्वि-ˈशे-न्या"]

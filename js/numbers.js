@@ -104,7 +104,7 @@
       return { mode, display: String(n), options: opts.map(N.words), answerIndex: opts.indexOf(n), say: N.words(n), prompt: 'How do you say this number?', promptNe: 'यो अङ्क कसरी भनिन्छ?' };
     }
     if (mode === 'price') {
-      const z = rnd(1, range >= 1000 ? 999 : 99);
+      const z = rnd(1, Math.max(2, Math.min(range, 9999) - (range > 20 ? 1 : 0))); // prices follow the chosen range
       const g = [0, 10, 20, 49, 50, 99, 2, 5, 25][rnd(0, 8)];
       const right = N.price(z, g);
       const zPart = (f) => `${N.words(z)} ${f}`;
@@ -121,7 +121,7 @@
       return { mode, display: fmtPrice(z, g), options, answerIndex: options.indexOf(right), say: right, prompt: 'Say the price', promptNe: 'मूल्य भन्नुहोस्' };
     }
     if (mode === 'listen-price') {
-      const z = rnd(1, range >= 1000 ? 999 : 99);
+      const z = rnd(1, Math.max(2, Math.min(range, 9999) - (range > 20 ? 1 : 0))); // prices follow the chosen range
       const g = [0, 50, 99, 20][rnd(0, 3)];
       return { mode, say: N.price(z, g), answer: `${z},${pad(g)}`, alt: g ? null : String(z), prompt: 'Write the price you hear (e.g. 12,50)', promptNe: 'सुनेको मूल्य लेख्नुहोस् (जस्तै 12,50)', input: 'price', show: fmtPrice(z, g) };
     }
@@ -265,15 +265,32 @@
     if (!input || !input.value.trim()) return true;
     const given = input.value.trim();
     const norm = (x) => String(x).replace(/z[łl]\s*$/i, '').replace(/\s+/g, '').replace('.', ',').replace(/^0+(?=\d)/, '');
-    const g = norm(given);
     const q = st.q;
+    const g = norm(given);
     let ok = g === norm(q.answer) || (q.alt && g === norm(q.alt));
-    // Prices compare by value: 12,5 = 12.50 = 12,50 zł.
-    if (q.input === 'price') { const cents = (x) => Math.round(parseFloat(String(x).replace(',', '.')) * 100); ok = cents(g) === cents(norm(q.answer)); }
+    // Numbers and phone numbers: separators don't matter (2 914, 2,914, 2.914, 600-123-456, +48…);
+    // the number written as a word is fine too.
+    const digits = (x) => String(x).replace(/[^\d]/g, '');
+    if (!ok && /^\d[\d\s.,'’-]*$/.test(String(q.answer)) && q.input !== 'price' && q.input !== 'time') {
+      let d = digits(given);
+      if (d.length === 11 && d.startsWith('48') && digits(q.answer).length === 9) d = d.slice(2);
+      ok = d !== '' && d === digits(q.answer);
+    }
+    if (!ok && q.say && S.clean(given) === S.clean(q.say)) ok = true;
+    // Prices compare by value: 12,5 = 12.50 = 12,50 zł = 12 zł 50 gr = 12zł50.
+    if (q.input === 'price') {
+      const cents = (x) => {
+        const m = String(x).trim().toLowerCase().replace(/\s*z[łl]\s*$/, '').replace(/(\d)[\s\u00a0\u202f](?=\d{3}\b)/g, '$1').match(/^(\d+)\s*(?:zł|zl|[.,])?\s*(\d{1,2})?\s*(?:gr|groszy|grosze|grosz)?$/);
+        if (!m) return NaN;
+        return Number(m[1]) * 100 + (m[2] ? Number(m[2].length === 1 ? `${m[2]}0` : m[2]) : 0);
+      };
+      ok = cents(given) === cents(q.answer);
+    }
     if (q.input === 'time') {
-      // 7:30, 07.30, 7 30, and a plain hour (7) for full hours.
-      const t = given.replace(/\s+/g, ':').replace(/[.,]/g, ':').replace(/^0(\d)/, '$1');
-      ok = t === q.answer || (q.answer.endsWith(':00') && /^\d{1,2}$/.test(t) && `${t}:00` === q.answer);
+      // 7:30, 07.30, 7 30, 1845, 18h45, 18:45:00, and a plain hour (7) for full hours.
+      const [ah, am] = q.answer.split(':').map(Number);
+      const m = given.trim().match(/^(\d{1,2})\s*[:.,h\s]?\s*(\d{2})(?::00)?$/i) || given.trim().match(/^(\d{1,2})$/);
+      ok = !!m && Number(m[1]) === ah && (m[2] != null ? Number(m[2]) === am : am === 0);
     }
     finish(!!ok, { given });
     return true;

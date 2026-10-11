@@ -231,30 +231,32 @@
   function renderResult(view) {
     const def = run.def;
     const total = run.scores.reduce((n, x) => n + x.score, 0);
-    const pct = run.scores.length ? Math.round((total / run.scores.length) * 100) : 0;
+    const exactPct = run.scores.length ? (total / run.scores.length) * 100 : 0;
+    const pct = Math.round(exactPct); // shown; passing uses the exact value (69.6% is not a pass)
     const skills = skillTable(run.scores);
     if (!run.saved) {
       run.saved = true;
       const prev = A.result(def.id);
-      store('assess')[def.id] = { last: pct, best: Math.max(pct, prev ? prev.best : 0), date: S.dayKey(), passed: def.kind === 'test' ? (pct >= PASS || !!(prev && prev.passed)) : true, skills };
-      if (def.kind === 'test' && pct >= PASS && !(prev && prev.passed)) store('certs')[def.level] = { date: S.dayKey(), score: pct };
+      store('assess')[def.id] = { last: pct, best: Math.max(pct, prev ? prev.best : 0), date: S.dayKey(), passed: def.kind === 'test' ? (exactPct >= PASS || !!(prev && prev.passed)) : true, skills };
+      if (def.kind === 'test' && exactPct >= PASS && !(prev && prev.passed)) store('certs')[def.level] = { date: S.dayKey(), score: pct };
       const log = (S.progress.skillLog = S.progress.skillLog || []);
       Object.entries(skills).forEach(([k, [r, t]]) => log.push({ d: S.dayKey(), k, r, t }));
       if (log.length > 120) log.splice(0, log.length - 120);
       S.saveProgress();
     }
-    const passed = def.kind === 'test' && pct >= PASS;
+    const passed = def.kind === 'test' && exactPct >= PASS;
+    const passedBefore = def.kind === 'test' && !passed && !!(A.result(def.id) || {}).passed && !!(S.progress.certs || {})[def.level];
     const weak = run.scores.filter((x) => x.score < 1);
     const weakest = Object.entries(skills).map(([k, [r, t]]) => [k, r / t]).sort((a, b) => a[1] - b[1])[0];
     view.innerHTML = `
       ${head(def)}
       <div class="card summary">
-        <span class="label">${def.kind === 'test' ? (passed ? 'Passed · उत्तीर्ण' : 'Not passed yet · अझै उत्तीर्ण भएन') : 'Revision complete · दोहोर्याइ सकियो'}</span>
+        <span class="label">${def.kind === 'test' ? (passed ? 'Passed · उत्तीर्ण' : passedBefore ? 'Not passed this time · your certificate is kept' : 'Not passed yet · अझै उत्तीर्ण भएन') : 'Revision complete · दोहोर्याइ सकियो'}</span>
         <h2>${pct}%</h2>
         <p class="hint">${def.kind === 'test'
           ? (passed ? `Congratulations! You passed ${esc(def.level)}. · बधाई छ!` : `You need ${PASS}% to pass. Practise your weak spots below, then try again. · उत्तीर्ण हुन ${PASS}% चाहिन्छ।`)
           : pct >= 80 ? 'Great memory! · उत्कृष्ट सम्झना!' : 'Good work. The words you missed are back in your daily review. · छुटेका शब्द दैनिक दोहोर्याइमा फर्किए।'}</p>
-        ${passed ? `<button class="btn primary" data-action="go" data-to="cert.${def.level}">View your certificate 🎓</button>` : ''}
+        ${passed || passedBefore ? `<button class="btn primary" data-action="go" data-to="cert.${def.level}">View your certificate 🎓</button>` : ''}
       </div>
       <h3 class="section-h">By skill <span class="ne-sub" lang="ne">सीप अनुसार</span></h3>
       <ul class="result-list">${Object.entries(skills).map(([k, [r, t]]) => `<li><span>${SKILLS[k][0]} · <span lang="ne">${SKILLS[k][1]}</span></span>${S.bar(r, t)}<b>${Math.round((r / t) * 100)}%</b></li>`).join('')}</ul>
@@ -361,7 +363,7 @@
         <div class="row start"><button class="btn" data-action="go" data-to="mistakes.practice">Practise my grammar mistakes</button></div>`) : ''}
       ${cases.length ? section('Cases', 'विभक्ति', `<ul class="result-list">${cases.map((c) => { const [k, num] = c.k.split('-'); return pctRow(`${CASE_NAMES[k] || k}${num === 'pl' ? ' plural' : ''}`, c.pct, c.n, 'cases.practice'); }).join('')}</ul>`) : ''}
       ${tenses.length ? section('Verb tenses', 'क्रियाका काल', `<ul class="result-list">${tenses.map((c) => pctRow(TENSE_NAMES[c.k] || c.k, c.pct, c.n, 'verbs.practice')).join('')}</ul>`) : ''}
-      ${weakSounds.length ? section('Sounds to work on', 'अभ्यास गर्नुपर्ने ध्वनि', `<ul class="result-list">${weakSounds.map((s) => `<li><span><b lang="pl">${polish(s.x.a.label)} / ${polish(s.x.b.label)}</b> ${esc(s.x.title)}</span><small>${s.n ? `${s.n} hard words` : ''}${s.lab != null ? ` · game ${s.lab}%` : ''}</small><button class="link-btn" data-action="go" data-to="sounds.${s.x.id}">practise</button></li>`).join('')}</ul>`) : ''}`;
+      ${weakSounds.length ? section('Sounds to work on', 'अभ्यास गर्नुपर्ने ध्वनि', `<ul class="result-list">${weakSounds.map((s) => `<li><span><b lang="pl">${polish(s.x.a.label)} / ${polish(s.x.b.label)}</b> ${esc(s.x.title)}</span><small>${[s.n ? `${s.n} hard ${s.n === 1 ? 'word' : 'words'}` : '', s.lab != null ? `game ${s.lab}%` : ''].filter(Boolean).join(' · ')}</small><button class="link-btn" data-action="go" data-to="sounds.${s.x.id}">practise</button></li>`).join('')}</ul>`) : ''}`;
   };
 
   // ---------- actions ----------
@@ -446,7 +448,7 @@
       S.settings.name = el.value.slice(0, 60);
       S.saveSettings();
       const n = document.querySelector('.cert-name');
-      if (n) n.textContent = S.settings.name || 'Your name';
+      if (n) n.innerHTML = S.settings.name ? S.esc(S.settings.name) : '<span class="hint">Your name</span>';
       return true;
     }
     return false;
