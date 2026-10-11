@@ -285,6 +285,7 @@
           ${e ? `
             <div class="sheet-word"><span lang="pl">${polish(e.pl)}</span>${S.listenBtn(e.pl)}</div>
             ${S.pronHTML(e)}${S.meaningHTML(e)}
+            ${e.base && S.clean(e.base) !== S.clean(e.pl) ? `<p class="hint">Dictionary form · शब्दकोशको रूप: <b lang="pl">${polish(e.base)}</b></p>` : ''}
             <div class="row start"><button class="btn" data-action="tok-add">${S.itemOf(e) ? 'In your review ✓' : 'Add to my review · दोहोर्याइमा थप्नुहोस्'}</button></div>`
           : `<div class="sheet-word"><span lang="pl">${polish(r.word)}</span>${S.listenBtn(r.word)}</div>
              ${usedIn(key) ? `<p class="hint">Used in this course sentence · यो वाक्यमा प्रयोग भएको:</p>

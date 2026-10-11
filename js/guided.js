@@ -63,6 +63,9 @@
   // ---------- rendering ----------
 
   let local = null; // per-visit state: quiz answers, dialogue position, speaking results
+  // Results of this sitting of a lesson, for an honest summary: { unit, quiz, grammar, dictation }.
+  let run = null;
+  const runFor = (u) => { if (!run || run.unit !== u.id) run = { unit: u.id, quiz: null, grammar: null, dictation: null, missed: [] }; return run; };
 
   G.render = (view, unitId) => {
     const u = S.UNIT.get(unitId);
@@ -188,11 +191,22 @@
         const idx2 = S.COURSE.indexOf(u);
         const next = S.COURSE[idx2 + 1];
         const words = u.entries.filter((e) => e.kind === 'word').slice(0, 12);
+        // An honest report of this sitting: what went well and what to practise.
+        const r = runFor(u);
+        const rows = [['quiz', 'Word check', 'शब्द जाँच'], ['grammar', 'Grammar', 'व्याकरण'], ['dictation', 'Dictation', 'श्रुतलेख']]
+          .filter(([k]) => r[k] && r[k].total).map(([k, en, ne]) => ({ k, en, ne, pct: Math.round((r[k].score / r[k].total) * 100), ...r[k] }));
+        const avg = rows.length ? Math.round(rows.reduce((a, x) => a + x.pct, 0) / rows.length) : null;
+        const weak = rows.filter((x) => x.pct < 70);
+        const head = avg == null ? ['Dobra robota!', '"Good job!"', '"स्याबास!"'] : avg >= 85 ? ['Świetnie!', '"Excellent!"', '"उत्कृष्ट!"'] : avg >= 60 ? ['Dobrze!', '"Good!" A little more practice will make it stick.', '"राम्रो!" अलि बढी अभ्यासले पक्का हुन्छ।'] : ['Dobry początek', '"A good start." This lesson needs another round: practise the parts below.', '"राम्रो सुरुवात।" तलका भाग फेरि अभ्यास गर्नुहोस्।'];
+        const fix = { quiz: ['quiz', 'Practise the words'], grammar: ['drill', 'Practise the grammar'], dictation: ['dictate', 'Practise listening'] };
         return `
           <div class="card summary">
             <span class="label">Lesson complete · पाठ सकियो</span>
-            <h2 lang="pl">Świetnie!</h2>
-            <p class="hint">"Excellent!" <span lang="ne">"उत्कृष्ट!"</span></p>
+            <h2 lang="pl">${head[0]}</h2>
+            <p class="hint">${head[1]} <span lang="ne">${head[2]}</span></p>
+            ${rows.length ? `<div class="tally">${rows.map((x) => `<div><b class="${x.pct >= 85 ? 't-good' : x.pct < 60 ? 't-again' : ''}">${x.score}/${x.total}</b><span class="label">${x.en} · ${x.ne}</span></div>`).join('')}</div>` : ''}
+            ${r.missed.length ? `<p class="hint">Words to watch · ध्यान दिनुपर्ने शब्द: ${r.missed.map((e) => `<b lang="pl">${polish(e.pl)}</b>`).join(', ')}</p>` : ''}
+            ${weak.length ? `<div class="row">${weak.map((x) => `<button class="btn" data-action="g-fix" data-tab="${fix[x.k][0]}">${fix[x.k][1]} →</button>`).join('')}</div>` : ''}
           </div>
           ${say(`You finished **${u.title}**. The new words are now in your **daily review**: come back tomorrow and they will return just before you forget them.`, `तपाईंले **${u.titleNe}** सक्नुभयो। नयाँ शब्दहरू अब **दैनिक दोहोर्याइ**मा छन्: भोलि फर्केर आउनुहोस्।`)}
           <div class="chip-row">${words.map((e) => `<button class="say-chip" data-action="say" data-text="${esc(e.pl)}">${S.SPEAKER}<span lang="pl">${polish(e.pl)}</span></button>`).join('')}</div>
@@ -231,15 +245,25 @@
   function quizHTML(u) {
     const words = u.entries.filter((e) => e.kind === 'word');
     if (!local.quiz) {
-      const items = S.shuffle(words).slice(0, QUIZ_SIZE).map((target) => ({ target, options: S.shuffle([target, ...S.distractors(target, words, 'en')]) }));
-      local.quiz = { items, i: 0, score: 0, picked: null };
+      const make = (list) => list.map((target) => ({ target, options: S.shuffle([target, ...S.distractors(target, words, 'en')]) }));
+      // "Practise the missed words": only those, until each one is right.
+      const retry = local.retry && local.retry.length ? local.retry : null;
+      local.quiz = { items: make(retry ? S.shuffle(retry) : S.shuffle(words).slice(0, QUIZ_SIZE)), i: 0, score: 0, picked: null, missed: [], retry: !!retry };
+      local.retry = null;
     }
     const q = local.quiz;
     if (q.i >= q.items.length) {
+      const r = runFor(u);
+      if (!q.retry || !r.quiz) r.quiz = { score: q.score, total: q.items.length };
+      r.missed = q.missed.slice();
+      const missed = q.missed;
       return `
-        ${say(q.score >= 4 ? `Very good: **${q.score} of ${q.items.length}**. You know these words.` : `**${q.score} of ${q.items.length}**. Go back and listen to the words once more, or continue and they will come back in your review.`,
-          q.score >= 4 ? `धेरै राम्रो: **${q.items.length} मध्ये ${q.score}**। तपाईंलाई यी शब्द आउँछन्।` : `**${q.items.length} मध्ये ${q.score}**। शब्दहरू फेरि सुन्नुहोस्, वा अगाडि बढ्नुहोस्; ती दोहोर्याइमा फर्केर आउँछन्।`)}
-        <div class="row start"><button class="btn" data-action="g-quiz-again">Try the check again</button></div>`;
+        ${missed.length === 0
+          ? say(q.retry ? 'All correct now. Well done!' : `Very good: **${q.score} of ${q.items.length}**. You know these words.`, q.retry ? 'अब सबै सही। स्याबास!' : `धेरै राम्रो: **${q.items.length} मध्ये ${q.score}**। तपाईंलाई यी शब्द आउँछन्।`)
+          : say(`**${q.score} of ${q.items.length}**. These words need one more look. Listen to them, then practise only these until each one is right.`, `**${q.items.length} मध्ये ${q.score}**। यी शब्द फेरि हेर्नुपर्छ। सुन्नुहोस्, अनि सही नहुन्जेल यिनैको अभ्यास गर्नुहोस्।`)}
+        ${missed.length ? `<ul class="entries">${missed.map(S.entryRow).join('')}</ul>
+          <div class="row start"><button class="btn primary" data-action="g-quiz-missed" data-autofocus>Practise these ${missed.length} again · फेरि अभ्यास</button></div>`
+          : '<div class="row start"><button class="btn" data-action="g-quiz-again">Try the check again</button></div>'}`;
     }
     const it = q.items[q.i];
     const answered = q.picked !== null;
@@ -311,7 +335,14 @@
         S.go(`learn.${target.id}`);
         return true;
       }
-      case 'g-next': if (u) setStep(u, state()[u.id].step + 1); return true;
+      case 'g-next': {
+        if (!u) return true;
+        const step = buildSteps(u)[state()[u.id].step];
+        const snap = S.Practice.snapshot();
+        if (step && snap && snap.total && (step.kind === 'grammar' || step.kind === 'dictation')) runFor(u)[step.kind] = { score: snap.score, total: snap.total };
+        setStep(u, state()[u.id].step + 1);
+        return true;
+      }
       case 'g-prev': if (u) setStep(u, state()[u.id].step - 1); return true;
       case 'g-restart': if (u) { state()[u.id].step = 0; setStep(u, 0); } return true;
       case 'g-line': local.line = Math.max(1, local.line) + 1; S.render(); { const d = u && u.dialogue[local.line - 1]; if (d) S.speak(d[1]); } return true;
@@ -322,13 +353,15 @@
         q.picked = Number(el.dataset.index);
         const it = q.items[q.i];
         const ok = it.options[q.picked] === it.target;
-        if (ok) q.score += 1;
+        if (ok) q.score += 1; else q.missed.push(it.target);
         S.review(it.target, ok ? 1 : -1);
         S.render();
         return true;
       }
       case 'g-quiz-next': local.quiz.i += 1; local.quiz.picked = null; S.render(); return true;
       case 'g-quiz-again': local.quiz = null; S.render(); return true;
+      case 'g-fix': if (u) { S.go(u.id); S.route.tab = el.dataset.tab; S.render(); } return true;
+      case 'g-quiz-missed': local.retry = local.quiz ? local.quiz.missed.slice() : []; local.quiz = null; S.render(); return true;
       default: return false;
     }
   };

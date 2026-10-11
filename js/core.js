@@ -46,6 +46,11 @@
     const e = toEntry('word', s.id)(x);
     if (!S.LEXICON.has(e.pl)) S.LEXICON.set(e.pl, e);
   }));
+  // Word forms from the reading texts (meaning, Nepali, dictionary form); pronunciation is worked out
+  // from the spelling when shown.
+  Object.entries(W.SLOWKA_READING_GLOSS || {}).forEach(([pl, [en, ne, base]]) => {
+    if (!S.LEXICON.has(pl)) S.LEXICON.set(pl, { pl, en, ne, kind: 'word', source: 'reading', base, say: (W.SLOWKA_READING_SAY || {})[pl] });
+  });
   S.UNIT = new Map(S.COURSE.map((u) => [u.id, u]));
 
   // ---------- text helpers ----------
@@ -492,6 +497,7 @@
     return `<span class="sw">${syl.map((x) => `<span class="sy${syl.length > 1 && isStressed(x) ? ' st' : ''}">${esc(clean(x))}</span>`).join('')}</span>`;
   }).join(' ');
   S.pronHTML = (e) => {
+    if (e && !e.pron && e.pl && S.Pron) Object.assign(e, S.Pron.of(e.say || e.pl));
     const parts = [];
     if (S.shows('pron', 'en') && e.pron) parts.push(`<span class="pron" title="The highlighted syllable is stressed">${sylChips(e.pron, (x) => /[A-Z]/.test(x), (x) => x.toLowerCase())}</span>`);
     if (S.shows('pron', 'ne') && e.proNe) parts.push(`<span class="pron ne" lang="ne" title="रङ लगाइएको अक्षरमा जोड दिनुहोस्">${sylChips(e.proNe, (x) => x.includes('ˈ'), (x) => x.replace(/ˈ/g, ''))}</span>`);

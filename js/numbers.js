@@ -169,7 +169,7 @@
     ['time', 'Times', 'समय'], ['listen-time', 'Hear times', 'समय सुन्नुहोस्'],
     ['date', 'Dates', 'मिति'], ['phone', 'Phone numbers', 'फोन नम्बर'],
   ];
-  const st = { mode: 'read-number', range: 100, q: null, a: null, score: 0, total: 0 };
+  const st = { mode: S.canSpeak ? 'listen-number' : 'read-number', range: 20, q: null, a: null, score: 0, total: 0 };
 
   const guide = () => `
     <details class="model">

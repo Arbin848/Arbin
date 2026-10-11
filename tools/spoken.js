@@ -103,6 +103,11 @@ const OVERRIDES = {
     'Czynsz wynosi dwa tysiące dwieście złotych miesięcznie. Do tego dochodzą opłaty za prąd i gaz według zużycia, około dwustu do dwustu pięćdziesięciu złotych miesięcznie. Przy podpisaniu umowy wymagana jest kaucja w wysokości jednego czynszu. Kaucja zostanie zwrócona po zakończeniu najmu, jeżeli mieszkanie nie będzie zniszczone.',
 };
 
+// Abbreviations in the reading texts (data/reading-gloss.js): "zł" is said "złotych".
+const rctx = { window: {} };
+vm.runInNewContext(fs.readFileSync(path.join(__dirname, '..', 'data', 'reading-gloss.js'), 'utf8'), rctx);
+Object.assign(OVERRIDES, rctx.window.SLOWKA_READING_SAY || {});
+
 module.exports = (text) => (Object.prototype.hasOwnProperty.call(OVERRIDES, text) ? OVERRIDES[text] : /\d|§|ul\.|tel\.|sp\. z/.test(text) ? spoken(text) : text);
 
 if (require.main === module) {

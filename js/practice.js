@@ -11,6 +11,12 @@
   let stage = null;
 
   const P = (S.Practice = {});
+  // Score of the exercise on screen, for the end-of-lesson report: { mode, score, total }.
+  P.snapshot = () => {
+    if (!session) return null;
+    if (session.mode === 'drill') return { mode: 'drill', score: session.score, total: session.i + (session.answered ? 1 : 0) };
+    return { mode: session.mode, score: session.score || 0, total: session.total || 0 };
+  };
   P.reset = () => {
     session = null;
     if (S.stopRecognition) S.stopRecognition();

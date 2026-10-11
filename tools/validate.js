@@ -89,6 +89,7 @@ for (const file of files) {
   if (w.SLOWKA_CASE_FRAMES) { w.SLOWKA_CASE_FRAMES.forEach((f, i) => checkFrame(`${name} frames[${i}]`, f)); counts.push(`${w.SLOWKA_CASE_FRAMES.length} case frames`); }
   if (w.SLOWKA_LISTENING) { w.SLOWKA_LISTENING.forEach((x) => checkListening(name, x)); counts.push(`${w.SLOWKA_LISTENING.length} listening tasks`); }
   if (w.SLOWKA_SOUNDS) { w.SLOWKA_SOUNDS.forEach((x) => checkSound(name, x)); counts.push(`${w.SLOWKA_SOUNDS.length} sound groups`); }
+  if (w.SLOWKA_READING_GLOSS) counts.push(`${Object.keys(w.SLOWKA_READING_GLOSS).length} reading words`);
   if (!counts.length) fail(name, 'defines no known content');
   perFile.push(`${name}: ${counts.join(', ')}`);
 }
@@ -301,5 +302,34 @@ function checkAlphabet(file, letters) {
 }
 
 perFile.forEach((line) => console.log(line));
+// Every word in a reading text must have a meaning when tapped (lesson word, glossary or reading glossary).
+{
+  const W = shared.window;
+  const clean = (x) => String(x).toLowerCase().replace(/[?!.,…¿¡:;"„”«»()–—]/g, ' ').replace(/\s+/g, ' ').trim();
+  const key = (x) => clean(x).replace(/\s/g, '');
+  const known = new Set();
+  const addE = (e) => { if (!/\s/.test(String(e[0]).trim())) known.add(key(e[0])); };
+  (W.SLOWKA_COURSE || []).forEach((u) => [...(u.words || []), ...(u.phrases || [])].forEach(addE));
+  (W.SLOWKA_ROLEPLAYS || []).forEach((r) => (r.useful || []).forEach(addE));
+  (W.SLOWKA_STORIES || []).forEach((st) => (st.glossary || []).forEach(addE));
+  Object.entries(W.SLOWKA_READING_GLOSS || {}).forEach(([k, v]) => {
+    if (!Array.isArray(v) || v.length !== 3 || !v.every(str) || !ne(v[1])) fail('reading-gloss', `"${k}" needs [English, Nepali, dictionary form]`);
+    known.add(key(k));
+  });
+  const texts = [];
+  (W.SLOWKA_STORIES || []).forEach((st) => st.paragraphs.forEach((p) => texts.push([st.id, p.pl])));
+  (W.SLOWKA_EXAMS || []).forEach((x) => x.sections.forEach((sec) => { if (sec.text && sec.text.pl) texts.push([x.id, sec.text.pl]); }));
+  const missing = new Map();
+  for (const [id, text] of texts) {
+    text.split(/\s+/).forEach((part) => {
+      const m = part.match(/^([„"«(]*)(.*?)([.,!?;:…"”»)]*)$/);
+      const w = m ? m[2] : part;
+      if (w && /\p{L}/u.test(w) && !known.has(key(w))) missing.set(w, id);
+    });
+  }
+  for (const [w, id] of missing) fail(id, `reading word "${w}" has no meaning: add it to data/reading-gloss.js or the text's glossary`);
+  console.log(`reading glossary: ${Object.keys(W.SLOWKA_READING_GLOSS || {}).length} words, every reading word covered`);
+}
+
 console.log(errors ? `\n${errors} problem(s) found` : '\nAll good');
 process.exit(errors ? 1 : 0);
